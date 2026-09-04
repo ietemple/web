@@ -2,8 +2,8 @@
 #
 # Publica tres coses alhora:
 #   /          -> aquest repositori (Temple Obert, HTML estatic pur)
-#   /bio-3r    -> build del repositori <propietari>/bioigeo3r
-#   /bio-4t    -> build del repositori <propietari>/bioigeo4t
+#   /bio-geo-3r    -> build del repositori <propietari>/bioigeo3r
+#   /bio-geo-4t    -> build del repositori <propietari>/bioigeo4t
 #
 # <propietari> es, per defecte, el mateix compte o organitzacio que allotja
 # aquest repositori. Si els portals de bio viuen en un altre compte, defineix
@@ -79,37 +79,37 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ vars.PORTALS_OWNER || github.repository_owner }}/bioigeo3r
-          path: .src/bio-3r
+          path: .src/bio-geo-3r
 
       - name: Descarregar Bio 4t
         uses: actions/checkout@v4
         with:
           repository: ${{ vars.PORTALS_OWNER || github.repository_owner }}/bioigeo4t
-          path: .src/bio-4t
+          path: .src/bio-geo-4t
 
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
           cache-dependency-path: |
-            .src/bio-3r/package-lock.json
-            .src/bio-4t/package-lock.json
+            .src/bio-geo-3r/package-lock.json
+            .src/bio-geo-4t/package-lock.json
 
       - name: Construir Bio 3r
-        working-directory: .src/bio-3r
+        working-directory: .src/bio-geo-3r
         run: npm ci && npm run build
 
       - name: Construir Bio 4t
-        working-directory: .src/bio-4t
+        working-directory: .src/bio-geo-4t
         run: npm ci && npm run build
 
-      - name: Col.locar els portals sota /bio-3r i /bio-4t
+      - name: Col.locar els portals sota /bio-geo-3r i /bio-geo-4t
         run: |
-          mkdir -p _site/bio-3r _site/bio-4t
-          cp -r .src/bio-3r/dist/. _site/bio-3r/
-          cp -r .src/bio-4t/dist/. _site/bio-4t/
-          test -f _site/bio-3r/index.html
-          test -f _site/bio-4t/index.html
+          mkdir -p _site/bio-geo-3r _site/bio-geo-4t
+          cp -r .src/bio-geo-3r/dist/. _site/bio-geo-3r/
+          cp -r .src/bio-geo-4t/dist/. _site/bio-geo-4t/
+          test -f _site/bio-geo-3r/index.html
+          test -f _site/bio-geo-4t/index.html
 
       # ---------------------------------------------------------------
       # 3. Publicar

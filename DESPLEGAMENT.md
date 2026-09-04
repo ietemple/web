@@ -85,7 +85,7 @@ El primer desplegament publicarà a `https://ietemple.github.io/web/`. Comprova-
 - [ ] `/cami-circular` carrega, la línia de temps funciona i el comptador de
       visites suma.
 - [ ] Els enllaços a Google Drive del camí circular obren.
-- [ ] `/bio-3r` i `/bio-4t` carreguen, es navega entre sessions, es veuen
+- [ ] `/bio-geo-3r` i `/bio-geo-4t` carreguen, es navega entre sessions, es veuen
       imatges i vídeos, i el botó del tiquet de sortida obre Gmail amb el text.
 
 Fins aquí, `templeobert.cat` i `templeobert.netlify.app` segueixen intactes.
@@ -166,7 +166,7 @@ funcionant abans de cancel·lar-lo.
    certificat de Let's Encrypt tot sol, sol trigar entre minuts i una hora) i
    **marca-la**.
 4. Comprova que `https://templeobert.cat` i `https://www.templeobert.cat`
-   carreguen les dues, i que `/cami-circular`, `/bio-3r` i `/bio-4t` també.
+   carreguen les dues, i que `/cami-circular`, `/bio-geo-3r` i `/bio-geo-4t` també.
 
 ## 8. Redirigir Netlify
 

@@ -20,8 +20,8 @@ ha una secció més avall que t'explica com.
 |---|---|---|
 | `templeobert.cat/` | Temple Obert (aquest repositori) | `ietemple/web` |
 | `templeobert.cat/cami-circular` | Projecte del camí circular | `ietemple/web` |
-| `templeobert.cat/bio-3r` | Portal d'aula de Bio i Geo 3r ESO | `apahiss3-xtec/bioigeo3r` |
-| `templeobert.cat/bio-4t` | Portal d'aula de Bio i Geo 4t ESO | `apahiss3-xtec/bioigeo4t` |
+| `templeobert.cat/bio-geo-3r` | Portal d'aula de Bio i Geo 3r ESO | `apahiss3-xtec/bioigeo3r` |
+| `templeobert.cat/bio-geo-4t` | Portal d'aula de Bio i Geo 4t ESO | `apahiss3-xtec/bioigeo4t` |
 
 Són **tres repositoris independents**. Cadascun es desplega sol i funciona sol.
 Aquest, a més, els recull i els publica junts sota el domini comú (vegeu
@@ -77,7 +77,7 @@ Cada `git push` a `main` dispara
    Els busca al compte indicat per la variable de repositori `PORTALS_OWNER`
    i, si no existeix, al mateix compte que allotja aquest repositori (vegeu
    [On viuen els portals](#on-viuen-els-portals)).
-3. Col·loca els seus `dist/` a `/bio-3r` i `/bio-4t`.
+3. Col·loca els seus `dist/` a `/bio-geo-3r` i `/bio-geo-4t`.
 4. Ho publica tot a GitHub Pages.
 
 Quan es publica contingut nou als portals de bio, els seus workflows criden
