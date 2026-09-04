@@ -20,6 +20,9 @@ ha una secció més avall que t'explica com.
 |---|---|---|
 | `templeobert.cat/` | Temple Obert (aquest repositori) | `ietemple/web` |
 | `templeobert.cat/cami-circular` | Projecte del camí circular | `ietemple/web` |
+| `templeobert.cat/materies.html` | Matèries de la comunitat de joves | `ietemple/web` |
+| `templeobert.cat/bio-geo-3r-eso.html` | Situacions d'aprenentatge de Bio i Geo 3r | `ietemple/web` |
+| `templeobert.cat/bio-geo-4t-eso.html` | Situacions d'aprenentatge de Bio i Geo 4t | `ietemple/web` |
 | `templeobert.cat/bio-geo-3r` | Portal d'aula de Bio i Geo 3r ESO | `apahiss3-xtec/bioigeo3r` |
 | `templeobert.cat/bio-geo-4t` | Portal d'aula de Bio i Geo 4t ESO | `apahiss3-xtec/bioigeo4t` |
 
@@ -41,10 +44,15 @@ Obres un fitxer `.html` al navegador i ja el veus.
 index.html                    Portada
 projectes.html                Índex de projectes
 cami-circular.html            El camí circular  ← el projecte principal
-joves.html                    Projecte "Joves"
+joves.html                    Comunitat de joves (projectes i matèries)
 caixes-aprenentatge.html      Caixes d'aprenentatge
+materies.html                 Índex de matèries de la comunitat de joves
+bio-geo.html                  Biologia i Geologia: 3r i 4t
+bio-geo-3r-eso.html           Les 7 situacions d'aprenentatge de 3r
+bio-geo-4t-eso.html           Les 7 situacions d'aprenentatge de 4t
 el-sentit-del-projecte.html   Sobre Temple Obert
 assets/                       Logotip i imatges
+assets/materies/              Portades de les SA, redimensionades des dels portals
 CNAME                         Domini personalitzat de GitHub Pages
 _historic/                    Scripts antics, documentats i NO executables
 .github/workflows/deploy.yml  Desplegament automàtic
@@ -163,25 +171,48 @@ colors: {
 fontFamily: { display:['Fredoka','sans-serif'], body:['Quicksand','sans-serif'] }
 ```
 
-Cal canviar-la **a les sis pàgines**. `cami-circular.html` continua tenint una
-configuració pròpia i més curta que la de les altres cinc (hi manquen, per
+Cal canviar-la **a totes les pàgines**. `cami-circular.html` continua tenint una
+configuració pròpia i més curta que la de la resta (hi manquen, per
 exemple, `boxShadow.float` i `borderRadius.4xl`), però ja comparteix les
 variables de color i les classes de component que fa servir la capçalera.
 Si hi afegeixes marcatge nou, comprova que les classes que utilitzis hi
 estiguin definides.
 
+### Com s'organitza el contingut
+
+El lloc s'estructura per **comunitats** (de moment només hi ha *Joves*), i dins
+de cada comunitat hi ha tres menes de material:
+
+```
+Joves
+ ├─ Projectes .................. cami-circular.html
+ ├─ Caixes d'aprenentatge ...... caixes-aprenentatge.html
+ └─ Matèries ................... materies.html
+     └─ Biologia i Geologia .... bio-geo.html
+         ├─ 3r d'ESO ........... bio-geo-3r-eso.html   → portal d'aula /bio-geo-3r
+         └─ 4t d'ESO ........... bio-geo-4t-eso.html   → portal d'aula /bio-geo-4t
+```
+
+Les pàgines de nivell (`bio-geo-*-eso.html`) presenten les set situacions
+d'aprenentatge del curs amb la mateixa línia de temps interactiva que
+`cami-circular.html`: una columna de passos, un panell per pas a escriptori i
+el panell després del pas a mòbil. Tot el contingut és HTML estàtic; el
+comportament és un script de trenta línies al final del fitxer.
+
+La navegació superior aplana *Projectes*, *Matèries* i *Caixes*: la comunitat
+la porten les molles de pa de cada pàgina, no el menú.
+
 ### El menú de navegació
 
-La capçalera de les sis pàgines es comporta en tres trams:
+La capçalera es comporta en dos trams:
 
 | Amplada | Què es veu |
 |---|---|
-| < 768 px | Un botó de menú que desplega el panell `#menu-mobil` amb les sis destinacions |
-| 768–1023 px | La navegació horitzontal de sempre (quatre enllaços) |
-| ≥ 1024 px | La navegació horitzontal més la pastilla «Bio i Geo 3r · Bio i Geo 4t» |
+| < 768 px | Un botó de menú que desplega el panell `#menu-mobil` amb les cinc destinacions |
+| ≥ 768 px | La navegació horitzontal amb els cinc enllaços |
 
 Els enllaços als dos portals d'aula són al peu de pàgina de totes les pàgines,
-i per tant són accessibles a qualsevol amplada. El panell mòbil el mou un
+i també a `bio-geo.html` i a cada pàgina de nivell. El panell mòbil el mou un
 script de vint línies al final de cada fitxer: no hi ha cap dependència.
 Si hi afegeixes una pàgina nova, l'has d'afegir a tres llocs de cada fitxer:
 la navegació d'escriptori, el panell `#menu-mobil` i el peu.

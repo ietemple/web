@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Temple Obert · Joves</title>
+  <title>Mat&egrave;ries | Temple Obert</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -61,6 +61,7 @@
       .chip-teal { @apply bg-pastel-teal/60 text-school-dark; }
       .button-primary { @apply inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 font-bold text-white shadow-float transition hover:-translate-y-0.5 hover:shadow-soft; }
       .button-secondary { @apply inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-bold text-school-dark ring-1 ring-pastel-grey transition hover:text-primary; }
+      .logo-badge { @apply relative flex items-center justify-center bg-pastel-purple/20 overflow-hidden; }
     }
     body { font-family: 'Quicksand', sans-serif; }
     h1,h2,h3,h4,.font-display { font-family: 'Fredoka', sans-serif; }
@@ -86,13 +87,13 @@
         </div>
         <div>
           <div class="font-display text-2xl font-bold tracking-tight text-primary">Temple Obert</div>
-          <div class="text-xs text-muted">Projectes compartits per a l'educació pública</div>
+          <div class="text-xs text-muted">Projectes compartits per a l'educaci&oacute; p&uacute;blica</div>
         </div>
       </a>
-      <nav class="hidden items-center gap-8 font-display text-sm md:flex">
+      <nav class="hidden items-center gap-7 font-display text-sm md:flex">
         <a href="index.html" class="nav-link">Inici</a>
-        <a href="projectes.html" class="nav-link-active">Projectes</a>
-        <a href="materies.html" class="nav-link">Matèries</a>
+        <a href="projectes.html" class="nav-link">Projectes</a>
+        <a href="materies.html" class="nav-link-active">Mat&egrave;ries</a>
         <a href="caixes-aprenentatge.html" class="nav-link">Caixes d'aprenentatge</a>
         <a href="el-sentit-del-projecte.html" class="nav-link">Sobre Temple Obert</a>
       </nav>
@@ -103,134 +104,148 @@
     </div>
     <nav id="menu-mobil" hidden aria-label="Menu principal" class="border-t border-pastel-grey/50 bg-white px-5 pb-5 pt-2 font-display text-base md:hidden">
       <a href="index.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Inici</a>
-      <a href="projectes.html" aria-current="page" class="block rounded-2xl px-3 py-2.5 font-bold text-primary">Projectes</a>
-      <a href="materies.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Matèries</a>
+      <a href="projectes.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Projectes</a>
+      <a href="materies.html" aria-current="page" class="block rounded-2xl px-3 py-2.5 font-bold text-primary">Mat&egrave;ries</a>
       <a href="caixes-aprenentatge.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Caixes d'aprenentatge</a>
       <a href="el-sentit-del-projecte.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Sobre Temple Obert</a>
     </nav>
   </header>
+
+  <nav aria-label="Ets aquí" class="mx-auto max-w-7xl px-5 pt-8 lg:px-8">
+    <div class="flex flex-wrap items-center gap-2 text-sm text-muted">
+      <a href="index.html" class="hover:text-primary">Inici</a>
+      <span class="text-pastel-grey" aria-hidden="true">/</span>
+      <a href="projectes.html" class="hover:text-primary">Projectes</a>
+      <span class="text-pastel-grey" aria-hidden="true">/</span>
+      <a href="joves.html" class="hover:text-primary">Joves</a>
+      <span class="text-pastel-grey" aria-hidden="true">/</span>
+      <span class="font-semibold text-onsurface">Matèries</span>
+    </div>
+  </nav>
+
   <main>
 
-<section class="mx-auto max-w-7xl px-5 py-14 lg:px-8">
-  <div class="mb-6 text-xs font-bold uppercase tracking-[0.18em] text-muted">Inici <span class="px-1">/</span> Projectes <span class="px-1">/</span> Joves</div>
-  <div class="grid gap-8 lg:grid-cols-[1.05fr,0.95fr]">
-    <div>
-      <div class="chip chip-primary">Etapa disponible</div>
-      <h1 class="mt-5 text-5xl font-bold tracking-tight">Joves (ESO)</h1>
-      <p class="mt-5 max-w-3xl text-lg leading-8 text-muted">Aquesta és la primera etapa publicada de Temple Obert. Som l’Institut Escola el Temple de Tortosa i compartim aquests projectes amb voluntat de servei públic: propostes reals d’aula que connecten aprenentatge, realitat i acció.</p>
-      <p class="mt-4 max-w-3xl leading-8 text-muted">Aquí hi trobareu projectes pensats perquè l’alumnat entengui el món que l’envolta, prengui posicionament i actuï. Cada proposta es presenta amb una síntesi clara abans d’accedir als materials complets.</p>
-    </div>
-    <div class="soft-panel p-6">
-      <h2 class="text-2xl font-bold tracking-tight">Com llegir aquesta biblioteca</h2>
-      <ul class="mt-4 space-y-3 text-muted">
-        <li class="flex gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-primary"></span><span>Cada projecte parteix d’una pregunta que connecta l’aula amb el món.</span></li>
-        <li class="flex gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-primary"></span><span>La síntesi inicial permet entendre el recorregut abans d’obrir cap document extern.</span></li>
-        <li class="flex gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-primary"></span><span>Els materials estan pensats per adaptar-se: no són receptes, són punts de partida.</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="mx-auto max-w-7xl px-5 py-8 lg:px-8">
-  <div class="mb-8 flex flex-wrap items-end justify-between gap-5">
-    <div>
-      <div class="chip chip-yellow">Projectes publicats</div>
-      <h2 class="mt-4 text-4xl font-bold tracking-tight">Biblioteca inicial de Joves</h2>
-    </div>
-    <div class="rounded-full bg-white px-4 py-2 text-sm font-semibold text-muted ring-1 ring-pastel-grey/70">1 projecte disponible</div>
-  </div>
-  <div class="grid gap-6">
-    <a href="cami-circular.html" class="section-card overflow-hidden transition hover:-translate-y-1">
-      <div class="grid gap-0 lg:grid-cols-[1.05fr,0.95fr]">
-        <div class="p-7 lg:p-8">
+    <section class="mx-auto max-w-7xl px-5 pt-8 lg:px-8">
+      <div class="grid items-center gap-10 lg:grid-cols-[1.05fr,0.95fr]">
+        <div>
           <div class="flex flex-wrap gap-2">
-            <span class="chip chip-primary !py-1">1r ESO</span>
-            <span class="chip chip-teal !py-1">ABP interdisciplinari</span>
-            <span class="chip chip-soft !py-1">Consum, desigualtat i impacte ambiental</span>
+            <span class="chip chip-primary">Comunitat de joves</span>
+            <span class="chip chip-soft">Educaci&oacute; secund&agrave;ria</span>
           </div>
-          <h3 class="mt-5 text-4xl font-bold tracking-tight">Camí circular</h3>
-          <p class="mt-4 max-w-3xl leading-8 text-muted">Un projecte que parteix d’una pregunta propera i incòmoda: què té a veure la roba que portem amb la vida d’altres persones i amb el cost ambiental del planeta? El recorregut combina consciència personal, anàlisi de dades, mirada global i acció creativa.</p>
-          <p class="mt-3 max-w-3xl leading-8 text-muted">L’objectiu no és només entendre el problema, sinó posicionar-s’hi i actuar: repensar el consum, qüestionar la fast fashion i generar propostes amb impacte.</p>
-          <div class="mt-6 grid gap-3 sm:grid-cols-3">
-            <div class="rounded-3xl bg-stone-50 p-4"><div class="text-sm font-semibold text-school-dark">Àrees</div><div class="mt-1 text-sm text-muted">Ciències socials, llengua catalana, matemàtiques, ciències naturals i educació artística</div></div>
-            <div class="rounded-3xl bg-stone-50 p-4"><div class="text-sm font-semibold text-school-dark">Durada</div><div class="mt-1 text-sm text-muted">Projecte llarg, adaptable per fases</div></div>
-            <div class="rounded-3xl bg-stone-50 p-4"><div class="text-sm font-semibold text-school-dark">Producte</div><div class="mt-1 text-sm text-muted">Materials expositius i accions de conscienciació</div></div>
+          <h1 class="mt-5 font-display text-4xl font-bold leading-tight text-school-dark sm:text-5xl">Mat&egrave;ries</h1>
+          <p class="mt-5 max-w-xl text-lg leading-8 text-muted">
+            A la comunitat de joves, al costat dels projectes i de les caixes d'aprenentatge, hi ha el treball
+            per mat&egrave;ries. Aqu&iacute; hi trobareu, curs a curs, les situacions d'aprenentatge amb qu&egrave; es
+            desplega el curr&iacute;culum: qu&egrave; es pregunta cada situaci&oacute;, quantes sessions dura, qu&egrave; se
+            n'aprèn i amb quin producte es tanca.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href="bio-geo.html" class="button-primary">Biologia i Geologia</a>
+            <a href="joves.html" class="button-secondary">Torna a Joves</a>
           </div>
-          <div class="mt-6 inline-flex items-center font-display font-semibold text-primary">Veure projecte →</div>
         </div>
-        <div class="relative min-h-[20rem] overflow-hidden">
-          <img src="assets/clothes-mountain.png" alt="Muntanya de residus tèxtils per presentar el projecte Camí circular" class="h-full w-full object-cover" />
-          <div class="absolute inset-0 bg-gradient-to-t from-school-dark/45 via-transparent to-transparent"></div>
-        </div>
-      </div>
-    </a>
-  </div>
-</section>
-
-
-<section class="mx-auto max-w-7xl px-5 py-8 lg:px-8">
-  <div class="mb-8 flex flex-wrap items-end justify-between gap-5">
-    <div>
-      <div class="chip chip-teal">Treball per matèries</div>
-      <h2 class="mt-4 text-4xl font-bold tracking-tight">Matèries de Joves</h2>
-    </div>
-    <a href="materies.html" class="rounded-full bg-white px-4 py-2 text-sm font-semibold text-primary ring-1 ring-pastel-grey/70 transition hover:bg-pastel-purple/10">Veure totes les matèries →</a>
-  </div>
-  <p class="mb-8 max-w-3xl leading-8 text-muted">Al costat dels projectes i de les caixes d’aprenentatge, la comunitat de joves treballa també per matèries. Cada nivell es desplega en situacions d’aprenentatge amb enigma inicial, sessions documentades i producte final.</p>
-
-  <div class="grid gap-6 lg:grid-cols-2">
-
-    <a href="bio-geo-3r-eso.html" class="group section-card overflow-hidden transition hover:-translate-y-1">
-      <div class="relative h-52 overflow-hidden">
-        <img src="assets/materies/bio3-sa1.jpg" alt="Cèl·lules en divisió" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-school-dark/80 via-school-dark/20 to-transparent"></div>
-        <div class="absolute inset-x-0 bottom-0 p-6">
-          <span class="chip chip-yellow !py-1">Biologia i Geologia</span>
-          <h3 class="mt-3 text-3xl font-bold tracking-tight text-white">3r d’ESO</h3>
+        <div class="relative">
+          <div class="absolute -inset-4 bg-pastel-purple/15 organic-2" aria-hidden="true"></div>
+          <img src="assets/materies/bio3-sa1.jpg" alt="C&egrave;l&middot;lules en divisi&oacute;, imatge de portada de la primera situaci&oacute; d'aprenentatge" class="relative h-72 w-full rounded-4xl object-cover shadow-float sm:h-96" loading="lazy" />
         </div>
       </div>
-      <div class="p-6">
-        <p class="leading-7 text-muted">De la cèl·lula al cos humà, del cos a les defenses i la reproducció, i d’aquí a l’ecosistema, al clima i a la memòria geològica del planeta.</p>
-        <div class="mt-4 inline-flex items-center font-display font-semibold text-primary">7 situacions d’aprenentatge →</div>
-      </div>
-    </a>
+    </section>
 
-    <a href="bio-geo-4t-eso.html" class="group section-card overflow-hidden transition hover:-translate-y-1">
-      <div class="relative h-52 overflow-hidden">
-        <img src="assets/materies/bio4-sa7.jpg" alt="Observatori astronòmic sota la Via Làctia" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-school-dark/80 via-school-dark/20 to-transparent"></div>
-        <div class="absolute inset-x-0 bottom-0 p-6">
-          <span class="chip chip-yellow !py-1">Biologia i Geologia</span>
-          <h3 class="mt-3 text-3xl font-bold tracking-tight text-white">4t d’ESO</h3>
+    <section class="mx-auto max-w-7xl px-5 py-14 lg:px-8">
+      <h2 class="font-display text-2xl font-bold text-school-dark">Mat&egrave;ries obertes</h2>
+      <p class="mt-2 max-w-2xl leading-7 text-muted">De moment n'hi ha una de publicada del tot. Les altres aniran arribant a mesura que els materials estiguin llestos per ser reutilitzats.</p>
+
+      <div class="mt-8 grid gap-6 lg:grid-cols-[1.15fr,0.85fr]">
+
+        <a href="bio-geo.html" class="group section-card overflow-hidden transition hover:-translate-y-1 hover:shadow-float">
+          <div class="relative h-56 overflow-hidden sm:h-64">
+            <img src="assets/materies/bio4-sa6.jpg" alt="Estrats rocosos plegats" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-school-dark/80 via-school-dark/25 to-transparent"></div>
+            <div class="absolute inset-x-0 bottom-0 p-6">
+              <span class="chip chip-yellow">Disponible</span>
+              <h3 class="mt-3 font-display text-3xl font-bold text-white">Biologia i Geologia</h3>
+              <p class="mt-1 text-sm text-white/85">3r i 4t d'ESO &middot; 14 situacions d'aprenentatge</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <p class="leading-7 text-muted">
+              El curr&iacute;culum sencer desplegat en situacions d'aprenentatge amb enigma inicial, sessions
+              documentades i producte final. Cada curs t&eacute; a m&eacute;s el seu portal d'aula obert.
+            </p>
+            <span class="mt-4 inline-flex items-center gap-2 font-semibold text-primary">
+              Entra-hi <span class="material-symbols-outlined text-[18px] transition group-hover:translate-x-1">arrow_forward</span>
+            </span>
+          </div>
+        </a>
+
+        <div class="section-card p-6">
+          <span class="chip chip-soft">En construcci&oacute;</span>
+          <h3 class="mt-4 font-display text-2xl font-bold text-school-dark">Altres mat&egrave;ries</h3>
+          <p class="mt-2 leading-7 text-muted">
+            Temple Obert creix a mesura que el material d'aula es va endre&ccedil;ant. Si ense&ntilde;eu alguna
+            d'aquestes mat&egrave;ries i voleu compartir-hi la vostra feina, sou benvinguts.
+          </p>
+          <ul class="mt-5 space-y-3">
+        <li class="flex items-center gap-3 rounded-3xl bg-white/70 px-4 py-3 ring-1 ring-pastel-grey/60">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-pastel-yellow/60 text-school-dark"><span class="material-symbols-outlined text-[20px]">calculate</span></span>
+          <span class="text-sm font-semibold text-muted">Matemàtiques</span>
+        </li>
+        <li class="flex items-center gap-3 rounded-3xl bg-white/70 px-4 py-3 ring-1 ring-pastel-grey/60">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-pastel-pink/40 text-school-dark"><span class="material-symbols-outlined text-[20px]">menu_book</span></span>
+          <span class="text-sm font-semibold text-muted">Llengües i literatura</span>
+        </li>
+        <li class="flex items-center gap-3 rounded-3xl bg-white/70 px-4 py-3 ring-1 ring-pastel-grey/60">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-pastel-teal/50 text-school-dark"><span class="material-symbols-outlined text-[20px]">public</span></span>
+          <span class="text-sm font-semibold text-muted">Ciències socials</span>
+        </li>
+        <li class="flex items-center gap-3 rounded-3xl bg-white/70 px-4 py-3 ring-1 ring-pastel-grey/60">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-pastel-purple/30 text-school-dark"><span class="material-symbols-outlined text-[20px]">memory</span></span>
+          <span class="text-sm font-semibold text-muted">Tecnologia i digital</span>
+        </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-5 pb-6 lg:px-8">
+      <div class="section-card p-6 sm:p-8">
+        <h2 class="font-display text-2xl font-bold text-school-dark">Com es llegeix una mat&egrave;ria</h2>
+        <div class="mt-6 grid gap-6 sm:grid-cols-3">
+          <div class="rounded-3xl bg-pastel-purple/10 p-5">
+            <div class="font-display text-lg font-bold text-primary">1. El curs</div>
+            <p class="mt-2 text-sm leading-6 text-muted">Cada nivell t&eacute; un fil: l'ordre de les situacions no &eacute;s casual, cadascuna es recolza en l'anterior.</p>
+          </div>
+          <div class="rounded-3xl bg-pastel-teal/15 p-5">
+            <div class="font-display text-lg font-bold text-school-dark">2. La situaci&oacute;</div>
+            <p class="mt-2 text-sm leading-6 text-muted">Un enigma real obre la seq&uuml;&egrave;ncia, les sessions la despleguen i un producte la tanca i la fa avaluable.</p>
+          </div>
+          <div class="rounded-3xl bg-pastel-yellow/25 p-5">
+            <div class="font-display text-lg font-bold text-school-dark">3. Qu&egrave; s'apr&egrave;n</div>
+            <p class="mt-2 text-sm leading-6 text-muted">Els objectius d'aprenentatge estan escrits en termes del que l'alumnat ha de saber fer, no del que s'ha explicat.</p>
+          </div>
         </div>
       </div>
-      <div class="p-6">
-        <p class="leading-7 text-muted">Comença per l’eina —com sabem que una cosa és certa— i l’aplica després a la cèl·lula, l’ADN, l’herència, l’evolució i la història de la Terra.</p>
-        <div class="mt-4 inline-flex items-center font-display font-semibold text-primary">7 situacions d’aprenentatge →</div>
-      </div>
-    </a>
+    </section>
 
-  </div>
-</section>
 
 <section class="mx-auto max-w-7xl px-5 py-8 lg:px-8">
   <div class="section-card p-6">
     <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
       <div class="inline-flex items-center gap-3">
-        <img src="assets/by-nc-88x31.png" alt="Llicència Creative Commons BY-NC" class="h-8 w-auto" />
-        <div class="font-semibold text-school-dark">Llicència del material</div>
+        <img src="assets/by-nc-88x31.png" alt="Llic&egrave;ncia Creative Commons BY-NC" class="h-8 w-auto" />
+        <div class="font-semibold text-school-dark">Llic&egrave;ncia del material</div>
       </div>
       <p class="max-w-3xl leading-7 text-muted">
-        Tot el material compartit a Temple Obert està subjecte a una llicència
+        Tot el material compartit a Temple Obert est&agrave; subjecte a una llic&egrave;ncia
         <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.ca" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Reconeixement - NoComercial (CC BY-NC)</a>.
-        Es permet la generació d'obres derivades sempre que no se'n faci un ús comercial. Això no impedeix que la persona que té els drets la pugui utilitzar amb finalitats comercials; la restricció s'aplica a la resta de persones.
+        Es permet la generaci&oacute; d'obres derivades sempre que no se'n faci un &uacute;s comercial. Aix&ograve; no impedeix que la persona que t&eacute; els drets la pugui utilitzar amb finalitats comercials; la restricci&oacute; s'aplica a la resta de persones.
       </p>
     </div>
   </div>
 </section>
 
   </main>
-  
 
 <footer class="mt-20 border-t border-pastel-grey/50 bg-white/80">
   <div class="mx-auto max-w-7xl px-5 py-10 lg:px-8">
@@ -239,30 +254,30 @@
       <div class="max-w-md">
         <div class="font-display text-lg font-bold text-primary mb-2">Temple Obert</div>
         <p class="text-sm text-muted leading-6">
-          Projectes compartits per a l'educació pública. Materials reals d'aula pensats per ser reutilitzats, adaptats i millorats per altres docents.
+          Projectes compartits per a l'educaci&oacute; p&uacute;blica. Materials reals d'aula pensats per ser reutilitzats, adaptats i millorats per altres docents.
         </p>
       </div>
 
       <div class="text-sm text-muted">
-        <div class="font-semibold text-onsurface mb-2">Llicència</div>
+        <div class="font-semibold text-onsurface mb-2">Llic&egrave;ncia</div>
         <div class="flex items-center gap-3">
-          <img src="assets/by-nc-88x31.png" alt="Llicència CC BY-NC" class="h-6">
+          <img src="assets/by-nc-88x31.png" alt="Llic&egrave;ncia CC BY-NC" class="h-6">
           <span>
             Reconeixement - NoComercial (CC BY-NC)
           </span>
         </div>
         <p class="mt-2 max-w-xs leading-5">
-          Es permet reutilitzar i adaptar els materials sempre que no se'n faci un ús comercial.
+          Es permet reutilitzar i adaptar els materials sempre que no se'n faci un &uacute;s comercial.
         </p>
       </div>
 
       <div class="text-sm text-muted">
-        <div class="font-semibold text-onsurface mb-2">Navegació</div>
+        <div class="font-semibold text-onsurface mb-2">Navegaci&oacute;</div>
         <ul class="space-y-1">
           <li><a href="index.html" class="hover:text-primary">Inici</a></li>
           <li><a href="projectes.html" class="hover:text-primary">Projectes</a></li>
           <li><a href="joves.html" class="hover:text-primary">Joves</a></li>
-          <li><a href="materies.html" class="hover:text-primary">Matèries</a></li>
+          <li><a href="materies.html" class="hover:text-primary">Mat&egrave;ries</a></li>
           <li><a href="caixes-aprenentatge.html" class="hover:text-primary">Caixes</a></li>
           <li><a href="bio-geo-3r/" class="hover:text-primary">Bio i Geo 3r d'ESO</a></li>
           <li><a href="bio-geo-4t/" class="hover:text-primary">Bio i Geo 4t d'ESO</a></li>

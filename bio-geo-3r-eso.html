@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biologia i Geologia de 3r d'ESO | Temple Obert</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#c084fc',
+            pastel: {
+              pink: '#f1a7a7',
+              purple: '#c084fc',
+              yellow: '#f9dc5c',
+              teal: '#81c3c3',
+              grey: '#e5e7eb'
+            },
+            school: {
+              orange: '#f9b264',
+              dark: '#4a3f3f'
+            },
+            surface: '#fdfafb',
+            onsurface: '#4a3f3f',
+            muted: '#6b5e5e'
+          },
+          fontFamily: {
+            display: ['Fredoka', 'sans-serif'],
+            body: ['Quicksand', 'sans-serif']
+          },
+          boxShadow: {
+            soft: '0 10px 32px rgba(74,63,63,0.08)',
+            float: '0 20px 48px rgba(192,132,252,0.18)'
+          },
+          borderRadius: {
+            '4xl': '2rem'
+          }
+        }
+      }
+    };
+  </script>
+  <style type="text/tailwindcss">
+    @layer components {
+      .organic-1 { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+      .organic-2 { border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%; }
+      .organic-3 { border-radius: 80% 20% 50% 50% / 50% 50% 50% 50%; }
+      .hand-drawn-shape { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+      .section-card { @apply rounded-4xl bg-white shadow-soft ring-1 ring-pastel-grey/70; }
+      .soft-panel { @apply rounded-4xl bg-white/80 backdrop-blur-sm shadow-soft ring-1 ring-white/80; }
+      .nav-link { @apply text-muted hover:text-primary transition-colors duration-200; }
+      .nav-link-active { @apply text-primary font-bold border-b-4 border-pastel-yellow pb-1; }
+      .chip { @apply inline-flex items-center rounded-full px-4 py-2 text-xs font-bold uppercase tracking-[0.16em]; }
+      .chip-soft { @apply bg-white text-school-dark ring-1 ring-pastel-grey/80; }
+      .chip-primary { @apply bg-pastel-purple/20 text-primary ring-1 ring-pastel-purple/20; }
+      .chip-yellow { @apply bg-pastel-yellow/70 text-school-dark; }
+      .chip-teal { @apply bg-pastel-teal/60 text-school-dark; }
+      .button-primary { @apply inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 font-bold text-white shadow-float transition hover:-translate-y-0.5 hover:shadow-soft; }
+      .button-secondary { @apply inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-bold text-school-dark ring-1 ring-pastel-grey transition hover:text-primary; }
+      .logo-badge { @apply relative flex items-center justify-center bg-pastel-purple/20 overflow-hidden; }
+    }
+    body { font-family: 'Quicksand', sans-serif; }
+    h1,h2,h3,h4,.font-display { font-family: 'Fredoka', sans-serif; }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-size: inherit;
+    }
+    .timeline-step.active .step-dot { transform: scale(1.08); box-shadow: 0 8px 22px rgba(0,0,0,0.14); }
+    .timeline-step.active .step-card { opacity: 1; transform: translateY(0); border-color: rgba(192,132,252,.45); }
+    .timeline-panel { display: none; }
+    .timeline-panel.active { display: block; }
+    .mobile-panel { display: none; }
+    .mobile-panel.active { display: block; }
+    @media (max-width: 1023px) { .desktop-panels { display: none; } }
+    @media (min-width: 1024px) { .mobile-panel { display: none !important; } }
+  </style>
+</head>
+<body class="bg-surface text-onsurface overflow-x-hidden relative">
+  <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+    <div class="absolute top-16 -left-20 h-80 w-80 bg-pastel-pink/10 organic-1 animate-pulse"></div>
+    <div class="absolute top-[28%] -right-20 h-[26rem] w-[26rem] bg-pastel-purple/10 organic-2 animate-pulse" style="animation-duration:10s;"></div>
+    <div class="absolute bottom-8 left-[12%] h-64 w-64 bg-pastel-teal/10 organic-3 animate-pulse" style="animation-duration:8s;"></div>
+    <div class="absolute bottom-[18%] right-[10%] h-56 w-56 bg-pastel-yellow/10 hand-drawn-shape animate-pulse" style="animation-duration:9s;"></div>
+  </div>
+  <header class="sticky top-0 z-50 border-b border-pastel-grey/50 bg-white/80 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="relative flex h-11 w-11 items-center justify-center text-primary">
+          <div class="absolute inset-0 bg-pastel-purple/20 organic-1"></div>
+          <img src="assets/logo.png" alt="Temple Obert" class="relative h-7 w-7 object-contain" />
+        </div>
+        <div>
+          <div class="font-display text-2xl font-bold tracking-tight text-primary">Temple Obert</div>
+          <div class="text-xs text-muted">Projectes compartits per a l'educaci&oacute; p&uacute;blica</div>
+        </div>
+      </a>
+      <nav class="hidden items-center gap-7 font-display text-sm md:flex">
+        <a href="index.html" class="nav-link">Inici</a>
+        <a href="projectes.html" class="nav-link">Projectes</a>
+        <a href="materies.html" class="nav-link-active">Mat&egrave;ries</a>
+        <a href="caixes-aprenentatge.html" class="nav-link">Caixes d'aprenentatge</a>
+        <a href="el-sentit-del-projecte.html" class="nav-link">Sobre Temple Obert</a>
+      </nav>
+      <button type="button" id="menu-toggle" aria-controls="menu-mobil" aria-expanded="false" aria-label="Obre el menu" class="flex h-10 w-10 items-center justify-center rounded-full text-primary ring-1 ring-pastel-grey transition-colors duration-200 hover:bg-pastel-purple/10 md:hidden">
+        <svg id="menu-icona-obrir" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg id="menu-icona-tancar" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <nav id="menu-mobil" hidden aria-label="Menu principal" class="border-t border-pastel-grey/50 bg-white px-5 pb-5 pt-2 font-display text-base md:hidden">
+      <a href="index.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Inici</a>
+      <a href="projectes.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Projectes</a>
+      <a href="materies.html" aria-current="page" class="block rounded-2xl px-3 py-2.5 font-bold text-primary">Mat&egrave;ries</a>
+      <a href="caixes-aprenentatge.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Caixes d'aprenentatge</a>
+      <a href="el-sentit-del-projecte.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Sobre Temple Obert</a>
+    </nav>
+  </header>
+
+  <nav aria-label="Ets aquí" class="mx-auto max-w-7xl px-5 pt-8 lg:px-8">
+    <div class="flex flex-wrap items-center gap-2 text-sm text-muted">
+      <a href="index.html" class="hover:text-primary">Inici</a>
+      <span class="text-pastel-grey" aria-hidden="true">/</span>
+      <a href="joves.html" class="hover:text-primary">Joves</a>
+      <span class="text-pastel-grey" aria-hidden="true">/</span>
+      <a href="materies.html" class="hover:text-primary">Matèries</a>
+      <span class="text-pastel-grey" aria-hidden="true">/</span>
+      <a href="bio-geo.html" class="hover:text-primary">Biologia i Geologia</a>
+      <span class="text-pastel-grey" aria-hidden="true">/</span>
+      <span class="font-semibold text-onsurface">3r d'ESO</span>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="mx-auto max-w-7xl px-5 pt-8 lg:px-8">
+      <div class="grid items-center gap-10 lg:grid-cols-[1.05fr,0.95fr]">
+        <div>
+          <div class="flex flex-wrap gap-2">
+            <span class="chip chip-primary">Biologia i Geologia</span>
+            <span class="chip chip-soft">3r d'ESO</span>
+          </div>
+          <h1 class="mt-5 font-display text-4xl font-bold leading-tight text-school-dark sm:text-5xl">Biologia i Geologia de 3r d'ESO</h1>
+          <p class="mt-5 max-w-xl text-lg leading-8 text-muted">Set situacions d'aprenentatge que cobreixen el currículum de Biologia i Geologia de 3r d'ESO. Cadascuna arrenca d'un enigma real, es desplega en sessions amb fitxa pròpia i es tanca amb un producte que l'alumnat ha de defensar.</p>
+          <div class="mt-6 flex flex-wrap gap-3 text-sm">
+            <span class="rounded-full bg-white px-4 py-2 font-semibold text-school-dark ring-1 ring-pastel-grey">7 situacions</span>
+            <span class="rounded-full bg-white px-4 py-2 font-semibold text-school-dark ring-1 ring-pastel-grey">3 publicades</span>
+            <span class="rounded-full bg-white px-4 py-2 font-semibold text-school-dark ring-1 ring-pastel-grey">31 sessions</span>
+          </div>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href="bio-geo-3r/" class="button-primary">Obre el portal d'aula</a>
+            <a href="bio-geo.html" class="button-secondary">Torna a la mat&egrave;ria</a>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="absolute -inset-4 bg-pastel-teal/15 organic-1" aria-hidden="true"></div>
+          <img src="assets/materies/bio3-sa1.jpg" alt="Cel·lules en divisio, portada de la primera situacio d'aprenentatge de 3r" class="relative h-72 w-full rounded-4xl object-cover shadow-float sm:h-96" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-5 pt-12 lg:px-8">
+      <div class="rounded-4xl bg-pastel-purple/10 p-6 sm:p-8">
+        <div class="text-xs font-bold uppercase tracking-[0.16em] text-primary">Pregunta que travessa el curs</div>
+        <p class="mt-2 font-display text-2xl font-bold leading-snug text-school-dark sm:text-3xl">Com funciona el meu cos i de què depèn el planeta on visc?</p>
+        <p class="mt-3 max-w-3xl leading-7 text-muted">De la cèl·lula al cos, del cos a les defenses i la reproducció, i d'aquí a l'ecosistema i al planeta que el sosté.</p>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-5 py-12 lg:px-8">
+      <h2 class="font-display text-2xl font-bold text-school-dark">Les situacions d'aprenentatge</h2>
+      <p class="mt-2 max-w-2xl leading-7 text-muted">Trieu-ne una per veure qu&egrave; s'hi apr&egrave;n i com es tanca.</p>
+
+      <div class="mt-8 grid gap-8 lg:grid-cols-[1fr,1.15fr]">
+
+        <div class="space-y-4">
+          <button type="button" class="timeline-step w-full text-left active" data-step="sa1" aria-controls="panel-sa1">
+            <div class="flex items-start gap-4">
+              <span class="step-dot mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-base font-bold transition bg-pastel-teal/60 text-school-dark">1</span>
+              <span class="step-card block w-full rounded-3xl border border-pastel-grey/70 bg-white p-4 opacity-80 shadow-soft transition">
+                <span class="block font-display text-base font-bold text-school-dark">La cèl·lula viva</span>
+                <span class="mt-1 block text-sm leading-6 text-muted">Per què ens morim si no mengem ni respirem?</span>
+                <span class="mt-2 block text-xs font-semibold uppercase tracking-wider text-muted">4 sessions &middot; Publicada</span>
+              </span>
+            </div>
+          </button>
+      <div id="mobile-panel-sa1" class="mobile-panel active rounded-4xl bg-white p-5 shadow-soft ring-1 ring-pastel-grey/70">
+        <div class="relative -mx-5 -mt-5 mb-5 h-44 overflow-hidden rounded-t-4xl sm:h-52">
+          <img src="assets/materies/bio3-sa1.jpg" alt="Cel·lules en divisio sobre fons fosc" class="h-full w-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-school-dark/70 to-transparent"></div>
+          <div class="absolute inset-x-0 bottom-0 p-5">
+            <div class="font-display text-2xl font-bold text-white">SA 1 &middot; La cèl·lula viva</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="chip chip-teal">Publicada</span>
+          <span class="chip chip-soft">4 sessions</span>
+        </div>
+        <p class="mt-4 font-display text-lg font-semibold text-primary">Per què ens morim si no mengem ni respirem?</p>
+        <p class="mt-3 leading-7 text-muted">La cèl·lula no s'explica com un catàleg d'orgànuls, sinó com la resposta a una necessitat quotidiana: per què cal menjar i respirar cada dia. El recorregut va del mitocondri a la membrana i de la membrana a la divisió cel·lular.</p>
+
+        <div class="mt-6">
+          <div class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Qu&egrave; s'hi apr&egrave;n</div>
+          <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Orgànuls i funcions</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Identificar els tres elements clau de la cèl·lula i les seves funcions: membrana, nucli i mitocondri.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Tipus cel·lulars</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Distingir cèl·lula procariota i eucariota, animal i vegetal.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Membrana i osmosi</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Explicar com entren i surten substàncies de la cèl·lula a través de la membrana.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Divisió cel·lular</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Comprendre per quina raó hi ha dos tipus de divisió: mitosi (còpies) i meiosi (la meitat).</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mt-6 rounded-3xl bg-pastel-yellow/25 p-4">
+          <div class="text-xs font-bold uppercase tracking-[0.16em] text-school-dark">Producte final</div>
+          <p class="mt-1 leading-7 text-muted">Pòster híbrid (digital i paper) sobre la cèl·lula com a unitat de la vida.</p>
+        </div>
+      </div>
+          <button type="button" class="timeline-step w-full text-left" data-step="sa2" aria-controls="panel-sa2">
+            <div class="flex items-start gap-4">
+              <span class="step-dot mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-base font-bold transition bg-pastel-teal/60 text-school-dark">2</span>
+              <span class="step-card block w-full rounded-3xl border border-pastel-grey/70 bg-white p-4 opacity-80 shadow-soft transition">
+                <span class="block font-display text-base font-bold text-school-dark">El nostre cos en marxa</span>
+                <span class="mt-1 block text-sm leading-6 text-muted">Per quina raó una anèmia pot esgotar un corredor a meitat de cursa?</span>
+                <span class="mt-2 block text-xs font-semibold uppercase tracking-wider text-muted">7 sessions &middot; Publicada</span>
+              </span>
+            </div>
+          </button>
+      <div id="mobile-panel-sa2" class="mobile-panel rounded-4xl bg-white p-5 shadow-soft ring-1 ring-pastel-grey/70">
+        <div class="relative -mx-5 -mt-5 mb-5 h-44 overflow-hidden rounded-t-4xl sm:h-52">
+          <img src="assets/materies/bio3-sa2.jpg" alt="Globuls vermells circulant per un vas sanguini" class="h-full w-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-school-dark/70 to-transparent"></div>
+          <div class="absolute inset-x-0 bottom-0 p-5">
+            <div class="font-display text-2xl font-bold text-white">SA 2 &middot; El nostre cos en marxa</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="chip chip-teal">Publicada</span>
+          <span class="chip chip-soft">7 sessions</span>
+        </div>
+        <p class="mt-4 font-display text-lg font-semibold text-primary">Per quina raó una anèmia pot esgotar un corredor a meitat de cursa?</p>
+        <p class="mt-3 leading-7 text-muted">L'alumnat segueix el rastre de la glucosa i de l'oxigen des que entren al cos fins que arriben al mitocondri de cada cèl·lula. Els aparells no es presenten per separat: es lliguen tots a una mateixa cadena. Fa servir aula invertida de la sessió 2 a la 7.</p>
+
+        <div class="mt-6">
+          <div class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Qu&egrave; s'hi apr&egrave;n</div>
+          <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Nutrients i digestió</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Relacionar cada nutrient amb la seva funció cel·lular i amb el recorregut complet fins al mitocondri.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Sang i circulació</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Explicar com l'hemoglobina i el ferro transporten l'oxigen, i per quina raó la circulació és doble.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Respiració i freqüència cardíaca</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Interpretar gràfiques de freqüència cardíaca i explicar la cadena esforç → ATP → oxigen → FC.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Control integrat</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Explicar com els sistemes nerviós, endocrí i excretor mantenen l'homeòstasi durant l'exercici.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mt-6 rounded-3xl bg-pastel-yellow/25 p-4">
+          <div class="text-xs font-bold uppercase tracking-[0.16em] text-school-dark">Producte final</div>
+          <p class="mt-1 leading-7 text-muted">Informe científic en parelles sobre la freqüència cardíaca durant l'esforç.</p>
+        </div>
+      </div>
+          <button type="button" class="timeline-step w-full text-left" data-step="sa3" aria-controls="panel-sa3">
+            <div class="flex items-start gap-4">
+              <span class="step-dot mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-base font-bold transition bg-pastel-teal/60 text-school-dark">3</span>
+              <span class="step-card block w-full rounded-3xl border border-pastel-grey/70 bg-white p-4 opacity-80 shadow-soft transition">
+                <span class="block font-display text-base font-bold text-school-dark">Defensors del cos</span>
+                <span class="mt-1 block text-sm leading-6 text-muted">Una grip ha afectat mitja classe en tres dies. Com ens defensem?</span>
+                <span class="mt-2 block text-xs font-semibold uppercase tracking-wider text-muted">5 sessions &middot; Publicada</span>
+              </span>
+            </div>
+          </button>
+      <div id="mobile-panel-sa3" class="mobile-panel rounded-4xl bg-white p-5 shadow-soft ring-1 ring-pastel-grey/70">
+        <div class="relative -mx-5 -mt-5 mb-5 h-44 overflow-hidden rounded-t-4xl sm:h-52">
+          <img src="assets/materies/bio3-sa3.jpg" alt="Limfocit atacant un virus" class="h-full w-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-school-dark/70 to-transparent"></div>
+          <div class="absolute inset-x-0 bottom-0 p-5">
+            <div class="font-display text-2xl font-bold text-white">SA 3 &middot; Defensors del cos</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="chip chip-teal">Publicada</span>
+          <span class="chip chip-soft">5 sessions</span>
+        </div>
+        <p class="mt-4 font-display text-lg font-semibold text-primary">Una grip ha afectat mitja classe en tres dies. Com ens defensem?</p>
+        <p class="mt-3 leading-7 text-muted">Del contagi a la immunitat, i de la immunitat a la conversa pública sobre salut: vacunes, antibiòtics, fàrmacs i drogues. La situació treballa alhora el contingut biològic i el criteri per avaluar fonts. També usa aula invertida.</p>
+
+        <div class="mt-6">
+          <div class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Qu&egrave; s'hi apr&egrave;n</div>
+          <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Patògens i contagi</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Identificar els tipus de patògens i les vies de transmissió, i interpretar una corba epidèmica bàsica.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Sistema immunitari</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Explicar la resposta innata i l'adaptativa, el paper dels anticossos i la memòria immunològica.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Vacunes i fonts</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Explicar com funcionen les vacunes i avaluar la credibilitat de les fonts sobre salut.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Fàrmacs i drogues</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Distingir els tipus de medicaments i explicar per quina raó les drogues causen addicció.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mt-6 rounded-3xl bg-pastel-yellow/25 p-4">
+          <div class="text-xs font-bold uppercase tracking-[0.16em] text-school-dark">Producte final</div>
+          <p class="mt-1 leading-7 text-muted">Campanya de comunicació científica que desmunta un mite sobre salut: pòster digital o vídeo de 60 segons.</p>
+        </div>
+      </div>
+          <button type="button" class="timeline-step w-full text-left" data-step="sa4" aria-controls="panel-sa4">
+            <div class="flex items-start gap-4">
+              <span class="step-dot mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-base font-bold transition bg-white text-muted ring-1 ring-pastel-grey">4</span>
+              <span class="step-card block w-full rounded-3xl border border-pastel-grey/70 bg-white p-4 opacity-80 shadow-soft transition">
+                <span class="block font-display text-base font-bold text-school-dark">Créixer i reproduir-se</span>
+                <span class="mt-1 block text-sm leading-6 text-muted">Preguntes que ningú no ens respon bé</span>
+                <span class="mt-2 block text-xs font-semibold uppercase tracking-wider text-muted">4 sessions &middot; En preparació</span>
+              </span>
+            </div>
+          </button>
+      <div id="mobile-panel-sa4" class="mobile-panel rounded-4xl bg-white p-5 shadow-soft ring-1 ring-pastel-grey/70">
+        <div class="font-display text-2xl font-bold text-school-dark">SA 4 &middot; Créixer i reproduir-se</div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="chip chip-soft">En preparaci&oacute;</span>
+          <span class="chip chip-soft">4 sessions</span>
+        </div>
+        <p class="mt-4 font-display text-lg font-semibold text-primary">Preguntes que ningú no ens respon bé</p>
+        <p class="mt-3 leading-7 text-muted">Del lloc de l'espècie humana entre els éssers vius a la meiosi, els gàmetes i el cicle menstrual. I després la part que sovint queda coixa: distingir el sexe biològic del gènere i separar el que respon la ciència del que decidim les persones i la societat.</p>
+
+        <div class="mt-6">
+          <div class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Qu&egrave; s'hi apr&egrave;n</div>
+          <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Qui som: taxonomia i Homo</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Situar l'ésser humà com a organisme viu i única espècie del gènere Homo, i reconèixer que les classificacions científiques són provisionals.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">La biologia de la reproducció</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Explicar la formació dels gàmetes per meiosi, identificar els aparells reproductors en clau de funció i predir el dia d'ovulació en cicles de durada diferent.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Sexualitat, identitat i gènere</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Distingir el sexe biològic, la sexualitat, la identitat sexual i el gènere, i separar el que la ciència descriu del que decideix la societat.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Decisions informades</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Conèixer els mètodes anticonceptius i les ITS, i desmuntar amb evidència una afirmació viral.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mt-6 rounded-3xl bg-pastel-yellow/25 p-4">
+          <div class="text-xs font-bold uppercase tracking-[0.16em] text-school-dark">Producte final</div>
+          <p class="mt-1 leading-7 text-muted">Fitxa de respostes científiques: cinc preguntes reals de la classe sobre sexualitat i reproducció, respostes amb evidència.</p>
+        </div>
+      </div>
+          <button type="button" class="timeline-step w-full text-left" data-step="sa5" aria-controls="panel-sa5">
+            <div class="flex items-start gap-4">
+              <span class="step-dot mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-base font-bold transition bg-white text-muted ring-1 ring-pastel-grey">5</span>
+              <span class="step-card block w-full rounded-3xl border border-pastel-grey/70 bg-white p-4 opacity-80 shadow-soft transition">
+                <span class="block font-display text-base font-bold text-school-dark">La xarxa de la vida</span>
+                <span class="mt-1 block text-sm leading-6 text-muted">Qui menja qui, al nostre entorn?</span>
+                <span class="mt-2 block text-xs font-semibold uppercase tracking-wider text-muted">3 sessions &middot; En preparació</span>
+              </span>
+            </div>
+          </button>
+      <div id="mobile-panel-sa5" class="mobile-panel rounded-4xl bg-white p-5 shadow-soft ring-1 ring-pastel-grey/70">
+        <div class="font-display text-2xl font-bold text-school-dark">SA 5 &middot; La xarxa de la vida</div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="chip chip-soft">En preparaci&oacute;</span>
+          <span class="chip chip-soft">3 sessions</span>
+        </div>
+        <p class="mt-4 font-display text-lg font-semibold text-primary">Qui menja qui, al nostre entorn?</p>
+        <p class="mt-3 leading-7 text-muted">Un cens al pati, una xarxa tròfica teixida amb fils de llana per notar al braç què passa quan en cau una espècie, i el viatge d'un àtom de carboni. Acaba amb un cas real de desequilibri: qui hi guanya i qui hi perd.</p>
+
+        <div class="mt-6">
+          <div class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Qu&egrave; s'hi apr&egrave;n</div>
+          <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Qui viu i qui menja qui</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Fer un cens d'un ecosistema real, classificar-ne les relacions ecològiques dient qui hi guanya i qui hi perd, i situar cada ésser viu com a productor, consumidor o descomponedor.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">L'efecte cascada</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Raonar què li passa a una xarxa tròfica quan se'n treu o s'hi afegeix una espècie, arribant dos passos enllà, i reconèixer els límits d'una observació de camp.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">L'energia flueix, la matèria torna</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Distingir el flux d'energia del cicle de la matèria i descriure el cicle del carboni relacionant-hi l'activitat humana.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Quan l'equilibri es trenca</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Explicar un efecte cascada real, relacionar els desequilibris amb la salut i valorar l'impacte de diferents models d'alimentació.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mt-6 rounded-3xl bg-pastel-yellow/25 p-4">
+          <div class="text-xs font-bold uppercase tracking-[0.16em] text-school-dark">Producte final</div>
+          <p class="mt-1 leading-7 text-muted">Investigació de l'entorn local: la xarxa tròfica d'un ecosistema proper, una amenaça i una proposta d'acció o de seguiment.</p>
+        </div>
+      </div>
+          <button type="button" class="timeline-step w-full text-left" data-step="sa6" aria-controls="panel-sa6">
+            <div class="flex items-start gap-4">
+              <span class="step-dot mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-base font-bold transition bg-white text-muted ring-1 ring-pastel-grey">6</span>
+              <span class="step-card block w-full rounded-3xl border border-pastel-grey/70 bg-white p-4 opacity-80 shadow-soft transition">
+                <span class="block font-display text-base font-bold text-school-dark">El planeta que s'escalfa</span>
+                <span class="mt-1 block text-sm leading-6 text-muted">Quant contamina el meu esmorzar?</span>
+                <span class="mt-2 block text-xs font-semibold uppercase tracking-wider text-muted">4 sessions &middot; En preparació</span>
+              </span>
+            </div>
+          </button>
+      <div id="mobile-panel-sa6" class="mobile-panel rounded-4xl bg-white p-5 shadow-soft ring-1 ring-pastel-grey/70">
+        <div class="font-display text-2xl font-bold text-school-dark">SA 6 &middot; El planeta que s'escalfa</div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="chip chip-soft">En preparaci&oacute;</span>
+          <span class="chip chip-soft">4 sessions</span>
+        </div>
+        <p class="mt-4 font-display text-lg font-semibold text-primary">Quant contamina el meu esmorzar?</p>
+        <p class="mt-3 leading-7 text-muted">El canvi climàtic entrant per on l'alumnat el pot tocar: el que menja, la llum que deixa encesa, el transport que tria. Del mecanisme de l'efecte hivernacle al càlcul d'una petjada de carboni i a la detecció del greenwashing.</p>
+
+        <div class="mt-6">
+          <div class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Qu&egrave; s'hi apr&egrave;n</div>
+          <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Causes i mecanisme del canvi climàtic</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Explicar l'efecte hivernacle i la seva amplificació humana, i relacionar causes i conseqüències observables.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Fonts d'energia</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Distingir les fonts renovables de les no renovables i argumentar per quina raó la transició energètica és necessària.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Petjada de carboni i consum</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Calcular i interpretar la petjada d'activitats quotidianes i argumentar per quina raó reduir és més efectiu que reciclar.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Greenwashing i fonts</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Identificar tàctiques de greenwashing en anuncis reals i argumentar una postura fonamentada davant discursos contradictoris.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mt-6 rounded-3xl bg-pastel-yellow/25 p-4">
+          <div class="text-xs font-bold uppercase tracking-[0.16em] text-school-dark">Producte final</div>
+          <p class="mt-1 leading-7 text-muted">Proposta d'acció escolar: una mesura concreta i viable per reduir la petjada de carboni del centre, avaluada per un comitè d'iguals amb rúbrica.</p>
+        </div>
+      </div>
+          <button type="button" class="timeline-step w-full text-left" data-step="sa7" aria-controls="panel-sa7">
+            <div class="flex items-start gap-4">
+              <span class="step-dot mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-base font-bold transition bg-white text-muted ring-1 ring-pastel-grey">7</span>
+              <span class="step-card block w-full rounded-3xl border border-pastel-grey/70 bg-white p-4 opacity-80 shadow-soft transition">
+                <span class="block font-display text-base font-bold text-school-dark">La memòria de la Terra</span>
+                <span class="mt-1 block text-sm leading-6 text-muted">Un terratrèmol a prop nostre: per quina raó passa?</span>
+                <span class="mt-2 block text-xs font-semibold uppercase tracking-wider text-muted">4 sessions &middot; En preparació</span>
+              </span>
+            </div>
+          </button>
+      <div id="mobile-panel-sa7" class="mobile-panel rounded-4xl bg-white p-5 shadow-soft ring-1 ring-pastel-grey/70">
+        <div class="font-display text-2xl font-bold text-school-dark">SA 7 &middot; La memòria de la Terra</div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="chip chip-soft">En preparaci&oacute;</span>
+          <span class="chip chip-soft">4 sessions</span>
+        </div>
+        <p class="mt-4 font-display text-lg font-semibold text-primary">Un terratrèmol a prop nostre: per quina raó passa?</p>
+        <p class="mt-3 leading-7 text-muted">Les roques com a arxiu. Per quina raó Catalunya és sísmica, per quina raó la Garrotxa té volcans sense subducció, d'on surten els minerals d'ús quotidià i com el relleu del país és la cicatriu d'antigues col·lisions.</p>
+
+        <div class="mt-6">
+          <div class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Qu&egrave; s'hi apr&egrave;n</div>
+          <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Les roques i el cicle geològic</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Identificar les tres famílies de roques per característiques observables i relacionar-les pel cicle de les roques, amb mostres reals al laboratori.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Tectònica de plaques i riscos</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Explicar el model de tectònica de plaques i relacionar els tipus de límits amb dorsals, subducció, terratrèmols i volcans.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Recursos geològics i impacte</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Distingir minerals de roques, identificar-ne els usos industrials i avaluar l'impacte ambiental de l'extracció.</p>
+            </li>
+            <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+              <div class="font-display font-bold text-school-dark">Llegir el paisatge</div>
+              <p class="mt-1 text-sm leading-6 text-muted">Interpretar el relleu de Catalunya a partir dels processos que l'han originat i argumentar com la geologia condiciona el territori.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mt-6 rounded-3xl bg-pastel-yellow/25 p-4">
+          <div class="text-xs font-bold uppercase tracking-[0.16em] text-school-dark">Producte final</div>
+          <p class="mt-1 leading-7 text-muted">Guia geològica de l'entorn: cada grup documenta un indret proper i la classe en publica la guia col·lectiva en format digital.</p>
+        </div>
+      </div>
+        </div>
+
+        <div class="desktop-panels">
+        <article id="panel-sa1" class="timeline-panel active">
+          <div class="section-card p-5 sm:p-7">
+        <div class="relative -mx-5 -mt-5 mb-5 h-44 overflow-hidden rounded-t-4xl sm:h-52">
+              <img src="assets/materies/bio3-sa1.jpg" alt="Cel·lules en divisio sobre fons fosc" class="h-full w-full object-cover" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-school-dark/70 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 p-5">
+                <div class="font-display text-2xl font-bold text-white">SA 1 &middot; La cèl·lula viva</div>
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="chip chip-teal">Publicada</span>
+              <span class="chip chip-soft">4 sessions</span>
+            </div>
+            <p class="mt-4 font-display text-lg font-semibold text-primary">Per què ens morim si no mengem ni respirem?</p>
+            <p class="mt-3 leading-7 text-muted">La cèl·lula no s'explica com un catàleg d'orgànuls, sinó com la resposta a una necessitat quotidiana: per què cal menjar i respirar cada dia. El recorregut va del mitocondri a la membrana i de la membrana a la divisió cel·lular.</p>
+
+            <div class="mt-6">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Qu&egrave; s'hi apr&egrave;n</div>
+              <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Orgànuls i funcions</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Identificar els tres elements clau de la cèl·lula i les seves funcions: membrana, nucli i mitocondri.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Tipus cel·lulars</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Distingir cèl·lula procariota i eucariota, animal i vegetal.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Membrana i osmosi</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Explicar com entren i surten substàncies de la cèl·lula a través de la membrana.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Divisió cel·lular</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Comprendre per quina raó hi ha dos tipus de divisió: mitosi (còpies) i meiosi (la meitat).</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mt-6 rounded-3xl bg-pastel-yellow/25 p-4">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-school-dark">Producte final</div>
+              <p class="mt-1 leading-7 text-muted">Pòster híbrid (digital i paper) sobre la cèl·lula com a unitat de la vida.</p>
+            </div>
+          </div>
+        </article>
+        <article id="panel-sa2" class="timeline-panel">
+          <div class="section-card p-5 sm:p-7">
+        <div class="relative -mx-5 -mt-5 mb-5 h-44 overflow-hidden rounded-t-4xl sm:h-52">
+              <img src="assets/materies/bio3-sa2.jpg" alt="Globuls vermells circulant per un vas sanguini" class="h-full w-full object-cover" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-school-dark/70 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 p-5">
+                <div class="font-display text-2xl font-bold text-white">SA 2 &middot; El nostre cos en marxa</div>
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="chip chip-teal">Publicada</span>
+              <span class="chip chip-soft">7 sessions</span>
+            </div>
+            <p class="mt-4 font-display text-lg font-semibold text-primary">Per quina raó una anèmia pot esgotar un corredor a meitat de cursa?</p>
+            <p class="mt-3 leading-7 text-muted">L'alumnat segueix el rastre de la glucosa i de l'oxigen des que entren al cos fins que arriben al mitocondri de cada cèl·lula. Els aparells no es presenten per separat: es lliguen tots a una mateixa cadena. Fa servir aula invertida de la sessió 2 a la 7.</p>
+
+            <div class="mt-6">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Qu&egrave; s'hi apr&egrave;n</div>
+              <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Nutrients i digestió</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Relacionar cada nutrient amb la seva funció cel·lular i amb el recorregut complet fins al mitocondri.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Sang i circulació</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Explicar com l'hemoglobina i el ferro transporten l'oxigen, i per quina raó la circulació és doble.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Respiració i freqüència cardíaca</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Interpretar gràfiques de freqüència cardíaca i explicar la cadena esforç → ATP → oxigen → FC.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Control integrat</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Explicar com els sistemes nerviós, endocrí i excretor mantenen l'homeòstasi durant l'exercici.</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mt-6 rounded-3xl bg-pastel-yellow/25 p-4">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-school-dark">Producte final</div>
+              <p class="mt-1 leading-7 text-muted">Informe científic en parelles sobre la freqüència cardíaca durant l'esforç.</p>
+            </div>
+          </div>
+        </article>
+        <article id="panel-sa3" class="timeline-panel">
+          <div class="section-card p-5 sm:p-7">
+        <div class="relative -mx-5 -mt-5 mb-5 h-44 overflow-hidden rounded-t-4xl sm:h-52">
+              <img src="assets/materies/bio3-sa3.jpg" alt="Limfocit atacant un virus" class="h-full w-full object-cover" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-school-dark/70 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 p-5">
+                <div class="font-display text-2xl font-bold text-white">SA 3 &middot; Defensors del cos</div>
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="chip chip-teal">Publicada</span>
+              <span class="chip chip-soft">5 sessions</span>
+            </div>
+            <p class="mt-4 font-display text-lg font-semibold text-primary">Una grip ha afectat mitja classe en tres dies. Com ens defensem?</p>
+            <p class="mt-3 leading-7 text-muted">Del contagi a la immunitat, i de la immunitat a la conversa pública sobre salut: vacunes, antibiòtics, fàrmacs i drogues. La situació treballa alhora el contingut biològic i el criteri per avaluar fonts. També usa aula invertida.</p>
+
+            <div class="mt-6">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Qu&egrave; s'hi apr&egrave;n</div>
+              <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Patògens i contagi</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Identificar els tipus de patògens i les vies de transmissió, i interpretar una corba epidèmica bàsica.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Sistema immunitari</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Explicar la resposta innata i l'adaptativa, el paper dels anticossos i la memòria immunològica.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Vacunes i fonts</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Explicar com funcionen les vacunes i avaluar la credibilitat de les fonts sobre salut.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Fàrmacs i drogues</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Distingir els tipus de medicaments i explicar per quina raó les drogues causen addicció.</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mt-6 rounded-3xl bg-pastel-yellow/25 p-4">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-school-dark">Producte final</div>
+              <p class="mt-1 leading-7 text-muted">Campanya de comunicació científica que desmunta un mite sobre salut: pòster digital o vídeo de 60 segons.</p>
+            </div>
+          </div>
+        </article>
+        <article id="panel-sa4" class="timeline-panel">
+          <div class="section-card p-5 sm:p-7">
+        <div class="font-display text-2xl font-bold text-school-dark">SA 4 &middot; Créixer i reproduir-se</div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="chip chip-soft">En preparaci&oacute;</span>
+              <span class="chip chip-soft">4 sessions</span>
+            </div>
+            <p class="mt-4 font-display text-lg font-semibold text-primary">Preguntes que ningú no ens respon bé</p>
+            <p class="mt-3 leading-7 text-muted">Del lloc de l'espècie humana entre els éssers vius a la meiosi, els gàmetes i el cicle menstrual. I després la part que sovint queda coixa: distingir el sexe biològic del gènere i separar el que respon la ciència del que decidim les persones i la societat.</p>
+
+            <div class="mt-6">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Qu&egrave; s'hi apr&egrave;n</div>
+              <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Qui som: taxonomia i Homo</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Situar l'ésser humà com a organisme viu i única espècie del gènere Homo, i reconèixer que les classificacions científiques són provisionals.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">La biologia de la reproducció</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Explicar la formació dels gàmetes per meiosi, identificar els aparells reproductors en clau de funció i predir el dia d'ovulació en cicles de durada diferent.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Sexualitat, identitat i gènere</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Distingir el sexe biològic, la sexualitat, la identitat sexual i el gènere, i separar el que la ciència descriu del que decideix la societat.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Decisions informades</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Conèixer els mètodes anticonceptius i les ITS, i desmuntar amb evidència una afirmació viral.</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mt-6 rounded-3xl bg-pastel-yellow/25 p-4">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-school-dark">Producte final</div>
+              <p class="mt-1 leading-7 text-muted">Fitxa de respostes científiques: cinc preguntes reals de la classe sobre sexualitat i reproducció, respostes amb evidència.</p>
+            </div>
+          </div>
+        </article>
+        <article id="panel-sa5" class="timeline-panel">
+          <div class="section-card p-5 sm:p-7">
+        <div class="font-display text-2xl font-bold text-school-dark">SA 5 &middot; La xarxa de la vida</div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="chip chip-soft">En preparaci&oacute;</span>
+              <span class="chip chip-soft">3 sessions</span>
+            </div>
+            <p class="mt-4 font-display text-lg font-semibold text-primary">Qui menja qui, al nostre entorn?</p>
+            <p class="mt-3 leading-7 text-muted">Un cens al pati, una xarxa tròfica teixida amb fils de llana per notar al braç què passa quan en cau una espècie, i el viatge d'un àtom de carboni. Acaba amb un cas real de desequilibri: qui hi guanya i qui hi perd.</p>
+
+            <div class="mt-6">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Qu&egrave; s'hi apr&egrave;n</div>
+              <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Qui viu i qui menja qui</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Fer un cens d'un ecosistema real, classificar-ne les relacions ecològiques dient qui hi guanya i qui hi perd, i situar cada ésser viu com a productor, consumidor o descomponedor.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">L'efecte cascada</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Raonar què li passa a una xarxa tròfica quan se'n treu o s'hi afegeix una espècie, arribant dos passos enllà, i reconèixer els límits d'una observació de camp.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">L'energia flueix, la matèria torna</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Distingir el flux d'energia del cicle de la matèria i descriure el cicle del carboni relacionant-hi l'activitat humana.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Quan l'equilibri es trenca</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Explicar un efecte cascada real, relacionar els desequilibris amb la salut i valorar l'impacte de diferents models d'alimentació.</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mt-6 rounded-3xl bg-pastel-yellow/25 p-4">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-school-dark">Producte final</div>
+              <p class="mt-1 leading-7 text-muted">Investigació de l'entorn local: la xarxa tròfica d'un ecosistema proper, una amenaça i una proposta d'acció o de seguiment.</p>
+            </div>
+          </div>
+        </article>
+        <article id="panel-sa6" class="timeline-panel">
+          <div class="section-card p-5 sm:p-7">
+        <div class="font-display text-2xl font-bold text-school-dark">SA 6 &middot; El planeta que s'escalfa</div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="chip chip-soft">En preparaci&oacute;</span>
+              <span class="chip chip-soft">4 sessions</span>
+            </div>
+            <p class="mt-4 font-display text-lg font-semibold text-primary">Quant contamina el meu esmorzar?</p>
+            <p class="mt-3 leading-7 text-muted">El canvi climàtic entrant per on l'alumnat el pot tocar: el que menja, la llum que deixa encesa, el transport que tria. Del mecanisme de l'efecte hivernacle al càlcul d'una petjada de carboni i a la detecció del greenwashing.</p>
+
+            <div class="mt-6">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Qu&egrave; s'hi apr&egrave;n</div>
+              <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Causes i mecanisme del canvi climàtic</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Explicar l'efecte hivernacle i la seva amplificació humana, i relacionar causes i conseqüències observables.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Fonts d'energia</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Distingir les fonts renovables de les no renovables i argumentar per quina raó la transició energètica és necessària.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Petjada de carboni i consum</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Calcular i interpretar la petjada d'activitats quotidianes i argumentar per quina raó reduir és més efectiu que reciclar.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Greenwashing i fonts</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Identificar tàctiques de greenwashing en anuncis reals i argumentar una postura fonamentada davant discursos contradictoris.</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mt-6 rounded-3xl bg-pastel-yellow/25 p-4">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-school-dark">Producte final</div>
+              <p class="mt-1 leading-7 text-muted">Proposta d'acció escolar: una mesura concreta i viable per reduir la petjada de carboni del centre, avaluada per un comitè d'iguals amb rúbrica.</p>
+            </div>
+          </div>
+        </article>
+        <article id="panel-sa7" class="timeline-panel">
+          <div class="section-card p-5 sm:p-7">
+        <div class="font-display text-2xl font-bold text-school-dark">SA 7 &middot; La memòria de la Terra</div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="chip chip-soft">En preparaci&oacute;</span>
+              <span class="chip chip-soft">4 sessions</span>
+            </div>
+            <p class="mt-4 font-display text-lg font-semibold text-primary">Un terratrèmol a prop nostre: per quina raó passa?</p>
+            <p class="mt-3 leading-7 text-muted">Les roques com a arxiu. Per quina raó Catalunya és sísmica, per quina raó la Garrotxa té volcans sense subducció, d'on surten els minerals d'ús quotidià i com el relleu del país és la cicatriu d'antigues col·lisions.</p>
+
+            <div class="mt-6">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Qu&egrave; s'hi apr&egrave;n</div>
+              <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Les roques i el cicle geològic</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Identificar les tres famílies de roques per característiques observables i relacionar-les pel cicle de les roques, amb mostres reals al laboratori.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Tectònica de plaques i riscos</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Explicar el model de tectònica de plaques i relacionar els tipus de límits amb dorsals, subducció, terratrèmols i volcans.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Recursos geològics i impacte</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Distingir minerals de roques, identificar-ne els usos industrials i avaluar l'impacte ambiental de l'extracció.</p>
+                </li>
+                <li class="rounded-3xl bg-surface p-4 ring-1 ring-pastel-grey/60">
+                  <div class="font-display font-bold text-school-dark">Llegir el paisatge</div>
+                  <p class="mt-1 text-sm leading-6 text-muted">Interpretar el relleu de Catalunya a partir dels processos que l'han originat i argumentar com la geologia condiciona el territori.</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mt-6 rounded-3xl bg-pastel-yellow/25 p-4">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-school-dark">Producte final</div>
+              <p class="mt-1 leading-7 text-muted">Guia geològica de l'entorn: cada grup documenta un indret proper i la classe en publica la guia col·lectiva en format digital.</p>
+            </div>
+          </div>
+        </article>
+        </div>
+
+      </div>
+    </section>
+
+
+<section class="mx-auto max-w-7xl px-5 py-8 lg:px-8">
+  <div class="section-card p-6">
+    <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+      <div class="inline-flex items-center gap-3">
+        <img src="assets/by-nc-88x31.png" alt="Llic&egrave;ncia Creative Commons BY-NC" class="h-8 w-auto" />
+        <div class="font-semibold text-school-dark">Llic&egrave;ncia del material</div>
+      </div>
+      <p class="max-w-3xl leading-7 text-muted">
+        Tot el material compartit a Temple Obert est&agrave; subjecte a una llic&egrave;ncia
+        <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.ca" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Reconeixement - NoComercial (CC BY-NC)</a>.
+        Es permet la generaci&oacute; d'obres derivades sempre que no se'n faci un &uacute;s comercial. Aix&ograve; no impedeix que la persona que t&eacute; els drets la pugui utilitzar amb finalitats comercials; la restricci&oacute; s'aplica a la resta de persones.
+      </p>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+<script>
+  (function () {
+    var steps = Array.prototype.slice.call(document.querySelectorAll('.timeline-step'));
+    var desktopPanels = Array.prototype.slice.call(document.querySelectorAll('.timeline-panel'));
+    var mobilePanels = Array.prototype.slice.call(document.querySelectorAll('.mobile-panel'));
+
+    function activateStep(key) {
+      steps.forEach(function (s) { s.classList.remove('active'); });
+      var clicked = document.querySelector('.timeline-step[data-step="' + key + '"]');
+      if (clicked) clicked.classList.add('active');
+
+      desktopPanels.forEach(function (p) { p.classList.remove('active'); });
+      var desktopPanel = document.getElementById('panel-' + key);
+      if (desktopPanel) desktopPanel.classList.add('active');
+
+      mobilePanels.forEach(function (p) { p.classList.remove('active'); });
+      if (window.innerWidth < 1024) {
+        var m = document.getElementById('mobile-panel-' + key);
+        if (m) m.classList.add('active');
+      }
+    }
+
+    steps.forEach(function (s) {
+      s.addEventListener('click', function () { activateStep(s.dataset.step); });
+    });
+
+    var primer = steps[0] && steps[0].dataset.step;
+    if (primer) activateStep(primer);
+    window.addEventListener('resize', function () {
+      var actiu = document.querySelector('.timeline-step.active');
+      if (actiu) activateStep(actiu.dataset.step);
+    });
+  })();
+</script>
+
+<footer class="mt-20 border-t border-pastel-grey/50 bg-white/80">
+  <div class="mx-auto max-w-7xl px-5 py-10 lg:px-8">
+    <div class="flex flex-col gap-6 md:flex-row md:justify-between md:items-start">
+
+      <div class="max-w-md">
+        <div class="font-display text-lg font-bold text-primary mb-2">Temple Obert</div>
+        <p class="text-sm text-muted leading-6">
+          Projectes compartits per a l'educaci&oacute; p&uacute;blica. Materials reals d'aula pensats per ser reutilitzats, adaptats i millorats per altres docents.
+        </p>
+      </div>
+
+      <div class="text-sm text-muted">
+        <div class="font-semibold text-onsurface mb-2">Llic&egrave;ncia</div>
+        <div class="flex items-center gap-3">
+          <img src="assets/by-nc-88x31.png" alt="Llic&egrave;ncia CC BY-NC" class="h-6">
+          <span>
+            Reconeixement - NoComercial (CC BY-NC)
+          </span>
+        </div>
+        <p class="mt-2 max-w-xs leading-5">
+          Es permet reutilitzar i adaptar els materials sempre que no se'n faci un &uacute;s comercial.
+        </p>
+      </div>
+
+      <div class="text-sm text-muted">
+        <div class="font-semibold text-onsurface mb-2">Navegaci&oacute;</div>
+        <ul class="space-y-1">
+          <li><a href="index.html" class="hover:text-primary">Inici</a></li>
+          <li><a href="projectes.html" class="hover:text-primary">Projectes</a></li>
+          <li><a href="joves.html" class="hover:text-primary">Joves</a></li>
+          <li><a href="materies.html" class="hover:text-primary">Mat&egrave;ries</a></li>
+          <li><a href="caixes-aprenentatge.html" class="hover:text-primary">Caixes</a></li>
+          <li><a href="bio-geo-3r/" class="hover:text-primary">Bio i Geo 3r d'ESO</a></li>
+          <li><a href="bio-geo-4t/" class="hover:text-primary">Bio i Geo 4t d'ESO</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var boto = document.getElementById('menu-toggle');
+    var panell = document.getElementById('menu-mobil');
+    if (!boto || !panell) return;
+    var obrir = document.getElementById('menu-icona-obrir');
+    var tancar = document.getElementById('menu-icona-tancar');
+    function estat(obert) {
+      panell.hidden = !obert;
+      boto.setAttribute('aria-expanded', obert ? 'true' : 'false');
+      boto.setAttribute('aria-label', obert ? 'Tanca el menu' : 'Obre el menu');
+      obrir.classList.toggle('hidden', obert);
+      tancar.classList.toggle('hidden', !obert);
+    }
+    boto.addEventListener('click', function () { estat(panell.hidden); });
+    panell.addEventListener('click', function (e) { if (e.target.closest('a')) estat(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !panell.hidden) { estat(false); boto.focus(); }
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 768 && !panell.hidden) estat(false);
+    });
+  })();
+</script>
+</body>
+</html>
