@@ -30,49 +30,64 @@ Abans del primer `git push`, entra al panell de Supabase, taula
 Si el projecte de Supabase només conté aquesta taula de comptatge, no hi ha res
 a fer. Si conté res més, val la pena moure el comptador a un projecte propi.
 
-## 1. Crear l'organització i moure els repositoris
+## 1. L'organització i els repositoris
 
-1. GitHub → *Your organizations* → **New organization** → pla **Free**.
-   Nom de l'organització: `ietemple`.
-   Un cop creada: *Settings → Organization display name* → «IE Temple».
-2. Transferir-hi els dos repositoris existents. A cadascun:
-   *Settings → General → Danger Zone → Transfer ownership* → nova propietat `ietemple`.
+> **Fet el 4 de setembre de 2026.** Es documenta com ha quedat, no com fer-ho.
 
-   La transferència **conserva** historial, issues, forks, estrelles i deixa
-   redireccions automàtiques des de les URL antigues. No cal tornar a activar
-   Pages: la configuració viatja amb el repositori.
-3. Actualitzar els remotes locals de les dues carpetes de treball:
+1. L'organització `ietemple` existeix (pla **Free**), amb el nom visible
+   «IE Temple» i el correu de contacte `apahiss3@xtec.cat`.
+2. **Els portals de bio NO s'han transferit**, i no cal fer-ho. Segueixen a
+   `apahiss3-xtec/bioigeo3r` i `apahiss3-xtec/bioigeo4t`, que és on tenen les
+   URL de GitHub Pages que ja circulen entre l'alumnat. El workflow els
+   descarrega d'allà gràcies a la variable `PORTALS_OWNER` (vegeu el pas 3).
 
-   ```bash
-   git -C "Biologia 3r d'ESO/web" remote set-url origin https://github.com/ietemple/bioigeo3r.git
-   git -C "Biologia 4t ESO/web"  remote set-url origin https://github.com/ietemple/bioigeo4t.git
-   ```
+   Transferir-los seria possible i conservaria historial, issues i estrelles,
+   però canviaria les seves URL de `apahiss3-xtec.github.io/...` a
+   `ietemple.github.io/...`. No hi ha cap motiu tècnic per fer-ho.
+3. El repositori `ietemple/web` (públic) conté aquest lloc.
 
-   Sense això, `git push` seguiria funcionant per la redirecció, però val més
-   deixar-ho net.
-4. Crear el repositori nou `ietemple/web`, **públic**, buit (sense README ni
-   `.gitignore`: ja els portem).
+### Pendent: els Termes de Servei corporatius
+
+L'organització es va crear amb els Termes **estàndard** (compte personal). Per
+passar-la a **Corporate**, que és el que li correspon a un centre educatiu:
+
+*Settings → General → Terms of Service → Accept terms*
+
+Demana el nom legal del centre, l'adreça postal completa i la declaració que
+qui ho signa hi està autoritzat. Ho ha de fer una persona amb aquesta
+autorització; no és un pas tècnic.
 
 ## 2. Pujar aquest repositori
 
-Des de la carpeta `Temple Obert/web`:
+> **Fet.** El repositori local és a `Temple Obert/web`, amb el remot
+> `https://github.com/ietemple/web.git` i la branca `main`.
+
+Per replicar-ho en un altre centre:
 
 ```bash
 git init -b main
 git add .
-git commit -m "Temple Obert: primera publicació a GitHub"
-git remote add origin https://github.com/ietemple/web.git
+git commit -m "Primera publicació"
+git remote add origin https://github.com/EL-TEU-COMPTE/web.git
 git push -u origin main
 ```
 
-## 3. Activar GitHub Pages
+## 3. GitHub Pages i les dues variables
 
-A `ietemple/web` → *Settings → Pages*:
+> **Fet.** *Settings → Pages → Source: **GitHub Actions***.
 
-- **Source: GitHub Actions** (no «Deploy from a branch»).
+A *Settings → Secrets and variables → Actions → Variables* hi ha d'haver:
 
-El fitxer `CNAME` que hi ha al repositori ja declara `templeobert.cat`, de
-manera que el camp *Custom domain* s'omplirà sol al primer desplegament.
+| Variable | Valor | Quan cal tocar-la |
+|---|---|---|
+| `PORTALS_OWNER` | `apahiss3-xtec` | Només si es transfereixen els portals de bio a l'organització: llavors s'esborra. |
+| `DOMINI_ACTIU` | *(sense definir)* | Es posa a `1` el dia que es canvia el DNS (pas 6). |
+
+**Per què existeix `DOMINI_ACTIU`:** el fitxer `CNAME` del repositori declara
+`templeobert.cat`. Si s'apliqués abans de canviar el DNS, GitHub redirigiria
+`ietemple.github.io/web` cap a un domini que encara no apunta a GitHub i no es
+podria verificar res. Mentre la variable no valgui `1`, el build esborra el
+`CNAME` i el lloc es publica a la URL de `github.io`.
 
 **Encara no marquis «Enforce HTTPS»**: no es pot fins que el DNS apunti a
 GitHub i el certificat estigui emès.
@@ -81,7 +96,7 @@ GitHub i el certificat estigui emès.
 
 El primer desplegament publicarà a `https://ietemple.github.io/web/`. Comprova-hi:
 
-- [ ] La portada es veu bé i el menú mostra la pastilla «Bio 3r / Bio 4t».
+- [ ] La portada es veu bé i el menú mostra la pastilla «Bio i Geo 3r / Bio i Geo 4t».
 - [ ] `/cami-circular` carrega, la línia de temps funciona i el comptador de
       visites suma.
 - [ ] Els enllaços a Google Drive del camí circular obren.
@@ -92,34 +107,27 @@ Fins aquí, `templeobert.cat` i `templeobert.netlify.app` segueixen intactes.
 
 ## 5. Token per al desplegament encadenat
 
-Perquè un `push` als portals de bio actualitzi també el domini:
+> El job ja és als dos portals de bio (`avisar-templeobert`, al final de
+> `.github/workflows/deploy.yml`). **Falta només el token**, que has de crear
+> tu: ningú més l'ha de veure.
+
+Mentre el secret no existeixi, el job diu «no avisem ningú», acaba bé i **no
+marca el desplegament com a fallit**. L'única conseqüència és que la còpia sota
+el domini no es refresca sola quan publiques als portals.
 
 1. GitHub → *Settings → Developer settings → Personal access tokens →
    Fine-grained tokens* → **Generate new token**.
    - *Resource owner*: `ietemple`
-   - *Repository access*: només `ietemple/web`
-   - *Permissions → Repository permissions → Actions*: **Read and write**
+   - *Repository access*: **Only select repositories** → `ietemple/web`
+   - *Permissions → Repository permissions → Contents*: **Read and write**
    - Caducitat: la màxima que et deixi; apunta-te-la al calendari.
-2. Copia el token. A `ietemple/bioigeo3r` i `ietemple/bioigeo4t`:
+2. Copia el token. A `apahiss3-xtec/bioigeo3r` **i** `apahiss3-xtec/bioigeo4t`:
    *Settings → Secrets and variables → Actions → New repository secret*
    - Nom: `DISPATCH_TEMPLEOBERT`
    - Valor: el token.
-3. Afegeix aquest job al final de `.github/workflows/deploy.yml` dels **dos**
-   repositoris de bio:
-
-   ```yaml
-     avisar-templeobert:
-       needs: deploy
-       runs-on: ubuntu-latest
-       steps:
-         - name: Refrescar templeobert.cat
-           run: |
-             curl -sSf -X POST \
-               -H "Accept: application/vnd.github+json" \
-               -H "Authorization: Bearer ${{ secrets.DISPATCH_TEMPLEOBERT }}" \
-               https://api.github.com/repos/ietemple/web/dispatches \
-               -d '{"event_type":"portal-actualitzat"}'
-   ```
+3. Comprova-ho: fes qualsevol `push` a un dels portals i mira que el job
+   `avisar-templeobert` digui `HTTP 204` i que a `ietemple/web` hi aparegui una
+   execució nova amb l'event `repository_dispatch`.
 
 Si el token caduca, aquest pas fallarà però **el portal de bio s'haurà publicat
 igualment**: només quedarà desactualitzada la còpia sota el domini, fins al
@@ -160,12 +168,16 @@ funcionant abans de cancel·lar-lo.
    ```
 
    Ha de retornar les IP `185.199.1xx.153`.
-2. A `ietemple/web` → *Settings → Pages*: el camp *Custom domain* ha de mostrar
+2. A `ietemple/web` → *Settings → Secrets and variables → Actions →
+   Variables*: posa **`DOMINI_ACTIU` = `1`** i torna a executar el workflow
+   (*Actions → Desplegar a GitHub Pages → Run workflow*). Sense aquest pas el
+   domini propi no s'aplica mai.
+3. A `ietemple/web` → *Settings → Pages*: el camp *Custom domain* ha de mostrar
    `templeobert.cat` amb un ✅ *DNS check successful*.
-3. Espera que aparegui la casella **Enforce HTTPS** activable (GitHub emet el
+4. Espera que aparegui la casella **Enforce HTTPS** activable (GitHub emet el
    certificat de Let's Encrypt tot sol, sol trigar entre minuts i una hora) i
    **marca-la**.
-4. Comprova que `https://templeobert.cat` i `https://www.templeobert.cat`
+5. Comprova que `https://templeobert.cat` i `https://www.templeobert.cat`
    carreguen les dues, i que `/cami-circular`, `/bio-geo-3r` i `/bio-geo-4t` també.
 
 ## 8. Redirigir Netlify

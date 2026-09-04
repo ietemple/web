@@ -27,7 +27,7 @@ Són **tres repositoris independents**. Cadascun es desplega sol i funciona sol.
 Aquest, a més, els recull i els publica junts sota el domini comú (vegeu
 [Com es desplega](#com-es-desplega)).
 
-Ho hem fet així a propòsit: si vols el portal de Bio 3r per al teu centre,
+Ho hem fet així a propòsit: si vols el portal de Bio i Geo 3r per al teu centre,
 clones **només** `bioigeo3r` i no t'endus res més.
 
 ---
@@ -131,7 +131,7 @@ de fallada.
 
 ### Quedar-te només un portal d'aula
 
-Els portals de Bio 3r i 4t són aplicacions React + Vite pensades per funcionar
+Els portals de Bio i Geo de 3r i 4t són aplicacions React + Vite pensades per funcionar
 sota qualsevol subcarpeta. Fes fork del repositori que t'interessi, activa
 GitHub Pages a *Settings → Pages → Source: GitHub Actions* i ja el tindràs
 publicat a `elteucompte.github.io/bioigeo3r`. Els seus README expliquen com
@@ -142,8 +142,8 @@ canviar-ne els continguts.
 1. Fes fork d'aquest repositori.
 2. **Esborra el fitxer `CNAME`** (o posa-hi el teu domini). Si no ho fas,
    GitHub intentarà reclamar `templeobert.cat` i el desplegament fallarà.
-3. Al workflow, esborra els passos «Descarregar Bio 3r/4t», «Construir Bio
-   3r/4t» i «Col·locar els portals» si no vols publicar portals d'aula, o
+3. Al workflow, esborra els passos «Descarregar Bio i Geo 3r/4t», «Construir Bio i
+   Geo 3r/4t» i «Col·locar els portals» si no vols publicar portals d'aula, o
    canvia'ls pels teus repositoris.
 4. Substitueix `assets/logo.png` pel logotip del teu centre, i esborra les
    referències a l'IE Temple del text.
@@ -178,7 +178,7 @@ La capçalera de les sis pàgines es comporta en tres trams:
 |---|---|
 | < 768 px | Un botó de menú que desplega el panell `#menu-mobil` amb les sis destinacions |
 | 768–1023 px | La navegació horitzontal de sempre (quatre enllaços) |
-| ≥ 1024 px | La navegació horitzontal més la pastilla «Bio 3r · Bio 4t» |
+| ≥ 1024 px | La navegació horitzontal més la pastilla «Bio i Geo 3r · Bio i Geo 4t» |
 
 Els enllaços als dos portals d'aula són al peu de pàgina de totes les pàgines,
 i per tant són accessibles a qualsevol amplada. El panell mòbil el mou un

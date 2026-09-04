@@ -75,13 +75,13 @@ jobs:
       # ---------------------------------------------------------------
       # 2. Portals de bio
       # ---------------------------------------------------------------
-      - name: Descarregar Bio 3r
+      - name: Descarregar Bio i Geo 3r
         uses: actions/checkout@v4
         with:
           repository: ${{ vars.PORTALS_OWNER || github.repository_owner }}/bioigeo3r
           path: .src/bio-geo-3r
 
-      - name: Descarregar Bio 4t
+      - name: Descarregar Bio i Geo 4t
         uses: actions/checkout@v4
         with:
           repository: ${{ vars.PORTALS_OWNER || github.repository_owner }}/bioigeo4t
@@ -95,11 +95,11 @@ jobs:
             .src/bio-geo-3r/package-lock.json
             .src/bio-geo-4t/package-lock.json
 
-      - name: Construir Bio 3r
+      - name: Construir Bio i Geo 3r
         working-directory: .src/bio-geo-3r
         run: npm ci && npm run build
 
-      - name: Construir Bio 4t
+      - name: Construir Bio i Geo 4t
         working-directory: .src/bio-geo-4t
         run: npm ci && npm run build
 
