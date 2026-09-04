@@ -1,0 +1,12 @@
+# Carpeta de treball del workflow de desplegament
+_site/
+.src/
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+*.code-workspace

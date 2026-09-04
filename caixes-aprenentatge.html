@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Temple Obert · Caixes d'aprenentatge</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#c084fc',
+            pastel: {
+              pink: '#f1a7a7',
+              purple: '#c084fc',
+              yellow: '#f9dc5c',
+              teal: '#81c3c3',
+              grey: '#e5e7eb'
+            },
+            school: {
+              orange: '#f9b264',
+              dark: '#4a3f3f'
+            },
+            surface: '#fdfafb',
+            onsurface: '#4a3f3f',
+            muted: '#6b5e5e'
+          },
+          fontFamily: {
+            display: ['Fredoka', 'sans-serif'],
+            body: ['Quicksand', 'sans-serif']
+          },
+          boxShadow: {
+            soft: '0 10px 32px rgba(74,63,63,0.08)',
+            float: '0 20px 48px rgba(192,132,252,0.18)'
+          },
+          borderRadius: {
+            '4xl': '2rem'
+          }
+        }
+      }
+    };
+  </script>
+  <style type="text/tailwindcss">
+    @layer components {
+      .organic-1 { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+      .organic-2 { border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%; }
+      .organic-3 { border-radius: 80% 20% 50% 50% / 50% 50% 50% 50%; }
+      .hand-drawn-shape { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+      .section-card { @apply rounded-4xl bg-white shadow-soft ring-1 ring-pastel-grey/70; }
+      .soft-panel { @apply rounded-4xl bg-white/80 backdrop-blur-sm shadow-soft ring-1 ring-white/80; }
+      .nav-link { @apply text-muted hover:text-primary transition-colors duration-200; }
+      .nav-link-active { @apply text-primary font-bold border-b-4 border-pastel-yellow pb-1; }
+      .chip { @apply inline-flex items-center rounded-full px-4 py-2 text-xs font-bold uppercase tracking-[0.16em]; }
+      .chip-soft { @apply bg-white text-school-dark ring-1 ring-pastel-grey/80; }
+      .chip-primary { @apply bg-pastel-purple/20 text-primary ring-1 ring-pastel-purple/20; }
+      .chip-yellow { @apply bg-pastel-yellow/70 text-school-dark; }
+      .chip-teal { @apply bg-pastel-teal/60 text-school-dark; }
+      .button-primary { @apply inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 font-bold text-white shadow-float transition hover:-translate-y-0.5 hover:shadow-soft; }
+      .button-secondary { @apply inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-bold text-school-dark ring-1 ring-pastel-grey transition hover:text-primary; }
+    }
+    body { font-family: 'Quicksand', sans-serif; }
+    h1,h2,h3,h4,.font-display { font-family: 'Fredoka', sans-serif; }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-size: inherit;
+    }
+  </style>
+</head>
+<body class="bg-surface text-onsurface overflow-x-hidden relative">
+  <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+    <div class="absolute top-16 -left-20 h-80 w-80 bg-pastel-pink/10 organic-1 animate-pulse"></div>
+    <div class="absolute top-[28%] -right-20 h-[26rem] w-[26rem] bg-pastel-purple/10 organic-2 animate-pulse" style="animation-duration:10s;"></div>
+    <div class="absolute bottom-8 left-[12%] h-64 w-64 bg-pastel-teal/10 organic-3 animate-pulse" style="animation-duration:8s;"></div>
+    <div class="absolute bottom-[18%] right-[10%] h-56 w-56 bg-pastel-yellow/10 hand-drawn-shape animate-pulse" style="animation-duration:9s;"></div>
+  </div>
+  <header class="sticky top-0 z-50 border-b border-pastel-grey/50 bg-white/80 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="relative flex h-11 w-11 items-center justify-center text-primary">
+          <div class="absolute inset-0 bg-pastel-purple/20 organic-1"></div>
+          <img src="assets/logo.png" alt="Temple Obert" class="relative h-7 w-7 object-contain" />
+        </div>
+        <div>
+          <div class="font-display text-2xl font-bold tracking-tight text-primary">Temple Obert</div>
+          <div class="text-xs text-muted">Projectes compartits per a l'educació pública</div>
+        </div>
+      </a>
+      <nav class="hidden items-center gap-8 font-display text-sm md:flex">
+        <a href="index.html" class="nav-link">Inici</a>
+        <a href="projectes.html" class="nav-link">Projectes</a>
+        <a href="caixes-aprenentatge.html" class="nav-link-active">Caixes d'aprenentatge</a>
+        <span class="hidden items-center gap-1 rounded-full bg-pastel-purple/10 p-1 lg:flex" role="group" aria-label="Aules de Biologia i Geologia">
+          <a href="bio-3r/" title="Portal de Biologia i Geologia de 3r d'ESO" class="rounded-full px-3 py-1.5 text-xs font-semibold text-primary transition-colors duration-200 hover:bg-white">Bio 3r</a>
+          <a href="bio-4t/" title="Portal de Biologia i Geologia de 4t d'ESO" class="rounded-full px-3 py-1.5 text-xs font-semibold text-primary transition-colors duration-200 hover:bg-white">Bio 4t</a>
+        </span>
+        <a href="el-sentit-del-projecte.html" class="nav-link">Sobre Temple Obert</a>
+      </nav>
+      <button type="button" id="menu-toggle" aria-controls="menu-mobil" aria-expanded="false" aria-label="Obre el menu" class="flex h-10 w-10 items-center justify-center rounded-full text-primary ring-1 ring-pastel-grey transition-colors duration-200 hover:bg-pastel-purple/10 md:hidden">
+        <svg id="menu-icona-obrir" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg id="menu-icona-tancar" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <nav id="menu-mobil" hidden aria-label="Menu principal" class="border-t border-pastel-grey/50 bg-white px-5 pb-5 pt-2 font-display text-base md:hidden">
+      <a href="index.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Inici</a>
+      <a href="projectes.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Projectes</a>
+      <a href="caixes-aprenentatge.html" class="text-primary font-bold" aria-current="page" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Caixes d'aprenentatge</a>
+      <a href="el-sentit-del-projecte.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Sobre Temple Obert</a>
+      <div class="mt-2 border-t border-pastel-grey/50 pt-3">
+        <div class="px-3 pb-1 text-xs font-semibold uppercase tracking-wider text-primary">Aules de Biologia i Geologia</div>
+        <a href="bio-3r/" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Bio i Geo 3r d'ESO</a>
+        <a href="bio-4t/" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Bio i Geo 4t d'ESO</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+
+<section class="mx-auto max-w-7xl px-5 py-16 lg:px-8">
+  <div class="soft-panel bg-gradient-to-br from-pastel-yellow/15 via-white to-pastel-purple/10 p-8 lg:p-10">
+    <div class="chip chip-soft">Espai futur</div>
+    <h1 class="mt-5 text-5xl font-bold tracking-tight">Caixes d'aprenentatge</h1>
+    <p class="mt-4 max-w-3xl text-lg leading-8 text-muted">Aquest apartat està preparat perquè, en una segona fase, Temple Obert pugui compartir materials modulars, guies i recursos de caixes d'aprenentatge. De moment preferim deixar l'espai clarament anunciat i no omplir-lo amb contingut provisional.</p>
+  </div>
+</section>
+
+<section class="mx-auto max-w-7xl px-5 py-6 lg:px-8">
+  <div class="section-card border-dashed border-pastel-purple/40 bg-pastel-purple/5 p-8 lg:p-10">
+    <div class="chip chip-primary">En construcció</div>
+    <h2 class="mt-5 text-3xl font-bold tracking-tight">Què hi haurà aquí?</h2>
+    <div class="mt-6 grid gap-4 md:grid-cols-3">
+      <div class="rounded-3xl bg-white p-5 ring-1 ring-pastel-grey/70">
+        <h3 class="text-xl font-bold tracking-tight">Materials modulars</h3>
+        <p class="mt-3 text-sm leading-7 text-muted">Propostes autocontingudes, reutilitzables i fàcils d'adaptar a diferents grups.</p>
+      </div>
+      <div class="rounded-3xl bg-white p-5 ring-1 ring-pastel-grey/70">
+        <h3 class="text-xl font-bold tracking-tight">Guies de desplegament</h3>
+        <p class="mt-3 text-sm leading-7 text-muted">Orientacions per implementar, adaptar i connectar els materials amb el currículum.</p>
+      </div>
+      <div class="rounded-3xl bg-white p-5 ring-1 ring-pastel-grey/70">
+        <h3 class="text-xl font-bold tracking-tight">Recursos descarregables</h3>
+        <p class="mt-3 text-sm leading-7 text-muted">Fitxes, plantilles i documents llestos per obrir, revisar i portar a l'aula.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </main>
+  
+
+<footer class="mt-20 border-t border-pastel-grey/50 bg-white/80">
+  <div class="mx-auto max-w-7xl px-5 py-10 lg:px-8">
+    <div class="flex flex-col gap-6 md:flex-row md:justify-between md:items-start">
+
+      <div class="max-w-md">
+        <div class="font-display text-lg font-bold text-primary mb-2">Temple Obert</div>
+        <p class="text-sm text-muted leading-6">
+          Projectes compartits per a l'educació pública. Materials reals d'aula pensats per ser reutilitzats, adaptats i millorats per altres docents.
+        </p>
+      </div>
+
+      <div class="text-sm text-muted">
+        <div class="font-semibold text-onsurface mb-2">Llicència</div>
+        <div class="flex items-center gap-3">
+          <img src="assets/by-nc-88x31.png" alt="Llicència CC BY-NC" class="h-6">
+          <span>
+            Reconeixement - NoComercial (CC BY-NC)
+          </span>
+        </div>
+        <p class="mt-2 max-w-xs leading-5">
+          Es permet reutilitzar i adaptar els materials sempre que no se'n faci un ús comercial.
+        </p>
+      </div>
+
+      <div class="text-sm text-muted">
+        <div class="font-semibold text-onsurface mb-2">Navegació</div>
+        <ul class="space-y-1">
+          <li><a href="index.html" class="hover:text-primary">Inici</a></li>
+          <li><a href="projectes.html" class="hover:text-primary">Projectes</a></li>
+          <li><a href="joves.html" class="hover:text-primary">Joves</a></li>
+          <li><a href="caixes-aprenentatge.html" class="hover:text-primary">Caixes</a></li>
+          <li><a href="bio-3r/" class="hover:text-primary">Bio i Geo 3r d'ESO</a></li>
+          <li><a href="bio-4t/" class="hover:text-primary">Bio i Geo 4t d'ESO</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var boto = document.getElementById('menu-toggle');
+    var panell = document.getElementById('menu-mobil');
+    if (!boto || !panell) return;
+    var obrir = document.getElementById('menu-icona-obrir');
+    var tancar = document.getElementById('menu-icona-tancar');
+    function estat(obert) {
+      panell.hidden = !obert;
+      boto.setAttribute('aria-expanded', obert ? 'true' : 'false');
+      boto.setAttribute('aria-label', obert ? 'Tanca el menu' : 'Obre el menu');
+      obrir.classList.toggle('hidden', obert);
+      tancar.classList.toggle('hidden', !obert);
+    }
+    boto.addEventListener('click', function () { estat(panell.hidden); });
+    panell.addEventListener('click', function (e) { if (e.target.closest('a')) estat(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !panell.hidden) { estat(false); boto.focus(); }
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 768 && !panell.hidden) estat(false);
+    });
+  })();
+</script>
+</body>
+</html>

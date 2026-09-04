@@ -1,0 +1,113 @@
+# Desplega templeobert.cat a GitHub Pages.
+#
+# Publica tres coses alhora:
+#   /          -> aquest repositori (Temple Obert, HTML estatic pur)
+#   /bio-3r    -> build del repositori ietemple/bioigeo3r
+#   /bio-4t    -> build del repositori ietemple/bioigeo4t
+#
+# Els dos portals de bio segueixen tenint el SEU propi desplegament als seus
+# repositoris. Aixo nomes els col.loca, a mes, sota el domini comu. Si aquest
+# workflow falla, els tres llocs segueixen vius a les seves URL de sempre.
+
+name: Desplegar a GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Els repositoris de bio criden aquest event quan publiquen contingut nou.
+  repository_dispatch:
+    types: [portal-actualitzat]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # ---------------------------------------------------------------
+      # 1. Temple Obert, a l'arrel
+      # ---------------------------------------------------------------
+      - name: Descarregar Temple Obert
+        uses: actions/checkout@v4
+
+      - name: Copiar Temple Obert a l'arrel de publicacio
+        run: |
+          mkdir -p _site
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='_historic' \
+            --exclude='_site' \
+            --exclude='.src' \
+            --exclude='*.md' \
+            --exclude='LICENSE*' \
+            ./ _site/
+          test -f _site/index.html
+          test -f _site/cami-circular.html
+          test -f _site/CNAME
+
+      # ---------------------------------------------------------------
+      # 2. Portals de bio
+      # ---------------------------------------------------------------
+      - name: Descarregar Bio 3r
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/bioigeo3r
+          path: .src/bio-3r
+
+      - name: Descarregar Bio 4t
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/bioigeo4t
+          path: .src/bio-4t
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            .src/bio-3r/package-lock.json
+            .src/bio-4t/package-lock.json
+
+      - name: Construir Bio 3r
+        working-directory: .src/bio-3r
+        run: npm ci && npm run build
+
+      - name: Construir Bio 4t
+        working-directory: .src/bio-4t
+        run: npm ci && npm run build
+
+      - name: Col.locar els portals sota /bio-3r i /bio-4t
+        run: |
+          mkdir -p _site/bio-3r _site/bio-4t
+          cp -r .src/bio-3r/dist/. _site/bio-3r/
+          cp -r .src/bio-4t/dist/. _site/bio-4t/
+          test -f _site/bio-3r/index.html
+          test -f _site/bio-4t/index.html
+
+      # ---------------------------------------------------------------
+      # 3. Publicar
+      # ---------------------------------------------------------------
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Camí Circular | Temple Obert</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#c084fc',
+        pastel: {
+          purple: '#c084fc',
+          yellow: '#f9dc5c',
+          teal: '#81c3c3',
+          pink: '#f1a7a7',
+          grey: '#e5e7eb'
+        },
+        school: {
+          orange: '#f9b264',
+          dark: '#4a3f3f'
+        },
+        surface: '#fdfafb',
+        onsurface: '#4a3f3f',
+        muted: '#6b5e5e'
+      },
+      fontFamily: {
+        display: ['Fredoka', 'sans-serif'],
+        body: ['Quicksand', 'sans-serif']
+      },
+      boxShadow: {
+        soft: '0 10px 30px rgba(0,0,0,0.08)'
+      }
+    }
+  }
+}
+</script>
+
+<style>
+body { font-family: 'Quicksand', sans-serif; }
+h1,h2,h3,h4 { font-family: 'Fredoka', sans-serif; }
+
+.timeline-step.active .step-dot {
+  transform: scale(1.08);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+}
+.timeline-step.active .step-card {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: rgba(192,132,252,.35);
+}
+.timeline-panel { display: none; }
+.timeline-panel.active { display: block; }
+
+.mobile-panel { display: none; }
+.mobile-panel.active { display: block; }
+
+@media (max-width: 1023px) {
+  .desktop-panels { display: none; }
+}
+@media (min-width: 1024px) {
+  .mobile-panel { display: none !important; }
+}
+</style>
+<style type="text/tailwindcss">
+  @layer components {
+    .organic-1 { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+    .nav-link { @apply text-muted hover:text-primary transition-colors duration-200; }
+    .nav-link-active { @apply text-primary font-bold border-b-4 border-pastel-yellow pb-1; }
+  }
+</style>
+</head>
+
+<body class="bg-white text-gray-800">
+
+<header class="sticky top-0 z-50 border-b border-pastel-grey/50 bg-white/80 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="relative flex h-11 w-11 items-center justify-center text-primary">
+          <div class="absolute inset-0 bg-pastel-purple/20 organic-1"></div>
+          <img src="assets/logo.png" alt="Temple Obert" class="relative h-7 w-7 object-contain" />
+        </div>
+        <div>
+          <div class="font-display text-2xl font-bold tracking-tight text-primary">Temple Obert</div>
+          <div class="text-xs text-muted">Projectes compartits per a l'educació pública</div>
+        </div>
+      </a>
+      <nav class="hidden items-center gap-8 font-display text-sm md:flex">
+        <a href="index.html" class="nav-link">Inici</a>
+        <a href="projectes.html" class="nav-link-active">Projectes</a>
+        <a href="caixes-aprenentatge.html" class="nav-link">Caixes d'aprenentatge</a>
+        <span class="hidden items-center gap-1 rounded-full bg-pastel-purple/10 p-1 lg:flex" role="group" aria-label="Aules de Biologia i Geologia">
+          <a href="bio-3r/" title="Portal de Biologia i Geologia de 3r d'ESO" class="rounded-full px-3 py-1.5 text-xs font-semibold text-primary transition-colors duration-200 hover:bg-white">Bio 3r</a>
+          <a href="bio-4t/" title="Portal de Biologia i Geologia de 4t d'ESO" class="rounded-full px-3 py-1.5 text-xs font-semibold text-primary transition-colors duration-200 hover:bg-white">Bio 4t</a>
+        </span>
+        <a href="el-sentit-del-projecte.html" class="nav-link">Sobre Temple Obert</a>
+      </nav>
+      <button type="button" id="menu-toggle" aria-controls="menu-mobil" aria-expanded="false" aria-label="Obre el menu" class="flex h-10 w-10 items-center justify-center rounded-full text-primary ring-1 ring-pastel-grey transition-colors duration-200 hover:bg-pastel-purple/10 md:hidden">
+        <svg id="menu-icona-obrir" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg id="menu-icona-tancar" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <nav id="menu-mobil" hidden aria-label="Menu principal" class="border-t border-pastel-grey/50 bg-white px-5 pb-5 pt-2 font-display text-base md:hidden">
+      <a href="index.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Inici</a>
+      <a href="projectes.html" class="text-primary font-bold" aria-current="page" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Projectes</a>
+      <a href="caixes-aprenentatge.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Caixes d'aprenentatge</a>
+      <a href="el-sentit-del-projecte.html" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Sobre Temple Obert</a>
+      <div class="mt-2 border-t border-pastel-grey/50 pt-3">
+        <div class="px-3 pb-1 text-xs font-semibold uppercase tracking-wider text-primary">Aules de Biologia i Geologia</div>
+        <a href="bio-3r/" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Bio i Geo 3r d'ESO</a>
+        <a href="bio-4t/" class="block rounded-2xl px-3 py-2.5 text-muted transition-colors duration-200 hover:bg-pastel-purple/10 hover:text-primary">Bio i Geo 4t d'ESO</a>
+      </div>
+    </nav>
+  </header>
+
+<main class="max-w-5xl mx-auto p-6">
+
+<h1 class="text-5xl font-bold mb-6">Camí circular</h1>
+
+<div class="flex gap-3 mb-10 flex-wrap">
+  <span class="bg-purple-100 px-4 py-1 rounded-full text-sm">1r ESO</span>
+  <span class="bg-purple-100 px-4 py-1 rounded-full text-sm">
+    Geografia i Història · Biologia i Geologia · Llengua catalana · Educació visual i plàstica · Tecnologia
+  </span>
+
+</div>
+
+</div>
+
+<section class="bg-purple-50 p-6 rounded-xl mb-16">
+  <h2 class="text-sm uppercase text-purple-600 font-bold mb-2">Pregunta essencial</h2>
+  <p class="text-2xl italic">"Com les meves accions poden afectar als altres?"</p>
+
+</section>
+
+
+
+
+<section class="mb-16">
+  <div class="rounded-[2rem] bg-white p-4 md:p-5 shadow-soft ring-1 ring-purple-100/60">
+    <div class="mb-3">
+      <h2 class="text-2xl font-bold">Vídeo de presentació del projecte</h2>
+      <p class="text-gray-600 mt-1">Una mirada ràpida al sentit i al desenvolupament de Camí Circular.</p>
+    </div>
+
+    <div onclick="openVideoModal()" class="group cursor-pointer overflow-hidden rounded-[1.5rem] bg-black shadow-soft">
+      <div class="aspect-video relative">
+        <img
+          src="https://i.ytimg.com/vi/cggG6-qRGEE/hqdefault.jpg"
+          class="w-full h-full object-cover group-hover:scale-[1.02] transition"
+          alt="Vídeo Camí Circular" />
+
+        <div class="absolute inset-0 bg-black/40"></div>
+
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-soft group-hover:scale-105 transition">
+            ▶
+          </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
+          <div class="text-lg font-bold">Reprodueix el vídeo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mb-20">
+  <h2 class="text-2xl font-bold mb-4">Seqüència del projecte</h2>
+  <p class="text-gray-600 mb-8">
+    El projecte s'organitza en dues parts: una primera part comuna d'investigació i indignació ètica, articulada a través de cinc preguntes connectores, i una segona part de creació maker en grups reduïts.
+  </p>
+
+  <div class="bg-gray-50 rounded-[2rem] p-6 md:p-8 shadow-soft">
+    <div class="grid gap-8 lg:grid-cols-[1.2fr,0.8fr] items-start">
+
+      <div>
+        <!-- Jerarquia visual clara -->
+        <div class="mb-6 rounded-3xl bg-purple-100 border border-purple-200 p-5">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-purple-500 text-white font-bold">1</div>
+            <div>
+              <div class="text-sm font-bold uppercase tracking-wide text-purple-700">Part 1</div>
+              <div class="text-xl font-bold">Investigació i indignació ètica</div>
+            </div>
+          </div>
+          <p class="text-sm text-gray-700 leading-6">
+            Aquesta primera part inclou les cinc preguntes connectores del projecte: PC1, PC2, PC3, PC4 i PC5.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          
+
+          <button class="timeline-step w-full text-left" data-step="pc1">
+            <div class="flex gap-4 items-start">
+              <div class="step-dot shrink-0 flex h-11 w-11 items-center justify-center rounded-full bg-purple-300 text-white font-bold transition">PC1</div>
+              <div class="step-card flex-1 rounded-2xl bg-white p-4 shadow-sm transition opacity-80 border border-transparent">
+                <div class="font-bold text-base">Com és la meva vida? i la dels altres?</div>
+                <div class="text-sm text-gray-600 mt-1">Activació empàtica i comparativa nord-sud</div>
+              </div>
+            </div>
+            <div id="mobile-panel-pc1" class="mobile-panel mt-3 ml-[3.75rem] rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100">
+              <p class="text-gray-600 leading-7">L'alumnat observa la seva pròpia rutina, la contrasta amb la realitat d'altres infants i comença a formular la pregunta essencial del projecte.</p>
+              <div class="mt-3 text-sm text-gray-500">~3 sessions de 2h · Ciències Socials + Llengua catalana</div>
+            </div>
+          </button>
+
+          <button class="timeline-step w-full text-left" data-step="pc2">
+            <div class="flex gap-4 items-start">
+              <div class="step-dot shrink-0 flex h-11 w-11 items-center justify-center rounded-full bg-yellow-400 text-gray-900 font-bold transition">PC2</div>
+              <div class="step-card flex-1 rounded-2xl bg-white p-4 shadow-sm transition opacity-80 border border-transparent">
+                <div class="font-bold text-base">Com és el món actualment?</div>
+                <div class="text-sm text-gray-600 mt-1">Desigualtat global, ODS i dades mundials</div>
+              </div>
+            </div>
+            <div id="mobile-panel-pc2" class="mobile-panel mt-3 ml-[3.75rem] rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100">
+              <p class="text-gray-600 leading-7">Treball sobre desigualtat global, ODS i dades mundials. L'alumnat analitza imatges, notícies i problemàtiques globals per situar el projecte en una escala més àmplia.</p>
+              <div class="mt-3 text-sm text-gray-500">~6 sessions de 2h · Ciències Socials + Llengua catalana</div>
+            </div>
+          </button>
+
+          <button class="timeline-step w-full text-left" data-step="pc3">
+            <div class="flex gap-4 items-start">
+              <div class="step-dot shrink-0 flex h-11 w-11 items-center justify-center rounded-full bg-teal-400 text-gray-900 font-bold transition">PC3</div>
+              <div class="step-card flex-1 rounded-2xl bg-white p-4 shadow-sm transition opacity-80 border border-transparent">
+                <div class="font-bold text-base">Per què hi ha xiquets com jo que treballen?</div>
+                <div class="text-sm text-gray-600 mt-1">Causes de la pobresa i explotació infantil</div>
+              </div>
+            </div>
+            <div id="mobile-panel-pc3" class="mobile-panel mt-3 ml-[3.75rem] rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100">
+              <p class="text-gray-600 leading-7">Anàlisi de les causes de la pobresa i l'explotació infantil. Es treballa amb dades, percentatges i una estructura d'estacions que permet connectar matemàtiques, desigualtat i representació visual.</p>
+              <div class="mt-3 text-sm text-gray-500">~7 sessions de 2h · Ciències Socials + Matemàtiques</div>
+            </div>
+          </button>
+
+          <button class="timeline-step w-full text-left" data-step="pc4">
+            <div class="flex gap-4 items-start">
+              <div class="step-dot shrink-0 flex h-11 w-11 items-center justify-center rounded-full bg-pink-400 text-gray-900 font-bold transition">PC4</div>
+              <div class="step-card flex-1 rounded-2xl bg-white p-4 shadow-sm transition opacity-80 border border-transparent">
+                <div class="font-bold text-base">Em beneficio de la feina que fan estos xiquets?</div>
+                <div class="text-sm text-gray-600 mt-1">Consum responsable, armari i responsabilitat</div>
+              </div>
+            </div>
+            <div id="mobile-panel-pc4" class="mobile-panel mt-3 ml-[3.75rem] rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100">
+              <p class="text-gray-600 leading-7">El projecte fa el clic personal: l'armari, les etiquetes, la procedència de la roba i les alternatives com Top Manta permeten connectar consum quotidià i responsabilitat global.</p>
+              <div class="mt-3 text-sm text-gray-500">~6–7 sessions de 2h · Socials + Llengua catalana + Matemàtiques + Valors + Visual i plàstica + Tecnologia</div>
+            </div>
+          </button>
+
+          <button class="timeline-step w-full text-left" data-step="pc5">
+            <div class="flex gap-4 items-start">
+              <div class="step-dot shrink-0 flex h-11 w-11 items-center justify-center rounded-full bg-purple-600 text-white font-bold transition">PC5</div>
+              <div class="step-card flex-1 rounded-2xl bg-white p-4 shadow-sm transition opacity-80 border border-transparent">
+                <div class="font-bold text-base">Quin és l'impacte de la fast fashion?</div>
+                <div class="text-sm text-gray-600 mt-1">CO₂, fibres, moda sostenible i sostenibilitat</div>
+              </div>
+            </div>
+            <div id="mobile-panel-pc5" class="mobile-panel mt-3 ml-[3.75rem] rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100">
+              <p class="text-gray-600 leading-7">Fase de quantificació i experimentació: CO₂, fibres, microplàstics i sostenibilitat. L'alumnat combina lectura, activitats experimentals, càlcul i una ecoetiqueta final.</p>
+              <div class="mt-3 text-sm text-gray-500">~12h + sortida · Socials + Matemàtiques + Llengua catalana + Visual i plàstica + Tecnologia</div>
+            </div>
+          </button>
+        </div>
+
+        <div class="mt-8 rounded-3xl bg-gray-100 border border-gray-200 p-5">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-700 text-white font-bold">2</div>
+            <div>
+              <div class="text-sm font-bold uppercase tracking-wide text-gray-700">Part 2</div>
+              <div class="text-xl font-bold">Mètode Lombard + propostes maker</div>
+            </div>
+          </div>
+          <p class="text-sm text-gray-700 leading-6">
+            Aquesta segona part arrenca amb el Mètode Lombard i continua amb el desenvolupament de propostes maker en grups reduïts segons els interessos de l'alumnat. Culmina amb la <span class="font-semibold">Fira de projectes</span>.
+          </p>
+        </div>
+
+        <button class="timeline-step mt-4 w-full text-left" data-step="part2">
+          <div class="flex gap-4 items-start">
+            <div class="step-dot shrink-0 flex h-11 w-11 items-center justify-center rounded-full bg-gray-700 text-white font-bold transition">2</div>
+            <div class="step-card flex-1 rounded-2xl bg-white p-4 shadow-sm transition opacity-80 border border-transparent">
+              <div class="font-bold text-base">Part 2 · Mètode Lombard i desenvolupament maker</div>
+              <div class="text-sm text-gray-600 mt-1">Ideació, prototipatge i culminació a la Fira de projectes</div>
+            </div>
+          </div>
+          <div id="mobile-panel-part2" class="mobile-panel mt-3 ml-[3.75rem] rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100">
+            <p class="text-gray-600 leading-7">Un cop completada la Part 1, el projecte entra en la fase de creació maker. Aquest pas comença amb el <span class="font-semibold">Mètode Lombard</span>, que funciona com a pont entre la comprensió del problema i la ideació de respostes.</p>
+            <p class="mt-3 text-gray-600 leading-7">A partir d'aquí, l'alumnat es reorganitza en <span class="font-semibold">grups reduïts segons els interessos de cadascú</span> per desenvolupar propostes maker pròpies. Aquesta fase culmina amb la <span class="font-semibold">Fira de projectes</span>.</p>
+          </div>
+        </button>
+      </div>
+
+      <div class="desktop-panels">
+        <div id="panel-part1" class="timeline-panel active rounded-3xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+          <div class="text-sm font-bold uppercase tracking-wide text-purple-600">Part 1</div>
+          <h3 class="text-2xl font-bold mt-2">Investigació i indignació ètica</h3>
+          <p class="mt-3 text-gray-600 leading-7">
+            Totes les preguntes connectores del projecte formen part d'aquesta primera fase comuna. El recorregut parteix de la pròpia vida de l'alumnat, amplia el focus cap al món, analitza les causes de l'explotació, connecta consum i responsabilitat i acaba quantificant l'impacte ambiental de la fast fashion.
+          </p>
+          <p class="mt-3 text-gray-600 leading-7">
+            Les PC1, PC2, PC3, PC4 i PC5 no són fases separades del projecte, sinó els cinc grans blocs que construeixen aquesta primera part i preparen el pas cap a la creació maker.
+          </p>
+        </div>
+
+        <div id="panel-pc1" class="timeline-panel rounded-3xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+          <div class="text-sm font-bold uppercase tracking-wide text-purple-600">PC1 · dins la Part 1</div>
+          <h3 class="text-2xl font-bold mt-2">Com és la meva vida? i la dels altres?</h3>
+          <p class="mt-3 text-gray-600 leading-7">L'alumnat observa la seva pròpia rutina, la contrasta amb la realitat d'altres infants i comença a formular la pregunta essencial del projecte.</p>
+          <div class="mt-4 text-sm text-gray-500">~3 sessions de 2h · Ciències Socials + Llengua catalana</div>
+        </div>
+
+        <div id="panel-pc2" class="timeline-panel rounded-3xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+          <div class="text-sm font-bold uppercase tracking-wide text-yellow-600">PC2 · dins la Part 1</div>
+          <h3 class="text-2xl font-bold mt-2">Com és el món actualment?</h3>
+          <p class="mt-3 text-gray-600 leading-7">Treball sobre desigualtat global, ODS i dades mundials. L'alumnat analitza imatges, notícies i problemàtiques globals per situar el projecte en una escala més àmplia.</p>
+          <div class="mt-4 text-sm text-gray-500">~6 sessions de 2h · Ciències Socials + Llengua catalana</div>
+        </div>
+
+        <div id="panel-pc3" class="timeline-panel rounded-3xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+          <div class="text-sm font-bold uppercase tracking-wide text-teal-600">PC3 · dins la Part 1</div>
+          <h3 class="text-2xl font-bold mt-2">Per què hi ha xiquets com jo que treballen?</h3>
+          <p class="mt-3 text-gray-600 leading-7">Anàlisi de les causes de la pobresa i l'explotació infantil. Es treballa amb dades, percentatges i una estructura d'estacions que permet connectar matemàtiques, desigualtat i representació visual.</p>
+          <div class="mt-4 text-sm text-gray-500">~7 sessions de 2h · Ciències Socials + Matemàtiques</div>
+        </div>
+
+        <div id="panel-pc4" class="timeline-panel rounded-3xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+          <div class="text-sm font-bold uppercase tracking-wide text-pink-600">PC4 · dins la Part 1</div>
+          <h3 class="text-2xl font-bold mt-2">Em beneficio de la feina que fan estos xiquets?</h3>
+          <p class="mt-3 text-gray-600 leading-7">El projecte fa el clic personal: l'armari, les etiquetes, la procedència de la roba i les alternatives com Top Manta permeten connectar consum quotidià i responsabilitat global.</p>
+          <div class="mt-4 text-sm text-gray-500">~6–7 sessions de 2h · Socials + Llengua catalana + Matemàtiques + Valors + Visual i plàstica + Tecnologia</div>
+        </div>
+
+        <div id="panel-pc5" class="timeline-panel rounded-3xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+          <div class="text-sm font-bold uppercase tracking-wide text-purple-700">PC5 · dins la Part 1</div>
+          <h3 class="text-2xl font-bold mt-2">Quin és l'impacte de la fast fashion?</h3>
+          <p class="mt-3 text-gray-600 leading-7">Fase de quantificació i experimentació: CO₂, fibres, microplàstics i sostenibilitat. L'alumnat combina lectura, activitats experimentals, càlcul i una ecoetiqueta final.</p>
+          <div class="mt-4 text-sm text-gray-500">~12h + sortida · Socials + Matemàtiques + Llengua catalana + Visual i plàstica + Tecnologia</div>
+        </div>
+
+        <div id="panel-part2" class="timeline-panel rounded-3xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+          <div class="text-sm font-bold uppercase tracking-wide text-gray-700">Part 2</div>
+          <h3 class="text-2xl font-bold mt-2">Mètode Lombard i desenvolupament maker</h3>
+          <p class="mt-3 text-gray-600 leading-7">
+            Un cop completada la Part 1, el projecte entra en la fase de creació maker. Aquest pas comença amb el <span class="font-semibold">Mètode Lombard</span>, que funciona com a pont entre la comprensió del problema i la ideació de respostes.
+          </p>
+          <p class="mt-3 text-gray-600 leading-7">
+            A partir d'aquí, l'alumnat es reorganitza en <span class="font-semibold">grups reduïts segons els interessos de cadascú</span> per desenvolupar propostes maker pròpies. Aquesta fase culmina amb la <span class="font-semibold">Fira de projectes</span>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-gray-50 p-8 rounded-[2rem] flex flex-col md:flex-row justify-between items-center gap-6">
+  <div>
+    <h2 class="text-2xl font-bold">Materials del projecte</h2>
+    <p class="text-gray-600">Accedeix als recursos i adapta’ls al teu context</p>
+  </div>
+
+  <div class="flex flex-col gap-4">
+    <a href="https://drive.google.com/drive/folders/1tFOtc92oqlXs9P52P2QrvmvJQKPS3bAG?usp=sharing" class="bg-purple-400 text-white px-6 py-3 rounded-full text-center">Obre carpeta Drive</a>
+    <a href="https://drive.google.com/drive/folders/1tFOtc92oqlXs9P52P2QrvmvJQKPS3bAG?usp=sharing" class="bg-orange-300 px-6 py-3 rounded-full text-center">Guia docent</a>
+    <a href="https://drive.google.com/drive/folders/1tFOtc92oqlXs9P52P2QrvmvJQKPS3bAG?usp=sharing" class="bg-teal-300 px-6 py-3 rounded-full text-center">Seqüència activitats</a>
+  </div>
+</section>
+
+
+<section class="mt-16 pt-10 border-t border-gray-200">
+  <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+
+    <div id="visit-counter" class="inline-flex items-center gap-3 rounded-full bg-purple-50 px-4 py-2.5 text-sm text-gray-700 ring-1 ring-purple-100">
+      <span class="text-base">👀</span>
+      <span>Aquest projecte ja ha rebut <strong id="visit-count">...</strong> visites</span>
+    </div>
+
+    <div class="text-sm text-gray-600 max-w-md">
+      <div class="flex items-center gap-3 mb-2">
+        <img src="assets/by-nc-88x31.png" alt="CC BY-NC" class="h-6">
+        <span class="font-semibold">Llicència Creative Commons BY-NC</span>
+      </div>
+      <p>
+        Aquest material està subjecte a una llicència 
+        <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.ca" target="_blank" class="text-purple-600 underline">
+          Reconeixement - NoComercial (CC BY-NC)
+        </a>.
+        Es permet la generació d'obres derivades sempre que no se'n faci un ús comercial.
+        Això no impedeix que la persona titular dels drets en faci ús comercial.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="mt-10">
+  <div class="text-xs text-gray-500 text-right space-y-1">
+    <div class="font-semibold text-gray-600">Autoria del projecte</div>
+    <div>
+      Núria Curto · Alfredo Gallego · Vanesa Martí · Virgínia Martínez · Estel Mestre · Ainoa Puentes · Anna Pérez · Marina Sànchez
+    </div>
+    <div class="mt-2">
+      <span class="font-semibold">Disseny, maquetació i publicació:</span>
+      Albert Pahissa · Anna Pérez
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+const steps = document.querySelectorAll('.timeline-step');
+const desktopPanels = document.querySelectorAll('.desktop-panels .timeline-panel');
+const mobilePanels = document.querySelectorAll('.mobile-panel');
+
+function activateStep(key) {
+  steps.forEach(s => s.classList.remove('active'));
+  const clicked = document.querySelector(`.timeline-step[data-step="${key}"]`);
+  if (clicked) clicked.classList.add('active');
+
+  desktopPanels.forEach(panel => panel.classList.remove('active'));
+  const desktopPanel = document.getElementById('panel-' + key);
+  if (desktopPanel) desktopPanel.classList.add('active');
+
+  if (window.innerWidth < 1024) {
+    mobilePanels.forEach(panel => panel.classList.remove('active'));
+    const mobilePanel = document.getElementById('mobile-panel-' + key);
+    if (mobilePanel) mobilePanel.classList.add('active');
+  } else {
+    mobilePanels.forEach(panel => panel.classList.remove('active'));
+  }
+}
+
+steps.forEach(step => {
+  step.addEventListener('click', () => {
+    activateStep(step.dataset.step);
+  });
+});
+
+window.addEventListener('resize', () => {
+  const active = document.querySelector('.timeline-step.active');
+  activateStep(active ? active.dataset.step : 'part1');
+});
+
+activateStep('part1');
+</script>
+
+
+<script>
+const SUPABASE_URL = 'https://xtscgbgajbclrbkzyezf.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_nEwwIQQOOtQFOlAQIpa4gg_FV92CByr';
+const PROJECT_SLUG = 'cami-circular';
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+async function loadAndMaybeCountVisit() {
+  const countEl = document.getElementById('visit-count');
+  if (!countEl) return;
+
+  const localKey = `visited_${PROJECT_SLUG}`;
+  const now = Date.now();
+  const dayMs = 24 * 60 * 60 * 1000;
+
+  const { data, error } = await supabaseClient
+    .from('project_views')
+    .select('views')
+    .eq('slug', PROJECT_SLUG)
+    .single();
+
+  if (error) {
+    console.error('Error llegint comptador:', error);
+    countEl.textContent = '—';
+    return;
+  }
+
+  let currentViews = data?.views ?? 0;
+
+  const lastVisit = localStorage.getItem(localKey);
+  const shouldCount = !lastVisit || (now - Number(lastVisit) > dayMs);
+
+  if (shouldCount) {
+    const newViews = currentViews + 1;
+
+    const { error: updateError } = await supabaseClient
+      .from('project_views')
+      .update({
+        views: newViews,
+        updated_at: new Date().toISOString()
+      })
+      .eq('slug', PROJECT_SLUG);
+
+    if (!updateError) {
+      currentViews = newViews;
+      localStorage.setItem(localKey, String(now));
+    } else {
+      console.error('Error actualitzant comptador:', updateError);
+    }
+  }
+
+  countEl.textContent = currentViews;
+}
+
+loadAndMaybeCountVisit();
+</script>
+
+<div id="videoModal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50">
+  <div class="w-[90%] max-w-4xl aspect-video">
+    <iframe
+      id="videoFrame"
+      class="w-full h-full rounded-[1.5rem]"
+      src=""
+      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+<script>
+function openVideoModal() {
+  const modal = document.getElementById('videoModal');
+  const frame = document.getElementById('videoFrame');
+  frame.src = "https://www.youtube.com/embed/cggG6-qRGEE";
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+}
+
+function closeVideoModal() {
+  const modal = document.getElementById('videoModal');
+  const frame = document.getElementById('videoFrame');
+  frame.src = "";
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+}
+
+document.getElementById('videoModal').addEventListener('click', closeVideoModal);
+</script>
+
+
+<footer class="mt-20 border-t border-pastel-grey/50 bg-white/80">
+  <div class="mx-auto max-w-7xl px-5 py-10 lg:px-8">
+    <div class="flex flex-col gap-6 md:flex-row md:justify-between md:items-start">
+
+      <div class="max-w-md">
+        <div class="font-display text-lg font-bold text-primary mb-2">Temple Obert</div>
+        <p class="text-sm text-muted leading-6">
+          Projectes compartits per a l'educació pública. Materials reals d'aula pensats per ser reutilitzats, adaptats i millorats per altres docents.
+        </p>
+      </div>
+
+      <div class="text-sm text-muted">
+        <div class="font-semibold text-onsurface mb-2">Llicència</div>
+        <div class="flex items-center gap-3">
+          <img src="assets/by-nc-88x31.png" alt="Llicència CC BY-NC" class="h-6">
+          <span>
+            Reconeixement - NoComercial (CC BY-NC)
+          </span>
+        </div>
+        <p class="mt-2 max-w-xs leading-5">
+          Es permet reutilitzar i adaptar els materials sempre que no se'n faci un ús comercial.
+        </p>
+      </div>
+
+      <div class="text-sm text-muted">
+        <div class="font-semibold text-onsurface mb-2">Navegació</div>
+        <ul class="space-y-1">
+          <li><a href="index.html" class="hover:text-primary">Inici</a></li>
+          <li><a href="projectes.html" class="hover:text-primary">Projectes</a></li>
+          <li><a href="joves.html" class="hover:text-primary">Joves</a></li>
+          <li><a href="caixes-aprenentatge.html" class="hover:text-primary">Caixes</a></li>
+          <li><a href="bio-3r/" class="hover:text-primary">Bio i Geo 3r d'ESO</a></li>
+          <li><a href="bio-4t/" class="hover:text-primary">Bio i Geo 4t d'ESO</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var boto = document.getElementById('menu-toggle');
+    var panell = document.getElementById('menu-mobil');
+    if (!boto || !panell) return;
+    var obrir = document.getElementById('menu-icona-obrir');
+    var tancar = document.getElementById('menu-icona-tancar');
+    function estat(obert) {
+      panell.hidden = !obert;
+      boto.setAttribute('aria-expanded', obert ? 'true' : 'false');
+      boto.setAttribute('aria-label', obert ? 'Tanca el menu' : 'Obre el menu');
+      obrir.classList.toggle('hidden', obert);
+      tancar.classList.toggle('hidden', !obert);
+    }
+    boto.addEventListener('click', function () { estat(panell.hidden); });
+    panell.addEventListener('click', function (e) { if (e.target.closest('a')) estat(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !panell.hidden) { estat(false); boto.focus(); }
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 768 && !panell.hidden) estat(false);
+    });
+  })();
+</script>
+</body>
+</html>
