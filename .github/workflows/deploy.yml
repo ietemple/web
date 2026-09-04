@@ -2,8 +2,14 @@
 #
 # Publica tres coses alhora:
 #   /          -> aquest repositori (Temple Obert, HTML estatic pur)
-#   /bio-3r    -> build del repositori ietemple/bioigeo3r
-#   /bio-4t    -> build del repositori ietemple/bioigeo4t
+#   /bio-3r    -> build del repositori <propietari>/bioigeo3r
+#   /bio-4t    -> build del repositori <propietari>/bioigeo4t
+#
+# <propietari> es, per defecte, el mateix compte o organitzacio que allotja
+# aquest repositori. Si els portals de bio viuen en un altre compte, defineix
+# la variable de repositori PORTALS_OWNER (Settings > Secrets and variables >
+# Actions > Variables) amb aquell nom d'usuari o organitzacio. Aixi els tres
+# repositoris no han de compartir propietari i no cal transferir res.
 #
 # Els dos portals de bio segueixen tenint el SEU propi desplegament als seus
 # repositoris. Aixo nomes els col.loca, a mes, sota el domini comu. Si aquest
@@ -54,19 +60,31 @@ jobs:
           test -f _site/cami-circular.html
           test -f _site/CNAME
 
+      # El domini propi nomes s'aplica quan la variable de repositori
+      # DOMINI_ACTIU val "1". Mentre no hi sigui, el lloc es publica a la URL
+      # de github.io i s'hi pot verificar sense tocar el DNS. Vegeu el README.
+      - name: Aplicar el domini propi nomes si toca
+        run: |
+          if [ "${{ vars.DOMINI_ACTIU }}" = "1" ]; then
+            echo "Domini propi actiu: $(cat _site/CNAME)"
+          else
+            rm -f _site/CNAME
+            echo "Domini propi desactivat; es publica a la URL de github.io."
+          fi
+
       # ---------------------------------------------------------------
       # 2. Portals de bio
       # ---------------------------------------------------------------
       - name: Descarregar Bio 3r
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/bioigeo3r
+          repository: ${{ vars.PORTALS_OWNER || github.repository_owner }}/bioigeo3r
           path: .src/bio-3r
 
       - name: Descarregar Bio 4t
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/bioigeo4t
+          repository: ${{ vars.PORTALS_OWNER || github.repository_owner }}/bioigeo4t
           path: .src/bio-4t
 
       - uses: actions/setup-node@v4

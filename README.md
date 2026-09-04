@@ -20,8 +20,8 @@ ha una secció més avall que t'explica com.
 |---|---|---|
 | `templeobert.cat/` | Temple Obert (aquest repositori) | `ietemple/web` |
 | `templeobert.cat/cami-circular` | Projecte del camí circular | `ietemple/web` |
-| `templeobert.cat/bio-3r` | Portal d'aula de Bio i Geo 3r ESO | `ietemple/bioigeo3r` |
-| `templeobert.cat/bio-4t` | Portal d'aula de Bio i Geo 4t ESO | `ietemple/bioigeo4t` |
+| `templeobert.cat/bio-3r` | Portal d'aula de Bio i Geo 3r ESO | `apahiss3-xtec/bioigeo3r` |
+| `templeobert.cat/bio-4t` | Portal d'aula de Bio i Geo 4t ESO | `apahiss3-xtec/bioigeo4t` |
 
 Són **tres repositoris independents**. Cadascun es desplega sol i funciona sol.
 Aquest, a més, els recull i els publica junts sota el domini comú (vegeu
@@ -74,6 +74,9 @@ Cada `git push` a `main` dispara
 
 1. Copia aquest repositori a l'arrel de la carpeta de publicació.
 2. Descarrega i construeix `bioigeo3r` i `bioigeo4t` (`npm ci && npm run build`).
+   Els busca al compte indicat per la variable de repositori `PORTALS_OWNER`
+   i, si no existeix, al mateix compte que allotja aquest repositori (vegeu
+   [On viuen els portals](#on-viuen-els-portals)).
 3. Col·loca els seus `dist/` a `/bio-3r` i `/bio-4t`.
 4. Ho publica tot a GitHub Pages.
 
@@ -83,6 +86,40 @@ manera que el domini s'actualitza sol. **No hi ha cap pas manual.**
 
 La posada en marxa (organització, GitHub Pages, DNS, token) està documentada
 pas a pas a **[DESPLEGAMENT.md](DESPLEGAMENT.md)**.
+
+### Les dues variables de repositori
+
+Es defineixen a *Settings → Secrets and variables → Actions → Variables*.
+
+| Variable | Valor aqui | Que fa |
+|---|---|---|
+| `PORTALS_OWNER` | `apahiss3-xtec` | De quin compte descarregar `bioigeo3r` i `bioigeo4t`. Sense definir, el mateix compte que aquest repositori. |
+| `DOMINI_ACTIU` | `1` | Aplica el domini propi del fitxer `CNAME`. Sense definir (o amb qualsevol altre valor), el `CNAME` s'esborra del build i el lloc es publica a la URL de `github.io`. |
+
+`DOMINI_ACTIU` existeix per trencar el peix que es mossega la cua del
+desplegament inicial: si el `CNAME` s'apliques abans de canviar el DNS, la URL
+de `github.io` redirigiria a un domini que encara no apunta a GitHub i no
+podries comprovar res. Deixa-la sense definir fins que el lloc et funcioni a
+`github.io`, i posa-la a `1` el dia que moguis el DNS.
+
+### On viuen els portals
+
+Els tres repositoris **no han de compartir propietari**. El workflow descarrega
+els portals de bio de forma anònima (són públics), i tria el compte així:
+
+```yaml
+repository: ${{ vars.PORTALS_OWNER || github.repository_owner }}/bioigeo3r
+```
+
+- **Si no defineixes res**, els busca al mateix compte que aquest repositori.
+  És el que li convindrà a qualsevol centre que faci fork dels tres repositoris.
+- **Si els portals viuen en un altre compte**, defineix la variable
+  `PORTALS_OWNER` a *Settings → Secrets and variables → Actions → Variables*
+  amb el nom d'aquell compte.
+
+Aquí `PORTALS_OWNER` val `apahiss3-xtec`, perquè els dos portals de bio hi van
+néixer i les seves URL de GitHub Pages ja circulen entre l'alumnat. Si algun dia
+es transfereixen a l'organització, n'hi ha prou d'esborrar la variable.
 
 Si aquest workflow es trenca, els tres llocs segueixen vius a les seves URL de
 GitHub Pages respectives. El desplegament conjunt és additiu, no un punt únic
