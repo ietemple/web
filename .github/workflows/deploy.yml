@@ -21,8 +21,20 @@ on:
   push:
     branches: [main]
   # Els repositoris de bio criden aquest event quan publiquen contingut nou.
+  # NOMES funciona si hi ha el secret DISPATCH_TEMPLEOBERT al repo de bio
+  # corresponent (vegeu el seu deploy.yml); si no hi es, el pas hi calla i
+  # aquest event mai arriba. Per aixo hi ha tambe el "schedule" de sota, que
+  # no en depen.
   repository_dispatch:
     types: [portal-actualitzat]
+  # Xarxa de seguretat: encara que el repository_dispatch no arribi (secret
+  # no configurat, token caducat...), aquest lloc no pot quedar-se penjat amb
+  # fitxes velles en silenci. Es reconstrueix sol amb el darrer main de
+  # bioigeo3r/bioigeo4t unes quantes vegades al dia. Horari en UTC: 8/12/18h
+  # (~10/14/20h a l'estiu, 9/13/19h a l'hivern), per cobrir la publicacio
+  # automatica del mati (9:45 hora local) i les sessions de tarda/vespre.
+  schedule:
+    - cron: '0 8,12,18 * * *'
   workflow_dispatch:
 
 permissions:

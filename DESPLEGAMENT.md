@@ -113,7 +113,16 @@ Fins aquí, `templeobert.cat` i `templeobert.netlify.app` segueixen intactes.
 
 Mentre el secret no existeixi, el job diu «no avisem ningú», acaba bé i **no
 marca el desplegament com a fallit**. L'única conseqüència és que la còpia sota
-el domini no es refresca sola quan publiques als portals.
+el domini no es refresca a l'instant quan publiques als portals.
+
+**Actualització 2026-09-07:** aquest secret no s'ha arribat a crear mai (es va
+comprovar amb l'historial d'Actions: `ietemple/web` no tenia cap execució per
+`repository_dispatch`, i per això les fitxes noves de bio3r/bio4t no arribaven
+a templeobert.cat des del 04/09). Per no dependre'n, `deploy.yml` ara té també
+un disparador `schedule` (8/12/18h UTC) que reconstrueix el lloc sol diverses
+vegades al dia amb el darrer `main` dels dos portals, encara que aquest token
+no existeixi mai. Crear-lo segueix sent útil per tenir publicació immediata en
+lloc d'esperar el proper cron, però ja no és imprescindible.
 
 1. GitHub → *Settings → Developer settings → Personal access tokens →
    Fine-grained tokens* → **Generate new token**.
