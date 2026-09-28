@@ -30,11 +30,17 @@ on:
   # Xarxa de seguretat: encara que el repository_dispatch no arribi (secret
   # no configurat, token caducat...), aquest lloc no pot quedar-se penjat amb
   # fitxes velles en silenci. Es reconstrueix sol amb el darrer main de
-  # bioigeo3r/bioigeo4t unes quantes vegades al dia. Horari en UTC: 8/12/18h
-  # (~10/14/20h a l'estiu, 9/13/19h a l'hivern), per cobrir la publicacio
-  # automatica del mati (9:45 hora local) i les sessions de tarda/vespre.
+  # bioigeo3r/bioigeo4t. Ara mateix el dispatch NO arriba mai (el secret no
+  # esta posat), aixi que aquest cron es l'unic que refresca el mirall: per
+  # aixo passa de 3 a 8 execucions al dia, cada dues hores de 6 a 20h UTC
+  # (~8h a 22h hora local a l'estiu, 7h a 21h a l'hivern).
+  #
+  # Compte: GitHub endarrereix les tasques programades, sovint una o dues
+  # hores i algun cop mes. Les hores de sota son quan es demana el torn, no
+  # quan s'executa. Si cal veure un canvi de seguida, val mes llancar el
+  # workflow a ma des d'Actions (workflow_dispatch, aqui sota) que esperar.
   schedule:
-    - cron: '0 8,12,18 * * *'
+    - cron: '0 6,8,10,12,14,16,18,20 * * *'
   workflow_dispatch:
 
 permissions:
