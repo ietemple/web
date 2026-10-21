@@ -1,0 +1,207 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fitxa de la sínia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<style>
+/* fx- = fitxa */
+body{padding-bottom:40px}
+.fx-bar{position:sticky;top:0;z-index:10;display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:10px 16px;margin:0 auto 18px;max-width:900px;border-radius:0 0 22px 22px}
+.fx-back{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font:600 16px/1 var(--font-text);color:var(--tinta-suau);min-height:44px}
+.fx-back .ico{width:18px;height:18px}
+.fx-seg{display:flex;gap:4px;padding:4px;border-radius:999px;background:var(--vidre-1);border:1px solid var(--vidre-vora)}
+.fx-seg button{min-height:44px;min-width:56px;padding:0 14px;border:0;border-radius:999px;background:none;font:700 17px/1 var(--font-display);color:var(--tinta-suau)}
+.fx-seg button[aria-pressed="true"]{background:var(--vidre-fosc);color:#fff}
+.fx-name{font:500 15px/1.2 var(--font-text);color:var(--tinta-suau);flex:1;min-width:140px}
+.fx-doc{display:flex;flex-direction:column;align-items:center;gap:24px;--z:1}
+.fx-fit{zoom:var(--z)}
+.fx-page{position:relative;width:210mm;height:297mm;padding:12mm;background:#fff;color:#1f1b24;box-shadow:0 10px 30px rgba(60,40,80,.18);display:flex;flex-direction:column;gap:3.4mm;overflow:hidden;font:400 11pt/1.3 var(--font-text)}
+.fx-page.lf{font-size:12.5pt;line-height:1.35}
+.fx-code{position:absolute;top:5mm;right:6mm;font:700 9pt/1 var(--font-display);color:#777;border:1px solid #bbb;border-radius:3px;padding:2px 6px}
+.fx-head h1{margin:0;font:700 19pt/1.05 var(--font-display);letter-spacing:-.01em}
+.fx-head p{margin:1mm 0 0;font-size:9.5pt;color:#555}
+.fx-id{display:flex;gap:6mm;margin-top:3mm;font-size:10pt}
+.fx-id span{display:flex;gap:2mm;align-items:flex-end;flex:1}
+.fx-id span:first-child{flex:2.2}
+.fx-id i{flex:1;border-bottom:1px solid #333;height:1em}
+.fx-q{break-inside:avoid;border:1.2px solid #999;border-radius:3mm;padding:3mm 4mm}
+.fx-q h2{margin:0 0 1.6mm;font:700 12.5pt/1.15 var(--font-display);display:flex;gap:2.4mm;align-items:center}
+.fx-q h2 b{flex:none;width:6.4mm;height:6.4mm;border-radius:50%;background:#1f1b24;color:#fff;display:grid;place-items:center;font-size:10.5pt}
+.fx-lf .fx-q h2{font-size:14pt}
+.fx-q p{margin:0 0 1.6mm}
+.fx-help{font-size:9.5pt;color:#555}
+.fx-lf .fx-help{font-size:11pt}
+.fx-opts{display:flex;gap:3mm;flex-wrap:wrap;margin:1.5mm 0 2mm}
+.fx-opt{flex:1;min-width:30mm;display:flex;flex-direction:column;align-items:center;gap:1mm;border:1.2px solid #777;border-radius:3mm;padding:1.6mm 2mm;font-weight:600;text-align:center}
+.fx-opt svg{width:15mm;height:15mm}
+.fx-opt .c{width:5mm;height:5mm;border:1.5px solid #333;border-radius:50%}
+.fx-ln{height:9.4mm;border-bottom:1px solid #666}
+.fx-lf .fx-ln{height:8.4mm}
+.fx-ln.s{display:inline-block;width:30mm;height:1em;vertical-align:baseline;margin:0 1mm}
+.fx-ln.m{display:inline-block;width:52mm;height:1em;margin:0 1mm}
+.fx-3{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm}
+.fx-3>div{border:1.2px solid #777;border-radius:3mm;padding:2mm 2.6mm;min-height:34mm}
+.fx-3 b{display:block;font:700 11pt/1.1 var(--font-display);margin-bottom:1mm}
+.fx-3 small{display:block;font-size:9pt;color:#555;line-height:1.2}
+.fx-bank{display:flex;flex-wrap:wrap;gap:2mm;margin:1mm 0 2mm}
+.fx-bank span{border:1.2px dashed #777;border-radius:99px;padding:.8mm 3mm;font-size:10pt}
+.fx-tab{width:100%;border-collapse:collapse;margin-top:1mm}
+.fx-tab th,.fx-tab td{border:1.2px solid #444;padding:1.4mm 2mm;text-align:center;height:14mm;font-size:11pt}
+.fx-lf .fx-tab td,.fx-lf .fx-tab th{height:11mm;font-size:12pt}
+.fx-tab th{background:#efefef;font-weight:700;font-size:10pt}
+.fx-tab td:first-child{font-weight:700;white-space:nowrap}
+.fx-tab svg{width:7mm;height:7mm;vertical-align:middle;margin-right:1.5mm}
+.fx-chart{display:block;width:100%;height:auto}
+.fx-box{border:1.2px solid #777;border-radius:3mm;height:56mm;position:relative}
+.fx-box span{position:absolute;left:3mm;bottom:2mm;font-size:9pt;color:#777}
+.fx-crit{border:1.2px solid #1f1b24;border-radius:3mm;padding:2mm 3mm;margin:1mm 0 2mm;background:#f6f6f6}
+.fx-crit b{display:block;margin-bottom:.6mm}
+.fx-crit ul{margin:0;padding-left:5mm}
+.fx-yn{display:inline-flex;gap:3mm;margin-left:2mm}
+.fx-yn span{display:inline-flex;align-items:center;gap:1.4mm}
+.fx-yn i{width:4.4mm;height:4.4mm;border:1.5px solid #333;border-radius:50%;display:inline-block}
+.fx-foot{margin-top:auto;font-size:8.5pt;color:#888;display:flex;justify-content:space-between}
+
+@media (max-width:760px){.fx-bar{border-radius:0 0 18px 18px}}
+@media print{
+  @page{size:A4;margin:12mm}
+  html,body{background:#fff!important}
+  body{padding:0}
+  .fx-bar,.tv-noprint{display:none!important}
+  .fx-doc{display:block;gap:0}
+  .fx-fit{zoom:1!important}
+  .fx-page{width:auto;height:273mm;padding:0;box-shadow:none;break-after:page;page-break-after:always;overflow:visible}
+  .fx-page:last-child{break-after:auto;page-break-after:auto}
+  .fx-code{top:0;right:0}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style></head>
+<body>
+<div class="fx-bar tv-glass tv-noprint">
+  <a class="fx-back" href="faig-sinia.html"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Surt</a>
+  <div class="fx-seg" id="fx-seg" role="group" aria-label="Versió de la fitxa">
+    <button data-v="B" aria-pressed="true" title="Base">B</button><button data-v="V" aria-pressed="false" title="Suport visual">V</button><button data-v="LF" aria-pressed="false" title="Lectura fàcil">LF</button><button data-v="A" aria-pressed="false" title="Ampliació">A</button>
+  </div>
+  <span class="fx-name" id="fx-name">Base</span>
+  <button class="tv-btn main" id="fx-print"><svg class="ico" viewBox="0 0 24 24"><path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z"/></svg>Imprimeix</button>
+</div>
+<div class="fx-doc" id="fx-doc"><div class="fx-fit" id="fx-fit"></div></div>
+
+<script>
+(function(){
+'use strict';
+var NAMES={B:'Base',V:'Suport visual',LF:'Lectura fàcil',A:'Ampliació'};
+function ln(n){var s='';for(var i=0;i<n;i++)s+='<div class="fx-ln"></div>';return s}
+function wheel(n,sz){
+  var s='<svg viewBox="-24 -24 48 48" aria-hidden="true"><circle r="16" fill="none" stroke="#333" stroke-width="2"/>';
+  for(var i=0;i<4;i++)s+='<line x1="0" y1="0" x2="0" y2="-16" transform="rotate('+(i*90)+')" stroke="#333" stroke-width="1"/>';
+  for(var j=0;j<n;j++)s+='<circle r="3.6" fill="#fff" stroke="#333" stroke-width="1.8" transform="rotate('+(j*360/n)+') translate(0 -16)"/>';
+  return s+'</svg>';
+}
+function head(v,sub){
+  return '<span class="fx-code" aria-label="Versió '+NAMES[v]+'">'+v+'</span>'+
+  '<div class="fx-head"><h1>Una sínia que pugi aigua</h1><p>Coneixement del medi · Mitjans · Repte FAIG'+(sub?' · '+sub:'')+'</p>'+
+  '<div class="fx-id"><span>Nom <i></i></span><span>Data <i></i></span><span>Grup <i></i></span></div></div>';
+}
+function opts(v){
+  var s='<div class="fx-opts">';
+  [4,6,8].forEach(function(n){s+='<div class="fx-opt">'+(v==='V'||v==='LF'?wheel(n):'')+'<span>'+n+' cassoletes</span><span class="c"></span></div>'});
+  return s+'<div class="fx-opt">'+(v==='V'||v==='LF'?'<svg viewBox="-24 -24 48 48"><path d="M-14 -5H14M-14 5H14" stroke="#333" stroke-width="3" stroke-linecap="round"/></svg>':'')+'<span>Totes igual</span><span class="c"></span></div></div>';
+}
+function q1(v){
+  var t={B:'Què creus que passarà?',V:'Què creus que passarà?',LF:'Què creus?',A:'Què creus que passarà?'}[v];
+  var s='<section class="fx-q"><h2><b>1</b>'+t+'</h2>';
+  s+='<p>'+({B:'Amb quantes cassoletes pujarà més aigua? Marca una resposta.',V:'Amb quantes cassoletes pujarà més aigua? Marca una resposta.',LF:'Amb quantes cassoletes puja més aigua? Marca una.',A:'Amb quantes cassoletes pujarà més aigua? Marca una resposta.'}[v])+'</p>'+opts(v);
+  if(v==='LF'){s+='<p class="fx-help">Escriu: Crec que puja més aigua amb …</p>'+ln(1);}
+  else if(v==='A'){s+='<p>Penso això perquè <span class="fx-ln m"></span><span class="fx-ln m" style="width:60mm"></span></p>'+ln(1)+'<p style="margin-top:2mm">Amb 8 cassoletes crec que pujaran <span class="fx-ln s"></span> ml en 10 voltes.</p>';}
+  else if(v==='V'){s+='<p>Penso això perquè …</p>'+ln(2);}
+  else s+='<p>Penso això perquè …</p>'+ln(2);
+  return s+'</section>';
+}
+function q2(v){
+  var s='<section class="fx-q"><h2><b>2</b>'+(v==='LF'?'La prova justa':'Una prova justa')+'</h2>';
+  if(v==='A'){
+    s+='<div class="fx-crit"><b>Una prova és justa si:</b><ul><li>canvies una sola cosa;</li><li>mesures sempre el mateix;</li><li>tota la resta es manté igual a cada intent.</li></ul></div>';
+    s+='<div class="fx-3"><div><b>Canvio</b></div><div><b>Miro</b></div><div><b>Deixo igual (tres coses)</b></div></div>';
+    s+='<p style="margin-top:2mm">Què podria fer la prova injusta? Escriu-ne una i com ho evitaràs.</p>'+ln(2);
+  }else if(v==='LF'){
+    s+='<p>Escull les paraules de la llista.</p><div class="fx-bank"><span>cassoletes</span><span>ml d\'aigua</span><span>10 voltes</span><span>el got</span></div>';
+    s+='<p>Canvio: <span class="fx-ln m"></span></p><p>Miro: <span class="fx-ln m"></span></p><p>Deixo igual: <span class="fx-ln m"></span> i <span class="fx-ln m"></span></p>';
+  }else if(v==='V'){
+    s+='<p>Escriu cada cosa on toqui. Pots usar la llista.</p><div class="fx-bank"><span>nombre de cassoletes</span><span>ml d\'aigua al got</span><span>10 voltes</span><span>mateixa aigua a la bassa</span></div>';
+    s+='<div class="fx-3"><div><b>Canvio</b><small>una sola cosa</small></div><div><b>Miro</b><small>el que descobrim</small></div><div><b>Deixo igual</b><small>tota la resta</small></div></div>';
+  }else{
+    s+='<p>Volem saber si més cassoletes pugen més aigua. Completa.</p>';
+    s+='<div class="fx-3"><div><b>Canvio</b><small>una sola cosa</small></div><div><b>Miro</b><small>el que descobrim</small></div><div><b>Deixo igual</b><small>tota la resta</small></div></div>';
+  }
+  return s+'</section>';
+}
+function q3(v){
+  var s='<section class="fx-q"><h2><b>3</b>'+(v==='LF'?'Les meves dades':'Els meus resultats')+'</h2>';
+  if(v==='A'){
+    s+='<p class="fx-help">Fes 10 voltes a cada intent. Mesura l\'aigua del got en ml. Calcula la mitjana: suma els tres intents i divideix per 3.</p>';
+    s+='<table class="fx-tab"><tr><th>Cassoletes</th><th>Intent 1 (ml)</th><th>Intent 2 (ml)</th><th>Intent 3 (ml)</th><th>Mitjana (ml)</th></tr>';
+    [4,6,8].forEach(function(n){s+='<tr><td>'+n+'</td><td></td><td></td><td></td><td></td></tr>'});
+    return s+'</table></section>';
+  }
+  s+='<p class="fx-help">'+(v==='LF'?'ml vol dir mil·lilitres. Es llegeix al got. Fes 10 voltes cada vegada.':'Fes 10 voltes a cada prova. Mira el got i apunta els ml.')+'</p>';
+  s+='<table class="fx-tab"><tr><th>Cassoletes</th><th>Voltes</th><th>Aigua al got (ml)</th></tr>';
+  [4,6,8].forEach(function(n){s+='<tr><td>'+((v==='V'||v==='LF')?wheel(n):'')+n+'</td><td>10</td><td></td></tr>'});
+  return s+'</table></section>';
+}
+function chart(v){
+  var W=640,H=250,x0=70,y0=215,top=14,rows=10,rh=(y0-top)/rows,s='<svg class="fx-chart" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Gràfic de barres buit">';
+  for(var i=0;i<=rows;i++){var y=y0-i*rh;s+='<line x1="'+x0+'" x2="'+(W-10)+'" y1="'+y+'" y2="'+y+'" stroke="'+(i===0?'#222':'#bbb')+'" stroke-width="'+(i===0?2:1)+'"/>';s+='<rect x="'+(x0-52)+'" y="'+(y-10)+'" width="44" height="20" rx="3" fill="#fff" stroke="#999" stroke-width="1" stroke-dasharray="3 3"/>'}
+  s+='<line x1="'+x0+'" x2="'+x0+'" y1="'+top+'" y2="'+y0+'" stroke="#222" stroke-width="2"/>';
+  [4,6,8].forEach(function(n,i){var cx=x0+95+i*175;s+='<text x="'+cx+'" y="'+(y0+22)+'" text-anchor="middle" font-family="Fira Sans Extra Condensed,sans-serif" font-size="17" font-weight="600" fill="#222">'+n+' cassoletes</text>'});
+  s+='<text x="8" y="'+(H-6)+'" font-family="Fira Sans Extra Condensed,sans-serif" font-size="14" fill="#555">ml</text></svg>';
+  return s;
+}
+function q4(v){
+  var s='<section class="fx-q"><h2><b>4</b>El meu gràfic</h2><p class="fx-help">';
+  s+={B:'Escriu els números a les caselles de l\'esquerra (0 a baix). Pinta una barra per cada prova.',V:'Escriu 0 a baix i puja de 10 en 10 (o de 20 en 20). Pinta una barra per cada prova.',LF:'Escriu 0 a baix. Puja de 10 en 10. Pinta una barra per prova.',A:'Tria tu l\'escala perquè hi càpiguen les tres mitjanes. Pinta una barra per cada prova.'}[v]+'</p>'+chart(v)+'</section>';
+  return s;
+}
+function q5(v){
+  var s='<section class="fx-q"><h2><b>5</b>'+(v==='LF'?'Què he descobert?':'La meva conclusió')+'</h2>';
+  var yn='<span class="fx-yn"><span><i></i>Sí</span><span><i></i>No</span></span>';
+  if(v==='B'||v==='V'){
+    s+='<p>Ha pujat més aigua amb <span class="fx-ln s" style="width:14mm"></span> cassoletes.</p><p>Això passa perquè …</p>'+ln(2)+'<p style="margin-top:2mm">Ho havia predit? '+yn+'</p>';
+    if(v==='V')s+='<p class="fx-help" style="margin-top:1mm">Mira el teu gràfic: quina barra és la més alta?</p>';
+  }else if(v==='LF'){
+    s+='<p>Ha pujat més aigua amb <span class="fx-ln s" style="width:14mm"></span> cassoletes.</p><div class="fx-bank"><span>4</span><span>6</span><span>8</span><span>quasi igual</span></div><p>Ho havia pensat? '+yn+'</p><p>Ho sé perquè …</p>'+ln(1);
+  }else{
+    s+='<p>Compara les mitjanes amb números: quants ml hi ha de diferència entre la més alta i la més baixa?</p>'+ln(1)+'<p style="margin-top:2mm">Si la sínia tingués 12 cassoletes, què creus que passaria? Justifica-ho amb les teves dades.</p>'+ln(2)+'<p style="margin-top:2mm">Ho havies predit? '+yn+'</p>';
+  }
+  return s+'</section>';
+}
+function q6(v){
+  var s='<section class="fx-q"><h2><b>6</b>Com l\'he muntada</h2><p class="fx-help">';
+  s+={B:'Dibuixa la teva sínia. Escriu el nom de tres peces.',V:'Dibuixa la teva sínia. Escriu el nom de tres peces: roda, eix, cassoleta, canal.',LF:'Dibuixa la teva sínia. Escriu tres noms: roda, eix, cassoleta.',A:'Dibuixa la teva sínia i escriu el nom de les peces. Marca amb una creu per on es perd aigua.'}[v]+'</p><div class="fx-box" style="height:'+(v==='A'?'50mm':'52mm')+'"><span>El meu dibuix</span></div></section>';
+  return s;
+}
+function pages(v){
+  var cls='fx-page'+(v==='LF'?' lf fx-lf':'');
+  var p1='<article class="'+cls+'">'+head(v)+q1(v)+q2(v)+q3(v)+'<div class="fx-foot"><span>Una sínia que pugi aigua · pàgina 1 de 2</span><span>Gira el full</span></div></article>';
+  var p2='<article class="'+cls+'">'+head(v,'continuació')+q4(v)+q5(v)+q6(v)+'<div class="fx-foot"><span>Una sínia que pugi aigua · pàgina 2 de 2</span><span></span></div></article>';
+  return p1+p2;
+}
+var fit=document.getElementById('fx-fit'),cur='B';
+function fitZoom(){
+  var w=document.documentElement.clientWidth-32,z=Math.min(1,w/ (210/25.4*96));
+  document.getElementById('fx-doc').style.setProperty('--z',z.toFixed(3));
+}
+function show(v){
+  cur=v;fit.innerHTML=pages(v);
+  [].forEach.call(document.querySelectorAll('#fx-seg button'),function(b){b.setAttribute('aria-pressed',String(b.dataset.v===v))});
+  document.getElementById('fx-name').textContent=NAMES[v];
+  try{history.replaceState(null,'','#'+v)}catch(e){}
+}
+document.getElementById('fx-seg').addEventListener('click',function(e){var b=e.target.closest('button');if(b)show(b.dataset.v)});
+document.getElementById('fx-print').addEventListener('click',function(){window.print()});
+window.addEventListener('resize',fitZoom);
+var h=(location.hash||'').slice(1).toUpperCase();
+show(NAMES[h]?h:'B');fitZoom();
+})();
+</script>
+</body></html>

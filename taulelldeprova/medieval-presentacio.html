@@ -1,0 +1,286 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Qui manava al castell?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,500;0,700;0,800;1,500&family=Alegreya+SC:wght@500;700&family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Presentació per a la pantalla tàctil: pergamí, tinta, vermelló, lapislàtzuli i or */
+:root{--parch:#F3E9D6;--parch2:#EADBC0;--ink:#2A1E14;--ink2:#6B5644;--ver:#A8321E;--lap:#2E4A86;--gold:#B88A2E;--card:#FBF5EA;
+  --fd:"Alegreya",Georgia,serif;--fsc:"Alegreya SC",Georgia,serif;--ft:"Fira Sans Extra Condensed",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--parch);color:var(--ink);font:400 clamp(17px,1.5vw,24px)/1.4 var(--ft)}
+body{background:radial-gradient(120% 90% at 50% 0%,#F8F0E1 0%,var(--parch) 55%,var(--parch2) 100%);overflow:hidden}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+.deck{position:fixed;inset:0 0 72px 0}
+.sl{position:absolute;inset:0;padding:clamp(18px,3vw,48px) clamp(16px,4vw,64px);display:none;flex-direction:column;gap:clamp(10px,1.6vw,22px);overflow:auto}
+.sl.on{display:flex;animation:in .45s cubic-bezier(.2,.7,.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.sl.on{animation:none}}
+.k{font:700 clamp(13px,1.05vw,17px)/1 var(--fsc);letter-spacing:.08em;color:var(--ver)}
+h1,h2{font:800 clamp(30px,3.6vw,60px)/1.02 var(--fd);letter-spacing:-.015em}
+h2{font-size:clamp(26px,2.8vw,46px)}
+h1::first-letter,h2::first-letter{color:var(--ver);font-size:1.18em}
+.lead{font-size:clamp(18px,1.6vw,26px);color:var(--ink2);max-width:46ch}
+.rule{height:0;border-top:2px solid var(--gold);border-bottom:1px solid var(--gold);padding-top:3px;width:120px}
+.grow{flex:1;min-height:0;display:grid;gap:clamp(12px,2vw,28px)}
+.c2{grid-template-columns:1.25fr 1fr}
+@media (max-width:820px){.c2{grid-template-columns:1fr}}
+.frame{position:relative;border-radius:14px;overflow:hidden;border:3px solid var(--gold);box-shadow:0 0 0 4px var(--card),0 10px 30px rgba(60,35,10,.18);background:#fff;align-self:start}
+.frame img{width:100%;height:100%;object-fit:cover}
+.cap{font-size:13px;color:var(--ink2);margin-top:6px}
+/* punts sobre imatges reals */
+.hs{position:absolute;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;border:3px solid #fff;background:var(--ver);color:#fff;font:700 20px/1 var(--ft);display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.hs[aria-pressed=true]{background:var(--lap)}
+.hs::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(255,255,255,.8);animation:pulse 2.4s infinite}
+.hs[aria-pressed=true]::after{display:none}
+@keyframes pulse{0%{transform:scale(.85);opacity:1}100%{transform:scale(1.35);opacity:0}}
+@media (prefers-reduced-motion:reduce){.hs::after{animation:none}}
+.notes{display:grid;gap:10px;align-content:start}
+.note{background:var(--card);border:1px solid #E2D2B6;border-left:6px solid var(--lap);border-radius:10px;padding:12px 16px}
+.note b{font:700 1.05em/1.2 var(--fd);display:block}
+.note.empty{border-left-color:#D9C7A8;color:var(--ink2);font-style:italic}
+.ask{display:flex;gap:12px;align-items:flex-start;background:var(--ink);color:#F8EEDC;border-radius:12px;padding:14px 18px}
+.ask::before{content:"?";flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--ver);font:800 22px/1 var(--fd)}
+/* portada */
+.cover{position:absolute;inset:0;display:grid;align-items:end}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,30,20,0) 30%,rgba(42,30,20,.82) 100%);z-index:1}
+.cover .t{position:relative;z-index:2;padding:clamp(20px,4vw,64px);color:#FBF3E4;display:grid;gap:12px}
+.cover .t .k{color:#F2C9A0}
+.cover .t h1::first-letter{color:#F2A283}
+.cover .t .lead{color:#F1E5D1}
+/* piràmide */
+.pyr{display:grid;gap:10px;justify-items:center;align-content:center}
+.pyr button{border:2px solid var(--ink);border-radius:10px;background:var(--card);padding:12px 16px;cursor:pointer;text-align:center;min-height:64px;display:grid;gap:4px;transition:background .2s}
+.pyr button b{font:700 1.1em/1.1 var(--fd)}
+.pyr button span{font-size:.85em;color:var(--ink2);display:none}
+.pyr button[aria-expanded=true]{background:#fff;border-color:var(--ver)}
+.pyr button[aria-expanded=true] span{display:block}
+.pyr button:nth-child(1){width:34%}.pyr button:nth-child(2){width:56%}.pyr button:nth-child(3){width:78%}.pyr button:nth-child(4){width:100%;background:#EED9B8}
+@media (max-width:820px){.pyr button{width:100%!important}}
+/* any del pagès */
+.year{grid-template-columns:repeat(4,1fr)}
+@media (max-width:820px){.year{grid-template-columns:repeat(2,1fr)}}
+.mo{display:grid;gap:8px;align-content:start}
+.mo .frame{aspect-ratio:4/5}
+.mo b{font:700 1.15em/1 var(--fd);color:var(--ver)}
+/* sacs */
+.sacks{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-content:center}
+.sacks button{width:88px;height:100px;border:none;background:none;cursor:pointer;padding:0}
+.sacks svg{width:100%;height:100%;stroke:var(--ink);stroke-width:1.2;stroke-linejoin:round;fill:#F6EBD3;transition:fill .25s}
+.sacks [data-c=delme] svg{fill:#E7B04A}.sacks [data-c=senyor] svg{fill:#C2533D}.sacks [data-c=llavor] svg{fill:#7FA068}
+.key{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.key button{border:2px solid var(--ink);border-radius:999px;background:var(--card);padding:8px 16px;min-height:48px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.key button[aria-pressed=true]{background:var(--ink);color:#fff}
+.key i{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--ink);display:inline-block}
+.count{text-align:center;font:700 1.25em/1.2 var(--fd)}
+/* mals usos */
+.cards{grid-template-columns:repeat(3,1fr);align-content:start}
+@media (max-width:820px){.cards{grid-template-columns:1fr 1fr}}
+.card{perspective:900px;min-height:150px;border:none;background:none;cursor:pointer;text-align:left}
+.card .in{position:relative;height:100%;min-height:150px;transition:transform .5s;transform-style:preserve-3d}
+.card[aria-pressed=true] .in{transform:rotateY(180deg)}
+.card .f,.card .b{position:absolute;inset:0;border-radius:12px;padding:14px 16px;backface-visibility:hidden;display:grid;align-content:center;gap:6px}
+.card .f{background:var(--ver);color:#fff;font:800 1.5em/1 var(--fd)}
+.card .f small{font:500 .5em/1.2 var(--ft);opacity:.9}
+.card .b{background:var(--card);border:2px solid var(--ver);transform:rotateY(180deg)}
+.vote{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.vote button{min-height:52px;padding:0 22px;border-radius:999px;border:2px solid var(--ink);background:var(--card);cursor:pointer;font-weight:700}
+.vote output{font:700 1.1em/1 var(--fd);color:var(--lap)}
+/* línia del temps */
+.tl{position:relative;grid-template-columns:repeat(6,1fr);padding-top:36px;align-content:start}
+.tl::before{content:"";position:absolute;left:0;right:0;top:14px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--ver))}
+@media (max-width:820px){.tl{grid-template-columns:repeat(3,1fr)}.tl::before{display:none}}
+.ev{position:relative;border:none;background:var(--card);border-radius:12px;padding:8px;cursor:pointer;display:grid;gap:6px;text-align:left;border:1px solid #E2D2B6}
+.ev::before{content:"";position:absolute;top:-30px;left:50%;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:#fff;border:3px solid var(--ver)}
+@media (max-width:820px){.ev::before{display:none}}
+.ev img{height:clamp(70px,10vw,130px);width:100%;object-fit:cover;border-radius:8px}
+.ev b{font:800 1.2em/1 var(--fd);color:var(--ver)}
+.ev span{font-size:.85em;line-height:1.2}
+.ev em{display:none;font-style:normal;font-size:.8em;color:var(--ink2)}
+.ev[aria-expanded=true]{border-color:var(--ver)}.ev[aria-expanded=true] em{display:block}
+/* constructor d'explicació */
+.build{grid-template-columns:1fr 1fr;align-content:start}
+@media (max-width:820px){.build{grid-template-columns:1fr}}
+.col{display:grid;gap:8px;align-content:start}
+.col h3{font:700 1.05em/1.1 var(--fsc);letter-spacing:.04em}
+.col:nth-child(1) h3{color:#8A4B14}
+.chip{border:2px solid var(--ink);border-radius:10px;background:var(--card);padding:10px 14px;text-align:left;cursor:pointer;min-height:48px}
+.chip[aria-pressed=true]{background:var(--ink);color:#fff}
+.out{border-radius:12px;border:3px double var(--gold);background:#fff;padding:16px 20px;font:500 1.15em/1.45 var(--fd);min-height:120px}
+.out .a{color:#8A4B14}.out .p{color:var(--ver)}.out .r{color:var(--lap)}
+/* metacognició */
+.meta{grid-template-columns:repeat(3,1fr);align-content:start}
+@media (max-width:820px){.meta{grid-template-columns:1fr}}
+.meta div{background:var(--card);border:1px solid #E2D2B6;border-radius:12px;padding:16px;display:grid;gap:8px;align-content:start}
+.meta b{font:700 1.15em/1.15 var(--fd)}
+.sem{display:flex;gap:16px;justify-content:center}
+.sem span{display:grid;justify-items:center;gap:6px;font-size:.9em}
+.sem i{width:56px;height:56px;border-radius:50%;border:2px solid var(--ink)}
+/* navegació */
+.nav{position:fixed;left:0;right:0;bottom:0;height:72px;display:flex;align-items:center;gap:12px;padding:0 16px;background:rgba(42,30,20,.94);color:#F6ECDA}
+.nav button,.nav a{min-height:52px;min-width:52px;padding:0 18px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:transparent;color:inherit;cursor:pointer;font-weight:600;text-decoration:none;display:inline-flex;align-items:center}
+.nav .dots{flex:1;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.nav .dots button{min-width:0;width:14px;height:14px;min-height:0;padding:0;border-radius:50%;background:rgba(255,255,255,.3);border:none}
+.nav .dots button[aria-current=true]{background:#F2A283}
+@media (max-width:600px){.nav .dots{display:none}.nav{justify-content:space-between}}
+</style>
+</head>
+<body>
+<main class="deck" id="deck">
+
+<section class="sl" style="padding:0" aria-label="Portada">
+  <div class="cover"><img src="img/med/cardona.webp" alt="Castell de Cardona dalt d'un turó, amb la vila als seus peus">
+    <div class="t"><div class="k">Geografia i Història · 2n ESO · La societat feudal</div><h1>Qui manava al castell?</h1><p class="lead">Per què els pagesos obeïen el senyor feudal? Avui ho investigarem amb fonts de l'època, com fan els historiadors.</p></div></div>
+</section>
+
+<section class="sl" aria-label="El feu">
+  <div class="k">1 · Observo → dedueixo</div><h2>Llegeix el feu</h2>
+  <div class="grow c2">
+    <div><div class="frame" style="aspect-ratio:5/6;max-height:62vh"><img src="img/med/octubre-escena.webp" alt="Pagesos sembrant davant d'un gran castell blanc">
+      <button class="hs" style="left:50%;top:14%" data-t="El castell|Viu el senyor. És alt, fort i es veu des de tot arreu: mostra poder.">1</button>
+      <button class="hs" style="left:12%;top:31%" data-t="La muralla|Protegeix el castell i la gent. En cas de guerra, els pagesos s'hi refugien.">2</button>
+      <button class="hs" style="left:22%;top:61%" data-t="Un pagès a cavall|Arrossega la grada per tapar la llavor. El cavall potser no és seu.">3</button>
+      <button class="hs" style="left:80%;top:70%" data-t="El sembrador|Escampa el blat a mà. La collita de l'estiu depèn d'aquesta feina.">4</button>
+      <button class="hs" style="left:52%;top:54%" data-t="Un espantaocells|Un arquer de mentida perquè els ocells no es mengin la llavor.">5</button>
+      <button class="hs" style="left:30%;top:46%" data-t="Gent a la vora del riu|Mentre uns treballen, altres passegen: la societat no és igual per a tothom.">6</button>
+    </div><p class="cap">Germans Limbourg, <i>Les Très Riches Heures du duc de Berry</i>, octubre (c. 1412–1416). Domini públic.</p></div>
+    <div class="notes" id="n1"><div class="note empty">Toca els números. Primer digues què hi veus; després, què en dedueixes.</div></div>
+  </div>
+</section>
+
+<section class="sl" aria-label="Piràmide">
+  <div class="k">2 · Connecto</div><h2>Qui dona i qui rep?</h2>
+  <div class="grow c2">
+    <div class="pyr">
+      <button aria-expanded="false"><b>El rei</b><span>Dona terres (feus) als nobles. Rep fidelitat i ajuda militar.</span></button>
+      <button aria-expanded="false"><b>Nobles i Església</b><span>Reben feus i delmes. Donen protecció, ajuda militar i pregàries.</span></button>
+      <button aria-expanded="false"><b>Cavallers</b><span>Reben un feu petit. Donen ajuda militar i fidelitat al seu senyor.</span></button>
+      <button aria-expanded="false"><b>Pagesos · la gran majoria</b><span>Donen treball, part de la collita i el delme. Reben protecció i una terra per viure.</span></button>
+    </div>
+    <div class="notes"><div class="ask">Si el pagès dona tant, per què no marxa? Què li faltaria si ho fes?</div><div class="note"><b>Paraula clau: feu</b>Terra que un senyor dona a un vassall a canvi de fidelitat.</div></div>
+  </div>
+</section>
+
+<section class="sl" aria-label="Homenatge">
+  <div class="k">3 · Observo → dedueixo</div><h2>Mans dins de mans</h2>
+  <div class="grow c2">
+    <div><div class="frame" style="aspect-ratio:724/1066;max-height:62vh;max-width:44vh"><img src="img/med/homenatge-lfm.webp" alt="Un vassall agenollat posa les mans entre les mans del senyor">
+      <button class="hs" style="left:38%;top:62%" data-t="El vassall|Està agenollat: mostra que és inferior i que es posa al servei de l'altre.">1</button>
+      <button class="hs" style="left:55%;top:57%" data-t="Les mans juntes|Posar les mans dins les del senyor és el gest de l'homenatge: promet fidelitat.">2</button>
+      <button class="hs" style="left:70%;top:42%" data-t="El senyor|Porta corona i està assegut: és qui rep la promesa i dona el feu.">3</button>
+    </div><p class="cap"><i>Liber feudorum maior</i> (c. 1192), Arxiu de la Corona d'Aragó. CC BY-SA 4.0.</p></div>
+    <div class="notes" id="n3"><div class="note empty">Toca els números. Qui és més important? Com ho saps sense llegir res?</div></div>
+  </div>
+</section>
+
+<section class="sl" aria-label="L'any del pagès">
+  <div class="k">4 · Canvi i continuïtat</div><h2>L'any del pagès</h2>
+  <div class="grow year">
+    <div class="mo"><div class="frame"><img src="img/med/febrer-escena.webp" alt="Família pagesa escalfant-se al foc a l'hivern"></div><b>Febrer</b><span>Fred. A casa, vora el foc.</span></div>
+    <div class="mo"><div class="frame"><img src="img/med/marc-escena.webp" alt="Pagès llaurant amb bous"></div><b>Març</b><span>Llaurar la terra amb bous.</span></div>
+    <div class="mo"><div class="frame"><img src="img/med/collita.webp" alt="Dues persones collint a l'hort"></div><b>Estiu</b><span>Collir. Arriba el moment de pagar.</span></div>
+    <div class="mo"><div class="frame"><img src="img/med/octubre-escena.webp" alt="Pagès sembrant" style="object-position:80% 70%"></div><b>Octubre</b><span>Sembrar el blat per a l'any vinent.</span></div>
+  </div>
+  <div class="ask">Què passa amb tota la feina d'un any si plou massa o si hi ha guerra?</div>
+</section>
+
+<section class="sl" aria-label="Collita">
+  <div class="k">5 · Dedueixo</div><h2>On va la collita?</h2>
+  <p class="lead">Tria un color i toca els sacs: 1 de delme, 3 per al senyor, 2 de llavor. <i>Xifres d'exemple per pensar.</i></p>
+  <div class="key" id="key"><button data-c="delme" aria-pressed="true"><i style="background:#E7B04A"></i>Delme (Església)</button><button data-c="senyor" aria-pressed="false"><i style="background:#C2533D"></i>Senyor</button><button data-c="llavor" aria-pressed="false"><i style="background:#7FA068"></i>Llavor</button><button data-c="" aria-pressed="false"><i></i>Esborra</button></div>
+  <div class="grow" style="align-content:center"><div class="sacks" id="sacks"></div><p class="count" id="count">Queden 10 sacs per menjar tot l'any.</p></div>
+</section>
+
+<section class="sl" aria-label="Mals usos">
+  <div class="k">6 · Argumento</div><h2>Els mals usos: és just?</h2>
+  <div class="grow cards">
+    <button class="card" aria-pressed="false"><div class="in"><div class="f">Remença<small>toca per girar</small></div><div class="b">Pagar el senyor per poder marxar del mas.</div></div></button>
+    <button class="card" aria-pressed="false"><div class="in"><div class="f">Intestia<small>toca per girar</small></div><div class="b">Si el pagès moria sense testament, el senyor es quedava part dels béns.</div></div></button>
+    <button class="card" aria-pressed="false"><div class="in"><div class="f">Eixorquia<small>toca per girar</small></div><div class="b">Si moria sense fills, el senyor es quedava part dels béns.</div></div></button>
+    <button class="card" aria-pressed="false"><div class="in"><div class="f">Cugucia<small>toca per girar</small></div><div class="b">En cas d'adulteri de l'esposa, el senyor es quedava part dels seus béns.</div></div></button>
+    <button class="card" aria-pressed="false"><div class="in"><div class="f">Arsina<small>toca per girar</small></div><div class="b">Si el mas es cremava, el pagès havia de pagar el senyor.</div></div></button>
+    <button class="card" aria-pressed="false"><div class="in"><div class="f">Ferma d'espoli<small>toca per girar</small></div><div class="b">Pagar el senyor en casar-se, per garantir el dot de l'esposa.</div></div></button>
+  </div>
+  <div class="vote"><span><b>Votem:</b> eren justos?</span><button data-v="0">Sí</button><button data-v="1">No</button><button data-v="2">Depèn</button><output id="vo">Sí 0 · No 0 · Depèn 0</output></div>
+</section>
+
+<section class="sl" aria-label="Línia del temps">
+  <div class="k">7 · Situo en el temps</div><h2>Del romànic a la llibertat dels remences</h2>
+  <div class="grow tl">
+    <button class="ev" aria-expanded="false"><img src="img/med/taull.webp" alt="Sant Climent de Taüll"><b>1123</b><span>Sant Climent de Taüll</span><em>L'Església té terres, rep el delme i pinta el poder de Déu: el Pantocràtor.</em></button>
+    <button class="ev" aria-expanded="false"><img src="img/med/poblet.webp" alt="Claustre de Poblet"><b>1151</b><span>Monestir de Poblet</span><em>Els monestirs eren també senyors feudals amb pagesos al seu servei.</em></button>
+    <button class="ev" aria-expanded="false"><img src="img/med/homenatge-lfm.webp" alt="Escena d'homenatge" style="object-position:50% 60%"><b>c. 1192</b><span><i>Liber feudorum maior</i></span><em>Alfons el Cast fa copiar els pactes amb els seus vassalls per guardar els seus drets.</em></button>
+    <button class="ev" aria-expanded="false"><img src="img/med/pesta.webp" alt="Enterrament de morts per la pesta"><b>1348</b><span>Pesta Negra</span><em>Mor molta gent. Amb menys pagesos, els senyors els volen lligar més a la terra.</em></button>
+    <button class="ev" aria-expanded="false"><img src="img/med/montblanc.webp" alt="Muralles de Montblanc"><b>1462</b><span>Guerra dels remences</span><em>Els pagesos s'aixequen contra els mals usos. No sempre van obeir.</em></button>
+    <button class="ev" aria-expanded="false"><img src="img/med/cardona2.webp" alt="Castell de Cardona"><b>1486</b><span>Sentència de Guadalupe</span><em>Ferran II aboleix els mals usos. Els pagesos poden marxar, però pagant.</em></button>
+  </div>
+  <div class="ask">Quina relació hi ha entre la Pesta Negra (1348) i la revolta dels remences (1462)?</div>
+</section>
+
+<section class="sl" aria-label="Construeix l'explicació">
+  <div class="k">8 · Explico</div><h2>Construïm l'explicació</h2>
+  <div class="grow build">
+    <div class="col" data-p="a"><h3>1 · Afirmació</h3>
+      <button class="chip">Els pagesos obeïen perquè la terra era del senyor.</button>
+      <button class="chip">Els pagesos obeïen perquè el senyor els protegia.</button>
+      <button class="chip">Els pagesos obeïen perquè hi estaven obligats i no podien marxar.</button></div>
+    <div class="col" data-p="p"><h3 style="color:var(--ver)">2 · Prova</h3>
+      <button class="chip">A la font 1 treballen als peus del castell emmurallat.</button>
+      <button class="chip">A la font 2 el vassall promet fidelitat amb les mans.</button>
+      <button class="chip">A la font 3 cal pagar per deixar el mas fins al 1486.</button></div>
+    <div class="col" data-p="r" style="grid-column:1/-1"><h3 style="color:var(--lap)">3 · Raonament</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px">
+      <button class="chip">Això demostra que vivien sota el poder i la protecció del senyor.</button>
+      <button class="chip">Per tant, obeir era un pacte que lligava les dues parts.</button>
+      <button class="chip">Per tant, no eren lliures: la llei els lligava a la terra.</button></div></div>
+  </div>
+  <div class="out" id="out" aria-live="polite">Tria una peça de cada columna. Quina combinació s'aguanta millor?</div>
+</section>
+
+<section class="sl" aria-label="Metacognició">
+  <div class="k">9 · Com he après?</div><h2>Mirem enrere</h2>
+  <div class="grow meta">
+    <div><b>Abans pensava… ara penso…</b><span>Comenta-ho amb la persona del costat.</span></div>
+    <div><b>Quina font m'ha ajudat més?</b><span>La miniatura, l'homenatge o la sentència. Per què?</span></div>
+    <div><b>Quin pas de la guia m'ha costat?</b><span>Observo · dedueixo · connecto · explico · dubto</span></div>
+  </div>
+  <div class="sem"><span><i style="background:#BFE3C8"></i>Ho sé explicar</span><span><i style="background:#F6E3A1"></i>Amb ajuda</span><span><i style="background:#F3C2B8"></i>Encara no</span></div>
+</section>
+
+</main>
+<nav class="nav" aria-label="Diapositives"><a href="gih-medieval.html">← Proposta</a><button id="prev" aria-label="Anterior">‹</button><div class="dots" id="dots"></div><button id="next" aria-label="Següent">›</button></nav>
+<script>
+(function(){
+"use strict";
+var S=[].slice.call(document.querySelectorAll(".sl")),i=0,dots=document.getElementById("dots");
+S.forEach(function(s,k){var b=document.createElement("button");b.setAttribute("aria-label","Diapositiva "+(k+1));b.onclick=function(){go(k)};dots.appendChild(b)});
+function go(k){i=Math.max(0,Math.min(S.length-1,k));S.forEach(function(s,j){s.classList.toggle("on",j===i)});
+  [].forEach.call(dots.children,function(d,j){d.setAttribute("aria-current",j===i)});history.replaceState(null,"","#"+(i+1))}
+document.getElementById("prev").onclick=function(){go(i-1)};document.getElementById("next").onclick=function(){go(i+1)};
+document.addEventListener("keydown",function(e){if(e.key==="ArrowRight"||e.key==="PageDown")go(i+1);if(e.key==="ArrowLeft"||e.key==="PageUp")go(i-1)});
+var x0=null;document.getElementById("deck").addEventListener("touchstart",function(e){x0=e.touches[0].clientX},{passive:true});
+document.getElementById("deck").addEventListener("touchend",function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>70)go(i+(d<0?1:-1));x0=null});
+/* punts: cada toc afegeix la nota */
+document.querySelectorAll(".sl").forEach(function(s){var n=s.querySelector(".notes[id]");if(!n)return;
+  s.querySelectorAll(".hs").forEach(function(h){h.setAttribute("aria-pressed","false");h.onclick=function(){
+    var e=n.querySelector(".empty");if(e)e.remove();if(h.getAttribute("aria-pressed")==="true")return;h.setAttribute("aria-pressed","true");
+    var t=h.dataset.t.split("|"),d=document.createElement("div");d.className="note";d.innerHTML="<b>"+h.textContent+" · "+t[0]+"</b>"+t[1];n.appendChild(d)}})});
+document.querySelectorAll(".pyr button,.ev").forEach(function(b){b.onclick=function(){b.setAttribute("aria-expanded",b.getAttribute("aria-expanded")!=="true")}});
+document.querySelectorAll(".card").forEach(function(b){b.onclick=function(){b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true")}});
+/* sacs */
+var SACK='<svg viewBox="0 0 24 28" aria-hidden="true"><path d="M8.5 2.5h7l-2 4.2c4.2 1.8 7.5 6 7.5 11.3 0 5-4.2 8-9 8s-9-3-9-8c0-5.3 3.3-9.5 7.5-11.3z"/><path d="M9.5 6.7h5"/></svg>',col="delme",sk=document.getElementById("sacks");
+for(var k=0;k<10;k++){var b=document.createElement("button");b.innerHTML=SACK;b.setAttribute("aria-label","Sac "+(k+1));b.dataset.c="";b.onclick=function(){this.dataset.c=this.dataset.c===col?"":col;cnt()};sk.appendChild(b)}
+document.querySelectorAll("#key button").forEach(function(b){b.onclick=function(){col=b.dataset.c;document.querySelectorAll("#key button").forEach(function(o){o.setAttribute("aria-pressed",o===b)})}});
+function cnt(){var f=sk.querySelectorAll('[data-c=""]').length;document.getElementById("count").textContent="Queden "+f+(f===1?" sac":" sacs")+" per menjar tot l'any."+(f===4?" Què passa si l'any és dolent?":"")}
+/* vot */
+var V=[0,0,0];document.querySelectorAll(".vote button").forEach(function(b){b.onclick=function(){V[+b.dataset.v]++;document.getElementById("vo").textContent="Sí "+V[0]+" · No "+V[1]+" · Depèn "+V[2]}});
+/* explicació */
+var P={a:"",p:"",r:""},out=document.getElementById("out");
+document.querySelectorAll(".build .col").forEach(function(c){c.querySelectorAll(".chip").forEach(function(b){b.onclick=function(){
+  c.querySelectorAll(".chip").forEach(function(o){o.setAttribute("aria-pressed",o===b)});P[c.dataset.p]=b.textContent;
+  out.innerHTML=["a","p","r"].map(function(x){return P[x]?'<span class="'+x+'">'+P[x]+"</span>":""}).join(" ")||out.innerHTML}})});
+var h=parseInt(location.hash.slice(1),10);go(h>0?h-1:0);
+})();
+</script>
+</body></html>

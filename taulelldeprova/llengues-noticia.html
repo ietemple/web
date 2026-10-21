@@ -1,0 +1,729 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Escrivim una notícia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<style>
+/* ===== Escrivim una notícia · estils propis (prefix ln-) ===== */
+.ln-q-que{--k:var(--mat);--kp:var(--mat-pastel)}
+.ln-q-qui{--k:var(--llen);--kp:var(--llen-pastel)}
+.ln-q-quan{--k:var(--amb);--kp:var(--amb-pastel)}
+.ln-q-on{--k:var(--cie);--kp:var(--cie-pastel)}
+.ln-q-com{--k:var(--faig);--kp:var(--faig-pastel)}
+.ln-q-perque{--k:var(--ang);--kp:var(--ang-pastel)}
+.ln-q-titular{--k:var(--llen);--kp:var(--llen-pastel)}
+.ln-q-entradeta{--k:var(--lec);--kp:var(--lec-pastel)}
+.ln-q-cos{--k:var(--mat);--kp:var(--mat-pastel)}
+.ln-q-peu{--k:var(--cie);--kp:var(--cie-pastel)}
+
+.ln-sec [hidden]{display:none!important}
+.ln-sec{padding:24px 28px 28px;margin:0 0 22px}
+@media (max-width:640px){.ln-sec{padding:18px 16px 20px}}
+.ln-sec>h2{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.ln-sec>h2 .ico{color:var(--cc)}
+.ln-intro{color:var(--tinta-suau);max-width:68ch;margin-bottom:16px}
+.ln-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ln-ico-s{width:1.15em;height:1.15em}
+
+/* fitxa */
+.ln-fitxa{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:760px){.ln-fitxa{grid-template-columns:minmax(0,1fr)}}
+.ln-fitxa>*,.ln-sessions>*{min-width:0}
+.ln-fitxa .tv-card h3{font-size:1.1rem;margin-bottom:8px;display:flex;gap:8px;align-items:center}
+.ln-fitxa .tv-card h3 .ico{color:var(--cc)}
+.ln-fitxa ul{margin:0;padding-left:20px}
+.ln-fitxa li{margin:4px 0}
+.ln-sessions{display:grid;gap:10px;grid-template-columns:repeat(3,minmax(0,1fr));margin:14px 0 0}
+@media (max-width:760px){.ln-sessions{grid-template-columns:minmax(0,1fr)}}
+.ln-sessions .tv-pastel{padding:14px 16px}
+.ln-sessions b{font-family:var(--font-display);font-size:1.05rem;display:block}
+.ln-sessions span{font-size:1rem;color:var(--tinta-suau)}
+.ln-wide{grid-column:1/-1}
+
+/* DUA */
+.ln-duabar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:20px 0 14px}
+.ln-duabar .tv-seg button{display:inline-flex;gap:8px;align-items:center}
+.ln-duabar .tv-seg button b{font-family:var(--font-display);font-size:1rem}
+.ln-cmp{margin-left:auto}
+.ln-panel{padding:20px 22px}
+.ln-panel h3{margin-bottom:6px}
+.ln-challenge{font-size:1.05rem;color:var(--tinta-suau);margin-bottom:14px}
+.ln-steps{margin:0;padding-left:24px;display:grid;gap:8px}
+.ln-all{display:grid;gap:14px;grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1100px){.ln-all{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.ln-all{grid-template-columns:1fr}}
+.ln-all .ln-panel{padding:16px}
+.ln-all .ln-panel h3{font-size:1.05rem}
+.ln-lf{font-size:1.28rem;line-height:1.55;letter-spacing:.01em}
+.ln-lf .ln-steps{gap:12px}
+.ln-lf strong,.ln-kw{font-weight:700;background:var(--lec-pastel);padding:0 4px;border-radius:4px}
+.ln-all .ln-lf{font-size:1.1rem}
+.ln-org{display:grid;gap:10px;grid-template-columns:repeat(3,minmax(0,1fr));margin:14px 0}
+@media (max-width:760px){.ln-org{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:420px){.ln-org{grid-template-columns:1fr}}
+.ln-oq{border-radius:var(--radi-md);background:var(--kp);border:1px solid rgba(255,255,255,.8);padding:12px 14px;border-top:4px solid var(--k)}
+.ln-oq .ln-oq-h{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:700;font-size:1.15rem}
+.ln-oq .ln-oq-h .ico{color:var(--k);width:1.7em;height:1.7em;background:#fff;border-radius:50%;padding:5px}
+.ln-oq p{font-size:1rem;margin-top:6px;color:var(--tinta)}
+.ln-oq em{font-style:normal;font-weight:600;color:var(--tinta-suau)}
+.ln-mock{display:grid;grid-template-columns:1.4fr 1fr;gap:6px;max-width:420px;margin-top:10px}
+.ln-mock div{border:2px dashed var(--linia-buida);border-radius:8px;padding:6px 10px;font-size:.95rem;font-weight:600;background:#fff}
+.ln-mock .m-t{grid-column:1/-1;border-color:var(--llen)}
+.ln-mock .m-e{grid-column:1/-1;border-color:var(--lec)}
+.ln-mock .m-c{border-color:var(--mat);min-height:64px}
+.ln-mock .m-f{border-color:var(--cie)}
+.ln-extra{margin-top:14px;padding:14px 16px;border-radius:var(--radi-md);background:var(--ang-pastel);border:1px solid rgba(255,255,255,.8);border-left:5px solid var(--ang)}
+.ln-extra h4{font-size:1.05rem;margin-bottom:6px}
+.ln-extra ul{margin:0;padding-left:20px}
+
+/* desmunta */
+.ln-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.ln-tools .ln-prog{margin-left:auto;font-weight:600;color:var(--tinta-suau)}
+.ln-paper-wrap{display:grid;gap:16px;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:start}
+@media (max-width:900px){.ln-paper-wrap{grid-template-columns:1fr}}
+.ln-art{background:#fff;border-radius:var(--radi-md);padding:22px 24px;border:1px solid var(--vidre-trac);box-shadow:var(--ombra-8);font-size:1.12rem;line-height:1.55}
+@media (max-width:640px){.ln-art{padding:16px 14px;font-size:1.08rem}}
+.ln-art h3.ln-t{font-size:clamp(1.5rem,3vw,2rem);line-height:1.12;margin-bottom:8px}
+.ln-art .ln-lead{font-weight:600;font-size:1.2rem;color:var(--tinta-suau);margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--vidre-trac)}
+.ln-art p{margin:0 0 .7em}
+.ln-art figure{margin:14px 0 0}
+.ln-ph{position:relative;aspect-ratio:3/2;border-radius:10px;background:var(--cie-pastel);border:2px dashed var(--cie);display:grid;place-items:center;text-align:center;padding:12px;font-weight:600;color:var(--tinta-suau);overflow:hidden}
+.ln-ph .ln-ph-in{position:absolute;inset:0;margin:0}
+.ln-ph .ln-ph-in img{width:100%;height:100%;object-fit:cover}
+.ln-art figcaption{font-size:1rem;color:var(--tinta-suau);margin-top:6px;font-style:italic}
+.ln-frag{all:unset;box-sizing:border-box;cursor:pointer;display:inline;padding:1px 3px;margin:0 -1px;border-radius:5px;border-bottom:3px dotted var(--tinta-tenue);background:rgba(86,77,98,.08);color:var(--tinta);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.ln-frag:hover{background:rgba(86,77,98,.18)}
+.ln-frag:focus-visible{outline:2px solid var(--focus);outline-offset:2px;box-shadow:0 0 0 5px var(--focus-halo)}
+.ln-frag[aria-pressed="true"]{background:var(--lec-pastel);border-bottom-style:solid;border-bottom-color:var(--tinta);box-shadow:0 0 0 2px var(--tinta)}
+.ln-frag.ok{cursor:default;background:var(--kp);border-bottom:3px solid var(--k);box-shadow:none}
+.ln-frag.bad{animation:lnshake .35s}
+@keyframes lnshake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+.ln-tag{display:inline-flex;align-items:center;gap:4px;vertical-align:baseline;font:700 .85rem/1 var(--font-text);letter-spacing:.04em;text-transform:uppercase;padding:3px 7px 3px 5px;margin:0 3px;border-radius:var(--radi-pill);background:#fff;border:1.5px solid var(--k);color:var(--tinta)}
+.ln-tag .ico{width:1.1em;height:1.1em;color:var(--k)}
+.ln-blk{display:block;width:100%;padding:6px 8px}
+.ln-blk.ok{border-left:6px solid var(--k);border-bottom:0;border-radius:6px}
+.ln-side{display:grid;gap:12px}
+.ln-pal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ln-pal button{display:flex;align-items:center;gap:8px;text-align:left;border-radius:var(--radi-md);border:1px solid var(--vidre-vora);background:var(--kp);box-shadow:var(--brill-vora),var(--ombra-2);padding:10px 12px;font:600 1.05rem/1.1 var(--font-text);min-height:48px;border-left:5px solid var(--k)}
+.ln-pal button .ico{color:var(--k)}
+.ln-pal button:hover{box-shadow:var(--brill-vora),var(--ombra-8)}
+.ln-pal button .ln-done{margin-left:auto;font-size:.9rem;font-weight:700}
+.ln-pal button[data-full="1"]{opacity:.6}
+.ln-feed{border-radius:var(--radi-md);padding:12px 14px;background:var(--vidre-3);border:1px solid var(--vidre-vora);min-height:84px;font-size:1.05rem}
+.ln-feed.good{background:var(--cie-pastel)}
+.ln-feed.nope{background:var(--amb-pastel)}
+.ln-feed strong{display:block;font-family:var(--font-display);margin-bottom:2px}
+.ln-docked{position:sticky;bottom:10px;z-index:5}
+@media (max-width:900px){.ln-side{position:sticky;bottom:8px;z-index:6;background:var(--vidre-3);border:1px solid var(--vidre-vora);border-radius:var(--radi-lg);padding:10px;box-shadow:var(--ombra-28);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}.ln-feed{min-height:0;padding:8px 12px;font-size:1rem}.ln-pal{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.ln-pal button{padding:8px 8px;gap:6px;font-size:1rem;min-height:44px}}
+
+/* planificador */
+.ln-plan{display:grid;gap:20px;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);align-items:start}
+@media (max-width:980px){.ln-plan{grid-template-columns:1fr}}
+.ln-form{display:grid;gap:12px}
+.ln-field{border-radius:var(--radi-md);background:var(--kp,var(--vidre-2));border:1px solid rgba(255,255,255,.8);border-left:5px solid var(--k,var(--tinta-tenue));padding:10px 12px}
+.ln-field label{display:flex;align-items:center;gap:8px;font:700 1.1rem/1.1 var(--font-display);margin-bottom:6px}
+.ln-field label .ico{color:var(--k,var(--tinta));width:1.5em;height:1.5em;background:#fff;border-radius:50%;padding:4px}
+.ln-field .ln-hint{font-size:1rem;color:var(--tinta-suau);margin:0 0 6px}
+.ln-field textarea,.ln-field input[type=text],.ln-field select{width:100%;border-radius:10px;border:1px solid var(--vidre-trac);background:#fff;padding:9px 11px;font:500 1.05rem/1.35 var(--font-text);color:var(--tinta);resize:vertical}
+.ln-field textarea{min-height:64px}
+.ln-hint-v,.ln-hint-lf{display:none}
+body[data-v="V"] .ln-hint-v{display:block}
+body[data-v="LF"] .ln-hint-lf{display:block}
+.ln-onlyA{display:none}
+body[data-v="A"] .ln-onlyA{display:block}
+body[data-v="LF"] .ln-field label{font-size:1.3rem}
+body[data-v="LF"] .ln-field textarea,body[data-v="LF"] .ln-field input{font-size:1.25rem}
+.ln-count{font-size:.95rem;color:var(--tinta-suau);margin-top:4px}
+
+/* diari */
+.ln-prevcol{container-type:inline-size;position:sticky;top:76px}
+@media (max-width:980px){.ln-prevcol{position:static}}
+.ln-paper{background:#fff;color:#1d1a22;border-radius:6px;padding:18px 20px 22px;box-shadow:var(--ombra-16);border:1px solid var(--vidre-trac);font-family:Georgia,"Times New Roman",serif}
+.ln-mast{text-align:center;border-top:4px double #1d1a22;border-bottom:4px double #1d1a22;padding:8px 0 6px;margin-bottom:6px}
+.ln-mast .ln-mn{font-family:var(--font-display);font-weight:700;font-size:clamp(1.7rem,9cqw,2.7rem);letter-spacing:-.02em;line-height:1}
+.ln-mast .ln-ms{font:600 .9rem/1.2 var(--font-text);letter-spacing:.16em;text-transform:uppercase;margin-top:5px;color:#4a4352;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.ln-ptit{font-family:var(--font-display);font-weight:700;font-size:clamp(1.5rem,7cqw,2.2rem);line-height:1.1;margin:14px 0 8px;letter-spacing:-.025em}
+.ln-pent{font-weight:700;font-size:1.12rem;line-height:1.4;margin:0 0 10px;padding-bottom:10px;border-bottom:1px solid #bbb}
+.ln-cols p{margin:0 0 .6em;font-size:1.02rem;line-height:1.5;text-align:justify;hyphens:auto}
+@container (min-width:520px){.ln-cols{column-count:2;column-gap:22px;column-rule:1px solid #ccc}}
+.ln-ghost{color:#8a8296;font-style:italic}
+.ln-pfig{margin:12px 0 10px;break-inside:avoid}
+.ln-pfig .ln-ph{aspect-ratio:16/9;font-size:.95rem}
+.ln-pfig figcaption{font:italic 500 .95rem/1.3 Georgia,serif;margin-top:5px;color:#3b3543}
+.ln-pq{break-inside:avoid;border-top:3px solid #1d1a22;border-bottom:1px solid #1d1a22;padding:8px 2px;margin:10px 0;font:italic 700 1.15rem/1.3 Georgia,serif}
+.ln-pnote{font-size:.95rem;color:var(--tinta-suau);margin-top:10px}
+
+/* full imprimible */
+.ln-sheet{background:#fff;color:#000;border:1px solid #999;border-radius:8px;padding:22px 24px;max-width:820px;margin:0 auto}
+.ln-sheet h3{font-size:1.5rem;margin-bottom:2px}
+.ln-sheet .ln-sh-meta{display:flex;gap:24px;flex-wrap:wrap;margin:10px 0 14px;font-weight:600}
+.ln-sheet .ln-sh-meta span{flex:1;min-width:150px;border-bottom:1.5px solid #000;padding-bottom:2px}
+.ln-sbox{border:2px solid #333;border-radius:8px;padding:8px 10px;margin:0 0 10px;break-inside:avoid;background:#fff}
+.ln-sbox .ln-sh{display:flex;align-items:center;gap:8px;font:700 1.1rem/1 var(--font-display);margin-bottom:4px}
+.ln-sbox .ln-sh .ico{width:1.4em;height:1.4em;color:#000}
+.ln-sbox .ln-sh small{font:500 .9rem/1.2 var(--font-text);margin-left:auto;color:#333}
+.ln-sbox .ln-val{white-space:pre-wrap;overflow-wrap:anywhere;min-height:1.6em;font-size:1.05rem;line-height:2}
+.ln-sbox .ln-ln{display:block;border-bottom:1px solid #777;height:1.9em}
+.ln-sgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
+@media (max-width:640px){.ln-sgrid{grid-template-columns:1fr}}
+.ln-sfoot{display:flex;justify-content:space-between;font-weight:600;font-size:.95rem;margin-top:6px;border-top:2px solid #000;padding-top:4px}
+
+/* avaluació */
+.ln-chk{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.ln-chk li label{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border-radius:var(--radi-md);background:var(--vidre-3);border:1px solid var(--vidre-vora);cursor:pointer;font-size:1.12rem;line-height:1.35}
+.ln-chk input{width:24px;height:24px;flex:none;margin-top:1px;accent-color:var(--faig)}
+.ln-chk li label:has(input:checked){background:var(--cie-pastel)}
+.ln-meter{display:flex;align-items:center;gap:12px;margin:14px 0 4px;font-weight:600}
+.ln-bar{flex:1;height:12px;border-radius:99px;background:#fff;border:1px solid var(--vidre-trac);overflow:hidden;max-width:360px}
+.ln-bar i{display:block;height:100%;width:0;background:var(--cie);transition:width .25s}
+.ln-rub{display:grid;gap:12px}
+.ln-rub fieldset{border:1px solid var(--vidre-vora);background:var(--vidre-3);border-radius:var(--radi-md);padding:10px 12px 12px;margin:0;min-width:0}
+.ln-rub legend{font:700 1.1rem/1.2 var(--font-display);padding:0 6px}
+.ln-lev{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:6px}
+@media (max-width:900px){.ln-lev{grid-template-columns:1fr}}
+.ln-lev label{display:block;cursor:pointer;border-radius:12px;border:2px solid var(--vidre-trac);background:#fff;padding:8px 10px;font-size:1rem;line-height:1.3}
+.ln-lev label b{display:inline-block;font:700 .95rem/1 var(--font-display);background:var(--tinta);color:#fff;border-radius:6px;padding:3px 7px;margin-right:6px}
+.ln-lev input{position:absolute;opacity:0;pointer-events:none}
+.ln-lev label:has(input:checked){background:var(--lec-pastel);border-color:var(--tinta)}
+.ln-lev label:has(input:focus-visible){outline:2px solid var(--focus);outline-offset:2px;box-shadow:0 0 0 5px var(--focus-halo)}
+.ln-lev label:hover{border-color:var(--tinta-tenue)}
+.ln-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:1rem;color:var(--tinta-suau);margin:0 0 10px}
+.ln-stars{display:grid;gap:10px;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:14px}
+@media (max-width:760px){.ln-stars{grid-template-columns:1fr}}
+.ln-stars .ln-field label .ico{background:#fff}
+.ln-stars textarea{min-height:76px}
+.ln-printrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.ln-sidebyside{display:grid;gap:14px}
+
+/* per a l'aula */
+.ln-aula{display:grid;gap:12px;grid-template-columns:repeat(3,minmax(0,1fr));margin:0 0 22px}
+@media (max-width:820px){.ln-aula{grid-template-columns:minmax(0,1fr)}}
+.ln-aula a{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--tinta);padding:16px 18px;border-radius:var(--radi-lg);background:var(--vidre-2);border:1px solid var(--vidre-vora);border-left:6px solid var(--k);box-shadow:var(--brill-vora),var(--ombra-8);min-height:84px;transition:transform .15s,box-shadow .15s}
+.ln-aula a:hover{transform:translateY(-2px);box-shadow:var(--brill-vora),var(--ombra-16)}
+.ln-aula a>.ico{width:46px;height:46px;padding:10px;border-radius:50%;background:var(--kp);color:var(--k)}
+.ln-aula b{display:block;font:700 1.2rem/1.15 var(--font-display)}
+.ln-aula span{display:block;font-size:1rem;color:var(--tinta-suau);margin-top:3px}
+.ln-aula a>.go{margin-left:auto;width:1.3em;height:1.3em;color:var(--tinta-suau);background:none;padding:0}
+.ln-sessions .ln-now{border:2px solid var(--llen)}
+.ln-sessions em{font-style:normal;font:700 .85rem/1 var(--font-text);letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-suau);display:block;margin-bottom:4px}
+@media print{.ln-aula{display:none!important}}
+
+/* ===== impressió: només l'àrea triada, fons blanc, sense transparències ===== */
+@media print{
+  body[data-print]{background:#fff!important;font-size:12pt}
+  body[data-print] *{box-shadow:none!important;text-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;opacity:1!important;animation:none!important}
+  body[data-print] .tv-top,body[data-print] .tv-foot,body[data-print] main>*:not(.ln-printable){display:none!important}
+  body[data-print] .tv-wrap{max-width:none;padding:0}
+  body[data-print] .ln-printable{border:0!important;padding:0!important;margin:0!important;background:#fff!important}
+  body[data-print="auto"] #planificador,body[data-print="co"] #planificador,body[data-print="plan"] #avaluacio{display:none!important}
+  body[data-print="plan"] #planificador>*:not(#plantilla),
+  body[data-print="auto"] #avaluacio>*:not(#print-auto),
+  body[data-print="co"] #avaluacio>*:not(#print-co){display:none!important}
+  body[data-print="plan"] #plantilla,body[data-print="auto"] #print-auto,body[data-print="co"] #print-co{display:block!important;position:static}
+  body[data-print] .ln-printable,body[data-print] .ln-printable *{background:#fff!important;color:#000!important}
+  body[data-print] .ln-printable .ico{color:#000!important}
+  body[data-print] .ln-printable h2{display:none}
+  body[data-print] .ln-sheet{border:0;padding:0;max-width:none}
+  body[data-print] .ln-chk li label,body[data-print] .ln-rub fieldset,body[data-print] .ln-lev label,body[data-print] .ln-field{border:1.5px solid #555!important;break-inside:avoid}
+  body[data-print] .ln-lev{grid-template-columns:repeat(4,1fr)}
+  body[data-print] .ln-lev input{position:static;opacity:1!important;margin-right:4px;accent-color:#000}
+  body[data-print] .ln-lev label b{border:1px solid #000;color:#000!important}
+  body[data-print] .ln-stars{grid-template-columns:repeat(3,1fr)}
+  body[data-print] .ln-field textarea{border:1px solid #777!important;min-height:90px}
+  body[data-print] .ln-bar{display:none}
+  body[data-print] .ln-noprint{display:none!important}
+  @page{margin:14mm}
+}
+</style></head>
+<body style="--cc:var(--llen);--ct:var(--llen-pastel)" data-v="B">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-que" viewBox="0 0 24 24"><path d="M4 7l8-4 8 4v10l-8 4-8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/></symbol>
+  <symbol id="i-qui" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></symbol>
+  <symbol id="i-quan" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-on" viewBox="0 0 24 24"><path d="M12 21s-6-5.500-6-10a6 6 0 0112 0c0 4.500-6 10-6 10z"/><circle cx="12" cy="11" r="2.200"/></symbol>
+  <symbol id="i-com" viewBox="0 0 24 24"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.200"/><circle cx="8" cy="17" r="2.200"/></symbol>
+  <symbol id="i-perque" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 00-3.500 10.900c.700.600 1 1.300 1 2.100h5c0-.800.300-1.500 1-2.100A6 6 0 0012 3z"/></symbol>
+  <symbol id="i-titular" viewBox="0 0 24 24"><path d="M5 6h14M12 6v13M9 19h6"/></symbol>
+  <symbol id="i-entradeta" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h9"/></symbol>
+  <symbol id="i-cos" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="16" rx="1.500"/><rect x="13" y="4" width="7" height="16" rx="1.500"/></symbol>
+  <symbol id="i-peu" viewBox="0 0 24 24"><rect x="3.500" y="4" width="17" height="12" rx="2"/><path d="M3.500 13l4-4 4 4 3-3 6 5M7 20h10"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.500l2.600 5.400 5.900.8-4.300 4.100 1 5.800L12 16.800 6.800 19.600l1-5.800L3.500 9.700l5.900-.8z"/></symbol>
+  <symbol id="i-wish" viewBox="0 0 24 24"><path d="M12 20V9M12 9c0-3 2-5 5-5 0 3-2 5-5 5zM12 13c0-2.500-1.700-4-4.500-4 0 2.500 1.700 4 4.500 4z"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 9V4h10v5M7 17H5a1 1 0 01-1-1v-6a1 1 0 011-1h14a1 1 0 011 1v6a1 1 0 01-1 1h-2"/><rect x="7" y="14" width="10" height="6" rx="1"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 12a8 8 0 108-8H7"/><path d="M10 1L7 4l3 3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.500l4.500 4.500L19 7"/></symbol>
+  <symbol id="i-goal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.200"/></symbol>
+  <symbol id="i-time" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 4h10a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 17a3 3 0 013-3h10"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4L16.500 4.500a2 2 0 013 3L8 19z"/><path d="M14 7l3 3"/></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.500"/><path d="M3 19c0-3.500 2.500-5 6-5s6 1.500 6 5M16 14c3 0 5 1.200 5 4"/></symbol>
+</svg>
+
+<div class="tv-top tv-wrap"><div class="tv-glass">
+  <a class="tv-back" href="index.html"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Taulell</a>
+  <span class="tv-crumb">Grans · 5è · Català</span><span class="tv-stamp">Proposta</span></div></div>
+
+<main class="tv-wrap">
+  <header class="tv-glass tv-head">
+    <div class="tv-kicker"><span class="tv-chip" style="--cc:var(--grans)"><i></i>Grans · 5è A</span><span class="tv-chip"><i></i>Català</span><span class="tv-chip">Dilluns 9:00 · Dimecres 15:00 · Divendres 15:00</span></div>
+    <h1>Escrivim una notícia per al diari de l'escola</h1>
+    <p class="tv-lead">El grup de 5è desmunta una notícia de l'escola, planifica la seva amb les sis preguntes i la veu convertida en una pàgina del diari <em>El Temple Informa</em>. Dilluns l'escriuen, dimecres la revisen i divendres la presenten.</p>
+  </header>
+
+  <!-- ===== PER A L'AULA ===== -->
+  <nav class="ln-aula" aria-label="Per a l'aula">
+    <a href="catala-5e-presentacio.html" class="ln-q-que"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M10 8l4 2-4 2z"/></svg><div><b>Presentació a l'aula</b><span>Dilluns 9:00 · per a la pantalla tàctil</span></div><svg class="ico go" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a href="fitxes/catala-5e.html" class="ln-q-titular"><svg class="ico" viewBox="0 0 24 24"><use href="#i-print"/></svg><div><b>Fitxa per imprimir</b><span>Planificador i esborrany · B · V · LF · A</span></div><svg class="ico go" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a href="cami-catala-5e.html" class="ln-q-on"><svg class="ico" viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/></svg><div><b>Camí de la seqüència</b><span>6 sessions, de la primera idea a la publicació</span></div><svg class="ico go" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </nav>
+
+  <!-- ===== FITXA ===== -->
+  <section class="tv-glass ln-sec" id="fitxa" aria-labelledby="h-fitxa">
+    <h2 id="h-fitxa"><svg class="ico"><use href="#i-box"/></svg>Fitxa del material</h2>
+    <p class="ln-intro">El repte és el mateix per a tothom. Canvia l'ajuda que té cada alumne a les mans.</p>
+    <div class="ln-fitxa">
+      <div class="tv-card"><h3><svg class="ico"><use href="#i-goal"/></svg>Objectiu</h3>
+        <p>Que l'alumnat de 5è llegeixi una notícia amb ull d'editor, en reconegui les parts i l'ordre (el més important primer), i escrigui, revisi i presenti la seva, breu i ben ordenada, sobre un fet de l'escola per publicar-la al diari del centre.</p></div>
+      <div class="tv-card"><h3><svg class="ico"><use href="#i-check"/></svg>Criteris d'avaluació</h3>
+        <p class="tv-muted" style="font-size:1rem;margin-bottom:6px">Llengua catalana i literatura · cicle superior (Decret 175/2022)</p>
+        <ul>
+          <li><b>Comprensió lectora:</b> llegeix una notícia, n'identifica la informació essencial (les sis preguntes) i reconeix com està organitzada: titular, entradeta, cos i peu de foto.</li>
+          <li><b>Producció escrita:</b> planifica, escriu i revisa una notícia coherent i adequada al lector del diari, amb el més important al principi i els paràgrafs ben ordenats.</li>
+          <li><b>Reflexió sobre la llengua:</b> revisa la puntuació, les majúscules i l'ortografia del text propi amb una llista de control i el diccionari.</li>
+          <li><b>Producció oral:</b> llegeix en veu alta i presenta la notícia al grup amb claredat i un ritme adequat.</li>
+          <li><b>Transversals:</b> competència personal, social i d'aprendre a aprendre (autorevisió) i competència ciutadana (donar i rebre comentaris amb respecte a la coavaluació).</li>
+</ul></div>
+      <div class="tv-card"><h3><svg class="ico"><use href="#i-time"/></svg>Durada: 6 sessions · 3 setmanes</h3>
+        <p class="tv-muted" style="font-size:1rem;margin-bottom:8px">Aquesta setmana, les tres franges de Català del taulell:</p>
+        <div class="ln-sessions" style="margin:0">
+          <div class="tv-pastel ln-now" style="--ct:var(--llen-pastel)"><em>Avui</em><b>Dilluns 9:00</b><span>Escrivim una notícia. Desmuntem la notícia model i omplim el planificador.</span></div>
+          <div class="tv-pastel" style="--ct:var(--lec-pastel)"><b>Dimecres 15:00</b><span>Revisem la notícia. Llista de control i coavaluació.</span></div>
+          <div class="tv-pastel" style="--ct:var(--cie-pastel)"><b>Divendres 15:00</b><span>Presentem la notícia al grup i la pengem al diari.</span></div>
+        </div></div>
+      <div class="tv-card"><h3><svg class="ico"><use href="#i-book"/></svg>Recursos</h3>
+        <ul>
+          <li>Notícia model: <i>L'hort de l'escola fa la primera collita de carxofes</i></li>
+          <li>Planificador imprimible i diari <i>El Temple Informa</i></li>
+          <li>Llista de control i rúbrica de coavaluació</li>
+          <li>Diccionari en paper o en línia; una foto de l'escola, si n'hi ha</li>
+          <li>Presentació per a la pantalla tàctil i fitxa imprimible en quatre versions</li>
+        </ul></div>
+    </div>
+
+    <div class="ln-duabar">
+      <div class="tv-seg" role="tablist" aria-label="Versió del material" id="dua-tabs">
+        <button role="tab" id="t-B" aria-selected="true" aria-controls="dua-panel" data-v="B"><b>B</b> Base</button>
+        <button role="tab" id="t-V" aria-selected="false" aria-controls="dua-panel" data-v="V" tabindex="-1"><b>V</b> Suport visual</button>
+        <button role="tab" id="t-LF" aria-selected="false" aria-controls="dua-panel" data-v="LF" tabindex="-1"><b>LF</b> Lectura fàcil</button>
+        <button role="tab" id="t-A" aria-selected="false" aria-controls="dua-panel" data-v="A" tabindex="-1"><b>A</b> Ampliació</button>
+      </div>
+      <button class="tv-btn ln-cmp" id="cmp" aria-pressed="false"><svg class="ico"><use href="#i-eye"/></svg>Compara les 4</button>
+    </div>
+    <div id="dua-panel" role="tabpanel" aria-labelledby="t-B" tabindex="0"></div>
+    <p class="tv-credit">La versió triada també canvia el planificador de més avall: ajudes a la V i a la LF, camps extra a la A.</p>
+  </section>
+
+  <!-- ===== DESMUNTA ===== -->
+  <section class="tv-glass ln-sec" id="desmunta" aria-labelledby="h-des">
+    <h2 id="h-des"><svg class="ico"><use href="#i-eye"/></svg>Desmunta la notícia</h2>
+    <p class="ln-intro">Toca un fragment subratllat (o fes servir el tabulador i Intro) i digues a quina pregunta respon. La resposta es veu a l'instant.</p>
+    <div class="ln-tools">
+      <div class="tv-seg" role="group" aria-label="Què vols trobar?">
+        <button id="mode-q" aria-pressed="true">Les 6 preguntes</button>
+        <button id="mode-p" aria-pressed="false">Les parts</button>
+      </div>
+      <button class="tv-btn" id="des-reset"><svg class="ico"><use href="#i-reset"/></svg>Torna a començar</button>
+      <span class="ln-prog" id="des-prog" aria-live="polite"></span>
+    </div>
+    <div class="ln-paper-wrap">
+      <article class="ln-art" id="art" aria-label="Notícia model"></article>
+      <div class="ln-side">
+        <div class="ln-pal" id="pal" role="group" aria-label="Respostes possibles"></div>
+        <div class="ln-feed" id="feed" role="status" aria-live="polite"><strong>Fragment triat: cap</strong>Toca primer un fragment de la notícia.</div>
+      </div>
+    </div>
+    <p class="tv-credit">Text de la notícia: model inventat per a aquesta seqüència (no és cap fet real). Les icones són pròpies.</p>
+  </section>
+
+  <!-- ===== PLANIFICADOR ===== -->
+  <section class="tv-glass ln-sec ln-printable" id="planificador" aria-labelledby="h-plan">
+    <h2 id="h-plan"><svg class="ico"><use href="#i-pen"/></svg>Planificador de la notícia</h2>
+    <p class="ln-intro">Escriu cada resposta en una frase completa i mira com la teva notícia es converteix en una pàgina del diari. Res no es desa: si vols conservar-ho, imprimeix-ho.</p>
+    <div class="ln-noprint" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:center">
+      <div class="tv-seg" role="tablist" aria-label="Vista del planificador" id="plan-tabs">
+        <button role="tab" aria-selected="true" aria-controls="plan-live" id="pt-live">Escriu i mira-ho</button>
+        <button role="tab" aria-selected="false" aria-controls="plantilla" id="pt-sheet" tabindex="-1">Plantilla per imprimir</button>
+      </div>
+      <button class="tv-btn main" id="print-plan"><svg class="ico"><use href="#i-print"/></svg>Imprimeix la plantilla</button>
+      <button class="tv-btn" id="plan-clear"><svg class="ico"><use href="#i-reset"/></svg>Buida-ho tot</button>
+    </div>
+
+    <div class="ln-plan ln-noprint" id="plan-live" role="tabpanel" aria-labelledby="pt-live">
+      <div class="ln-form" id="ln-form">
+        <div class="ln-field ln-q-titular"><label for="f-tit"><svg class="ico"><use href="#i-titular"/></svg>Titular</label>
+          <p class="ln-hint ln-hint-lf">Curt. Diu <b>de què va</b>.</p>
+          <input type="text" id="f-tit" maxlength="90" autocomplete="off" placeholder="Un titular curt i clar"><div class="ln-count" id="c-tit"></div></div>
+        <div class="ln-field ln-onlyA ln-q-titular"><label for="f-tit2"><svg class="ico"><use href="#i-titular"/></svg>Segon titular (versió atractiva)</label>
+          <p class="ln-hint">Si el primer és informatiu, aquest ha de fer venir ganes de llegir.</p>
+          <input type="text" id="f-tit2" maxlength="90" autocomplete="off" placeholder="Una altra manera de dir-ho">
+          <label for="f-tria" style="margin-top:10px;font-size:1rem">Quin va al diari?</label>
+          <select id="f-tria"><option value="1">El primer</option><option value="2">El segon</option></select>
+          <label for="f-just" style="margin-top:10px;font-size:1rem">Per què és millor?</label>
+          <textarea id="f-just" placeholder="Perquè…"></textarea></div>
+        <div class="ln-field ln-q-entradeta"><label for="f-ent"><svg class="ico"><use href="#i-entradeta"/></svg>Entradeta</label>
+          <p class="ln-hint">Una o dues frases que resumeixen el més important.</p>
+          <textarea id="f-ent" placeholder="El resum, en poques paraules"></textarea></div>
+
+        <div class="ln-field ln-q-que"><label for="f-que"><svg class="ico"><use href="#i-que"/></svg>Què</label>
+          <p class="ln-hint ln-hint-v">Què ha passat? <em>Comença així: «Ha passat que…»</em></p><p class="ln-hint ln-hint-lf"><b>Què</b> ha passat?</p>
+          <textarea id="f-que"></textarea></div>
+        <div class="ln-field ln-q-qui"><label for="f-qui"><svg class="ico"><use href="#i-qui"/></svg>Qui</label>
+          <p class="ln-hint ln-hint-v">Qui ho ha fet? <em>«El grup de… / La mestra de…»</em></p><p class="ln-hint ln-hint-lf"><b>Qui</b> ho ha fet?</p>
+          <textarea id="f-qui"></textarea></div>
+        <div class="ln-field ln-q-quan"><label for="f-quan"><svg class="ico"><use href="#i-quan"/></svg>Quan</label>
+          <p class="ln-hint ln-hint-v">Quan ha passat? <em>«Aquest dilluns… / Aquesta setmana…»</em></p><p class="ln-hint ln-hint-lf"><b>Quan</b> ha passat?</p>
+          <textarea id="f-quan"></textarea></div>
+        <div class="ln-field ln-q-on"><label for="f-on"><svg class="ico"><use href="#i-on"/></svg>On</label>
+          <p class="ln-hint ln-hint-v">On ha passat? <em>«Al pati… / A l'hort…»</em></p><p class="ln-hint ln-hint-lf"><b>On</b> ha passat?</p>
+          <textarea id="f-on"></textarea></div>
+        <div class="ln-field ln-q-com"><label for="f-com"><svg class="ico"><use href="#i-com"/></svg>Com</label>
+          <p class="ln-hint ln-hint-v">De quina manera ho han fet? <em>«Ho han fet amb…»</em></p><p class="ln-hint ln-hint-lf"><b>Com</b> ho han fet?</p>
+          <textarea id="f-com"></textarea></div>
+        <div class="ln-field ln-q-perque"><label for="f-per"><svg class="ico"><use href="#i-perque"/></svg>Per què</label>
+          <p class="ln-hint ln-hint-v">Per quina raó? <em>«Ho han fet perquè…»</em></p><p class="ln-hint ln-hint-lf"><b>Per què</b> ho han fet?</p>
+          <textarea id="f-per"></textarea></div>
+        <div class="ln-field ln-onlyA ln-q-qui"><label for="f-decl"><svg class="ico"><use href="#i-qui"/></svg>Declaració entre cometes</label>
+          <p class="ln-hint">Què diu una persona de l'escola (pel seu rol)? Surt com a cita destacada.</p>
+          <textarea id="f-decl" placeholder="Ha valgut la pena perquè…"></textarea>
+          <label for="f-decl-qui" style="margin-top:8px;font-size:1rem">Qui ho diu?</label>
+          <input type="text" id="f-decl-qui" placeholder="la mestra d'hort" autocomplete="off"></div>
+        <div class="ln-field ln-q-peu"><label for="f-peu"><svg class="ico"><use href="#i-peu"/></svg>Peu de foto</label>
+          <p class="ln-hint">Una frase que explica què es veu a la foto.</p>
+          <input type="text" id="f-peu" maxlength="120" autocomplete="off" placeholder="Què es veu a la foto?"></div>
+      </div>
+
+      <div class="ln-prevcol">
+        <div class="tv-lbl">Vista prèvia · pàgina del diari</div>
+        <div class="ln-paper" id="paper" aria-live="polite">
+          <div class="ln-mast"><div class="ln-mn">El Temple Informa</div><div class="ln-ms"><span>Diari de l'escola</span><span>Tortosa</span><span>Número 1</span></div></div>
+          <h3 class="ln-ptit" id="p-tit"></h3>
+          <p class="ln-pent" id="p-ent"></p>
+          <figure class="ln-pfig"><div class="ln-ph"><span>Aquí hi va la foto</span><figure class="ln-ph-in"><img src="img/noticia-hort.webp" alt="Carxofes acabades de collir en un hort escolar" onerror="this.closest('figure').remove()"></figure></div><figcaption id="p-peu"></figcaption></figure>
+          <div class="ln-cols"><p id="p-1"></p><p id="p-2"></p><div id="p-q"></div><p id="p-3"></p></div>
+        </div>
+        <p class="ln-pnote">La maqueta va muntant l'ordre: primer què, qui, quan i on; després el com i el per què.</p>
+      </div>
+    </div>
+
+    <div class="ln-sheet" id="plantilla" role="tabpanel" aria-labelledby="pt-sheet" hidden>
+      <h3>Planificador de la notícia</h3>
+      <div class="ln-sh-meta"><span>Grup: </span><span>Data: </span></div>
+      <div class="ln-sbox"><div class="ln-sh"><svg class="ico"><use href="#i-titular"/></svg>Titular <small>curt i que digui de què va</small></div><div class="ln-val" data-src="f-tit"></div></div>
+      <div class="ln-sbox"><div class="ln-sh"><svg class="ico"><use href="#i-entradeta"/></svg>Entradeta <small>el més important en 1 o 2 frases</small></div><div class="ln-val" data-src="f-ent" data-lines="2"></div></div>
+      <div class="ln-sgrid">
+        <div class="ln-sbox"><div class="ln-sh"><svg class="ico"><use href="#i-que"/></svg>Què <small>ha passat?</small></div><div class="ln-val" data-src="f-que" data-lines="2"></div></div>
+        <div class="ln-sbox"><div class="ln-sh"><svg class="ico"><use href="#i-qui"/></svg>Qui <small>ho ha fet?</small></div><div class="ln-val" data-src="f-qui" data-lines="2"></div></div>
+        <div class="ln-sbox"><div class="ln-sh"><svg class="ico"><use href="#i-quan"/></svg>Quan <small>ha passat?</small></div><div class="ln-val" data-src="f-quan" data-lines="2"></div></div>
+        <div class="ln-sbox"><div class="ln-sh"><svg class="ico"><use href="#i-on"/></svg>On <small>ha passat?</small></div><div class="ln-val" data-src="f-on" data-lines="2"></div></div>
+        <div class="ln-sbox"><div class="ln-sh"><svg class="ico"><use href="#i-com"/></svg>Com <small>ho han fet?</small></div><div class="ln-val" data-src="f-com" data-lines="2"></div></div>
+        <div class="ln-sbox"><div class="ln-sh"><svg class="ico"><use href="#i-perque"/></svg>Per què <small>ho han fet?</small></div><div class="ln-val" data-src="f-per" data-lines="2"></div></div>
+      </div>
+      <div class="ln-sbox"><div class="ln-sh"><svg class="ico"><use href="#i-peu"/></svg>Peu de foto <small>què es veu a la imatge?</small></div><div class="ln-val" data-src="f-peu"></div></div>
+      <div class="ln-sfoot"><span>El Temple Informa · Diari de l'escola</span><span>Escric les respostes en frases completes</span></div>
+    </div>
+  </section>
+
+  <!-- ===== AVALUACIÓ ===== -->
+  <section class="tv-glass ln-sec ln-printable" id="avaluacio" aria-labelledby="h-ava">
+    <h2 id="h-ava"><svg class="ico"><use href="#i-check"/></svg>Avaluació formativa</h2>
+    <p class="ln-intro">Primer em reviso jo; després em revisa un company. Serveix per millorar la notícia abans de publicar-la, no per posar nota.</p>
+    <div class="tv-seg ln-noprint" role="tablist" aria-label="Tipus d'avaluació" id="ava-tabs" style="margin-bottom:16px;display:inline-flex">
+      <button role="tab" id="at-auto" aria-selected="true" aria-controls="print-auto">Autoavaluació</button>
+      <button role="tab" id="at-co" aria-selected="false" aria-controls="print-co" tabindex="-1">Coavaluació</button>
+    </div>
+
+    <div id="print-auto" role="tabpanel" aria-labelledby="at-auto" class="ln-sidebyside">
+      <div>
+        <h3>La meva llista de control</h3>
+        <p class="tv-muted" style="margin:4px 0 12px">Marca només el que ja has fet. Si una casella queda buida, torna-hi.</p>
+        <ul class="ln-chk" id="chk">
+          <li><label><input type="checkbox"><span>El meu titular diu de què va la notícia i fa venir ganes de llegir-la.</span></label></li>
+          <li><label><input type="checkbox"><span>He respost les sis preguntes: què, qui, quan, on, com i per què.</span></label></li>
+          <li><label><input type="checkbox"><span>Al principi he posat el més important; els detalls vénen després.</span></label></li>
+          <li><label><input type="checkbox"><span>He explicat què ha passat, sense dir si m'agrada o no.</span></label></li>
+          <li><label><input type="checkbox"><span>L'he llegida en veu baixa i cada frase té sentit, amb els punts i les majúscules al seu lloc.</span></label></li>
+          <li><label><input type="checkbox"><span>He mirat les paraules dubtoses al diccionari o les he consultades amb un company.</span></label></li>
+        </ul>
+        <div class="ln-meter"><span id="chk-n">0 de 6</span><div class="ln-bar" aria-hidden="true"><i id="chk-bar"></i></div></div>
+        <p id="chk-msg" class="tv-muted" aria-live="polite">Encara et queden coses per mirar.</p>
+      </div>
+      <div class="ln-printrow ln-noprint"><button class="tv-btn" data-print="auto"><svg class="ico"><use href="#i-print"/></svg>Imprimeix la llista</button></div>
+    </div>
+
+    <div id="print-co" role="tabpanel" aria-labelledby="at-co" hidden class="ln-sidebyside">
+      <div>
+        <h3>Rúbrica de coavaluació · sessió de revisió</h3>
+        <p class="tv-muted" style="margin:4px 0 8px">Llegeix la notícia del company i marca un nivell a cada fila.</p>
+        <div class="ln-legend"><span><b>NA</b> no assolit</span><span><b>AS</b> assoliment satisfactori</span><span><b>AN</b> assoliment notable</span><span><b>AE</b> assoliment excel·lent</span></div>
+        <div class="ln-rub" id="rub"></div>
+        <div class="ln-stars">
+          <div class="ln-field ln-q-quan" style="--k:var(--lec);--kp:var(--lec-pastel)"><label for="s1"><svg class="ico"><use href="#i-star"/></svg>Estel 1</label><textarea id="s1" placeholder="Una cosa que està molt bé…"></textarea></div>
+          <div class="ln-field" style="--k:var(--lec);--kp:var(--lec-pastel)"><label for="s2"><svg class="ico"><use href="#i-star"/></svg>Estel 2</label><textarea id="s2" placeholder="Una altra cosa que m'ha agradat…"></textarea></div>
+          <div class="ln-field" style="--k:var(--ang);--kp:var(--ang-pastel)"><label for="s3"><svg class="ico"><use href="#i-wish"/></svg>Un desig</label><textarea id="s3" placeholder="M'agradaria que… perquè…"></textarea></div>
+        </div>
+        <p class="tv-credit">Dos estels i un desig: dues coses que funcionen i una proposta concreta per millorar, dita amb respecte.</p>
+      </div>
+      <div class="ln-printrow ln-noprint"><button class="tv-btn" data-print="co"><svg class="ico"><use href="#i-print"/></svg>Imprimeix la rúbrica</button></div>
+    </div>
+  </section>
+
+  <!-- ===== COM HO VEUS ===== -->
+  <section class="tv-sec"><p class="tv-lbl">Com ho veus?</p><div data-say></div></section>
+</main>
+<footer class="tv-foot">Institut Escola El Temple, Tortosa. Proposta amb dades d'exemple. No hi ha cap nom d'alumne; els docents apareixen pel seu rol.</footer>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+function ic(id,cls){return '<svg class="ico '+(cls||'')+'" aria-hidden="true"><use href="#i-'+id+'"/></svg>'}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+/* ---------- utilitat de pestanyes amb fletxes ---------- */
+function tabKeys(list,onPick){
+  list.addEventListener("keydown",function(e){
+    var tabs=$$('[role=tab]',list),i=tabs.indexOf(document.activeElement);
+    if(i<0)return;var n=-1;
+    if(e.key==="ArrowRight"||e.key==="ArrowDown")n=(i+1)%tabs.length;
+    else if(e.key==="ArrowLeft"||e.key==="ArrowUp")n=(i-1+tabs.length)%tabs.length;
+    else if(e.key==="Home")n=0;else if(e.key==="End")n=tabs.length-1;
+    if(n>=0){e.preventDefault();tabs[n].focus();onPick(tabs[n])}
+  });
+}
+
+/* ---------- DUA ---------- */
+var QS=[
+ {id:"que",n:"Què",ic:"que",def:"el fet principal: què ha passat",st:"Ha passat que…"},
+ {id:"qui",n:"Qui",ic:"qui",def:"les persones o el grup protagonistes",st:"Els protagonistes són…"},
+ {id:"quan",n:"Quan",ic:"quan",def:"el moment: dia, hora, època",st:"Ha passat…"},
+ {id:"on",n:"On",ic:"on",def:"el lloc on passa",st:"Ha passat a…"},
+ {id:"com",n:"Com",ic:"com",def:"la manera com s'ha fet",st:"Ho han fet amb…"},
+ {id:"perque",n:"Per què",ic:"perque",def:"la raó o la finalitat",st:"Ho han fet perquè…"}
+];
+var CHALLENGE="Repte per a tothom: escriu una notícia breu (80 a 120 paraules) sobre un fet de l'escola, que respongui les sis preguntes, i deixa-la a punt per a <i>El Temple Informa</i>.";
+var DUA={
+ B:{name:"Base",html:function(){return '<h3>B · Base</h3><p class="ln-challenge">'+CHALLENGE+'</p><ol class="ln-steps">'+
+   '<li>Llegeix la notícia model i desmunta-la: troba on es responen les sis preguntes.</li>'+
+   '<li>Tria un fet de l\'escola i omple el planificador amb frases completes.</li>'+
+   '<li>Escriu la notícia: titular, entradeta i cos. Afegeix el peu de foto.</li>'+
+   '<li>Passa-hi la llista de control i prepara-la per a la revisió amb un company.</li></ol>'}},
+ V:{name:"Suport visual",html:function(){var o=QS.map(function(q){return '<div class="ln-oq ln-q-'+q.id+'"><div class="ln-oq-h">'+ic(q.ic)+q.n+'?</div><p>'+q.def.charAt(0).toUpperCase()+q.def.slice(1)+'.</p><p><em>'+q.st+'</em></p></div>'}).join("");
+   return '<h3>V · Suport visual</h3><p class="ln-challenge">'+CHALLENGE+'</p>'+
+   '<div class="tv-lbl" style="margin-top:6px">Organitzador de les 6 preguntes</div><div class="ln-org">'+o+'</div>'+
+   '<div class="tv-lbl">Les parts d\'una notícia</div><div class="ln-mock" aria-label="Esquema d\'una notícia"><div class="m-t">1 · Titular</div><div class="m-e">2 · Entradeta</div><div class="m-c">3 · Cos (en paràgrafs)</div><div class="m-f">4 · Foto i peu de foto</div></div>'+
+   '<ol class="ln-steps" style="margin-top:14px"><li>Mira l\'organitzador i desmunta la notícia model.</li><li>Omple el planificador: cada pregunta té la seva icona i el seu començament de frase.</li><li>Escriu la notícia i mira la vista prèvia.</li><li>Revisa-la amb la llista de control.</li></ol>'}},
+ LF:{name:"Lectura fàcil",html:function(){return '<div class="ln-lf"><h3>LF · Lectura fàcil</h3><p class="ln-challenge">Escriu una <strong>notícia</strong> curta de l\'escola. Ha de dir <strong>què, qui, quan, on, com i per què</strong>.</p><ol class="ln-steps">'+
+   '<li><strong>Llegeix</strong> la notícia model.</li>'+
+   '<li><strong>Busca</strong> el titular i la foto.</li>'+
+   '<li><strong>Troba</strong> les 6 respostes.</li>'+
+   '<li><strong>Omple</strong> el planificador.</li>'+
+   '<li><strong>Escriu</strong> la teva notícia.</li>'+
+   '<li><strong>Repassa-la</strong> amb la llista.</li></ol>'+
+   '<div class="tv-lbl" style="margin-top:16px">Paraules clau</div><p><span class="ln-kw">Titular</span> és el títol.<br><span class="ln-kw">Entradeta</span> és el resum.<br><span class="ln-kw">Cos</span> és el text.<br><span class="ln-kw">Peu de foto</span> explica la foto.</p></div>'}},
+ A:{name:"Ampliació",html:function(){return '<h3>A · Ampliació</h3><p class="ln-challenge">'+CHALLENGE+'</p><ol class="ln-steps">'+
+   '<li>Desmunta la notícia model i digues quines parts poden canviar de lloc.</li>'+
+   '<li>Omple el planificador i escriu la notícia.</li>'+
+   '<li>Passa-hi la llista de control i revisa-la amb un company.</li></ol>'+
+   '<div class="ln-extra"><h4>Repte extra · tria\'n un</h4><ul><li><b>Dos titulars:</b> escriu-ne un d\'informatiu i un d\'atractiu. Justifica quin és millor per al diari i per què.</li><li><b>Una declaració:</b> afegeix una frase entre cometes d\'una persona de l\'escola (pel seu rol) i explica què aporta a la notícia.</li></ul><p class="tv-muted" style="margin-top:6px;font-size:1rem">Al planificador tens els camps extra a punt.</p></div>'}}
+};
+var curV="B",cmp=false;
+function renderDua(){
+  var p=$("#dua-panel");
+  if(cmp){p.className="ln-all";p.setAttribute("role","group");p.removeAttribute("aria-labelledby");p.setAttribute("aria-label","Les quatre versions");
+    p.innerHTML=["B","V","LF","A"].map(function(k){return '<div class="tv-card ln-panel">'+DUA[k].html()+'</div>'}).join("")}
+  else{p.className="tv-card ln-panel";p.setAttribute("role","tabpanel");p.setAttribute("aria-labelledby","t-"+curV);p.removeAttribute("aria-label");p.innerHTML=DUA[curV].html()}
+}
+function setV(v){
+  curV=v;document.body.setAttribute("data-v",v);
+  $$("#dua-tabs [role=tab]").forEach(function(b){var s=b.getAttribute("data-v")===v;b.setAttribute("aria-selected",s);b.tabIndex=s?0:-1});
+  renderDua();updatePreview();
+}
+$$("#dua-tabs [role=tab]").forEach(function(b){b.addEventListener("click",function(){setV(b.getAttribute("data-v"))})});
+tabKeys($("#dua-tabs"),function(b){setV(b.getAttribute("data-v"))});
+$("#cmp").addEventListener("click",function(){cmp=!cmp;this.setAttribute("aria-pressed",cmp);this.lastChild.textContent=cmp?"Torna a una sola":"Compara les 4";renderDua()});
+
+/* ---------- DESMUNTA ---------- */
+var ART=[
+ {id:"tit",part:"titular",tag:"h3",cls:"ln-t",segs:["L'hort de l'escola fa la primera collita de carxofes"]},
+ {id:"ent",part:"entradeta",tag:"p",cls:"ln-lead",segs:["Després de sis mesos de cura, les plantes de l'hort han donat les primeres carxofes de la temporada."]},
+ {id:"p1",part:"cos",tag:"p",segs:[{t:"El grup de 5è",q:"qui"}," ha collit ",{t:"les primeres carxofes",q:"que"}," ",{t:"aquest dilluns al matí",q:"quan"},", ",{t:"a l'hort de l'escola",q:"on"},". En total n'han recollit una vintena, grans i ben tendres. La collita va ser una festa tranquil·la per a tot el grup."]},
+ {id:"p2",part:"cos",tag:"p",segs:["Les plantes es van sembrar a la tardor i han aguantat el fred de l'hivern. Cada setmana, els alumnes les han regat i n'han tret les males herbes. «Ha costat, però ha valgut la pena», ha explicat la mestra d'hort."]},
+ {id:"p3",part:"cos",tag:"p",segs:["Les carxofes es van tallar ",{t:"amb tisores, una a una",q:"com"},". Aquesta setmana es cuinaran en un arròs per a tot el centre, ",{t:"perquè tothom pugui tastar el que s'ha cultivat a l'escola",q:"perque"},"."]},
+ {id:"peu",part:"peu",tag:"figcaption",segs:["Les primeres carxofes de la temporada, acabades de collir a l'hort de l'escola."]}
+];
+var PARTS=[
+ {id:"titular",n:"Titular",ic:"titular",def:"el títol: curt i diu de què va",hint:"és el que es llegeix primer, en gran"},
+ {id:"entradeta",n:"Entradeta",ic:"entradeta",def:"el resum de l'inici",hint:"resumeix el més important just sota el títol"},
+ {id:"cos",n:"Cos",ic:"cos",def:"el text amb els detalls",hint:"explica els detalls en paràgrafs"},
+ {id:"peu",n:"Peu de foto",ic:"peu",def:"la frase que explica la foto",hint:"va just sota la imatge"}
+];
+var mode="q",sel=null,done={},fails={},placed=0;
+function defs(){return mode==="q"?QS:PARTS}
+function defOf(id){return defs().filter(function(d){return d.id===id})[0]}
+function wordCount(){var t=0;ART.forEach(function(b){b.segs.forEach(function(s){t+=(typeof s==="string"?s:s.t).split(/\s+/).filter(Boolean).length})});return t}
+
+function renderArt(){
+  var h="",ph='<figure><div class="ln-ph"><span>Foto de la notícia</span><figure class="ln-ph-in"><img src="img/noticia-hort.webp" alt="Carxofes acabades de collir en un hort escolar" onerror="this.closest(\'figure\').remove()"></figure></div>';
+  ART.forEach(function(b){
+    var inner="";
+    if(mode==="p"){
+      var k=b.id;var ok=done[k];var pid=b.part;
+      var txt=b.segs.map(function(s){return esc(typeof s==="string"?s:s.t)}).join("");
+      inner='<button class="ln-frag ln-blk'+(ok?' ok ln-q-'+pid:'')+'" data-k="'+k+'" aria-pressed="'+(sel===k)+'"'+(ok?' aria-disabled="true"':'')+'>'+txt+(ok?'<span class="ln-tag ln-q-'+pid+'">'+ic(defOf(pid).ic)+defOf(pid).n+'</span>':'')+'</button>';
+    }else{
+      inner=b.segs.map(function(s,i){
+        if(typeof s==="string")return esc(s);
+        var k=b.id+"-"+i,ok=done[k];
+        return '<button class="ln-frag'+(ok?' ok ln-q-'+s.q:'')+'" data-k="'+k+'" data-q="'+s.q+'" aria-pressed="'+(sel===k)+'"'+(ok?' aria-disabled="true"':'')+'>'+esc(s.t)+'</button>'+(ok?'<span class="ln-tag ln-q-'+s.q+'">'+ic(defOf(s.q).ic)+defOf(s.q).n+'</span>':'');
+      }).join("");
+    }
+    if(b.tag==="figcaption")h+=ph+'<figcaption>'+inner+'</figcaption></figure>';
+    else h+='<'+b.tag+(b.cls?' class="'+b.cls+'"':'')+'>'+inner+'</'+b.tag+'>';
+  });
+  $("#art").innerHTML=h;
+}
+function total(){return mode==="q"?6:ART.length}
+function renderPal(){
+  $("#pal").innerHTML=defs().map(function(d){
+    var full=mode==="q"&&done["Q:"+d.id];
+    return '<button class="ln-q-'+d.id+'" data-d="'+d.id+'"'+(full?' data-full="1"':'')+'>'+ic(d.ic)+d.n+(full?'<span class="ln-done">'+ic("check")+'</span>':'')+'</button>';
+  }).join("");
+}
+function prog(){
+  var n=0,t=total();
+  if(mode==="q"){Object.keys(done).forEach(function(k){if(k.indexOf("Q:")!==0)n++})}
+  else{n=Object.keys(done).length}
+  placed=n;$("#des-prog").textContent=n+" de "+t+" trobats";
+  return n===t;
+}
+function feed(cls,title,msg){var f=$("#feed");f.className="ln-feed "+(cls||"");f.innerHTML="<strong>"+title+"</strong>"+msg}
+function pick(k){
+  if(done[k])return;
+  sel=sel===k?null:k;renderArt();
+  if(sel){var el=$('[data-k="'+k+'"]');if(el)el.focus();
+    feed("","Fragment triat","Ara tria a quina "+(mode==="q"?"pregunta respon":"part de la notícia pertany")+".")}
+  else feed("","Fragment triat: cap","Toca primer un fragment de la notícia.");
+}
+function answer(d){
+  if(!sel){feed("nope","Primer, un fragment","Toca una part del text subratllada i després tria la resposta.");return}
+  var k=sel,right;
+  if(mode==="q"){right=$('[data-k="'+k+'"]').getAttribute("data-q")}
+  else{right=ART.filter(function(b){return b.id===k})[0].part}
+  if(d===right){
+    done[k]=true;sel=null;
+    if(mode==="q"){done["Q:"+right]=true}
+    renderArt();renderPal();var all=prog();
+    var msg=mode==="q"?"Aquest fragment respon «"+defOf(right).n+"?»: "+defOf(right).def+".":"Correcte: és "+({titular:"el titular",entradeta:"l'entradeta",cos:"el cos",peu:"el peu de foto"})[right]+" ("+defOf(right).def+").";
+    if(all)msg+=" Ho has trobat tot. Ara ja pots planificar la teva notícia.";
+    feed("good","Molt bé!",msg);
+    var nf=$(".ln-frag:not(.ok)");
+  }else{
+    fails[k]=(fails[k]||0)+1;
+    var dd=defOf(d),msg2;
+    if(mode==="q")msg2="Aquest fragment no respon «"+dd.n+"?» (“"+dd.def+"”). Torna-ho a provar.";
+    else msg2="Aquest bloc no és "+(dd.id==="peu"?"el ":"")+dd.n.toLowerCase()+": "+dd.hint+". Torna-hi.";
+    if(fails[k]>=2){var rr=defOf(right);msg2+=" Pista: pensa en «"+rr.n+"».";}
+    feed("nope","Gairebé",msg2);
+    var el=$('[data-k="'+k+'"]');if(el){el.classList.remove("bad");void el.offsetWidth;el.classList.add("bad")}
+  }
+}
+function resetDes(){done={};fails={};sel=null;renderArt();renderPal();prog();feed("","Fragment triat: cap","Toca primer un fragment de la notícia.")}
+function setMode(m){mode=m;$("#mode-q").setAttribute("aria-pressed",m==="q");$("#mode-p").setAttribute("aria-pressed",m==="p");resetDes()}
+$("#art").addEventListener("click",function(e){var b=e.target.closest(".ln-frag");if(b&&!b.classList.contains("ok"))pick(b.getAttribute("data-k"))});
+$("#pal").addEventListener("click",function(e){var b=e.target.closest("button");if(b)answer(b.getAttribute("data-d"))});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&sel){sel=null;renderArt();feed("","Fragment triat: cap","Toca primer un fragment de la notícia.")}});
+$("#mode-q").addEventListener("click",function(){setMode("q")});
+$("#mode-p").addEventListener("click",function(){setMode("p")});
+$("#des-reset").addEventListener("click",resetDes);
+
+/* ---------- PLANIFICADOR ---------- */
+var F=["tit","tit2","tria","just","ent","que","qui","quan","on","com","per","decl","decl-qui","peu"];
+function v(id){var e=$("#f-"+id);return e?e.value.trim():""}
+function ghost(t){return '<span class="ln-ghost">'+t+'</span>'}
+function ensureDot(s){s=s.trim();return /[.!?…»"]$/.test(s)?s:s+"."}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+function updatePreview(){
+  var t=v("tit"),useA=document.body.getAttribute("data-v")==="A"&&v("tit2")&&v("tria")==="2"?v("tit2"):t;
+  $("#p-tit").innerHTML=useA?esc(useA):ghost("Aquí anirà el titular");
+  $("#p-ent").innerHTML=v("ent")?esc(v("ent")):ghost("Aquí anirà l'entradeta: el resum del més important.");
+  $("#p-peu").innerHTML=v("peu")?esc(v("peu")):ghost("Aquí anirà el peu de foto.");
+  var p1=["que","qui","quan","on"].map(function(k){return v(k)?ensureDot(cap(v(k))):""}).filter(Boolean).join(" ");
+  $("#p-1").innerHTML=p1?esc(p1):ghost("Primer paràgraf: què, qui, quan i on.");
+  $("#p-2").innerHTML=v("com")?esc(ensureDot(cap(v("com")))):ghost("Segon paràgraf: com ho han fet.");
+  $("#p-3").innerHTML=v("per")?esc(ensureDot(cap(v("per")))):ghost("Tercer paràgraf: per què ho han fet.");
+  var q=$("#p-q");
+  if(document.body.getAttribute("data-v")==="A"&&v("decl")){q.innerHTML='<blockquote class="ln-pq" style="margin:10px 0">«'+esc(v("decl").replace(/^«|»$/g,""))+'»'+(v("decl-qui")?'<br><small style="font:600 .9rem Georgia,serif">'+esc(cap(v("decl-qui")))+'</small>':'')+'</blockquote>'}else q.innerHTML="";
+  var c=$("#c-tit");if(c)c.textContent=v("tit")?v("tit").split(/\s+/).filter(Boolean).length+" paraules":"";
+  // plantilla imprimible
+  $$(".ln-val").forEach(function(el){
+    var val=v(el.getAttribute("data-src").replace(/^f-/,"")),n=+el.getAttribute("data-lines")||1;
+    if(val){el.textContent=val}else{el.innerHTML=new Array(n+1).join('<i class="ln-ln"></i>')}
+  });
+}
+$$("#ln-form input,#ln-form textarea,#ln-form select").forEach(function(e){e.addEventListener("input",updatePreview);e.addEventListener("change",updatePreview)});
+$("#plan-clear").addEventListener("click",function(){$$("#ln-form input,#ln-form textarea").forEach(function(e){e.value=""});$("#f-tria").value="1";updatePreview()});
+
+function showPlan(sheet){
+  $("#plan-live").hidden=sheet;$("#plantilla").hidden=!sheet;
+  $("#pt-live").setAttribute("aria-selected",!sheet);$("#pt-sheet").setAttribute("aria-selected",sheet);
+  $("#pt-live").tabIndex=sheet?-1:0;$("#pt-sheet").tabIndex=sheet?0:-1;
+}
+$("#pt-live").addEventListener("click",function(){showPlan(false)});
+$("#pt-sheet").addEventListener("click",function(){showPlan(true)});
+tabKeys($("#plan-tabs"),function(b){showPlan(b.id==="pt-sheet")});
+
+/* ---------- IMPRESSIÓ ---------- */
+function doPrint(kind){
+  document.body.setAttribute("data-print",kind);
+  updatePreview();
+  setTimeout(function(){window.print()},30);
+}
+window.addEventListener("afterprint",function(){document.body.removeAttribute("data-print")});
+$("#print-plan").addEventListener("click",function(){var was=$("#plantilla").hidden;doPrint("plan")});
+$$("[data-print]").forEach(function(b){if(b.tagName==="BUTTON")b.addEventListener("click",function(){doPrint(b.getAttribute("data-print"))})});
+
+/* ---------- AVALUACIÓ ---------- */
+function showAva(co){
+  $("#print-auto").hidden=co;$("#print-co").hidden=!co;
+  $("#at-auto").setAttribute("aria-selected",!co);$("#at-co").setAttribute("aria-selected",co);
+  $("#at-auto").tabIndex=co?-1:0;$("#at-co").tabIndex=co?0:-1;
+}
+$("#at-auto").addEventListener("click",function(){showAva(false)});
+$("#at-co").addEventListener("click",function(){showAva(true)});
+tabKeys($("#ava-tabs"),function(b){showAva(b.id==="at-co")});
+function chk(){
+  var all=$$("#chk input"),n=all.filter(function(i){return i.checked}).length;
+  $("#chk-n").textContent=n+" de 6";$("#chk-bar").style.width=(n/6*100)+"%";
+  $("#chk-msg").textContent=n===6?"Tot revisat. La teva notícia ja està a punt per a la sessió de revisió.":n>=4?"Quasi ho tens. Mira què et falta.":"Encara et queden coses per mirar.";
+}
+$$("#chk input").forEach(function(i){i.addEventListener("change",chk)});
+var RUB=[
+ {n:"El titular",l:["No diu de què va o és massa llarg.","Diu de què va, però es pot millorar.","És clar i curt i s'entén bé.","És clar, curt i fa venir ganes de llegir."]},
+ {n:"Les sis preguntes",l:["Falten moltes respostes.","Falten una o dues preguntes.","Hi són totes sis.","Hi són totes sis, ben explicades i amb detalls."]},
+ {n:"L'ordre del text",l:["Costa saber què és important.","Hi ha entradeta, però el cos va de cap a peus.","El més important va primer i els detalls després.","L'ordre fa que es llegeixi fàcilment, amb paràgrafs clars."]},
+ {n:"Ortografia i frases",l:["Hi ha molts errors que dificulten la lectura.","Hi ha alguns errors de puntuació o ortografia.","Quasi no hi ha errors i les frases tenen sentit.","No hi ha errors i les frases flueixen bé."]},
+ {n:"Presentació (foto i peu de foto)",l:["No hi ha peu de foto.","El peu de foto és massa vague.","El peu de foto explica què es veu.","El peu de foto aporta informació nova."]}
+];
+var LV=["NA","AS","AN","AE"];
+$("#rub").innerHTML=RUB.map(function(r,i){return '<fieldset><legend>'+r.n+'</legend><div class="ln-lev">'+r.l.map(function(t,j){return '<label><input type="radio" name="rub'+i+'" value="'+LV[j]+'"><b>'+LV[j]+'</b>'+t+'</label>'}).join("")+'</div></fieldset>'}).join("");
+
+/* init */
+renderDua();renderArt();renderPal();prog();updatePreview();chk();
+})();
+</script>
+<script src="tv-say.js"></script>
+</body></html>

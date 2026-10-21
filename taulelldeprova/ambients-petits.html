@@ -1,0 +1,137 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ambients de Petits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<style>
+.am-sec{margin:0 0 26px}
+.am-sec>h2{margin:0 0 6px;display:flex;align-items:center;gap:10px}
+.am-sec>h2 .ico{color:var(--petits)}
+.am-intro{color:var(--tinta-suau);max-width:72ch;margin:0 0 16px}
+.am-card{padding:22px 24px}
+@media (max-width:640px){.am-card{padding:18px 16px}}
+.pa-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.pa-amb{display:flex;flex-direction:column;gap:8px;padding:16px 18px;border-radius:var(--radi-lg);background:color-mix(in srgb,var(--ac) 30%,#fff);border:1px solid rgba(255,255,255,.8);box-shadow:var(--brill-vora),var(--ombra-2)}
+.pa-amb header{display:flex;align-items:center;gap:12px}
+.pa-med{width:64px;height:64px;border-radius:50%;background:var(--ac);display:grid;place-items:center;flex:none;box-shadow:inset 0 0 0 3px rgba(255,255,255,.7)}
+.pa-med img{width:78%;height:78%;object-fit:contain;mix-blend-mode:multiply}
+.pa-amb h3{font-size:1.25rem}
+.pa-amb p{font-size:1rem;line-height:1.32;color:var(--tinta-suau)}
+.pa-eix{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto}
+.pa-eix span{font:600 .85rem/1 var(--font-text);padding:5px 9px;border-radius:var(--radi-pill);background:rgba(255,255,255,.85);color:var(--ink)}
+.pa-eix span.miss{background:transparent;border:1.5px dashed var(--estat-pendent);color:var(--estat-pendent)}
+.pa-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.pa-lay{display:flex;flex-direction:column;gap:8px}
+.pa-lay .tag{align-self:flex-start;font:600 .8rem/1 var(--font-text);letter-spacing:.12em;text-transform:uppercase;padding:6px 10px;border-radius:var(--radi-pill);background:var(--vidre-fosc);color:#fff}
+.pa-lay .was{font-size:.95rem;color:var(--tinta-tenue);text-decoration:line-through}
+.pa-lay a{font-weight:600;margin-top:auto}
+.pa-help{display:grid;gap:14px}
+.pa-help .tv-pastel h3{margin-bottom:10px}
+.pa-ex{display:grid;gap:10px}
+.pa-ex div{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}
+@media (max-width:640px){.pa-ex div{grid-template-columns:1fr}}
+.pa-ex q,.pa-ex span{display:block;padding:10px 12px;border-radius:14px;font-size:1rem;line-height:1.3}
+.pa-ex q{background:rgba(255,255,255,.9);quotes:"«" "»"}
+.pa-ex span{background:var(--vidre-fosc);color:#fff}
+.pa-ex small{display:block;font:600 .75rem/1 var(--font-text);letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+.pa-rot{width:100%;border-collapse:separate;border-spacing:4px;font-size:1rem}
+.pa-rot th{font:600 .85rem/1.1 var(--font-text);letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-suau);text-align:left;padding:4px}
+.pa-rot td{padding:7px 8px;border-radius:10px;background:rgba(255,255,255,.75);text-align:center;white-space:nowrap}
+.pa-rot td.k{text-align:left;font-weight:600;background:none}
+.pa-rot td i{display:inline-block;width:16px;height:16px;border-radius:50%;background:var(--ac);vertical-align:-3px;margin:0 2px;box-shadow:0 0 0 1px rgba(0,0,0,.18)}
+.pa-scroll{overflow-x:auto}
+.pa-key{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:8px;font-size:.95rem;color:var(--tinta-suau)}
+.pa-key i{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--ac);margin-right:4px;vertical-align:-1px;box-shadow:0 0 0 1px rgba(0,0,0,.18)}
+.pa-find{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.pa-find li{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.8)}
+.pa-find li .ico{color:var(--estat-pendent);margin-top:2px}
+.pa-find li.ok .ico{color:var(--estat-aplicat)}
+.pa-priv{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:var(--radi-md);background:var(--fet-fons)}
+.pa-priv .ico{color:var(--estat-previ);width:26px;height:26px}
+</style></head><body>
+<div class="tv-top"><div class="tv-wrap"><div class="tv-glass">
+  <a class="tv-back" href="index.html"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Taulell</a>
+  <span class="tv-crumb">Petits · P3, P4 i P5 · Ambients</span><span class="tv-stamp">Mostra</span></div></div></div>
+
+<main class="tv-wrap">
+  <header class="tv-glass tv-head">
+    <div class="tv-kicker"><span class="tv-chip" style="--cc:var(--petits)"><i></i>Petits · P3 a P5</span><span class="tv-chip"><i></i>7 ambients · internivell</span><span class="tv-chip dark">Sense pantalla · sense escriure</span></div>
+    <h1>Els ambients de Petits, amb Claude a la rereguarda</h1>
+    <p class="tv-lead">Els infants de Petits no escriuen i a l'aula no hi ha pantalla. Per això Claude no entra mai a l'ambient: treballa amb vosaltres abans i després. Tot el que prepara acaba en paper, en material o en una conversa a l'assemblea. Aquí teniu els set ambients tal com els heu descrit i el que Claude hi pot aportar.</p>
+  </header>
+
+  <section class="am-sec" id="ambients">
+    <h2><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg>Els set ambients</h2>
+    <p class="am-intro">Cada ambient té la seva medalla: el color i el logo són el que reconeixen els infants. Les etiquetes són els eixos que surten als vostres documents. On el document no diu quin eix treballa, l'etiqueta surt amb vora discontínua.</p>
+    <div class="pa-grid" id="pa-grid"></div>
+  </section>
+
+  <section class="am-sec" id="capes">
+    <h2><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>Les tres capes, a Petits</h2>
+    <p class="am-intro">A la resta de l'escola, cada material té una proposta per al docent, una presentació per a la pantalla i una fitxa per imprimir. A Petits, les dues últimes es tornen objectes que es poden tocar.</p>
+    <div class="pa-cols">
+      <div class="tv-glass am-card pa-lay"><span class="tag">Docent</span><h3>Proposta de l'ambient</h3><p>Aquesta pàgina: què es fa a cada ambient, quins eixos treballa, com es gestiona i com s'observa. Només la veu l'equip.</p></div>
+      <div class="tv-glass am-card pa-lay"><span class="tag">A l'ambient</span><h3>Cartell i targetes de repte</h3><p class="was">Presentació a la pantalla</p><p>Un cartell A3 a l'entrada amb la medalla, quants infants hi caben i les normes en pictogrames. A la taula, targetes de repte sense cap paraula: dues imatges i prou.</p><a href="ambients-petits-cartell.html">Obre el cartell i les targetes</a></div>
+      <div class="tv-glass am-card pa-lay"><span class="tag">Paper</span><h3>Registre i carnet d'ambients</h3><p class="was">Fitxa A4 de l'alumne</p><p>L'adult observa i ho apunta en una graella amb tres indicadors per ambient. Cada infant té un carnet amb les set medalles i hi posa un gomet quan passa per un ambient.</p><a href="ambients-petits-registre.html">Obre el registre i el carnet</a></div>
+    </div>
+  </section>
+
+  <section class="am-sec" id="claude">
+    <h2><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l2.2 6.3L21 12l-6.8 2.7L12 21l-2.2-6.3L3 12l6.8-2.7z"/></svg>Com hi ajuda Claude</h2>
+    <p class="am-intro">Són tres feines que avui us ocupen moltes estones de pati i de tarda. A l'esquerra hi ha el que li dieu, també amb una nota de veu des del mòbil. A la dreta, el que us torna.</p>
+    <div class="pa-help">
+      <div class="tv-pastel" style="--ct:#FFEFC2"><h3>1 · Preparar</h3>
+        <div class="pa-ex">
+          <div><q>La setmana que ve a Llums i colors volem treballar barreges. Tenim taula de llum, comptagotes i paper de cel·lofana.</q><span><small>Claude torna</small>Tres propostes amb provocació inicial, la llista de material (què teniu i què falta) i tres targetes de repte sense paraules, a punt per imprimir.</span></div>
+          <div><q>Fes la proposta d'Arrels per a l'octubre.</q><span><small>Claude torna</small>Un calendari de tardor (castanyes, fulles, primeres pluges) lligat a l'hort, a les gallines i al land art, amb el que cal preparar cada setmana.</span></div>
+          <div><q>A Move your body hi ve un infant amb mobilitat reduïda.</q><span><small>Claude torna</small>El mateix circuit amb variants (DUA): estacions a terra, un recorregut alternatiu i rols com marcar el ritme o posar la música.</span></div>
+        </div></div>
+      <div class="tv-pastel" style="--ct:#CBEEEF"><h3>2 · Gestionar</h3>
+        <p style="margin-bottom:10px">Amb set ambients, tres nivells barrejats i places limitades, cada setmana hi ha les mateixes preguntes: qui va on, i qui fa dies que no passa per algun ambient? Claude ho ordena a partir dels carnets, i no li calen noms: n'hi ha prou amb un codi per infant.</p>
+        <div class="pa-scroll"><table class="pa-rot" aria-label="Exemple de rotació amb codis">
+          <thead><tr><th>Codi</th><th>Dl</th><th>Dt</th><th>Dc</th><th>Dj</th><th>Dv</th><th>Encara no hi ha anat</th></tr></thead>
+          <tbody id="pa-rot"></tbody></table></div>
+        <div class="pa-key" id="pa-key"></div>
+        <p class="tv-credit">És un exemple fictici. Claude reparteix les places de cada ambient, barreja P3, P4 i P5 i suggereix a qui convidar, però és l'infant qui tria amb la seva medalla. Si un infant sempre tria el mateix ambient (com P3-05), Claude ho assenyala perquè l'adult el convidi a provar-ne un altre.</p>
+      </div>
+      <div class="tv-pastel" style="--ct:#E2DFFF"><h3>3 · Millorar</h3>
+        <div class="pa-ex">
+          <div><q>(Nota de veu) La P4-07 ha fet sola el recorregut de fletxes i ha explicat a un de P3 com girar el ninot.</q><span><small>Claude torna</small>L'observació endreçada: Maker · eixos 1 i 2 · «segueix una seqüència» i «explica el procés». Passa al registre només si tu ho aproves.</span></div>
+          <div><q>Quins eixos treballem poc?</q><span><small>Claude torna</small>Un mapa dels set ambients per eixos i sabers. Ara mateix, l'eix 4 (forma part de la diversitat del món) només surt a Move your body, Gaudí i Petit Món.</span></div>
+          <div><q>Fes la crònica del trimestre per a les famílies.</q><span><small>Claude torna</small>Un text curt per ambient amb el que heu viscut, fet a partir de les vostres notes. Sense noms ni fotos de cares.</span></div>
+        </div></div>
+    </div>
+  </section>
+
+  <section class="am-sec" id="revisio">
+    <h2><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Primera revisió dels vostres documents</h2>
+    <p class="am-intro">Això és el que Claude ha trobat en llegir els tres resums. No ha canviat res: ho apunta perquè decidiu vosaltres.</p>
+    <div class="tv-glass am-card"><ul class="pa-find">
+      <li><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg><span><b>Falta el nom de dos ambients.</b> A Gaudí (M) hi diu «L'ambient "" és…», i a Llums i colors, «l'ambient d'aprenentatge  és», amb un espai buit. Segurament és un camp que no es va omplir.</span></li>
+      <li><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg><span><b>Atelier i Llums i colors no diuen quins eixos treballen.</b> Els altres cinc ambients sí que ho diuen. Per mantenir el mateix format, caldria afegir-ho.</span></li>
+      <li><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg><span><b>L'eix 4 surt poc.</b> Només el trobem en tres ambients. A Arrels (cuidar l'hort plegats) i a l'Atelier (retrats en parella) ja s'hi treballa, però no es diu.</span></li>
+      <li class="ok"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span><b>Els sabers lliguen amb el currículum català.</b> Els documents parlen dels quatre eixos d'Infantil i dels sabers, sense codis d'altres currículums.</span></li>
+    </ul></div>
+  </section>
+
+  <section class="am-sec" id="infants">
+    <h2><svg class="ico" viewBox="0 0 24 24"><path d="M4 5h16v11H10l-5 4v-4H4z"/></svg>La veu dels infants</h2>
+    <p class="am-intro">Els infants no escriuen, però parlen. A l'assemblea, cada infant ensenya la medalla de l'ambient on ha estat i explica una cosa que ha fet o ha descobert. L'adult ho grava en una nota de veu, i Claude ho transcriu i ho ordena per ambient. Així, la proposta següent neix del que han dit ells: «volem més cabanes fosques», «les gallines tenien set».</p>
+    <div class="pa-priv"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><p><b>Privacitat.</b> Claude no necessita saber qui és cada infant. Feu servir codis (P4-07) i guardeu a l'escola la llista que relaciona codis i noms. Si li passeu fotos, que siguin del material i dels espais, no de cares.</p></div>
+  </section>
+
+  <section class="am-sec tv-noprint" id="veus"><h2>Com ho veus?</h2><div data-say></div></section>
+</main>
+<footer class="tv-foot">Mostra del taulell Temple Vidre. Els logos i les medalles són de l'equip de Petits. A la mostra, les targetes fan servir emojis; a l'aula és millor posar-hi pictogrames d'ARASAAC o fotos del vostre material.</footer>
+<script src="ambients-petits-data.js"></script>
+<script>
+(()=>{
+ document.getElementById("pa-grid").innerHTML=AMB.map(a=>`<article class="pa-amb" style="--ac:${a.c};--ink:${a.ink}"><header><span class="pa-med"><img src="img/petits/${a.id}.webp" alt=""></span><h3>${a.n}</h3></header><p>${a.que}</p><div class="pa-eix">${a.eix.length?a.eix.map(e=>`<span title="${EIX[e]}">Eix ${e}</span>`).join(""):`<span class="miss">Eixos no indicats</span>`}</div></article>`).join("");
+ const R=[["P3-02",[0,5,1,4,6],[2,3]],["P4-07",[1,1,4,5,1],[0,2,3,6]],["P5-11",[2,0,3,6,4],[1,5]],["P3-05",[5,5,5,5,5],[0,1,2,3,4,6]]];
+ const dot=i=>`<i style="--ac:${AMB[i].c}" title="${AMB[i].n}"></i>`;
+ document.getElementById("pa-rot").innerHTML=R.map(([k,d,f])=>`<tr><td class="k">${k}</td>${d.map(i=>`<td>${dot(i)}</td>`).join("")}<td style="text-align:left">${f.map(dot).join("")}</td></tr>`).join("");
+ document.getElementById("pa-key").innerHTML=AMB.map(a=>`<span><i style="--ac:${a.c}"></i>${a.n}</span>`).join("");
+})();
+</script>
+<script src="tv-say.js"></script>
+</body></html>

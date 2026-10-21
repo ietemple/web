@@ -1,0 +1,341 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cor en 3D</title>
+<meta name="description" content="Mostra de Temple OS: laboratori virtual de la dissecció del cor amb un model 3D real.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<style>
+.cr-lab{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:start}
+.cr-stage{position:sticky;top:78px}
+.cr-viewer{position:relative;width:100%;aspect-ratio:4/3.3;max-height:calc(100vh - 170px);border-radius:var(--radi-xl);overflow:hidden;touch-action:none;
+  background:radial-gradient(70% 60% at 50% 45%,rgba(255,255,255,.95),rgba(255,255,255,.35) 70%),linear-gradient(160deg,var(--malla-rosa),var(--malla-lila) 60%,var(--malla-cel));
+  border:1px solid var(--vidre-vora);box-shadow:var(--brill-vora),0 0 0 1px var(--vidre-trac),var(--ombra-16)}
+.cr-viewer canvas{display:block;width:100%;height:100%}
+.cr-load{position:absolute;inset:0;display:grid;place-items:center;color:var(--tinta-suau);font:600 1.1rem var(--font-text);text-align:center;padding:16px}
+.cr-load span{display:block;width:44px;height:44px;margin:0 auto 10px;border-radius:50%;border:3px solid var(--vidre-3);border-top-color:var(--cie);animation:cr-spin 1s linear infinite}
+@keyframes cr-spin{to{transform:rotate(1turn)}}
+.cr-pin{position:absolute;transform:translate(-50%,-50%);min-width:30px;height:30px;padding:0 8px;border-radius:var(--radi-pill);background:var(--vidre-3);color:var(--tinta);
+  border:2px solid var(--cie);font:700 15px/26px var(--font-text);text-align:center;box-shadow:var(--ombra-8);pointer-events:none;display:none;white-space:nowrap}
+.cr-pin.ok{background:var(--cie);border-color:#fff;color:#fff}
+.cr-pin.nm{border-color:var(--tinta-suau);font-weight:600}
+.cr-tools{position:absolute;right:12px;top:12px;display:flex;flex-direction:column;gap:8px}
+.cr-tools button{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;border:1px solid var(--vidre-vora);background:var(--vidre-2);box-shadow:var(--brill-vora),var(--ombra-8);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.cr-tools button[aria-pressed="true"]{background:var(--vidre-fosc);color:#fff}
+.cr-hint{position:absolute;left:14px;bottom:12px;right:70px;font:500 .95rem/1.3 var(--font-text);color:var(--tinta-suau);pointer-events:none}
+.cr-read{position:absolute;left:14px;top:14px;background:var(--vidre-fosc);color:#fff;border-radius:var(--radi-pill);padding:6px 14px;font:700 1.1rem var(--font-text);display:none}
+.cr-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:12px 4px 0;font:500 .95rem var(--font-text);color:var(--tinta-suau)}
+.cr-legend i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:6px;vertical-align:-1px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.cr-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+.cr-row .tv-btn{padding:9px 14px;font-size:1rem}
+.cr-panel{display:none}.cr-panel.on{display:block}
+.cr-panel h2{margin-bottom:8px}
+.cr-lead{color:var(--tinta-suau);margin-bottom:10px}
+.cr-ids{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px;margin:12px 0}
+.cr-ids label{display:flex;align-items:center;gap:8px;padding:6px 8px 6px 6px;border-radius:var(--radi-md);background:var(--vidre-2);border:1px solid var(--vidre-vora)}
+.cr-ids label b{display:grid;place-items:center;min-width:28px;height:28px;border-radius:50%;background:var(--cie-pastel);font:700 .95rem var(--font-display)}
+.cr-ids label.ok{box-shadow:0 0 0 2px var(--cie)}.cr-ids label.no{box-shadow:0 0 0 2px var(--estat-pendent)}
+select,input[type=number]{border:1px solid var(--vidre-trac);border-radius:10px;background:#fff;padding:6px 8px;font:500 1rem var(--font-text);color:var(--tinta);min-height:38px}
+select{flex:1;min-width:0}
+input[type=number]{width:70px}
+input[type=range]{width:100%;accent-color:var(--cie)}
+.cr-fb{font:600 1rem var(--font-text);color:var(--tinta-suau);min-height:1.3em}
+.cr-fb.ok{color:var(--estat-aplicat)}.cr-fb.no{color:var(--estat-pendent)}
+.cr-data{margin:12px 0;padding:12px 14px;border-radius:var(--radi-md);background:var(--vidre-3);border-left:4px solid var(--cie);font-size:1.02rem}
+.cr-fitxa{display:flex;gap:10px;align-items:flex-start;margin:12px 0;padding:10px 14px;border-radius:var(--radi-md);background:var(--lec-pastel);font:600 1rem var(--font-text)}
+.cr-pn{display:flex;justify-content:space-between;gap:8px;margin-top:16px}
+table.cr-res{width:100%;border-collapse:collapse;font-size:1.02rem;background:#fff;border-radius:var(--radi-md);overflow:hidden}
+.cr-res th,.cr-res td{padding:8px 10px;border-bottom:1px solid var(--vidre-trac);text-align:left;vertical-align:top}
+.cr-res th{font:600 .9rem var(--font-text);letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-suau);background:var(--vidre-3)}
+.cr-steps{margin-bottom:14px}
+.cr-info{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.cr-info .tv-card h3{font-size:1.05rem;margin-bottom:6px}
+.cr-info .tv-card p,.cr-info .tv-card li{font-size:1rem;color:var(--tinta-suau)}
+.cr-info ul{margin:0;padding-left:18px}
+.cr-ver{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:18px;align-items:start}
+.cr-sheet{background:#fff;border-radius:var(--radi-md);box-shadow:var(--ombra-8);padding:18px 20px;min-height:250px}
+.cr-sheet h4{font:700 1.1rem var(--font-display);margin:0 0 8px}
+.cr-sheet p{font-size:1rem;margin:0 0 8px}
+.cr-sheet .lf{font-size:1.2rem;line-height:1.5}
+.cr-sheet ol{margin:0 0 8px;padding-left:20px}
+.cr-pics{display:flex;gap:8px;margin:8px 0}
+.cr-pics span{flex:1;aspect-ratio:1;border-radius:10px;background:var(--cie-pastel);display:grid;place-items:center;font:700 1.1rem var(--font-display)}
+.cr-sw{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.cr-sw button{display:flex;align-items:center;gap:8px;border:1px solid var(--vidre-vora);background:var(--vidre-2);border-radius:var(--radi-pill);padding:6px 14px 6px 6px;font:600 1rem var(--font-text);box-shadow:var(--ombra-2)}
+.cr-sw button i{font-style:normal;display:grid;place-items:center;min-width:28px;height:28px;padding:0 6px;border-radius:var(--radi-pill);background:var(--cie-pastel);font:700 .85rem var(--font-display)}
+.cr-sw button[aria-pressed="true"]{background:var(--vidre-fosc);color:#fff}
+.cr-sw button[aria-pressed="true"] i{background:var(--albercoc);color:var(--tinta)}
+.cr-what{font-size:1.05rem}
+.cr-what b{font-family:var(--font-display)}
+@media (max-width:980px){.cr-lab{grid-template-columns:1fr}.cr-stage{position:relative;top:0}.cr-info{grid-template-columns:repeat(2,minmax(0,1fr))}.cr-ver{grid-template-columns:1fr}}
+@media (max-width:520px){.cr-viewer{aspect-ratio:1/1.05}.cr-info{grid-template-columns:1fr}}
+@media print{.cr-lab,.cr-info,.tv-head,.cr-say{display:none!important}.cr-sheet{box-shadow:none;border:1px solid #bbb}}
+</style></head>
+<body style="--cc:var(--cie);--ct:var(--cie-pastel)">
+<div class="tv-top tv-wrap"><div class="tv-glass">
+  <a class="tv-back" href="index.html"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Taulell</a>
+  <span class="tv-crumb">Joves · 3r d'ESO · Biologia i Geologia · Sessió 4</span><span class="tv-stamp">Mostra</span></div></div>
+<main class="tv-wrap">
+  <header class="tv-glass tv-head">
+    <div class="tv-kicker"><span class="tv-chip" style="--cc:var(--joves)"><i></i>Joves · 3r d'ESO</span><span class="tv-chip"><i></i>Biologia i Geologia</span><span class="tv-chip">Laboratori virtual</span></div>
+    <h1>Dissecció del cor, també en 3D</h1>
+    <p class="tv-lead">A classe obren un cor de porc. Qui no hi era, qui vol tornar-hi o qui necessita més temps fa la mateixa observació aquí, amb un cor humà real en 3D: el gira, el talla i en mesura les parets. Els resultats van a la mateixa fitxa.</p>
+  </header>
+
+  <section class="tv-sec" aria-label="Per a l'aula">
+    <p class="tv-lbl">Per a l'aula</p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <a class="tv-btn main" href="cor-presentacio.html"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4M8 20h8"/></svg>Presentació a l'aula</a>
+      <a class="tv-btn" href="cor-fitxa.html"><svg class="ico" viewBox="0 0 24 24"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg>Fitxa per imprimir</a>
+      <a class="tv-btn" href="cami-bio.html"><svg class="ico" viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a4 4 0 0 0 0-8h-2a4 4 0 0 1 0-8h6"/></svg>Camí de la seqüència</a>
+    </div>
+  </section>
+
+  <div class="cr-lab">
+    <div class="cr-stage">
+      <div class="cr-viewer" id="viewer" aria-label="Model 3D del cor. Arrossega per girar.">
+        <div class="cr-load" id="load"><div><span></span>Carregant el cor 3D…</div></div>
+        <div class="cr-read" id="rread"></div>
+        <div class="cr-tools">
+          <button type="button" id="tReset" title="Torna a la vista inicial" aria-label="Torna a la vista inicial"><svg class="ico" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v5h5"/></svg></button>
+          <button type="button" id="tRuler" aria-pressed="false" title="Regle: toca dos punts del tall" aria-label="Regle"><svg class="ico" viewBox="0 0 24 24"><path d="M3 17L17 3l4 4L7 21z"/><path d="M7 13l2 2M10 10l2 2M13 7l2 2"/></svg></button>
+          <button type="button" id="tNames" aria-pressed="false" title="Mostra els noms (vista del docent)" aria-label="Mostra els noms"><svg class="ico" viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/></svg></button>
+        </div>
+        <div class="cr-hint" id="hint">Arrossega per girar · pinça o roda per fer zoom</div>
+      </div>
+      <div class="cr-legend">
+        <span><i style="background:#9c3b35"></i>múscul (miocardi)</span><span><i style="background:#d9c3b5"></i>artèries grans</span>
+        <span><i style="background:#7b5a6e"></i>venes grans</span><span><i style="background:#c8302a"></i>coronàries</span><span><i style="background:#efe4cf"></i>vàlvules</span>
+      </div>
+      <div class="cr-row"><button class="tv-btn" type="button" id="tColors" aria-pressed="false">Colors de l'esquema (vermell i blau)</button></div>
+    </div>
+
+    <div class="tv-glass" style="padding:20px">
+      <div class="tv-seg cr-steps" id="nav" role="tablist" aria-label="Passos del laboratori"></div>
+
+      <section class="cr-panel on" data-step="0">
+        <h2>1 · Per fora</h2>
+        <p class="cr-lead">Gira el cor: el veus per davant, com la foto de la fitxa. Tria el nom de cada vas gran.</p>
+        <div class="cr-ids" id="ids1"></div><p class="cr-fb" id="fb1"></p>
+        <div class="cr-row"><button class="tv-btn" type="button" id="tCor" aria-pressed="false">Ressalta les coronàries</button><button class="tv-btn" type="button" id="tFlow">Per on entra i surt la sang?</button></div>
+        <p class="cr-fb" id="flow"></p>
+        <div class="cr-data"><b>Dada del laboratori</b> (si no hi eres): en prémer el cor, la paret és <b>ferma i elàstica</b> i torna a la seva forma: és múscul. Per damunt hi passen les <b>artèries coronàries</b>.</div>
+        <div class="cr-fitxa"><svg class="ico" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg>A la fitxa: apartat 1 (noms dels 4 vasos, què notes en prémer, coronàries)</div>
+        <div class="cr-pn"><span></span><button class="tv-btn main" type="button" data-go="1">2 · Obrim el cor</button></div>
+      </section>
+
+      <section class="cr-panel" data-step="1">
+        <h2>2 · Obrim el cor</h2>
+        <p class="cr-lead">Fes el tall amb el bisturí virtual. Després gira el cor per mirar-hi dins.</p>
+        <div class="cr-row"><button class="tv-btn" type="button" data-cut="four" aria-pressed="false">Tall A · les 4 cavitats</button><button class="tv-btn" type="button" data-cut="none" aria-pressed="false">Sense tall</button></div>
+        <label class="tv-muted" for="slide">Mou el bisturí (avança o recula el tall)</label>
+        <input type="range" id="slide" min="-30" max="30" value="0" step="1">
+        <h3 style="margin-top:12px">Posa nom a cada cavitat</h3>
+        <div class="cr-ids" id="ids2"></div><p class="cr-fb" id="fb2"></p>
+        <div class="cr-row"><label for="ncav"><b>Quantes cavitats comptes?</b></label><input type="number" id="ncav" min="0" max="9" inputmode="numeric"><span class="cr-fb" id="fbcav"></span></div>
+        <div class="cr-row"><button class="tv-btn" type="button" id="tValv" aria-pressed="false">Ressalta vàlvules i músculs papil·lars</button></div>
+        <div class="cr-data"><b>Què hi veuràs:</b> el <b>septe</b> separa el costat dret de l'esquerre. Entre cada aurícula i el seu ventricle hi ha una <b>vàlvula</b>, lligada amb fils als músculs papil·lars.</div>
+        <div class="cr-fitxa"><svg class="ico" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg>A la fitxa: apartat 2 (cavitats, noms, septe, vàlvules) i el dibuix del cor obert</div>
+        <div class="cr-pn"><button class="tv-btn" type="button" data-go="0">Enrere</button><button class="tv-btn main" type="button" data-go="2">3 · Dues parets</button></div>
+      </section>
+
+      <section class="cr-panel" data-step="2">
+        <h2>3 · Compara les parets</h2>
+        <p class="cr-lead">Ara el tall és de través: veus els dos ventricles alhora. Activa el regle i toca la vora de dins i la de fora de la paret.</p>
+        <div class="cr-row"><button class="tv-btn" type="button" data-cut="trans" aria-pressed="false">Tall B · de través</button><button class="tv-btn" type="button" id="rulerBtn2" aria-pressed="false">Regle</button></div>
+        <div class="cr-row"><span>Darrera mesura: <b id="last">—</b></span>
+          <button class="tv-btn" type="button" data-save="VD">Desa: paret VD</button><button class="tv-btn" type="button" data-save="VE">Desa: paret VE</button><button class="tv-btn" type="button" data-save="SE">Desa: septe</button></div>
+        <table class="cr-res"><thead><tr><th>Paret</th><th>Gruix (mm)</th></tr></thead>
+          <tbody><tr><td>Ventricle dret (VD)</td><td id="mVD">—</td></tr><tr><td>Ventricle esquerre (VE)</td><td id="mVE">—</td></tr><tr><td>Septe</td><td id="mSE">—</td></tr><tr><td>VE ÷ VD</td><td id="mRat">—</td></tr></tbody></table>
+        <p class="cr-fb" id="fb3" style="margin-top:8px"></p>
+        <div class="cr-fitxa"><svg class="ico" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg>A la fitxa: apartat 3 (quina paret és més gruixuda i quantes vegades)</div>
+        <div class="cr-pn"><button class="tv-btn" type="button" data-go="1">Enrere</button><button class="tv-btn main" type="button" data-go="3">Els resultats</button></div>
+      </section>
+
+      <section class="cr-panel" data-step="3">
+        <h2>Els resultats</h2>
+        <p class="cr-lead">El laboratori és un banc de treball: el que surt aquí es copia a la fitxa. Les preguntes de per què es responen al paper.</p>
+        <table class="cr-res" id="resT"></table>
+        <div class="cr-row"><button class="tv-btn main" type="button" id="copy">Copia els resultats</button><span class="cr-fb" id="cmsg"></span></div>
+        <div class="cr-pn"><button class="tv-btn" type="button" data-go="2">Enrere</button><span></span></div>
+      </section>
+    </div>
+  </div>
+  <p class="tv-credit">Model 3D: <a href="https://lifesciencedb.jp/bp3d/" target="_blank" rel="noopener">BodyParts3D</a>, © The Database Center for Life Science (DBCLS), llicència <a href="https://creativecommons.org/licenses/by-sa/2.1/jp/deed.ca" target="_blank" rel="noopener">CC BY-SA 2.1 JP</a>. Retallat, simplificat i acolorit per a IE Temple; el model derivat es comparteix amb la mateixa llicència.</p>
+
+  <section class="tv-sec" style="margin-top:28px">
+    <p class="tv-lbl">La fitxa del material</p>
+    <div class="cr-info">
+      <div class="tv-card"><h3>Objectiu</h3><p>Relacionar la forma del cor amb la seva funció: quatre cavitats, vàlvules que fan anar la sang en un sol sentit i un ventricle esquerre més gruixut perquè empeny la sang a tot el cos.</p></div>
+      <div class="tv-card"><h3>Criteris</h3><ul><li>Interpretar observacions i mesures pròpies per explicar el funcionament d'un òrgan.</li><li>Fer servir el vocabulari científic amb precisió en la descripció.</li><li>Treballar amb cura i seguretat al laboratori.</li></ul></div>
+      <div class="tv-card"><h3>Durada</h3><p>Una sessió de 55 min: dissecció real en parelles. El laboratori virtual, per a qui no hi era, per repassar o per acabar a casa.</p></div>
+      <div class="tv-card"><h3>Recursos</h3><ul><li>Cor de porc per parella, safata, bisturí, guants</li><li>Fitxa de la sessió (4 versions)</li><li>Aquest laboratori 3D</li><li>Exit ticket de 3 preguntes</li></ul></div>
+    </div>
+  </section>
+
+  <section class="tv-sec">
+    <p class="tv-lbl">Quatre versions de la fitxa</p>
+    <div class="tv-glass" style="padding:20px">
+      <div class="cr-sw" id="vsw" role="group" aria-label="Versió de la fitxa"></div>
+      <div class="cr-ver"><p class="cr-what" id="vwhat"></p><div class="cr-sheet" id="vsheet"></div></div>
+      <div class="cr-row tv-noprint"><button class="tv-btn" type="button" onclick="print()">Imprimeix aquesta versió</button></div>
+    </div>
+  </section>
+
+  <section class="tv-sec"><p class="tv-lbl">Com ho veus?</p><div data-say></div></section><script src="tv-say.js"></script>
+</main>
+<footer class="tv-foot">Institut Escola El Temple, Tortosa. Mostra amb dades d'exemple. No hi ha cap nom d'alumne; els docents apareixen pel seu rol.</footer>
+
+<script>
+/* versions de la fitxa i bloc de parer: sense dependències */
+(()=>{
+const V={
+ B:{n:"Base",w:"<b>La proposta estàndard.</b> Tres apartats que segueixen el laboratori: per fora, obrim el cor, dues parets. Preguntes obertes de per què al final.",
+   s:"<h4>Dissecció del cor · Fitxa</h4><p><b>1. Per fora.</b> Escriu el nom dels quatre vasos grans. Què notes quan prems la paret amb el dit?</p><p><b>2. Obrim el cor.</b> Quantes cavitats hi ha? Dibuixa el cor obert i posa-hi els noms.</p><p><b>3. Dues parets.</b> Mesura el gruix de la paret dels dos ventricles. Quina és més gruixuda? Quantes vegades?</p><p><b>Per què?</b> Explica per què el ventricle esquerre necessita una paret més gruixuda.</p>"},
+ V:{n:"Suport visual",w:"<b>Fotos i passos.</b> Cada apartat té la foto de referència numerada i una taula pautada. Saben què ve després.",
+   s:"<h4>Dissecció del cor · Fitxa</h4><div class='cr-pics'><span>1</span><span>2</span><span>3</span></div><p><b>1.</b> Mira la foto 1. Escriu el nom de cada número.</p><p><b>2.</b> Talla com a la foto 2. Compta les cavitats: ___</p><p><b>3.</b> Mesura amb el regle i omple la taula: VD ___ mm · VE ___ mm</p>"},
+ L:{n:"Lectura fàcil",w:"<b>Frases curtes i lletra gran.</b> Les preguntes es responen triant entre dues opcions o amb una paraula.",
+   s:"<div class='lf'><h4>El cor per dins</h4><p>1. El cor és un <b>múscul</b>. Sí / No</p><p>2. El cor té <b>4</b> cavitats. Sí / No</p><p>3. La paret més gruixuda és la del ventricle: <b>dret</b> / <b>esquerre</b></p></div>"},
+ A:{n:"Ampliació",w:"<b>Un repte més.</b> Mateixa dissecció, i un cas: una persona amb la pressió alta durant anys. Què li passa a la paret del ventricle esquerre? Ho justifiquen amb les seves mesures.",
+   s:"<h4>Dissecció del cor · Fitxa</h4><p><b>1-3.</b> Com a la versió base.</p><p><b>Repte.</b> El ventricle esquerre de la teva mostra és ___ vegades més gruixut que el dret. Una persona té la pressió alta des de fa anys. Què creus que passarà amb aquest gruix? Per què pot ser un problema? Fes servir les teves mesures.</p>"}};
+const sw=document.getElementById("vsw");let cur="B";
+function draw(){sw.innerHTML=Object.keys(V).map(k=>`<button type="button" data-v="${k}" aria-pressed="${k===cur}"><i>${k==="L"?"LF":k}</i>${V[k].n}</button>`).join("");
+  document.getElementById("vwhat").innerHTML=V[cur].w;document.getElementById("vsheet").innerHTML=V[cur].s}
+sw.addEventListener("click",e=>{const b=e.target.closest("button");if(b){cur=b.dataset.v;draw()}});draw();
+})();
+</script>
+<script type="importmap">
+{"imports":{"three":"./lib/three.module.js","three/addons/":"./lib/addons/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+
+const S={};const $=id=>document.getElementById(id);
+/* coordenades Blender (x esquerra del pacient, y darrere, z amunt) → glTF (x, z, −y) */
+const B=(x,y,z)=>new THREE.Vector3(x,z,-y);
+
+const STEPS=['1 · Per fora','2 · Obrim el cor','3 · Dues parets','Resultats'];
+const nav=$('nav');let cur=0;
+STEPS.forEach((t,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.textContent=t;b.onclick=()=>go(i);nav.appendChild(b)});
+function go(i){cur=i;document.querySelectorAll('.cr-panel').forEach(s=>s.classList.toggle('on',+s.dataset.step===i));
+  [...nav.children].forEach((b,j)=>b.setAttribute('aria-selected',j===i));
+  if(i===0)setCut(null);if(i===1)setCut('four');if(i===2)setCut('trans');if(i===3)renderRes();setRuler(false);updPins()}
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(+b.dataset.go));
+
+const viewer=$('viewer');
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.localClippingEnabled=true;renderer.outputColorSpace=THREE.SRGBColorSpace;
+viewer.prepend(renderer.domElement);
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(35,1,0.1,200);
+const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.minDistance=8;controls.maxDistance=60;
+scene.add(new THREE.HemisphereLight(0xffffff,0x6a4a5a,1.15));
+const key=new THREE.DirectionalLight(0xffffff,1.6);camera.add(key);key.position.set(3,4,2);scene.add(camera);
+
+const clipPlane=new THREE.Plane(new THREE.Vector3(0,0,-1),0);const clips=[];
+const COL={miocardi:0x9c3b35,arteria:0xd9c3b5,vena:0x7b5a6e,coronaria:0xc8302a,vena_cor:0x5b3a55,valvula:0xefe4cf,papil:0xb4544c};
+const DID={aorta_ascendent:0xd8322b,arc_aorta:0xd8322b,arteries_pulmonars:0x3a6fd0,cava_superior:0x3a6fd0,cava_inferior:0x3a6fd0,venes_pulmonars:0xd8322b};
+const mats=[];
+function groupOf(n){if(n.startsWith('paret'))return'miocardi';if(/aorta|arteries_pulm/.test(n))return'arteria';if(/cava|venes_pulm/.test(n))return'vena';
+  if(/coronaria|circumflexa|marginal/.test(n))return'coronaria';if(/si_coronari|vena_cardiaca/.test(n))return'vena_cor';if(n.startsWith('valv'))return'valvula';if(n.startsWith('papil'))return'papil';return'miocardi'}
+const loader=new GLTFLoader();
+const loadCor=(ok,_p,err)=>import('./models/cor_bp3d.glb.js').then(m=>{const s=atob(m.default),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);loader.parse(u.buffer,'',ok,err)}).catch(err);
+
+loadCor(g=>{
+  const root=g.scene;const meshes=[];root.traverse(o=>{if(o.isMesh)meshes.push(o)});
+  meshes.forEach(o=>{const n=/^Mesh|^$/.test(o.name)&&o.parent?o.parent.name:o.name;const grp=groupOf(n);
+    const m=new THREE.MeshStandardMaterial({color:COL[grp],roughness:grp==='miocardi'?0.62:0.5,metalness:0,clippingPlanes:clips,side:THREE.FrontSide});
+    const cap=new THREE.MeshBasicMaterial({color:grp==='miocardi'||grp==='papil'?0xc0675d:0xe9d9c9,clippingPlanes:clips,side:THREE.BackSide});
+    o.material=m;o.add(new THREE.Mesh(o.geometry,cap));mats.push({n,grp,m,base:COL[grp],mesh:o})});
+  scene.add(root);$('load').remove();resetView();applyColors();go(cur)},
+  undefined,err=>{console.error(err);$('load').textContent="No s'ha pogut carregar el model 3D. Torna a obrir la pàgina. ("+(err&&err.message||err)+")"});
+function resize(){const w=viewer.clientWidth,h=viewer.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}
+new ResizeObserver(resize).observe(viewer);resize();
+
+const CUTS={four:{n:B(-0.44,0.40,-0.79).normalize(),p:B(0.1,0.2,-0.4),up:null},trans:{n:B(0,0,-1),p:B(0.8,-0.8,-3.0),up:B(0,1,0)}};
+let cutKey=null,offset=0;
+function setCut(k){cutKey=k;offset=0;$('slide').value=0;
+  document.querySelectorAll('[data-cut]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.cut===(k||'none')));
+  clips.length=0;if(k)clips.push(clipPlane);applyCut();viewCut();
+  mats.forEach(o=>{o.mesh.visible=!(k==='trans'&&/cava_inferior|si_coronari/.test(o.n))})}
+function applyCut(){if(!cutKey)return;const c=CUTS[cutKey];clipPlane.setFromNormalAndCoplanarPoint(c.n,c.p.clone().addScaledVector(c.n,offset*0.1))}
+function viewCut(){if(!cutKey){resetView();return}const c=CUTS[cutKey];const sup=B(0,0,1);
+  const up=c.up?c.up.clone():sup.addScaledVector(c.n,-sup.dot(c.n)).normalize();camera.up.copy(up);camera.position.copy(c.p).addScaledVector(c.n,-24);controls.target.copy(c.p);controls.update()}
+function resetView(){camera.up.set(0,1,0);camera.position.set(0,1.5,32);controls.target.set(0,0.5,0);controls.update()}
+$('slide').oninput=e=>{offset=+e.target.value;applyCut();updPins()};
+document.querySelectorAll('[data-cut]').forEach(b=>b.onclick=()=>setCut(b.dataset.cut==='none'?null:b.dataset.cut));
+$('tReset').onclick=()=>{cutKey?viewCut():resetView()};
+
+let didactic=false,hiCor=false,hiValv=false;
+function applyColors(){mats.forEach(o=>{let c=o.base;if(didactic&&DID[o.n]!==undefined)c=DID[o.n];o.m.color.setHex(c);o.m.emissive.setHex(0);
+  const dim=(hiCor&&!/coronaria|vena_cor/.test(o.grp))||(hiValv&&!/valvula|papil/.test(o.grp));
+  if(hiCor&&o.grp==='coronaria')o.m.emissive.setHex(0x661010);
+  if(hiValv&&(o.grp==='valvula'||o.grp==='papil'))o.m.emissive.setHex(o.grp==='valvula'?0x8a6a1a:0x5a1a10);
+  if(dim&&o.grp==='miocardi')o.m.color.multiplyScalar(0.55)})}
+function tog(id,fn){$(id).onclick=()=>{const v=$(id).getAttribute('aria-pressed')!=='true';$(id).setAttribute('aria-pressed',v);fn(v);applyColors()}}
+tog('tColors',v=>didactic=v);tog('tCor',v=>hiCor=v);tog('tValv',v=>hiValv=v);
+$('tFlow').onclick=()=>{$('flow').textContent="Entra sang al cor per les venes caves (i per les venes pulmonars, per darrere). En surt per l'aorta i per l'artèria pulmonar."};
+
+const PINS={1:{s:0,pos:B(-1.2,0.6,8.6),ans:'ao'},2:{s:0,pos:B(0.6,-2.4,4.6),ans:'ap'},3:{s:0,pos:B(-3.7,0.65,8.0),ans:'cs'},4:{s:0,pos:B(-3.7,0.7,-5.1),ans:'ci'},
+  A:{s:1,pos:B(-3.6,0.3,0.8),ans:'AD'},B:{s:1,pos:B(0.2,-2.8,-1.0),ans:'VD'},C:{s:1,pos:B(1.0,3.0,1.5),ans:'AE'},D:{s:1,pos:B(2.8,0.3,-2.8),ans:'VE'},E:{s:1,pos:B(1.5,-1.4,-1.9),ans:'SE'},
+  X:{s:2,pos:B(0.2,-2.7,-3.0),ans:'VD'},Y:{s:2,pos:B(2.4,0.3,-3.0),ans:'VE'}};
+const OPT1=[['ao','aorta'],['ap','artèria pulmonar'],['cs','vena cava superior'],['ci','vena cava inferior']];
+const OPT2=[['AD','aurícula dreta'],['AE','aurícula esquerra'],['VD','ventricle dret'],['VE','ventricle esquerre'],['SE','septe']];
+const NAME=Object.fromEntries([...OPT1,...OPT2]);
+let names=false;const pinEl={};
+Object.keys(PINS).forEach(k=>{const d=document.createElement('div');d.className='cr-pin';d.textContent=k;viewer.appendChild(d);pinEl[k]=d});
+$('tNames').onclick=()=>{names=!names;$('tNames').setAttribute('aria-pressed',names);updPins()};
+function buildIds(box,step,opts,fb){const keys=Object.keys(PINS).filter(k=>PINS[k].s===step);
+  keys.forEach(k=>{const l=document.createElement('label');l.innerHTML='<b>'+k+'</b>';const s=document.createElement('select');s.setAttribute('aria-label','Nom del punt '+k);
+    s.innerHTML='<option value="">tria…</option>'+opts.map(o=>'<option value="'+o[0]+'">'+o[1]+'</option>').join('');l.appendChild(s);box.appendChild(l);
+    const chk=()=>{const v=s.value;l.classList.toggle('ok',v===PINS[k].ans);l.classList.toggle('no',!!v&&v!==PINS[k].ans);pinEl[k].classList.toggle('ok',v===PINS[k].ans);
+      const okN=keys.filter(q=>(S.id||{})[q]===PINS[q].ans).length;$(fb).textContent=okN===keys.length?'Tots correctes!':okN+' de '+keys.length+' correctes';$(fb).className='cr-fb'+(okN===keys.length?' ok':'')};
+    s.onchange=()=>{S.id=S.id||{};S.id[k]=s.value;chk()};chk()})}
+buildIds($('ids1'),0,OPT1,'fb1');buildIds($('ids2'),1,OPT2,'fb2');
+const v3=new THREE.Vector3();
+function updPins(){const w=viewer.clientWidth,h=viewer.clientHeight;
+  Object.entries(PINS).forEach(([k,p])=>{const el=pinEl[k];let show=p.s===cur;
+    if(show&&cutKey&&Math.abs(offset)>12)show=false;
+    const label=p.s===2?(k==='X'?'VD':'VE'):(names?k+' · '+NAME[p.ans]:k);el.textContent=label;el.classList.toggle('nm',names&&p.s<2);
+    if(!show){el.style.display='none';return}
+    v3.copy(p.pos).project(camera);if(v3.z>1){el.style.display='none';return}
+    el.style.display='block';el.style.left=((v3.x+1)/2*w)+'px';el.style.top=((1-v3.y)/2*h)+'px'})}
+$('ncav').oninput=()=>{S.ncav=$('ncav').value;const v=+S.ncav;$('fbcav').textContent=!S.ncav?'':v===4?'Correcte: 2 aurícules i 2 ventricles':'Torna a comptar: el septe no és una cavitat';$('fbcav').className='cr-fb '+(v===4?'ok':'no')};
+
+let ruler=false,rp=[],lastMM=null;
+const lineGeo=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(),new THREE.Vector3()]);
+const line=new THREE.Line(lineGeo,new THREE.LineBasicMaterial({color:0xf6b66a,depthTest:false}));line.renderOrder=9;line.visible=false;scene.add(line);
+const dots=[0,1].map(()=>{const m=new THREE.Mesh(new THREE.SphereGeometry(0.12,12,8),new THREE.MeshBasicMaterial({color:0xf6b66a,depthTest:false}));m.renderOrder=9;m.visible=false;scene.add(m);return m});
+function setRuler(v){ruler=v&&!!cutKey;['tRuler','rulerBtn2'].forEach(i=>$(i).setAttribute('aria-pressed',ruler));controls.enableRotate=!ruler;
+  $('hint').textContent=ruler?'Regle: toca la vora de dins i després la de fora de la paret':(cutKey?'Arrossega per girar · el tall es queda fix':'Arrossega per girar · pinça o roda per fer zoom');
+  if(!ruler){rp=[];line.visible=false;dots.forEach(d=>d.visible=false);$('rread').style.display='none'}}
+$('tRuler').onclick=()=>{if(!cutKey){$('hint').textContent='El regle mesura sobre un tall: primer talla el cor (pas 2 o 3)';return}setRuler(!ruler)};
+$('rulerBtn2').onclick=$('tRuler').onclick;
+const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();let downAt=null;
+renderer.domElement.addEventListener('pointerdown',e=>{downAt=[e.clientX,e.clientY]});
+renderer.domElement.addEventListener('pointerup',e=>{if(!ruler||!downAt||Math.hypot(e.clientX-downAt[0],e.clientY-downAt[1])>8)return;
+  const r=renderer.domElement.getBoundingClientRect();ndc.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);
+  ray.setFromCamera(ndc,camera);const hit=new THREE.Vector3();if(!ray.ray.intersectPlane(clipPlane,hit))return;
+  if(rp.length>=2)rp=[];rp.push(hit.clone());dots.forEach((d,i)=>{d.visible=!!rp[i];if(rp[i])d.position.copy(rp[i])});
+  if(rp.length===2){lineGeo.setFromPoints(rp);line.visible=true;lastMM=Math.round(rp[0].distanceTo(rp[1])*100)/10;
+    $('rread').textContent=String(lastMM).replace('.',',')+' mm';$('rread').style.display='block';$('last').textContent=$('rread').textContent}else line.visible=false});
+const fmt=v=>v==null?'—':String(v).replace('.',',');
+document.querySelectorAll('[data-save]').forEach(b=>b.onclick=()=>{if(lastMM==null){$('fb3').textContent='Primer mesura amb el regle';$('fb3').className='cr-fb no';return}
+  S.mm=S.mm||{};S.mm[b.dataset.save]=lastMM;showMM()});
+function showMM(){const m=S.mm||{};['VD','VE','SE'].forEach(k=>$('m'+k).textContent=fmt(m[k]));
+  if(m.VD&&m.VE){const r=Math.round(m.VE/m.VD*10)/10;$('mRat').textContent='× '+fmt(r);
+    $('fb3').textContent=m.VE>m.VD?'La paret del ventricle esquerre és unes '+fmt(r)+' vegades més gruixuda que la del dret.':'Revisa-ho: mesura la paret de fora de cada ventricle, no la cavitat.';
+    $('fb3').className='cr-fb '+(m.VE>m.VD?'ok':'no')}else $('mRat').textContent='—'}
+function rows(){const id=S.id||{},m=S.mm||{};const nm=(o,v)=>(o.find(x=>x[0]===v)||[,'—'])[1];
+  return [['1. Vasos 1 · 2 · 3 · 4',[1,2,3,4].map(k=>nm(OPT1,id[k])).join(' · ')],['2. Cavitats comptades',S.ncav||'—'],
+   ['2. A · B · C · D · E',['A','B','C','D','E'].map(k=>nm(OPT2,id[k])).join(' · ')],
+   ['3. Paret VD',fmt(m.VD)+' mm'],['3. Paret VE',fmt(m.VE)+' mm'],['3. Septe',fmt(m.SE)+' mm']]}
+function renderRes(){$('resT').innerHTML='<thead><tr><th>Apartat</th><th>Resultat</th></tr></thead><tbody>'+rows().map(r=>'<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>').join('')+'</tbody>'}
+$('copy').onclick=()=>{const txt='Dissecció del cor · resultats\n'+rows().map(r=>r[0]+': '+r[1]).join('\n');
+  (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>$('cmsg').textContent='Copiat!',()=>$('cmsg').textContent="No s'ha pogut copiar")};
+renderer.setAnimationLoop(()=>{controls.update();renderer.render(scene,camera);updPins()});
+go(0);
+</script>
+</body></html>

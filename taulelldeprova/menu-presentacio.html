@@ -1,0 +1,296 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My weekly menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css"><link rel="stylesheet" href="mj-deck.css">
+<style>
+/* només d'aquesta presentació */
+.mn-score{font:700 calc(var(--fs)*1.1)/1 var(--font-display);color:var(--k)}
+.mn-plate{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:calc(var(--fs)*.4);aspect-ratio:1;max-width:calc(var(--fs)*19);margin:auto;padding:calc(var(--fs)*.8);border-radius:50%;background:#fff;box-shadow:0 0 0 calc(var(--fs)*.5) var(--kp),var(--ombra-16)}
+.mn-zone{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3em;padding:.5em;cursor:pointer;border:2px dashed rgba(0,0,0,.16);text-align:center;font:700 calc(var(--fs)*.72)/1.1 var(--font-display)}
+.mn-zone.half{grid-row:span 2;border-radius:50% 0 0 50%;background:var(--cie-pastel)}
+.mn-zone.q1{border-radius:0 50% 0 0;background:var(--lec-pastel)}
+.mn-zone.q2{border-radius:0 0 50% 0;background:var(--llen-pastel)}
+.mn-zone .got{display:flex;flex-wrap:wrap;justify-content:center;gap:.2em}
+.mn-zone .got img{width:calc(var(--fs)*1.9);height:calc(var(--fs)*1.9);object-fit:contain}
+.mn-pics{display:grid;grid-template-columns:repeat(auto-fill,minmax(calc(var(--fs)*5),1fr));gap:.4em}
+.mn-pics .pr-chip{display:grid;justify-items:center;gap:.15em;text-align:center;padding:.35em .25em}
+.mn-pics .pr-chip img{width:70%;aspect-ratio:1;object-fit:contain}
+.mn-lines{display:grid;gap:.45em}
+.mn-line{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.6em;align-items:start;padding:.5em .8em;border-radius:calc(var(--fs)*.8);background:rgba(255,255,255,.85);border:2px solid #fff;font-size:calc(var(--fs)*.82)}
+.mn-line b{font:700 calc(var(--fs)*.7)/1.6 var(--font-display);color:var(--k);text-transform:uppercase;letter-spacing:.04em}
+.mn-line.now{border-color:var(--k);box-shadow:0 0 0 4px var(--kp)}
+.mn-lines.hide .mn-line span{filter:blur(6px)}
+.mn-build{display:flex;flex-wrap:wrap;align-items:center;gap:.35em;padding:.7em 1em;border-radius:calc(var(--fs)*.9);background:#fff;border-left:8px solid var(--k);font:600 calc(var(--fs)*1.15)/1.4 var(--font-display);min-height:3.2em}
+.mn-build .slot{display:inline-block;min-width:4.5em;padding:0 .3em;border-bottom:3px solid var(--k);color:var(--k);text-align:center}
+.mn-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6em;margin-top:.7em}
+.mn-cols h3{font:700 calc(var(--fs)*.72)/1.2 var(--font-display);text-transform:uppercase;letter-spacing:.05em;color:var(--tinta-suau);margin-bottom:.35em}
+.mn-cols .pr-chip{width:100%;margin-bottom:.35em}
+.mn-week{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:calc(var(--fs)*.45)}
+.mn-day{display:grid;gap:.3em;padding:.5em;border-radius:calc(var(--fs)*.9);background:rgba(255,255,255,.88);border:2px solid #fff;box-shadow:var(--ombra-8);text-align:center}
+.mn-day h3{font:700 calc(var(--fs)*.85)/1.2 var(--font-display);color:var(--k)}
+.mn-day button{display:grid;justify-items:center;gap:.1em;padding:.3em;border-radius:calc(var(--fs)*.6);border:1px dashed rgba(0,0,0,.18);background:#fff;font:600 calc(var(--fs)*.7)/1.15 var(--font-text);color:var(--tinta);min-height:64px;cursor:pointer}
+.mn-day button img{width:62%;aspect-ratio:1;object-fit:contain}
+#cnt{grid-template-columns:repeat(auto-fill,minmax(calc(var(--fs)*10.5),1fr));gap:calc(var(--fs)*.4)}
+#cnt .pr-card{padding:.45em .6em;gap:.25em}
+#cnt .pr-card .pr-row .pr-btn{min-height:48px;min-width:52px;padding:0 .7em}
+@media (max-width:760px){.mn-cols{grid-template-columns:1fr}.mn-week{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body style="--k:var(--ang);--kp:var(--ang-pastel)">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 12a8 8 0 108-8H7"/><path d="M10 1L7 4l3 3"/></symbol>
+  <symbol id="i-speak" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 9a4 4 0 010 6M18.5 6.5a7.5 7.5 0 010 11"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+</svg>
+
+<a class="pr-exit" href="llengues-menjador.html#en"><svg class="pr-ico"><use href="#i-left"/></svg>Exit</a>
+
+<main class="pr-deck" aria-roledescription="slides" aria-label="My weekly menu">
+
+  <!-- 1 · cover -->
+  <section class="pr-slide" aria-label="Cover">
+    <div class="pr-in pr-cover">
+      <div>
+        <div class="pr-kick"><i></i>English · Food</div>
+        <h1>My weekly menu</h1>
+        <p class="pr-bigq">What would you like for lunch at school this week? And why?</p>
+      </div>
+      <figure class="pr-photo" style="margin:0"><img src="img/menjador/eua.webp" alt="A school lunch tray with a burger, fruit, beans and milk"><figcaption>Photo: USDA · public domain · Wikimedia Commons</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 2 · words -->
+  <section class="pr-slide" aria-label="Food words">
+    <div class="pr-in">
+      <div class="pr-kick"><i></i>Words</div>
+      <h2>Food words</h2>
+      <p class="pr-sub">Tap a picture and listen. Say it after me. Choose a language to see the translation.</p>
+      <div class="pr-langs" id="langs" role="group" aria-label="Translation"></div>
+      <div class="pr-words" id="words"></div>
+    </div>
+  </section>
+
+  <!-- 3 · listen and tap -->
+  <section class="pr-slide" aria-label="Listen and tap">
+    <div class="pr-in">
+      <div class="pr-kick"><i></i>Game</div>
+      <h2>Listen and tap</h2>
+      <div class="pr-row" style="margin-bottom:.7em"><button class="pr-btn main" id="g-play"><svg class="pr-ico"><use href="#i-speak"/></svg>Play a word</button><span class="mn-score" id="g-score" aria-live="polite">0 / 0</span><button class="pr-btn" id="g-reset" aria-label="Start again"><svg class="pr-ico"><use href="#i-reset"/></svg></button></div>
+      <div class="pr-words" id="game"></div>
+    </div>
+  </section>
+
+  <!-- 4 · a/an or some -->
+  <section class="pr-slide" aria-label="a, an or some">
+    <div class="pr-in">
+      <div class="pr-kick"><i></i>Grammar</div>
+      <h2><em>a / an</em> or <em>some</em>?</h2>
+      <p class="pr-sub">Can you count it? One apple, two apples → <b>an apple</b>. You can't count water → <b>some water</b>.</p>
+      <div class="pr-sort" id="cnt"></div>
+    </div>
+  </section>
+
+  <!-- 5 · around the world -->
+  <section class="pr-slide" aria-label="Around the world">
+    <div class="pr-in">
+      <div class="pr-kick"><i></i>Look</div>
+      <h2>School lunch around the world</h2>
+      <p class="pr-sub">Before you open a photo, guess: where is it from? What can you see? “I can see some rice and…”</p>
+      <div class="pr-world" id="world"></div>
+    </div>
+  </section>
+
+  <!-- 6 · healthy plate -->
+  <section class="pr-slide" aria-label="A healthy plate">
+    <div class="pr-in pr-two">
+      <div>
+        <div class="pr-kick"><i></i>Think</div>
+        <h2>A healthy plate</h2>
+        <p class="pr-sub">Tap a food, then tap where it goes on the plate.</p>
+        <div class="mn-pics" id="p-pool"></div>
+        <div class="pr-feed" id="p-feed" role="status" aria-live="polite">Choose a food.</div>
+      </div>
+      <div class="mn-plate" id="plate">
+        <div class="mn-zone half" data-z="v">Vegetables<br>and fruit<small style="font-weight:500">half</small><span class="got"></span></div>
+        <div class="mn-zone q1" data-z="g">Grains<small style="font-weight:500">a quarter</small><span class="got"></span></div>
+        <div class="mn-zone q2" data-z="p">Protein<small style="font-weight:500">a quarter</small><span class="got"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · listening -->
+  <section class="pr-slide" aria-label="Listening: a school canteen">
+    <div class="pr-in pr-two">
+      <div>
+        <div class="pr-kick"><i></i>Listening</div>
+        <h2>At the school canteen</h2>
+        <p class="pr-sub">Listen to Amira and the cook. First with the text hidden. What does Amira choose?</p>
+        <div class="pr-row" style="margin-bottom:.7em"><button class="pr-btn main" id="l-play"><svg class="pr-ico"><use href="#i-speak"/></svg>Listen</button><button class="pr-btn" id="l-show" aria-pressed="false"><svg class="pr-ico"><use href="#i-eye"/></svg>Show text</button></div>
+        <div class="mn-lines hide" id="lines"></div>
+      </div>
+      <div class="pr-gaps" id="l-q"></div>
+    </div>
+  </section>
+
+  <!-- 8 · sentence builder -->
+  <section class="pr-slide" aria-label="Build a sentence">
+    <div class="pr-in">
+      <div class="pr-kick"><i></i>Speak</div>
+      <h2>I'd like… because…</h2>
+      <p class="pr-sub">Tap one piece from each column. Then say your sentence to a partner.</p>
+      <div class="mn-build" id="sent">On <span class="slot" data-s="0">?</span> I'd like <span class="slot" data-s="1">?</span> because <span class="slot" data-s="2">?</span>.</div>
+      <div class="pr-row" style="margin-top:.5em"><button class="pr-btn main" id="s-say"><svg class="pr-ico"><use href="#i-speak"/></svg>Listen to my sentence</button></div>
+      <div class="mn-cols" id="s-cols"></div>
+    </div>
+  </section>
+
+  <!-- 9 · weekly menu -->
+  <section class="pr-slide" aria-label="My weekly menu">
+    <div class="pr-in">
+      <div class="pr-kick"><i></i>Mission</div>
+      <h2>Our class weekly menu</h2>
+      <p class="pr-sub">Tap a dish to change it. Make a healthy week: is there fish? Vegetables? Fruit every day?</p>
+      <div class="mn-week" id="week"></div>
+      <div class="pr-row" style="margin-top:.7em"><button class="pr-btn main" id="w-say"><svg class="pr-ico"><use href="#i-speak"/></svg>Read the menu</button></div>
+    </div>
+  </section>
+
+  <!-- 10 · exit -->
+  <section class="pr-slide" aria-label="Before you go">
+    <div class="pr-in pr-two">
+      <div>
+        <div class="pr-kick"><i></i>Before you go</div>
+        <h2>Say it out loud</h2>
+        <div class="pr-frames">
+          <div class="pr-frame">On Friday I'd like <u>&nbsp;</u> because <u>&nbsp;</u>.</div>
+          <div class="pr-frame">I don't like <u>&nbsp;</u>, but I like <u>&nbsp;</u>.</div>
+          <div class="pr-frame">Can I have some <u>&nbsp;</u>, please?</div>
+        </div>
+      </div>
+      <div>
+        <p style="font-weight:600">How am I doing?</p>
+        <div class="pr-sem" id="sem"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<p class="pr-credit">Photos: Wikimedia Commons (authors on each photo). Pictograms: Sergio Palao, ARASAAC, CC BY-NC-SA.</p>
+
+<nav class="pr-nav" aria-label="Slides">
+  <button class="pr-btn" id="prev" aria-label="Previous slide"><svg class="pr-ico"><use href="#i-left"/></svg></button>
+  <div class="pr-dots" id="dots"></div>
+  <span class="pr-count" id="count" aria-live="polite"></span>
+  <button class="pr-btn main" id="next" aria-label="Next slide"><svg class="pr-ico"><use href="#i-right"/></svg></button>
+  <button class="pr-btn pr-fs" id="fs" aria-label="Full screen"><svg class="pr-ico"><use href="#i-full"/></svg></button>
+</nav>
+
+<script src="menjador-data.js"></script>
+<script src="mj-deck.js"></script>
+<script>
+(function(){
+"use strict";
+var $=MJD.$,$$=MJD.$$,EN="en-GB",W=MJ.byId;
+var TR=["ca","es","ar","ro","ur","zh"];
+
+/* 2 */
+var FOOD=["bread","rice","pasta","fish","chicken","meat","egg","lentils","salad","vegetables","tomato","potato","soup","fruit","apple","banana","yoghurt","milk","water","juice","burger","pizza"];
+var ID=["pa","arros","pasta","peix","pollastre","carn","ou","llenties","amanida","verdura","tomaquet","patata","sopa","fruita","poma","platan","iogurt","llet","aigua","suc","hamburguesa","pizza"];
+MJD.words($("#words"),$("#langs"),ID,"en",EN,TR);
+
+/* 3 · escolta i toca */
+var G=["peix","pollastre","ou","amanida","sopa","poma","platan","iogurt","aigua","llet","pa","arros"],target=null,hit=0,tries=0;
+var gl=document.createElement("div");
+MJD.words($("#game"),gl,G,"en",EN,[],function(b){
+  if(!target){MJ.say(W[b.dataset.id].en,EN);return true}
+  tries++;
+  if(b.dataset.id===target){hit++;b.classList.add("hit");target=null;MJ.say("Yes! "+W[b.dataset.id].en,EN)}
+  else{b.classList.remove("miss");void b.offsetWidth;b.classList.add("miss")}
+  $("#g-score").textContent=hit+" / "+tries;return true});
+$("#game").classList.add("quiz");
+$$("#game .pr-word span").forEach(function(s){s.style.visibility="hidden"});
+$("#g-play").addEventListener("click",function(){
+  var left=G.filter(function(id){return !$('#game [data-id="'+id+'"]').classList.contains("hit")});
+  if(!left.length){MJ.say("Well done! You know them all.",EN);return}
+  if(!target)target=left[Math.floor(Math.random()*left.length)];
+  MJ.say(W[target].en,EN)});
+$("#g-reset").addEventListener("click",function(){target=null;hit=0;tries=0;$("#g-score").textContent="0 / 0";$$("#game .pr-word").forEach(function(b){b.classList.remove("hit","miss")})});
+
+/* 4 · a/an o some */
+var C=[["poma","an","an apple"],["ou","an","an egg"],["platan","a","a banana"],["aigua","some","some water"],["pa","some","some bread"],["arros","some","some rice"],["hamburguesa","a","a burger"],["llet","some","some milk"],["sopa","some","some soup"],["tomaquet","a","a tomato"]];
+$("#cnt").innerHTML=C.map(function(c,i){return '<div class="pr-card" data-i="'+i+'"><p style="display:flex;align-items:center;gap:.5em"><img src="'+MJ.pic(c[0])+'" alt="" style="width:2.6em;height:2.6em;object-fit:contain">'+W[c[0]].en+'</p><div class="pr-row"><button class="pr-btn" data-a="a">a</button><button class="pr-btn" data-a="an">an</button><button class="pr-btn" data-a="some">some</button></div><span class="why"></span></div>'}).join("");
+$("#cnt").addEventListener("click",function(e){var b=e.target.closest("[data-a]");if(!b)return;var c=b.closest(".pr-card"),d=C[+c.dataset.i],ok=b.dataset.a===d[1];
+  c.classList.remove("ok","ko");c.classList.add("done",ok?"ok":"ko");
+  $(".why",c).innerHTML=ok?"<b>"+d[2]+"</b>":(d[1]==="some"?"You can't count it.":d[1]==="an"?"It starts with a vowel sound: a, e, i, o, u.":"You can count it, and it starts with a consonant.");
+  if(ok)MJ.say(d[2],EN)});
+
+/* 5 */
+MJD.world($("#world"),"en",["And ours?","Tap to take a photo of our school canteen"]);
+
+/* 6 · plat */
+var P=[["verdura","v"],["amanida","v"],["tomaquet","v"],["poma","v"],["fruita","v"],["arros","g"],["pasta","g"],["pa","g"],["patata","g"],["peix","p"],["pollastre","p"],["ou","p"],["llenties","p"]],pn=0;
+$("#p-pool").innerHTML=MJD.shuffle(P).map(function(p){return '<button class="pr-chip" data-id="'+p[0]+'" data-z="'+p[1]+'"><img src="'+MJ.pic(p[0])+'" alt="">'+W[p[0]].en+'</button>'}).join("");
+var pfeed=function(cls,t){var f=$("#p-feed");f.className="pr-feed "+(cls||"");f.textContent=t};
+MJD.pickPlace($("#p-pool"),$$("#plate .mn-zone"),function(chip,z){
+  if(chip.dataset.z!==z.dataset.z){pfeed("nope",{v:"Is it a vegetable or a fruit?",g:"Grains give us energy: rice, pasta, bread, potatoes.",p:"Protein helps us grow: fish, chicken, eggs, lentils."}[z.dataset.z]);return false}
+  var im=document.createElement("img");im.src=MJ.pic(chip.dataset.id);im.alt=W[chip.dataset.id].en;$(".got",z).appendChild(im);pn++;
+  MJ.say(W[chip.dataset.id].en,EN);pfeed("good",pn===P.length?"Great plate! Half vegetables and fruit, a quarter grains, a quarter protein.":"Yes! "+pn+" of "+P.length+".");return true},pfeed);
+
+/* 7 · comprensió oral */
+var L=[["Cook","Hi! What would you like today? We've got chicken with rice, or fish soup."],
+ ["Amira","Chicken with rice, please. Is there any salad?"],
+ ["Cook","Yes, there's some salad with tomatoes. And for dessert, an apple or a yoghurt."],
+ ["Amira","An apple, please. Can I have some water too?"],
+ ["Cook","Of course. Here you are. Enjoy your lunch!"],
+ ["Amira","Thank you!"]];
+$("#lines").innerHTML=L.map(function(l){return '<div class="mn-line"><b>'+l[0]+'</b><span>'+l[1]+'</span></div>'}).join("");
+var Q=[["Amira's main dish is ___.",["fish soup","chicken with rice","pizza"],1],
+ ["With it, she has some ___.",["salad","chips","bread"],0],
+ ["For dessert, she chooses ___.",["a yoghurt","a banana","an apple"],2],
+ ["To drink, she wants some ___.",["milk","juice","water"],2]];
+$("#l-q").innerHTML=Q.map(function(g,i){return '<div class="pr-gap" data-i="'+i+'"><p>'+g[0].replace("___",'<span class="hole">?</span>')+'</p><div class="pr-row">'+g[1].map(function(o,j){return '<button class="pr-btn" data-j="'+j+'">'+o+'</button>'}).join("")+'</div></div>'}).join("");
+$("#l-q").addEventListener("click",function(e){var b=e.target.closest("[data-j]");if(!b)return;var g=b.closest(".pr-gap"),d=Q[+g.dataset.i],j=+b.dataset.j;
+  if(j===d[2]){$(".hole",g).textContent=d[1][j];g.classList.add("ok")}
+  else{b.animate&&b.animate([{transform:"translateX(-6px)"},{transform:"translateX(6px)"},{transform:"none"}],{duration:300})}});
+function voices(){try{return speechSynthesis.getVoices().filter(function(v){return /^en/i.test(v.lang)})}catch(e){return[]}}
+$("#l-play").addEventListener("click",function(){
+  if(!("speechSynthesis" in window))return;speechSynthesis.cancel();
+  var vs=voices(),gb=vs.filter(function(v){return /GB/i.test(v.lang)}),pool=gb.length?gb:vs,rows=$$("#lines .mn-line");
+  L.forEach(function(l,i){var u=new SpeechSynthesisUtterance(l[1]);u.lang=EN;u.rate=.85;
+    if(pool.length)u.voice=pool[(l[0]==="Cook"?0:1)%pool.length];u.pitch=l[0]==="Cook"?.85:1.25;
+    u.onstart=function(){rows.forEach(function(r,j){r.classList.toggle("now",j===i)})};
+    u.onend=function(){if(i===L.length-1)rows.forEach(function(r){r.classList.remove("now")})};
+    speechSynthesis.speak(u)})});
+$("#l-show").addEventListener("click",function(){var on=$("#lines").classList.toggle("hide");this.setAttribute("aria-pressed",String(!on))});
+
+/* 8 · frase */
+var S=[["Monday","Tuesday","Wednesday","Thursday","Friday"],["some pasta","some fish","an omelette","some lentils","a pizza","some soup"],["it's healthy","it's tasty","it's warm","it's from my country","it gives me energy"]],sv=["","",""];
+$("#s-cols").innerHTML=["When?","What?","Why?"].map(function(h,c){return '<div><h3>'+h+'</h3>'+S[c].map(function(o){return '<button class="pr-chip" data-c="'+c+'">'+o+'</button>'}).join("")+'</div>'}).join("");
+$("#s-cols").addEventListener("click",function(e){var b=e.target.closest("[data-c]");if(!b)return;var c=+b.dataset.c;sv[c]=b.textContent;
+  $$('[data-c="'+c+'"]',$("#s-cols")).forEach(function(x){x.classList.toggle("sel",x===b)});$('#sent [data-s="'+c+'"]').textContent=sv[c]});
+$("#s-say").addEventListener("click",function(){MJ.say($("#sent").textContent.replace(/\?/g,"…"),EN)});
+
+/* 9 · menú setmanal */
+var MAIN=["pasta","arros","peix","pollastre","llenties","sopa","pizza","hamburguesa","ou"],DES=["fruita","poma","platan","iogurt"];
+var DAYS=["Monday","Tuesday","Wednesday","Thursday","Friday"],wk=DAYS.map(function(_,i){return [i%MAIN.length,i%DES.length]});
+function art(id){var e=W[id].en;return C.some(function(c){return c[0]===id&&c[1]==="some"})||/s$|rice|pasta|fish|chicken|meat|soup|fruit|yoghurt|pizza/.test(e)?"some "+e:(/^[aeiou]/.test(e)?"an ":"a ")+e}
+function drawW(){$("#week").innerHTML=DAYS.map(function(d,i){var m=MAIN[wk[i][0]],s=DES[wk[i][1]];
+  return '<div class="mn-day"><h3>'+d+'</h3><button data-d="'+i+'" data-k="0" aria-label="'+d+' main dish: '+W[m].en+'. Tap to change"><img src="'+MJ.pic(m)+'" alt="">'+W[m].en+'</button><button data-d="'+i+'" data-k="1" aria-label="'+d+' dessert: '+W[s].en+'. Tap to change"><img src="'+MJ.pic(s)+'" alt="">'+W[s].en+'</button></div>'}).join("")}
+$("#week").addEventListener("click",function(e){var b=e.target.closest("[data-d]");if(!b)return;var d=+b.dataset.d,k=+b.dataset.k,n=k?DES.length:MAIN.length;wk[d][k]=(wk[d][k]+1)%n;drawW();
+  var nb=$('#week [data-d="'+d+'"][data-k="'+k+'"]');nb.focus();MJ.say(W[(k?DES:MAIN)[wk[d][k]]].en,EN)});
+$("#w-say").addEventListener("click",function(){MJ.say("Our weekly menu. "+DAYS.map(function(d,i){return "On "+d+", "+art(MAIN[wk[i][0]])+" and "+art(DES[wk[i][1]])+"."}).join(" "),EN)});
+drawW();
+
+/* 10 */
+MJD.sem($("#sem"),[["var(--cie)","I can talk about my menu"],["var(--lec)","I need the words in front of me"],["var(--amb)","I need some help"]]);
+
+MJD.nav();
+})();
+</script>
+</body></html>

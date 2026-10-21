@@ -1,0 +1,520 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>El nostre cos en marxa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<style>
+/* ── sq: vista de seqüència ───────────────────────────── */
+.sq-nav{position:sticky;top:74px;z-index:20;display:flex;justify-content:center;margin:0 0 22px}
+.sq-nav .tv-seg{overflow-x:auto;flex-wrap:nowrap;max-width:100%;scrollbar-width:none}
+.sq-nav .tv-seg a{white-space:nowrap;text-decoration:none;border-radius:var(--radi-pill);padding:9px 16px;font:600 1.02rem/1 var(--font-text);color:var(--tinta-suau)}
+.sq-nav .tv-seg a[aria-current="true"]{background:var(--vidre-3);color:var(--tinta);box-shadow:var(--brill-vora),var(--ombra-8)}
+@media (max-width:640px){.sq-nav{top:64px}.sq-nav .tv-seg a{padding:9px 12px}}
+section[id]{scroll-margin-top:140px}
+
+.sq-head{display:grid;grid-template-columns:1.35fr 1fr;gap:26px;align-items:start}
+.sq-head h1{margin-top:2px}
+.sq-q{margin-top:16px;font:700 1.18rem/1.35 var(--font-display);letter-spacing:-.01em;padding-left:14px;border-left:4px solid var(--cc)}
+.sq-facts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sq-fact{border-radius:var(--radi-md);background:var(--vidre-2);border:1px solid var(--vidre-vora);box-shadow:var(--brill-vora),var(--ombra-2);padding:14px 16px}
+.sq-fact .tv-lbl{margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.sq-fact .tv-lbl .ico{width:18px;height:18px;color:var(--cc)}
+.sq-fact b{font:700 1.08rem/1.25 var(--font-display);display:block}
+.sq-fact span{font-size:1rem;color:var(--tinta-suau);display:block;margin-top:4px;line-height:1.35}
+.sq-fact.w{grid-column:1/-1}
+@media (max-width:900px){.sq-head{grid-template-columns:1fr}}
+@media (max-width:420px){.sq-facts{grid-template-columns:1fr}}
+
+.sq-row2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+@media (max-width:980px){.sq-row2{grid-template-columns:1fr}}
+.sq-enig h3{margin:4px 0 8px}
+.sq-enig p{font-size:1.02rem;color:var(--tinta-suau)}
+.sq-num{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--vidre-3);font:700 1rem/1 var(--font-display);box-shadow:var(--ombra-2)}
+.sq-why{background:var(--vidre-fosc);color:var(--sobre-fosc);border-radius:var(--radi-lg);padding:20px;box-shadow:var(--ombra-16)}
+.sq-why .tv-lbl{color:#E9E3F0}
+.sq-why p{font-size:1.06rem;line-height:1.45}
+.sq-why ul{margin:10px 0 0;padding-left:18px;font-size:1rem;color:#EFEAF5}
+.sq-why li{margin:4px 0}
+
+.sq-crit{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.sq-crit li{list-style:none;flex:1 1 260px;display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:var(--radi-md);background:var(--vidre-2);border:1px solid var(--vidre-vora);font-size:1rem;line-height:1.35}
+.sq-crit li b{font:700 .95rem/1 var(--font-display);flex:none;padding:5px 8px;border-radius:8px;background:var(--ct);border:1px solid rgba(255,255,255,.8)}
+.sq-crit ul{padding:0;margin:0;display:contents}
+
+/* títols de secció */
+.sq-h2{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:34px 0 14px}
+.sq-h2 p{color:var(--tinta-suau);max-width:64ch;margin-top:6px}
+
+/* llegenda de marques */
+.sq-legend{display:flex;flex-wrap:wrap;gap:8px 16px;padding:12px 16px;border-radius:var(--radi-md);background:var(--vidre-1);border:1px solid var(--vidre-vora);margin-bottom:16px}
+.sq-legend span{display:inline-flex;align-items:center;gap:7px;font-size:1rem;color:var(--tinta-suau)}
+.mk{width:18px;height:18px;flex:none;display:inline-block}
+.mk svg{width:100%;height:100%;display:block}
+
+/* línia de sessions */
+.sq-line{position:relative;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:12px;padding:18px 0 4px}
+.sq-line::before{content:"";position:absolute;left:3%;right:3%;top:42px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--cc),color-mix(in srgb,var(--cc) 30%,#fff));opacity:.55}
+.sq-ses{position:relative;text-align:left;border:1px solid var(--vidre-vora);border-radius:var(--radi-lg);background:var(--vidre-2);box-shadow:var(--brill-vora),var(--ombra-8);padding:46px 12px 12px;display:flex;flex-direction:column;gap:8px;min-height:208px;transition:transform .18s,box-shadow .18s,background .18s}
+.sq-ses:hover{transform:translateY(-3px);box-shadow:var(--brill-vora),var(--ombra-16)}
+.sq-ses[aria-selected="true"]{background:var(--vidre-3);box-shadow:var(--brill-vora),0 0 0 2px var(--cc),var(--ombra-28);transform:translateY(-4px)}
+.sq-dot{position:absolute;top:12px;left:12px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:700 .95rem/1 var(--font-display);background:var(--ct);border:2px solid #fff;box-shadow:var(--ombra-8)}
+.sq-ses[aria-selected="true"] .sq-dot{background:var(--vidre-fosc);color:#fff}
+.sq-ses .sq-when{position:absolute;top:18px;right:12px;font:600 .88rem/1 var(--font-text);color:var(--tinta-suau)}
+.sq-ses h3{font-size:1.02rem;line-height:1.18;letter-spacing:-.01em}
+.sq-ses .sq-what{font-size:.95rem;line-height:1.3;color:var(--tinta-suau)}
+.sq-marks{margin-top:auto;display:flex;flex-wrap:wrap;gap:5px}
+.sq-marks .mk{width:20px;height:20px}
+.sq-ses.fi{background:color-mix(in srgb,var(--vidre-2) 60%,var(--ct))}
+.sq-flag{position:absolute;top:-10px;right:10px;font:600 .88rem/1 var(--font-text);letter-spacing:.08em;text-transform:uppercase;background:var(--vidre-fosc);color:#fff;padding:5px 8px;border-radius:var(--radi-pill)}
+@media (max-width:1100px){
+  .sq-line{grid-template-columns:1fr;gap:10px;padding-left:22px}
+  .sq-line::before{left:37px;right:auto;top:10px;bottom:10px;width:3px;height:auto;background:linear-gradient(180deg,var(--cc),color-mix(in srgb,var(--cc) 30%,#fff))}
+  .sq-ses{min-height:0;padding:14px 14px 14px 58px}
+  .sq-dot{left:-6px;top:14px;width:36px;height:36px}
+  .sq-ses .sq-when{position:static;order:-1}
+}
+
+/* detall */
+.sq-detail{margin-top:18px;padding:26px 28px 28px;scroll-margin-top:140px}
+@media (max-width:640px){.sq-detail{padding:20px 16px}}
+.sq-dtop{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start;justify-content:space-between}
+.sq-dtop h2{margin-top:6px}
+.sq-dq{margin-top:12px;font-size:1.12rem;line-height:1.4;color:var(--tinta-suau);max-width:72ch}
+.sq-dgrid{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;margin-top:22px}
+@media (max-width:980px){.sq-dgrid{grid-template-columns:1fr}}
+.sq-blk{border-radius:var(--radi-lg);background:var(--vidre-2);border:1px solid var(--vidre-vora);box-shadow:var(--brill-vora),var(--ombra-2);padding:18px}
+.sq-blk+.sq-blk{margin-top:16px}
+.sq-blk .tv-lbl{display:flex;align-items:center;gap:8px}
+.sq-blk .tv-lbl .ico{width:18px;height:18px;color:var(--cc)}
+
+/* barra de minuts */
+.sq-bar{display:flex;height:16px;border-radius:999px;overflow:hidden;background:rgba(86,77,98,.10);margin:4px 0 14px}
+.sq-bar i{display:block;height:100%;border-right:2px solid rgba(255,255,255,.9)}
+.sq-steps{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.sq-steps li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:baseline;font-size:1.02rem;line-height:1.3}
+.sq-steps .ph{width:10px;height:10px;border-radius:3px;transform:translateY(1px)}
+.sq-steps em{font-style:normal;color:var(--tinta-suau);font-size:.95rem;white-space:nowrap}
+.sq-steps small{display:block;font-size:.92rem;color:var(--tinta-tenue);letter-spacing:.04em;text-transform:uppercase}
+.sq-act{margin-top:14px;padding:12px 14px;border-radius:var(--radi-md);background:var(--ct);border:1px solid rgba(255,255,255,.8);font-size:1.02rem}
+.sq-act b{font-family:var(--font-display)}
+
+/* DUA */
+.sq-dua{margin:6px 0 12px}
+.sq-dua button{font-size:.98rem;padding:8px 13px}
+.sq-obj{margin:0;padding-left:20px;font-size:1.02rem;line-height:1.4}
+.sq-obj li{margin:5px 0}
+.sq-duanote{font-size:.95rem;color:var(--tinta-suau);margin-top:8px}
+
+/* materials */
+.sq-mats{display:flex;flex-wrap:wrap;gap:8px}
+.sq-mat{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:var(--radi-md);background:var(--vidre-3);border:1px solid var(--vidre-vora);box-shadow:var(--ombra-2);font:600 .98rem/1.15 var(--font-text)}
+.sq-mat .ico{width:18px;height:18px;color:var(--cc)}
+.sq-mat small{display:block;font-weight:500;color:var(--tinta-suau);font-size:.9rem}
+.sq-3d{margin-top:14px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:14px;border-radius:var(--radi-md);background:var(--llen-pastel);border:1px solid rgba(255,255,255,.8)}
+.sq-3d p{flex:1 1 220px;font-size:1rem}
+
+/* vídeos */
+.sq-vids{display:grid;grid-template-columns:1fr;gap:14px}
+.sq-vid{border-radius:var(--radi-md);overflow:hidden;background:#fff;border:1px solid var(--vidre-vora);box-shadow:var(--ombra-8)}
+.sq-vid video{width:100%;aspect-ratio:12/5;background:#fafafa;object-fit:contain}
+.sq-vid figcaption{padding:10px 12px;font-size:.98rem;line-height:1.3;display:flex;gap:10px;align-items:baseline}
+.sq-vid figcaption b{font:700 .9rem/1 var(--font-display);padding:4px 7px;border-radius:7px;background:var(--ct);flex:none}
+
+/* deures i avaluació a la sessió */
+.sq-hw{display:grid;gap:10px}
+.sq-hw div{padding:12px 14px;border-radius:var(--radi-md);background:var(--vidre-3);border:1px solid var(--vidre-vora);font-size:1rem;line-height:1.38}
+.sq-hw b{display:block;font:700 .98rem/1.2 var(--font-display);margin-bottom:3px}
+.sq-ev{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.sq-ev li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:var(--radi-md);background:var(--vidre-3);border:1px solid var(--vidre-vora);font-size:1rem;line-height:1.3}
+.sq-ev li .mk{width:22px;height:22px;margin-top:1px}
+.sq-ev small{display:block;color:var(--tinta-suau);font-size:.93rem;margin-top:2px}
+
+/* mapa d'avaluació */
+.sq-blocs{display:flex;height:46px;border-radius:var(--radi-md);overflow:hidden;box-shadow:var(--ombra-8);margin:4px 0 16px;border:1px solid var(--vidre-vora)}
+.sq-blocs div{display:flex;align-items:center;gap:8px;padding:0 14px;font:600 1rem/1.1 var(--font-text);background:var(--vidre-3);border-right:1px solid var(--vidre-trac);min-width:0;white-space:nowrap;overflow:hidden}
+.sq-blocs div i{width:10px;height:10px;border-radius:50%;flex:none}
+.sq-mapwrap{overflow-x:auto;border-radius:var(--radi-lg);background:var(--vidre-2);border:1px solid var(--vidre-vora);box-shadow:var(--brill-vora),var(--ombra-8)}
+.sq-map{border-collapse:separate;border-spacing:0;width:100%;min-width:860px;font-size:1rem}
+.sq-map th,.sq-map td{padding:10px 10px;border-bottom:1px solid var(--vidre-trac);text-align:center;vertical-align:middle}
+.sq-map thead th{font:600 .92rem/1.15 var(--font-text);color:var(--tinta-suau);position:sticky;top:0;background:rgba(255,255,255,.92)}
+.sq-map thead th .mk{margin:0 auto 6px;width:20px;height:20px}
+.sq-map tbody th{text-align:left;font-weight:500;min-width:250px;max-width:330px;line-height:1.3}
+.sq-map tbody th b{font:700 .95rem/1 var(--font-display);margin-right:6px;padding:4px 7px;border-radius:7px;background:var(--ct)}
+.sq-map tbody th span{display:block;font-size:.93rem;color:var(--tinta-suau);margin-top:5px}
+.sq-cell{display:inline-grid;place-items:center;min-width:44px;height:36px;padding:0 8px;border-radius:10px;font:700 1rem/1 var(--font-display)}
+.sq-cell small{display:block;font:500 .9rem/1 var(--font-text);color:var(--tinta-suau);margin-top:2px}
+.sq-cell.o{background:transparent;border:1.5px dashed var(--linia-buida);font:600 .9rem/1 var(--font-text);color:var(--tinta-suau)}
+.sq-map td.tot{font:700 1.05rem/1 var(--font-display)}
+.sq-map tr:hover td,.sq-map tr:hover th{background:rgba(255,255,255,.55)}
+.sq-map tbody tr:last-child td,.sq-map tbody tr:last-child th{border-bottom:0}
+.sq-mapnote{font-size:.98rem;color:var(--tinta-suau);margin-top:10px}
+
+.sq-scale{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+@media (max-width:760px){.sq-scale{grid-template-columns:1fr 1fr}}
+.sq-scale div{padding:12px 14px;border-radius:var(--radi-md);background:var(--vidre-2);border:1px solid var(--vidre-vora);font-size:.98rem;line-height:1.3}
+.sq-scale b{display:flex;align-items:center;gap:8px;font:700 1.15rem/1 var(--font-display);margin-bottom:6px}
+.sq-scale b i{width:12px;height:12px;border-radius:50%}
+
+/* Additio */
+.sq-add{display:grid;grid-template-columns:1.2fr 1fr;gap:20px}
+@media (max-width:980px){.sq-add{grid-template-columns:1fr}}
+.sq-tree details{border-radius:var(--radi-md);background:var(--vidre-3);border:1px solid var(--vidre-vora);margin-bottom:10px;box-shadow:var(--ombra-2)}
+.sq-tree summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;padding:12px 14px;font:700 1.08rem/1.2 var(--font-display)}
+.sq-tree summary::-webkit-details-marker{display:none}
+.sq-tree summary .pct{margin-left:auto;font:700 1rem/1 var(--font-display);padding:6px 10px;border-radius:var(--radi-pill);background:var(--vidre-fosc);color:#fff}
+.sq-tree summary .chev{transition:transform .2s;width:18px;height:18px}
+.sq-tree details[open] summary .chev{transform:rotate(90deg)}
+.sq-tree ul{list-style:none;margin:0;padding:0 14px 12px 40px;display:grid;gap:6px}
+.sq-tree li{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;font-size:1rem;line-height:1.3;padding:7px 0;border-top:1px solid var(--vidre-trac)}
+.sq-tree li .nm{flex:1 1 200px}
+.sq-tree li .cw{display:flex;flex-wrap:wrap;gap:5px}
+.sq-tree li .cw span{font:600 .9rem/1 var(--font-text);padding:5px 7px;border-radius:7px;background:var(--ct)}
+.sq-code{border-radius:var(--radi-lg);padding:20px;background:var(--vidre-3);border:2px dashed color-mix(in srgb,var(--estat-pendent) 55%,transparent);box-shadow:var(--ombra-8)}
+.sq-code .warn{display:inline-flex;align-items:center;gap:7px;font:600 .95rem/1.2 var(--font-text);padding:6px 10px;border-radius:var(--radi-pill);background:var(--avis-fons);border:1px solid rgba(255,255,255,.8)}
+.sq-code .warn .ico{width:16px;height:16px;color:var(--estat-pendent)}
+.sq-codev{margin:14px 0;font:700 clamp(1.9rem,5vw,2.5rem)/1 "Quicksand",monospace;letter-spacing:.14em;padding:16px;border-radius:var(--radi-md);background:#fff;text-align:center;border:1px solid var(--vidre-trac);user-select:all}
+.sq-toast{min-height:1.4em;margin-top:10px;font:600 1rem/1.3 var(--font-text)}
+.sq-howto{counter-reset:p;list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px}
+.sq-howto li{counter-increment:p;display:grid;grid-template-columns:34px 1fr;gap:10px;font-size:1.02rem;line-height:1.38}
+.sq-howto li::before{content:counter(p);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ct);font:700 1rem/1 var(--font-display);box-shadow:var(--ombra-2)}
+.sq-rule{margin-top:14px;padding:12px 14px;border-radius:var(--radi-md);background:var(--joves-tint);border-left:4px solid var(--joves);font-size:1rem;line-height:1.4}
+
+/* Com ho veus */
+.sq-fb{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding:20px 24px;margin-top:34px}
+.sq-fb .opts{display:flex;flex-wrap:wrap;gap:8px}
+.sq-fb .why{display:none;flex-basis:100%;gap:8px;flex-wrap:wrap}
+.sq-fb.ask .why{display:flex}
+.sq-fb .msg{flex-basis:100%;font:600 1.05rem/1.3 var(--font-text);min-height:0}
+
+@media print{.sq-nav,.sq-fb,.sq-code button,video{display:none!important}.sq-why{background:#fff!important;color:var(--tinta)!important;border:1px solid #bbb}.sq-why *{color:var(--tinta)!important}}
+</style></head>
+<body style="--cc:var(--cie);--ct:var(--cie-pastel)">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="m-form" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="var(--mat)"/><path d="M6.5 10.3l2.3 2.2 4.6-4.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="m-exit" viewBox="0 0 20 20"><path d="M10 2.2l8 15H2z" fill="var(--amb)" stroke="var(--amb)" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+    <symbol id="m-obs" viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" rx="3" fill="var(--lec)"/></symbol>
+    <symbol id="m-dades" viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" rx="3" fill="none" stroke="var(--lec)" stroke-width="2.4"/><path d="M6.5 13V10M10 13V7M13.5 13V9" stroke="var(--lec)" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="m-prod" viewBox="0 0 20 20"><path d="M10 1.8l2.4 5.1 5.6.6-4.2 3.8 1.2 5.5L10 14l-5 2.8 1.2-5.5L2 7.5l5.6-.6z" fill="var(--llen)" stroke="var(--llen)" stroke-width="1" stroke-linejoin="round"/></symbol>
+    <symbol id="m-auto" viewBox="0 0 20 20"><circle cx="10" cy="10" r="6.8" fill="none" stroke="var(--ang)" stroke-width="3"/></symbol>
+    <symbol id="m-prova" viewBox="0 0 20 20"><path d="M10 1.5l8.5 8.5-8.5 8.5L1.5 10z" fill="var(--tinta)"/></symbol>
+  </defs>
+</svg>
+
+<div class="tv-top tv-wrap"><div class="tv-glass">
+  <a class="tv-back" href="index.html"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Taulell</a>
+  <span class="tv-crumb">Joves · 3r d'ESO · Biologia i Geologia</span><span class="tv-stamp">Mostra</span></div></div>
+
+<main class="tv-wrap">
+  <header class="tv-glass tv-head">
+    <div class="sq-head">
+      <div>
+        <div class="tv-kicker"><span class="tv-chip" style="--cc:var(--joves)"><i></i>Joves</span><span class="tv-chip"><i></i>Biologia i Geologia</span><span class="tv-chip">3r d'ESO</span><span class="tv-chip dark">SA2 · Seqüència completa</span></div>
+        <h1>El nostre cos en marxa</h1>
+        <p class="tv-lead">Seguim el rastre de la glucosa i l'oxigen des que entren al cos fins que arriben al mitocondri de cada cèl·lula. Set sessions, dos enigmes a la paret i un informe fet amb el pols de cadascú.</p>
+        <p class="sq-q">Per quina raó una anèmia pot fer que un corredor s'esgoti a meitat de cursa?</p>
+      </div>
+      <div class="sq-facts">
+        <div class="sq-fact w"><p class="tv-lbl"><svg class="ico" viewBox="0 0 24 24"><path d="M14 3v5h5M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M8.5 13h7M8.5 17h5"/></svg>Producte final</p><b>Informe científic en parelles sobre la freqüència cardíaca durant l'esforç</b><span>Amb les dades reals del propi pols. Dos rols: un s'encarrega del mètode i els resultats, l'altre de la discussió i les conclusions.</span></div>
+        <div class="sq-fact"><p class="tv-lbl"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Durada</p><b>7 sessions de 2 h</b><span>+ autoavaluació i prova escrita</span></div>
+        <div class="sq-fact"><p class="tv-lbl"><svg class="ico" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/></svg>Format</p><b>Aula invertida</b><span>de S2 a S7: lectura a casa, formulari en arribar</span></div>
+        <div class="sq-fact w"><p class="tv-lbl"><svg class="ico" viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>Fil conductor</p><b>De fora del cos fins al mitocondri</b><span>Nutrients → digestió → sang → cor → freqüència cardíaca → control i excreció → síntesi.</span></div>
+      </div>
+    </div>
+  </header>
+<section class="tv-sec sq-aula tv-noprint" style="margin-top:22px"><p class="tv-lbl">Per a l'aula</p><div style="display:flex;flex-wrap:wrap;gap:10px">
+ <a class="tv-btn main" href="cami-bio.html"><svg class="ico" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Camí de la seqüència</a>
+ <a class="tv-btn" href="cor-presentacio.html"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Presentació a l'aula · S4</a>
+ <a class="tv-btn" href="fitxes/cor-B.html"><svg class="ico" viewBox="0 0 24 24"><path d="M14 3v5h5M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/></svg>Fitxa per imprimir · S4</a></div></section>
+
+  <nav class="sq-nav tv-noprint" aria-label="Seccions"><div class="tv-seg" id="sqNav">
+    <a href="#repte" aria-current="true">Repte</a><a href="#sessions">Sessions</a><a href="#mapa">Mapa d'avaluació</a><a href="#additio">Additio</a>
+  </div></nav>
+
+  <section id="repte" class="tv-sec">
+    <div class="sq-row2">
+      <div class="tv-pastel sq-enig"><span class="sq-num">1</span><h3>La gràfica de la Mercè</h3><p>La freqüència cardíaca d'una corredora: repòs a uns 65 bat/min, pic a 185 i, als deu minuts, encara a 90. Puja de pressa i baixa a poc a poc. Per què? Queda penjada a la paret fins a la S7.</p></div>
+      <div class="tv-pastel sq-enig" style="--ct:var(--llen-pastel)"><span class="sq-num">2</span><h3>L'analítica del Marc</h3><p>Hemoglobina a 9,2 g/dL, ferro baix, eritròcits petits. Alguns valors surten del rang. Per què un problema de ferro el deixa sense forces a mitja cursa?</p></div>
+      <div class="sq-why"><p class="tv-lbl">Per què val la pena</p><p>L'alumnat no estudia set aparells per separat: segueix <b>una sola cadena</b> que acaba explicant dos casos que ha vist cada dia a la paret.</p>
+        <ul><li>Practiquen amb el propi cos: el pols, la dissecció, el temps de reacció.</li><li>Cada sessió té fitxa a tres nivells i un laboratori virtual per a qui falta.</li><li>L'avaluació es veu venir: un tiquet de sortida per sessió, un informe i una prova amb assaig previ.</li></ul></div>
+    </div>
+    <h2 style="margin:28px 0 6px">Criteris d'avaluació que treballa</h2>
+    <p class="tv-muted" style="margin-bottom:10px">Criteris de Biologia i Geologia del Decret 175/2022, dits amb paraules planeres.</p>
+    <ul class="sq-crit" id="critList"></ul>
+  </section>
+
+  <section id="sessions" class="tv-sec">
+    <div class="sq-h2"><div><h2>Línia de sessions</h2><p>Toca una sessió per obrir-ne el detall: què fan, amb quins materials, les animacions de teoria i què s'avalua.</p></div></div>
+    <div class="sq-legend" id="legend" aria-label="Llegenda dels moments d'avaluació"></div>
+    <div class="sq-line" role="tablist" aria-label="Sessions de la SA" id="line"></div>
+    <article class="tv-glass sq-detail" id="detail" role="tabpanel" aria-live="polite"></article>
+  </section>
+
+  <section id="mapa" class="tv-sec">
+    <div class="sq-h2"><div><h2>Mapa d'avaluació</h2><p>Què s'avalua on. Cada número és el pes de la columna dins del seu bloc; cada instrument es qualifica amb l'escala NA · AS · AN · AE.</p></div></div>
+    <div class="sq-blocs" aria-label="Pes dels blocs">
+      <div style="flex:40"><i style="background:var(--tinta)"></i>Prova escrita · 40 %</div>
+      <div style="flex:40"><i style="background:var(--llen)"></i>Producte (informe) · 40 %</div>
+      <div style="flex:20"><i style="background:var(--amb)"></i>Formativa · 20 %</div>
+    </div>
+    <div class="sq-mapwrap"><table class="sq-map" id="map"></table></div>
+    <p class="sq-mapnote">Línia discontínua: s'hi treballa però no compta per a la nota (autoavaluació). La prova té un assaig previ amb un cas nou: entrena les mateixes habilitats sense copiar cap pregunta.</p>
+    <div class="sq-scale">
+      <div><b><i style="background:#DCEAD6;border:1px solid #9bbf92"></i>NA</b>No assolit. Encara no fa el pas sense ajuda.</div>
+      <div><b><i style="background:#A9CDA2"></i>AS</b>Assoliment satisfactori. Cita les idees clau.</div>
+      <div><b><i style="background:#6BA567"></i>AN</b>Assoliment notable. Lliga els passos de la cadena.</div>
+      <div><b><i style="background:#2E5D2C"></i>AE</b>Assoliment excel·lent. Fa servir les dades per justificar.</div>
+    </div>
+  </section>
+
+  <section id="additio" class="tv-sec">
+    <div class="sq-h2"><div><h2>Estructura d'avaluació per a Additio</h2><p>Així quedaria la SA a Additio: blocs amb el seu percentatge, columnes (instruments) i, dins de cada columna, els criteris amb el seu pes.</p></div></div>
+    <div class="sq-add">
+      <div class="sq-tree" id="tree"></div>
+      <div>
+        <div class="sq-code">
+          <span class="warn"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l9.5 17h-19z"/><path d="M12 10v4M12 17.2v.1"/></svg>Codi d'exemple · no funciona a Additio</span>
+          <div class="sq-codev" id="code">T3MP-L0S4</div>
+          <button class="tv-btn main" id="copy" type="button"><svg class="ico" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>Copia el codi</button>
+          <p class="sq-toast" id="toast" role="status"></p>
+          <ol class="sq-howto">
+            <li><span>Entra a Additio i ves a l'apartat <b>Estructures d'avaluació</b>.</span></li>
+            <li><span>Tria l'opció d'importar o afegir una estructura compartida i enganxa-hi el codi que t'hagin passat.</span></li>
+            <li><span>Revisa blocs, columnes i pesos, i aplica l'estructura al teu grup. Els noms exactes dels botons poden canviar segons la versió de l'aplicació.</span></li>
+          </ol>
+          <p class="sq-rule"><b>Nota de la casa.</b> L'estructura es comparteix sempre des d'<b>Estructures d'avaluació</b>, mai des d'un grup: així no viatja cap dada d'alumnes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tv-noprint" style="margin-top:34px"><p class="tv-lbl">Com ho veus?</p><div data-say></div></section>
+</main>
+<footer class="tv-foot">Institut Escola El Temple, Tortosa. Mostra amb dades d'exemple. No hi ha cap nom d'alumne; els docents apareixen pel seu rol. La Mercè i el Marc són personatges dels enigmes de la SA. Animacions de teoria fetes per a la SA2 de 3r d'ESO.</footer>
+
+<script>
+(function(){
+const MK={form:"Formulari de la lectura",exit:"Tiquet de sortida",obs:"Observació a classe",dades:"Dades pròpies",prod:"Producte amb rúbrica",auto:"Autoavaluació",prova:"Prova escrita"};
+const mk=(k,t)=>`<span class="mk" title="${t||MK[k]}"><svg aria-hidden="true"><use href="#m-${k}"/></svg></span>`;
+const ICO={
+ fitxa:'<svg class="ico" viewBox="0 0 24 24"><path d="M14 3v5h5M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/></svg>',
+ lab:'<svg class="ico" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/><path d="M7.5 15h9"/></svg>',
+ teoria:'<svg class="ico" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2z"/><path d="M4 20a2 2 0 0 0 2 1h13v-3"/></svg>',
+ lect:'<svg class="ico" viewBox="0 0 24 24"><path d="M3 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H3zM21 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7z"/></svg>',
+ app:'<svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
+ paper:'<svg class="ico" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>',
+ cor:'<svg class="ico" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+ obj:'<svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8"/></svg>',
+ run:'<svg class="ico" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>',
+ play:'<svg class="ico" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4-2.5z"/></svg>',
+ home:'<svg class="ico" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/></svg>',
+ ev:'<svg class="ico" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"/></svg>'
+};
+const PH={engage:["Engega","var(--llen)"],explore:["Explora","var(--amb)"],explica:["Explica","var(--mat)"],elabora:["Elabora","var(--ang)"],exit:["Avalua","var(--cie)"]};
+
+const CRIT=[
+ ["1.1","Analitzar fenòmens interpretant informació en molts formats (gràfics, taules, analítiques) i treure'n conclusions amb raons científiques."],
+ ["1.2","Interpretar i predir fenòmens quotidians relacionant-los amb els models de la biologia."],
+ ["3.1","Plantejar preguntes i formular hipòtesis que es puguin comprovar amb dades."],
+ ["3.3","Portar a terme un disseny experimental amb correcció i interpretar-ne els resultats."],
+ ["3.4","Cooperar en un projecte científic assumint una funció concreta."],
+ ["3.5","Presentar resultats i conclusions en el format adequat (taules, gràfics, informe)."],
+ ["4.1","Resoldre problemes i explicar processos biològics amb dades i raonament lògic."],
+ ["4.2","Analitzar críticament la solució a un problema biològic."],
+ ["5.3","Justificar hàbits saludables a partir de la fisiologia, analitzant accions pròpies i alienes."]
+];
+document.getElementById('critList').innerHTML=CRIT.map(c=>`<li><b>${c[0]}</b><span>${c[1]}</span></li>`).join('');
+
+const S=[
+ {n:1,t:"Nutrients: el combustible del cos",short:"Test del iode i del paper amb aliments de veritat",
+  q:"Mira els dos enigmes de la paret. Encara no els pots resoldre; al final de la SA, sí. Comencem: quin nutrient creus que és el combustible principal del corredor?",
+  steps:[["engage","Idees prèvies",10],["explore","Pràctica de laboratori",35],["explica","Els cinc nutrients i per a què serveixen",25],["exit","Tiquet de sortida",10]],
+  act:"Grups de 4. Escriuen una hipòtesi per a cada aliment (midó? greix?) i la comproven amb el test del iode i el test del paper. Al final: per què el iode no detecta res a la poma?",
+  obj:{B:["Identifico els macronutrients i la seva funció principal al cos.","Explico la cadena glucosa → mitocondri → ATP i per què els hidrats són el combustible ràpid.","Relaciono el ferro amb l'hemoglobina i l'hemoglobina amb el transport d'oxigen.","Interpreto el resultat del test del iode i explico el fals negatiu de la fructosa."],
+       C:["Nomeno 3 nutrients i associo cada un a un aliment concret.","Completo: «els hidrats es converteixen en ___ que va al mitocondri per fer ___».","Reconec quan el iode canvia de color i quan no.","Sé dir que el ferro serveix per fabricar ___, que porta oxigen per la sang."],
+       A:["Explico per què un velocista fa servir sobretot hidrats i un maratonià, greixos als últims quilòmetres.","Raono la cadena ferro → hemoglobina → oxigen als músculs → ATP.","Dissenyo un test alternatiu al del iode amb control positiu, negatiu i variables.","Argumento per què el test del iode detecta midó, no sucre."]},
+  mats:[["fitxa","Fitxa B · C · A","3 nivells, mateix repte"],["lab","Laboratori del iode","virtual, per a qui falta"],["teoria","Teoria en PDF","amb avisos d'animació"],["paper","Pòsters dels dos enigmes","per a la paret"],["paper","10 etiquetes nutricionals","«Detectius d'etiquetes»"]],
+  vids:[["sa2-s1-t1","t1","Per què els hidrats són el combustible més ràpid del cos?"],["sa2-s1-t4","t4","Per què la manca de ferro provoca cansament?"]],
+  rev:null,
+  hw:"Fotografiar els 3 productes que realment menges, classificar-los per nutrient dominant i dir si són ultraprocessats. Es defensa oralment a S2.",
+  ev:[["exit","Tiquet de sortida S1","Criteri 1.2 · pes 4 (formativa)"]],
+  marks:["exit"]},
+ {n:2,t:"El sistema digestiu",short:"Simulació de la digestió i el cabdell de llana de 9 m",
+  q:"Tens 9 metres de tub digestiu dins teu. Avui el convertirem en l'aula i seguirem el menjar fins al final del recorregut.",
+  steps:[["engage","Formulari de la lectura",5],["engage","Idees prèvies",5],["explore","Posa nom al sistema digestiu",20],["explore","El cabdell de llana: la longitud real",15],["explica","Simulació de la digestió pas a pas",30],["elabora","Del budell al mitocondri",15],["explica","La microbiota intestinal",10],["elabora","L'escala de Bristol",10],["exit","Tiquet de sortida",10]],
+  act:"Tota la classe simula la digestió amb materials de cuina, fase a fase: boca, esòfag, estómac, duodè, intestí prim i gros. Per acabar: què fa bé el model i què no?",
+  obj:{B:["Explico per què l'absorció es fa a l'intestí prim i no a l'estómac (pH i superfície).","Descric la funció del bicarbonat del pàncrees.","Traço la cadena glucosa absorbida → sang → mitocondri.","Explico què fa la microbiota i per què els antibiòtics poden donar diarrea."],
+       C:["Nomeno 3 parts del sistema digestiu en l'ordre del recorregut.","Completo: «l'absorció passa a l'___ perquè té ___ que fan la superfície molt gran».","Reconec què representa el vinagre a la simulació i per a què serveix el bicarbonat.","Sé dir què és la microbiota i com ens ajuda."],
+       A:["Avaluo els límits del model: tres simplificacions i com millorar-les.","Raono per què la neutralització al duodè és imprescindible (enzims i pH òptim).","Explico el paper de la microbiota en la immunitat.","Construeixo la cadena completa: menjar → absorció → glucosa → sang → mitocondri → ATP."]},
+  mats:[["fitxa","Fitxa B · C · A",""],["lect","Lectura prèvia","per fer a casa"],["lab","Laboratori digestiu","virtual"],["teoria","Teoria en PDF",""]],
+  vids:[["sa2-s2-t1","t1","Per què l'absorció és a l'intestí prim i no a l'estómac?"],["sa2-s2-t3","t3","Per què la glucosa arriba a cada cèl·lula del cos?"]],
+  rev:"Defensa oral de les fotos dels 3 productes (s'observa a classe) i formulari de comprensió de la lectura en arribar.",
+  hw:"Opcional: observar la pròpia femta i recordar a quin tipus de l'escala de Bristol s'assembla. A S3 es respon de manera anònima. Lectura de la S3.",
+  ev:[["form","Formulari de la lectura S2","Criteri 1.1 · pes 6 · autocorrectiu"],["obs","Defensa oral de les fotos","Criteris 1.2 i 5.3 · pes 2 cadascun"],["exit","Tiquet de sortida S2","Criteri 1.2 · pes 4"]],
+  marks:["form","obs","exit"]},
+ {n:3,t:"El sistema circulatori i la sang",short:"100 targetes de sang i l'analítica del Marc",
+  q:"Avui comencem a desxifrar l'analítica de la paret: l'hemoglobina és baixa, 9,2 g/dL. Però primer, saps de què es compon la sang?",
+  steps:[["engage","Formulari de la lectura",5],["engage","Idees prèvies",10],["explore","Les targetes de la sang",15],["explica","Etiqueta el cor",25],["explica","La doble circulació",25],["elabora","Desxifra l'analítica del Marc",25],["exit","Tiquet de sortida",10]],
+  act:"Grups de 4 amb un sobre de 100 targetes (55 de plasma, 44 d'eritròcits, 1 de leucòcits i plaquetes): les ordenen i en calculen els percentatges. Després, l'app del sistema circulatori.",
+  obj:{B:["Descric els tres components de la sang i la funció de cadascun.","Explico per què l'hemoglobina necessita ferro per unir-se a l'oxigen.","Descric la doble circulació i per què calen dos circuits.","Interpreto Hb, eritròcits i ferro en una analítica i els lligo a l'enigma 2."],
+       C:["Nomeno 3 components de la sang i el seu color.","Completo: «l'hemoglobina porta ___ des dels ___ fins als ___».","Reconec on va la circulació petita i on va la gran.","A l'analítica, marco quin valor és baix respecte al rang."],
+       A:["Raono per què un hematòcrit alt pot ser avantatge en altitud i risc a nivell del mar.","Aplico el raonament de Harvey: volum de sang bombejat en 30 minuts.","Explico la cadena ferro baix → menys Hb → menys oxigen → FC compensa → fatiga.","Distingeixo per què la doble circulació és necessària i no redundant."]},
+  mats:[["fitxa","Fitxa B · C · A",""],["app","App del sistema circulatori","20 minuts a classe"],["lab","Laboratori de la sang","virtual"],["teoria","Teoria en PDF",""],["lect","Lectura fàcil","versió adaptada"]],
+  vids:[["sa2-s3-t2","t2","Per què l'hemoglobina necessita ferro per transportar l'oxigen?"],["sa2-s3-t3","t3","Per què la circulació humana necessita dos circuits?"]],
+  rev:"Escala de Bristol, resposta anònima (opcional). Formulari de comprensió de la lectura en arribar.",
+  hw:"Mesurar el pols en repòs: 30 segons × 2, sense haver fet exercici l'última hora. S'anota a la fitxa i es porta a S4. Lectura de la S4.",
+  ev:[["form","Formulari de la lectura S3","Criteri 1.1 · pes 6"],["exit","Tiquet de sortida S3","Criteri 1.1 · pes 4"]],
+  marks:["form","exit"]},
+ {n:4,t:"El cor per dins",short:"Dissecció d'un cor de porc o xai en cinc fases",cor:true,
+  q:"Dibuixa el cor per dins tal com te l'imagines. Quantes cavitats té? Hi ha algun punt on la sang oxigenada i la desoxigenada es barregen?",
+  steps:[["engage","Formulari de la lectura",5],["engage","Predicció abans de veure el cor real",8],["explore","Observació exterior del cor",15],["explore","Obrim el cor: tall i cavitats",35],["explore","Dues bombes en un sol cor",20],["elabora","Cas clínic",15],["exit","Tiquet de sortida",10]],
+  act:"Grups de 4, un cor per grup. Cinc fases: exterior, tall per veure les 4 cavitats, vàlvules, gruix dels ventricles i vasos principals. Cada fase té una pregunta causal. Qui no vol tallar té un paper d'observació i registre.",
+  obj:{B:["Explico per què calen 4 cavitats per mantenir pressions separades.","Descric les artèries coronàries i per què un infart és una emergència.","Relaciono el gruix del ventricle esquerre amb la pressió de la gran circulació.","Vinculo l'anèmia del Marc amb un esforç més gran del miocardi."],
+       C:["Nomeno les 4 cavitats: les de dalt ___ i les de baix ___.","Completo: «les coronàries porten ___ al ___ perquè és un múscul».","Associo infart = obstrucció de ___ → el miocardi no rep ___.","Reconec el ventricle amb la paret més gruixuda i dic per què."],
+       A:["Dedueixo cap a on passa la sang si hi ha un forat al septe i per què el pacient no es posa morat.","Explico per què el miocardi necessita molts mitocondris i com l'afecta l'anèmia.","Argumento com Harvey va deduir la circulació sense microscopi.","Analitzo un cas clínic relacionant símptoma i estructura afectada."]},
+  mats:[["fitxa","Fitxa B · C · A",""],["lab","Dissecció del cor","laboratori virtual"],["teoria","Teoria en PDF",""],["lect","Lectura fàcil",""]],
+  vids:[["sa2-s4-t1","t1","Per què calen 4 cavitats al cor?"],["sa2-s4-t2","t2","Per què el ventricle esquerre té la paret 3 cops més gruixuda?"]],
+  rev:"Pols en repòs de cadascú: es comparen els valors abans de començar. Formulari de comprensió de la lectura.",
+  hw:"Només la lectura de la S5.",
+  ev:[["form","Formulari de la lectura S4","Criteri 1.1 · pes 6"],["exit","Tiquet de sortida S4","Criteri 1.2 · pes 4"]],
+  marks:["form","exit"]},
+ {n:5,t:"Respiració i esforç: la freqüència cardíaca",short:"Cadascú mesura el seu pols: repòs, esforç, recuperació",key:true,
+  q:"Per quina raó creus que la freqüència cardíaca augmenta quan fas exercici? Escriu-ho ara: al final de la sessió ho compararàs.",
+  steps:[["engage","Formulari de la lectura",5],["engage","Idees prèvies: els dos enigmes",10],["explore","Mesura la teva FC: l'experiment",35],["explica","La gràfica de la teva FC",15],["explica","La Mercè: resolució de l'enigma 1",15],["elabora","Elit contra sedentari",20],["exit","Tiquet de sortida",10]],
+  act:"Individual, tota la classe amb el mateix protocol: pols en repòs (3 min), després de saltar a peu coix (2 min) i durant la recuperació (5 min), cada 30 segons. Amb aquestes dades es fa l'informe final.",
+  obj:{B:["Explico la cadena exercici → ATP → oxigen → la FC augmenta.","Calculo la meva FC màxima (220 − edat) i distingeixo zona aeròbica i anaeròbica.","Interpreto els tres trams de la gràfica de la Mercè.","Relaciono la FC alta del Marc amb la seva anèmia."],
+       C:["Mesuro el pols: compto en ___ segons i multiplico per ___.","Completo: «la FC puja perquè els músculs necessiten més ___ per fer ___».","Reconec a partir de quin % de la FC màxima comença la zona anaeròbica.","A la gràfica, identifico el tram que puja ràpid i el que baixa lent."],
+       A:["Identifico 3 limitacions de l'experiment de classe i proposo com controlar-les.","Raono per què la recuperació és més lenta que la pujada.","Explico per què amb anèmia s'entra abans a zona anaeròbica.","Comparo les gràfiques d'elit i sedentari i les adaptacions del cor."]},
+  mats:[["fitxa","Fitxa B · C · A","amb taula de dades"],["lab","Laboratori de la FC","virtual, amb dades realistes"],["teoria","Teoria en PDF",""],["lect","Lectura fàcil",""]],
+  vids:[["sa2-s5-t1","t1","Per què augmenta la FC quan fas exercici?"],["sa2-s5-t3","t3","Per què la FC de la Mercè puja ràpid però baixa lent?"]],
+  rev:"Formulari de comprensió de la lectura en arribar.",
+  hw:"Tres matins seguits, en llevar-se: FC en repòs (30 s × 2) a la taula de la fitxa, i una pregunta d'investigació pròpia a partir de les dades.",
+  ev:[["form","Formulari de la lectura S5","Criteri 1.1 · pes 6"],["exit","Tiquet de sortida S5","Criteris 4.1 (pes 4) i 4.2 (pes 3)"],["dades","Dades pròpies de FC (3 matins)","Criteri 4.1 · pes 2 · es recull a S6"]],
+  marks:["form","exit","dades"]},
+ {n:6,t:"El sistema de control i l'equilibri intern",short:"Temps de reacció, arc reflex i el ronyó com a filtre",
+  q:"Has mesurat la FC en repòs tres matins. Hi ha molta variabilitat a la classe: per què? I quin sistema creus que controla el cor, el pols i els reflexos?",
+  steps:[["engage","Formulari de la lectura",5],["engage","Idees prèvies",8],["explore","Tres estacions: com dóna ordres el cos",25],["explica","Dues vies de control: el nervi i l'hormona",20],["explica","El sistema excretor: el ronyó",30],["elabora","Integració i homeòstasi",15],["exit","Tiquet de sortida",10]],
+  act:"Tres estacions: temps de reacció amb un regle (parelles), un arc reflex simulat en grup de 5 i targetes per aparellar hormona, glàndula i efecte.",
+  obj:{B:["Distingeixo la via nerviosa (mil·lisegons) de l'hormonal (minuts) amb un exemple de cada.","Explico per què la FC de la Mercè ja pujava abans d'arrencar.","Descric com el ronyó filtra la sang i forma l'orina.","Relaciono les dues sortides dels residus: pulmons i ronyó."],
+       C:["Sé que els nervis van molt de pressa i les hormones, per la sang, triguen més.","Sé nomenar l'adrenalina i l'ADH i dir què fan.","Sé el camí ronyó → urèter → bufeta.","Sé per què, si bec poca aigua, l'orina és més fosca."],
+       A:["Argumento per què la via nerviosa i l'hormonal són complementàries.","Critico la mesura del temps de reacció: variables, control i rèpliques.","Explico el ronyó com a filtre selectiu i què passaria si deixés de filtrar.","Comparo dues analítiques i argumento per què el problema del Marc és el ferro i no el ronyó."]},
+  mats:[["fitxa","Fitxa B · C · A",""],["lab","Laboratori del control","virtual"],["teoria","Teoria en PDF",""],["lect","Lectura fàcil",""]],
+  vids:[["sa2-s6-t1","t1","Per què la FC de la Mercè ja pujava abans d'arrencar?"],["sa2-s6-t3","t3","Per què calen dues vies diferents per treure els residus?"]],
+  rev:"Posada en comú de la FC en repòs dels tres matins (es recull la taula). Formulari de comprensió de la lectura.",
+  hw:"Durant un dia, anotar quants gots d'aigua es beuen i el color de l'orina en 4 moments. Portar les dades de FC dels tres matins: calen per a l'informe.",
+  ev:[["form","Formulari de la lectura S6","Criteri 1.1 · pes 6"],["dades","Recollida de les dades de FC","Criteri 4.1 · pes 2"],["exit","Tiquet de sortida S6","Criteris 1.2 (pes 4) i 5.3 (pes 3)"]],
+  marks:["form","dades","exit"]},
+ {n:7,t:"Síntesi: tanquem els dos enigmes",short:"Els enigmes resolts i l'informe en parelles",fin:true,
+  q:"Els dos enigmes han estat a la paret tota la SA. Qui pot explicar ara tota la gràfica de la Mercè, d'inici a fi? I per què el Marc es fatiga tant?",
+  steps:[["engage","Formulari de la lectura",5],["engage","Els dos enigmes, resolts",12],["explore","Mateix esforç, dos cossos diferents",18],["explore","Un cas que no has vist mai",22],["explica","Quatre aparells, una sola feina",18],["elabora","L'informe de la vostra FC",25],["exit","Tiquet de sortida",10]],
+  act:"En parelles comparen la gràfica d'un esportista d'elit i d'un sedentari i escriuen 3 conclusions científiques. Després, sols, analitzen un cas nou i en formulen una hipòtesi. Es comença l'informe amb rols.",
+  obj:{B:["Explico per què la gràfica de la Mercè puja de pressa i baixa a poc a poc.","Explico la cadena de l'enigma 2: ferro baix → hemoglobina baixa → menys oxigen → FC alta → fatiga.","Escric tres conclusions comparant l'elit amb el sedentari.","Interpreto una gràfica nova i formulo una hipòtesi."],
+       C:["Completo la cadena del Marc amb les paraules clau.","Dic si una recuperació és ràpida o lenta mirant la gràfica.","Comparo el cas nou amb la Mercè i en dic dues diferències.","Escric una hipòtesi amb els quatre passos: Observo, Em pregunto, Connecto, Dedueixo."],
+       A:["Calculo quant oxigen porta cada litre de sang del Marc i quanta sang més ha de moure el cor.","Argumento si la recomanació del metge és adequada, separant-ne les parts.","Formulo una hipòtesi amb evidència numèrica i dic què la refutaria.","Integro els quatre aparells en una cadena i mostro com el ferro els afecta tots."]},
+  mats:[["fitxa","Fitxa B · C · A",""],["paper","Rúbrica de l'informe","6 files, nivell per rol"],["teoria","Teoria en PDF",""],["lect","Lectura fàcil",""]],
+  vids:[["sa2-s7-t1","t1","Per què calen 4 aparells diferents per fer una única feina?"],["sa2-s7-t3","t3","Per què el ferro baix del Marc li dispara la freqüència cardíaca?"]],
+  rev:"Gots d'aigua i color de l'orina, i les dades de FC dels tres matins, que entren a l'informe. Formulari de comprensió de la lectura.",
+  hw:"Acabar l'informe de FC en parelles i lliurar-lo en una setmana.",
+  ev:[["form","Formulari de la lectura S7","Criteri 1.1 · pes 6"],["exit","Tiquet de sortida S7","Criteris 1.1 (pes 4) i 4.2 (pes 3)"],["prod","Informe científic de FC (producte)","Criteris 3.1 · 3.3 · 3.4 · 3.5 · 4.1 · 4.2 · rúbrica de 6 files"]],
+  marks:["form","exit","prod"]},
+ {n:"P",t:"Autoavaluació i prova escrita",short:"Assaig amb un cas nou, i després la prova",closing:true,
+  q:"Abans de la prova, l'alumnat comprova què sap amb una llista de control, un test de transferència (una alpinista a 3.800 m) i un assaig de prova escrita amb un cas nou (una sortida en bicicleta amb calor).",
+  steps:[["elabora","Autoavaluació: llista de control i test",20],["elabora","Assaig de prova escrita, cas nou",35],["exit","Prova escrita (dia a part)",60]],
+  act:"L'assaig entrena les mateixes habilitats que cada bloc de la prova, però amb un cas i preguntes nous: la prova no serà igual. La diferència entre AS i AE la marca fer servir les dades i lligar els passos.",
+  obj:{B:["Sé seguir l'oxigen i la glucosa d'un aparell a un altre fins al mitocondri.","Sé interpretar una analítica comparant cada valor amb el seu rang.","Sé llegir i comparar dades de freqüència cardíaca.","Sé lligar esforç, eliminació de residus i hàbits saludables."],
+       C:["Sé que l'aliment passa a la sang a l'intestí prim.","Sé que els glòbuls vermells porten l'oxigen.","Sé que el cor batega més de pressa quan faig esport.","Sé que el ronyó neteja la sang i fa l'orina."],
+       A:["Justifico cada pas amb una dada.","Faig servir un valor normal de l'analítica per descartar una causa.","Predic com canvia la FC en una situació nova i ho justifico.","Explico el perquè de cada diferència, no només la diferència."]},
+  mats:[["paper","Llista de control","versió B i versió C amb imatges"],["paper","Test de transferència","cas nou"],["paper","Assaig de prova escrita","amb respostes model AS i AE"],["paper","Prova escrita B i C","amb solucionari"]],
+  vids:[],
+  rev:null,hw:null,
+  ev:[["auto","Autoavaluació","Sense pes: orienta l'estudi (criteris 1.1, 1.2, 4.1, 4.2, 5.3)"],["prova","Prova escrita · 4 blocs","1.1 (8) · 1.2 (8 + 6) · 4.1 (6) · 4.2 (3) · 5.3 (3), rúbrica de 4 bandes per bloc"]],
+  marks:["auto","prova"]}
+];
+
+/* llegenda */
+document.getElementById('legend').innerHTML=Object.keys(MK).map(k=>`<span>${mk(k)}${MK[k]}</span>`).join('');
+
+/* línia */
+const line=document.getElementById('line');
+line.innerHTML=S.map((s,i)=>`<button class="sq-ses${s.closing?' fi':''}" role="tab" id="tab-${i}" aria-controls="detail" aria-selected="false" data-i="${i}">
+  <span class="sq-dot">${s.n==='P'?'P':'S'+s.n}</span>${s.cor?'<span class="sq-flag">Lab 3D</span>':''}${s.fin?'<span class="sq-flag">Producte</span>':''}
+  <span class="sq-when">${s.closing?'després de S7':'2 h'}</span>
+  <h3>${s.t}</h3><span class="sq-what">${s.short}</span>
+  <span class="sq-marks" aria-label="Avaluació">${s.marks.map(k=>mk(k)).join('')}</span></button>`).join('');
+
+const det=document.getElementById('detail');
+let lvl='B';
+function bar(steps){const tot=Math.max(120,steps.reduce((a,b)=>a+b[2],0));return `<div class="sq-bar" aria-hidden="true">${steps.map(s=>`<i style="flex:${s[2]} 0 0;background:${PH[s[0]][1]}"></i>`).join('')}<i style="flex:${tot-steps.reduce((a,b)=>a+b[2],0)} 0 0;background:transparent"></i></div>`}
+function objs(s){return `<ul class="sq-obj">${s.obj[lvl].map(o=>`<li>${o}</li>`).join('')}</ul>`}
+const LV={B:"B · Base",C:"C · Suport",A:"A · Ampliació"};
+const LVN={B:"El repte de tothom, amb la fitxa estàndard.",C:"Mateix repte, amb inicis de frase, imatges i passos guiats. La lectura prèvia té versió de lectura fàcil.",A:"Mateix repte, amb una pregunta més exigent, no més llarga."};
+function render(i,focus){
+  const s=S[i];
+  [...line.children].forEach((b,j)=>b.setAttribute('aria-selected',j===i));
+  det.setAttribute('aria-labelledby','tab-'+i);
+  const mins=s.steps.reduce((a,b)=>a+b[2],0);
+  det.innerHTML=`<div class="sq-dtop"><div><p class="tv-lbl">${s.closing?'Tancament de la SA':'Sessió '+s.n+' de 7 · '+mins+' de 120 min'}</p><h2>${s.t}</h2><p class="sq-dq">${s.q}</p></div>
+   <div class="sq-marks">${s.marks.map(k=>`<span class="tv-chip">${mk(k)}${MK[k]}</span>`).join('')}</div></div>
+  <div class="sq-dgrid"><div>
+   <div class="sq-blk"><p class="tv-lbl">${ICO.run}Què fan els alumnes</p>${s.closing?'':bar(s.steps)}
+    <ol class="sq-steps">${s.steps.map(st=>`<li><span class="ph" style="background:${PH[st[0]][1]}"></span><span><small>${PH[st[0]][0]}</small>${st[1]}</span><em>${st[2]} min</em></li>`).join('')}</ol>
+    <p class="sq-act"><b>L'activitat central.</b> ${s.act}</p></div>
+   <div class="sq-blk"><p class="tv-lbl">${ICO.obj}Objectius per nivell</p>
+    <div class="tv-seg sq-dua" role="group" aria-label="Versió de la fitxa">${Object.keys(LV).map(k=>`<button type="button" data-lv="${k}" aria-pressed="${k===lvl}">${LV[k]}</button>`).join('')}</div>
+    <div id="objs">${objs(s)}</div><p class="sq-duanote" id="lvnote">${LVN[lvl]}</p></div>
+   <div class="sq-blk"><p class="tv-lbl">${ICO.fitxa}Materials</p><div class="sq-mats">${s.mats.map(m=>`<span class="sq-mat">${ICO[m[0]]}<span>${m[1]}${m[2]?`<small>${m[2]}</small>`:''}</span></span>`).join('')}</div>
+    ${s.cor?`<div class="sq-3d"><p><b>Abans o després de tallar:</b> el cor en 3D per girar-lo, obrir-lo i trobar les cavitats que han vist a la safata.</p><a class="tv-btn main" href="cor.html">${ICO.cor}Obre el laboratori 3D</a></div>`:''}</div>
+  </div><div>
+   ${s.vids.length?`<div class="sq-blk"><p class="tv-lbl">${ICO.play}Animacions de la sessió</p><div class="sq-vids">${s.vids.map(v=>`<figure class="sq-vid" style="margin:0"><video muted playsinline preload="metadata" controls poster="anim/${v[0]}.jpg" src="anim/${v[0]}.mp4"></video><figcaption><b>${v[1]}</b><span>${v[2]}</span></figcaption></figure>`).join('')}</div><p class="tv-credit">Una animació per punt de teoria, de 22 segons. Sense veu: es miren a classe o des del PDF de teoria.</p></div>`:''}
+   <div class="sq-blk"><p class="tv-lbl">${ICO.ev}S'avalua en aquesta sessió</p><ul class="sq-ev">${s.ev.map(e=>`<li>${mk(e[0])}<span>${e[1]}<small>${e[2]}</small></span></li>`).join('')}</ul></div>
+   ${(s.rev||s.hw)?`<div class="sq-blk"><p class="tv-lbl">${ICO.home}Deures</p><div class="sq-hw">${s.rev?`<div><b>Revisió en arribar</b>${s.rev}</div>`:''}${s.hw?`<div><b>Per a la propera</b>${s.hw}</div>`:''}</div></div>`:''}
+  </div></div>`;
+  det.querySelectorAll('[data-lv]').forEach(b=>b.addEventListener('click',()=>{lvl=b.dataset.lv;det.querySelectorAll('[data-lv]').forEach(x=>x.setAttribute('aria-pressed',x===b));det.querySelector('#objs').innerHTML=objs(s);det.querySelector('#lvnote').textContent=LVN[lvl];}));
+  if(focus){const r=det.getBoundingClientRect();if(r.top>innerHeight*.75||r.top<0)det.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});}
+}
+line.addEventListener('click',e=>{const b=e.target.closest('.sq-ses');if(b)render(+b.dataset.i,true)});
+line.addEventListener('keydown',e=>{const b=e.target.closest('.sq-ses');if(!b)return;let i=+b.dataset.i;if(['ArrowRight','ArrowDown'].includes(e.key))i=(i+1)%S.length;else if(['ArrowLeft','ArrowUp'].includes(e.key))i=(i-1+S.length)%S.length;else return;e.preventDefault();line.children[i].focus();render(i,false)});
+render(3,false);
+
+/* mapa d'avaluació */
+const COLS=[["form","Formularis de la lectura","S2–S7"],["exit","Tiquets de sortida","S1–S7"],["obs","Defensa oral","S2"],["dades","Dades de FC","S5→S6"],["prod","Informe (rúbrica)","S7 + 1 setmana"],["auto","Autoavaluació","abans de la prova"],["prova","Prova escrita","després de S7"]];
+const M={
+ "1.1":{form:[36,"6 × 6"],exit:[8,"S3 · S7"],auto:"o",prova:[8,"bloc 1"]},
+ "1.2":{exit:[16,"S1 · S2 · S4 · S6"],obs:[2,""],auto:"o",prova:[14,"blocs 2 i 4"]},
+ "3.1":{prod:[5,"fila 1"]},
+ "3.3":{prod:[6,"fila 2 · rol A"]},
+ "3.4":{prod:[5,"fila 6"]},
+ "3.5":{prod:[6,"fila 3 · rol A"]},
+ "4.1":{exit:[4,"S5"],dades:[2,""],prod:[6,"fila 4 · rol B"],auto:"o",prova:[6,"bloc 3"]},
+ "4.2":{exit:[6,"S5 · S7"],prod:[6,"fila 5 · rol B"],auto:"o",prova:[3,"bloc 3"]},
+ "5.3":{exit:[3,"S6"],obs:[2,""],auto:"o",prova:[3,"bloc 4"]}
+};
+const colC={form:"--mat-pastel",exit:"--amb-pastel",obs:"--lec-pastel",dades:"--lec-pastel",prod:"--llen-pastel",auto:"--ang-pastel",prova:"--vidre-3"};
+document.getElementById('map').innerHTML=`<thead><tr><th scope="col" style="text-align:left">Criteri</th>${COLS.map(c=>`<th scope="col">${mk(c[0])}${c[1]}<br><span style="font-weight:500">${c[2]}</span></th>`).join('')}<th scope="col">Pes total</th></tr></thead><tbody>${CRIT.map(c=>{const r=M[c[0]]||{};let tot=0;return `<tr><th scope="row"><b>${c[0]}</b>${c[1].split(/[,(]/)[0].replace(/\.$/,'')}</th>${COLS.map(k=>{const v=r[k[0]];if(!v)return '<td><span class="tv-muted" aria-label="no s\'avalua">·</span></td>';if(v==='o')return '<td><span class="sq-cell o" title="Es treballa, sense pes">sense pes</span></td>';tot+=v[0];return `<td><span class="sq-cell" style="background:var(${colC[k[0]]});${k[0]==='prova'?'box-shadow:inset 0 0 0 1.5px var(--tinta)':''}" title="${k[1]}: pes ${v[0]}">${v[0]}</span>${v[1]?`<small class="tv-muted" style="display:block;font-size:.9rem;margin-top:3px">${v[1]}</small>`:''}</td>`}).join('')}<td class="tot">${tot}</td></tr>`}).join('')}</tbody>`;
+
+/* arbre Additio */
+const T=[
+ ["Prova escrita",40,"var(--tinta)",[["Prova SA2 · bloc OA1 (analítica de sang)",[["1.1",8]]],["Prova SA2 · bloc OA2 (camí dels nutrients i de l'oxigen)",[["1.2",8]]],["Prova SA2 · bloc OA3 (respiració i FC)",[["4.1",6],["4.2",3]]],["Prova SA2 · bloc OA4 (eliminació i salut)",[["1.2",6],["5.3",3]]]]],
+ ["Producte",40,"var(--llen)",[["Informe científic de FC en parelles",[["3.1",5],["3.3",6],["3.4",5],["3.5",6],["4.1",6],["4.2",6]]]]],
+ ["Formativa",20,"var(--amb)",[["Tiquet de sortida S1 · nutrients",[["1.2",4]]],["Defensa oral de les fotos (S2)",[["1.2",2],["5.3",2]]],["Tiquet de sortida S2 · digestiu",[["1.2",4]]],["Tiquet de sortida S3 · sang",[["1.1",4]]],["Tiquet de sortida S4 · cor",[["1.2",4]]],["Dades de FC pròpies (S5 → S6)",[["4.1",2]]],["Tiquet de sortida S5 · FC",[["4.1",4],["4.2",3]]],["Tiquet de sortida S6 · control",[["1.2",4],["5.3",3]]],["Tiquet de sortida S7 · síntesi",[["1.1",4],["4.2",3]]],["Formularis de la lectura S2 a S7 (6 columnes)",[["1.1","6 c/u"]]]]]
+];
+const chev='<svg class="ico chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>';
+document.getElementById('tree').innerHTML=T.map((b,i)=>`<details ${i<2?'open':''}><summary>${chev}<i style="width:12px;height:12px;border-radius:50%;background:${b[2]};flex:none"></i>Bloc · ${b[0]}<span class="pct">${b[1]} %</span></summary><ul>${b[3].map(c=>`<li><span class="nm">${c[0]}</span><span class="cw">${c[1].map(w=>`<span>${w[0]} · pes ${w[1]}</span>`).join('')}</span></li>`).join('')}</ul></details>`).join('')+`<p class="tv-credit">Columnes i pesos de la SA real. Cada columna es qualifica amb NA · AS · AN · AE; l'autoavaluació no hi apareix perquè no compta per a la nota.</p>`;
+
+/* copiar codi */
+const toast=document.getElementById('toast');
+document.getElementById('copy').addEventListener('click',()=>{const txt=document.getElementById('code').textContent.trim();
+ const ok=()=>{toast.textContent="Copiat. Recorda: és un codi d'exemple.";};
+ const fallback=()=>{try{const r=document.createRange();r.selectNodeContents(document.getElementById('code'));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);document.execCommand('copy');ok();}catch(e){toast.textContent="Selecciona el codi i copia'l a mà. És un codi d'exemple.";}};
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(ok,fallback);}else fallback();});
+
+/* com ho veus */
+
+/* navegació de seccions */
+const navA=[...document.querySelectorAll('#sqNav a')];
+if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)navA.forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+e.target.id))})},{rootMargin:'-45% 0px -50% 0px'});
+ ['repte','sessions','mapa','additio'].forEach(id=>io.observe(document.getElementById(id)));}
+})();
+</script>
+<script src="tv-say.js"></script>
+</body></html>

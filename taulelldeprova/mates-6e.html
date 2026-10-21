@@ -1,0 +1,302 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cooperativa de clementines</title>
+<meta name="description" content="Mostra de Temple OS: seqüència de matemàtiques de 6è sobre proporcionalitat i percentatges amb una cooperativa de clementines del Baix Ebre.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<style>
+:root{--clem:#F08A24;--clem-2:#FFB566;--fulla:#3E8A3A}
+.mt-aula{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:18px 20px}
+.mt-aula .tv-lbl{width:100%;margin:0}
+.mt-aula .tv-btn{padding:14px 22px;font-size:1.15rem}
+.mt-fig{margin:0 0 22px;border-radius:var(--radi-xl);overflow:hidden;box-shadow:var(--ombra-16)}
+.mt-fig img{width:100%;aspect-ratio:21/8;object-fit:cover}
+.mt-fig figcaption{padding:8px 14px;font-size:.95rem;color:var(--tinta-suau);background:var(--vidre-3)}
+.mt-info{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.mt-info .tv-card h3{font-size:1.08rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.mt-info .tv-card h3 .ico{color:var(--mat)}
+.mt-info .tv-card p,.mt-info .tv-card li{font-size:1.02rem;color:var(--tinta-suau)}
+.mt-info ul{margin:0;padding-left:18px}.mt-info li{margin-bottom:4px}
+/* del concret al símbol */
+.mt-csa{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.mt-csa .tv-pastel h3{font-size:1.1rem;margin-bottom:6px}
+.mt-csa .tv-pastel p{font-size:1rem;color:var(--tinta-suau)}
+.mt-csa .num{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--vidre-fosc);color:#fff;font:700 .95rem var(--font-display);margin-right:6px}
+.mt-csa svg{width:100%;height:70px;margin:4px 0 8px}
+/* laboratori del percentatge */
+.mt-lab{padding:22px}
+.mt-lab-top{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:24px;align-items:start}
+.mt-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;padding:10px;border-radius:var(--radi-md);background:#fff;box-shadow:var(--ombra-8);touch-action:none;user-select:none;-webkit-user-select:none;aspect-ratio:1}
+.mt-grid span{border-radius:50%;background:#F3EEF5;box-shadow:inset 0 0 0 1.5px rgba(86,77,98,.22);transition:background .12s,transform .12s}
+.mt-grid span.on{background:radial-gradient(circle at 35% 30%,var(--clem-2),var(--clem) 62%);box-shadow:inset 0 0 0 1.5px rgba(160,70,0,.35);transform:scale(1.04)}
+.mt-grid span:nth-child(10n+5){margin-right:2px}
+.mt-cases{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.mt-cases button{border:1px solid var(--vidre-vora);background:var(--vidre-2);border-radius:var(--radi-pill);padding:9px 16px;font:600 1rem var(--font-text);box-shadow:var(--ombra-2)}
+.mt-cases button[aria-pressed="true"]{background:var(--vidre-fosc);color:#fff}
+.mt-q{font-size:1.15rem;margin-bottom:12px;min-height:2.6em}
+.mt-reps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.mt-reps div{background:#fff;border-radius:var(--radi-md);padding:10px 8px;text-align:center;box-shadow:var(--ombra-2);border-top:4px solid var(--mat)}
+.mt-reps small{display:block;font:600 14px var(--font-text);letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-suau)}
+.mt-reps b{font:700 1.45rem/1.2 var(--font-display)}
+.mt-range{display:flex;align-items:center;gap:12px;margin:6px 0 4px}
+.mt-range input{flex:1;accent-color:var(--mat)}
+.mt-res{font-size:1.2rem;padding:12px 14px;border-radius:var(--radi-md);background:var(--mat-pastel);margin-top:8px}
+.mt-res b{font-family:var(--font-display)}
+.mt-rd{margin-top:18px;background:#fff;border-radius:var(--radi-md);box-shadow:var(--ombra-8);padding:8px 6px}
+.mt-rd svg{width:100%;height:auto;touch-action:none}
+.mt-rd .hand{cursor:grab}
+.mt-steps{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.mt-steps span{background:var(--vidre-3);border:1px solid var(--vidre-vora);border-radius:var(--radi-pill);padding:6px 12px;font:600 1rem var(--font-text)}
+.mt-steps span.k{border-color:var(--mat);box-shadow:0 0 0 1px var(--mat)}
+.mt-note{font-size:.98rem;color:var(--tinta-suau);margin-top:10px}
+/* sessió */
+.mt-tl{display:grid;gap:10px}
+.mt-tl .row{display:grid;grid-template-columns:96px minmax(0,1fr) minmax(0,.9fr);gap:14px;align-items:start;padding:14px 16px;border-radius:var(--radi-lg);background:var(--vidre-2);border:1px solid var(--vidre-vora);box-shadow:var(--ombra-2)}
+.mt-tl .min{font:700 1.05rem var(--font-display);display:flex;flex-direction:column;gap:6px}
+.mt-tl .min i{font-style:normal;display:inline-block;align-self:flex-start;font:600 14px var(--font-text);letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:var(--radi-pill);background:var(--mat-pastel)}
+.mt-tl h3{font-size:1.1rem;margin-bottom:4px}
+.mt-tl p{font-size:1.02rem;color:var(--tinta-suau)}
+.mt-tl .doc{font-size:1rem;color:var(--tinta-suau);border-left:3px solid var(--mat);padding-left:12px}
+.mt-tl .doc b{color:var(--tinta)}
+.mt-mat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.mt-mat .tv-card h3{font-size:1.08rem;margin:8px 0 6px}
+.mt-mat .tv-card p{font-size:1rem;color:var(--tinta-suau)}
+.mt-mat svg{width:100%;height:96px}
+/* versions */
+.mt-sw{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.mt-sw button{display:flex;align-items:center;gap:8px;border:1px solid var(--vidre-vora);background:var(--vidre-2);border-radius:var(--radi-pill);padding:6px 14px 6px 6px;font:600 1rem var(--font-text);box-shadow:var(--ombra-2)}
+.mt-sw button i{font-style:normal;display:grid;place-items:center;min-width:30px;height:28px;padding:0 6px;border-radius:var(--radi-pill);background:var(--mat-pastel);font:700 14px var(--font-display)}
+.mt-sw button[aria-pressed="true"]{background:var(--vidre-fosc);color:#fff}
+.mt-sw button[aria-pressed="true"] i{background:var(--albercoc);color:var(--tinta)}
+.mt-ver{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:18px;align-items:start}
+.mt-what{font-size:1.05rem}.mt-what b{font-family:var(--font-display)}
+.mt-what ul{padding-left:18px;margin:8px 0 0;color:var(--tinta-suau)}
+.mt-sheet{background:#fff;border-radius:var(--radi-md);box-shadow:var(--ombra-8);padding:18px 20px;min-height:240px;font-size:1.02rem}
+.mt-sheet h4{font:700 1.1rem var(--font-display);margin:0 0 8px}
+.mt-sheet p{margin:0 0 8px}
+.mt-sheet .lf{font-size:1.2rem;line-height:1.55}
+.mt-sheet .eina{border:1.5px dashed var(--mat);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:.98rem}
+.mt-sheet .ln{display:inline-block;min-width:60px;border-bottom:1.5px solid #888}
+/* avaluació */
+.mt-rub{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:var(--radi-md);overflow:hidden;box-shadow:var(--ombra-8);font-size:1rem}
+.mt-rub th,.mt-rub td{padding:10px 12px;border-bottom:1px solid var(--vidre-trac);text-align:left;vertical-align:top}
+.mt-rub thead th{font:600 14px var(--font-text);letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-suau);background:var(--mat-pastel)}
+.mt-rub tbody th{font:700 1rem var(--font-display);width:22%}
+.mt-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.mt-ev{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:12px}
+.mt-ev .tv-card h3{font-size:1.08rem;margin-bottom:8px}
+.mt-ev ol,.mt-ev ul{margin:0;padding-left:20px;color:var(--tinta-suau);font-size:1.02rem}
+.mt-ev li{margin-bottom:5px}
+.mt-chk{list-style:none;padding:0!important}
+.mt-chk li{display:flex;gap:10px;align-items:flex-start}
+.mt-chk li::before{content:"";flex:none;width:18px;height:18px;margin-top:3px;border:2px solid var(--mat);border-radius:5px}
+@media (max-width:1000px){.mt-info{grid-template-columns:repeat(2,minmax(0,1fr))}.mt-lab-top{grid-template-columns:1fr}.mt-grid{max-width:360px}.mt-ver{grid-template-columns:1fr}.mt-mat{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.mt-info,.mt-csa,.mt-mat,.mt-ev{grid-template-columns:1fr}.mt-reps{grid-template-columns:1fr 1fr}.mt-rd{overflow-x:auto}.mt-rd svg{min-width:640px;touch-action:pan-x}
+  .mt-tl .row{grid-template-columns:1fr;gap:8px}.mt-tl .min{flex-direction:row;align-items:center}.mt-lab{padding:16px}.mt-grid{gap:3px;padding:8px}
+  .mt-rub{min-width:640px}}
+@media print{.mt-lab,.mt-aula,.mt-fig{display:none!important}}
+</style></head>
+<body style="--cc:var(--mat);--ct:var(--mat-pastel)">
+<div class="tv-top tv-wrap"><div class="tv-glass">
+  <a class="tv-back" href="index.html"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Taulell</a>
+  <span class="tv-crumb">Grans · 6è · Matemàtiques</span><span class="tv-stamp">Mostra</span></div></div>
+<main class="tv-wrap">
+  <header class="tv-glass tv-head">
+    <div class="tv-kicker"><span class="tv-chip" style="--cc:var(--grans)"><i></i>Grans · 6è</span><span class="tv-chip"><i></i>Matemàtiques</span><span class="tv-chip">Sessions 4 · 5 · 6 de 8</span><span class="tv-chip">Dijous 15:00 · sessió 5</span></div>
+    <h1>La cooperativa de clementines</h1>
+    <p class="tv-lead">Al Baix Ebre la clementina és pa de cada dia. La classe fa de cooperativa: posa preus per quilo, compara caixes de 5 i 10 kg, calcula descomptes, el que es perd al magatzem i la part que arriba al pagès. Les mates es toquen, es dibuixen i, al final, s'escriuen.</p>
+  </header>
+
+  <section class="tv-glass mt-aula tv-sec" aria-label="Per a l'aula">
+    <p class="tv-lbl">Per a l'aula · sessió 5</p>
+    <a class="tv-btn main" href="mates-6e-presentacio.html"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Presentació a l'aula</a>
+    <a class="tv-btn" href="fitxes/mates-6e.html"><svg class="ico" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg>Fitxa per imprimir</a>
+    <a class="tv-btn" href="cami-mates-6e.html"><svg class="ico" viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/></svg>Camí de la seqüència</a>
+  </section>
+
+  <figure class="mt-fig"><img src="img/mates-6e-caixes.webp" alt="Caixes de clementines apilades al magatzem d'una cooperativa" onerror="this.closest('figure').remove()"><figcaption>El context: el magatzem d'una cooperativa citrícola del Baix Ebre.</figcaption></figure>
+
+  <section class="tv-sec">
+    <p class="tv-lbl">La fitxa del material</p>
+    <div class="mt-info">
+      <div class="tv-card"><h3><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/></svg>Objectiu</h3><p>Entendre el percentatge com una raó "de cada 100" i calcular-lo amb estratègies pròpies (el 10 %, l'1 %, la meitat), connectant-lo amb fraccions i decimals per resoldre problemes reals de compra i venda.</p></div>
+      <div class="tv-card"><h3><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Criteris</h3><ul>
+        <li>Resol problemes de la vida quotidiana amb proporcionalitat i percentatges, i explica el procés que ha seguit.</li>
+        <li>Representa una mateixa quantitat com a fracció, decimal i percentatge, i passa d'una forma a l'altra.</li>
+        <li>Comprova si el resultat té sentit en el context (és més o menys de la meitat? d'un terç?).</li>
+        <li>Comunica i justifica el raonament amb models (quadrícula, recta doble, taula).</li></ul></div>
+      <div class="tv-card"><h3><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 3h6"/></svg>Durada</h3><p>Seqüència de 8 sessions en 3 setmanes. Aquesta mostra detalla la <b>sessió 5</b> (dijous 15:00, 1 h 30). Les sessions 4 i 6 són les franges de dimarts i divendres.</p></div>
+      <div class="tv-card"><h3><svg class="ico" viewBox="0 0 24 24"><path d="M4 7l8-4 8 4v10l-8 4-8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/></svg>Recursos</h3><ul>
+        <li>Presentació tàctil de la sessió</li><li>Plantilla "caixa de 100" i 100 fitxes taronja per grup</li><li>Tires de paper per plegar (recta doble)</li><li>Fitxa de la sessió, 4 versions</li><li>Tiquet de sortida</li></ul></div>
+    </div>
+    <div class="tv-card" style="margin-top:12px">
+      <h3 style="font-size:1.08rem;margin-bottom:6px">Al currículum (Decret 175/2022)</h3>
+      <p class="tv-muted" style="font-size:1.02rem">Competències específiques de Matemàtiques: interpretar situacions de la vida quotidiana en termes matemàtics, resoldre problemes amb estratègies diverses, connectar idees i representacions, i comunicar el raonament. Sabers del <b>sentit numèric</b> (fraccions, decimals i percentatges; raó i proporció), del <b>sentit de la mesura</b> (massa i diners) i del <b>sentit algebraic</b> (relacions de proporcionalitat directa). Transversals: competència ciutadana (consum responsable: quina part del preu arriba al pagès) i competència personal i social (treball cooperatiu en parelles).</p>
+    </div>
+    <p class="tv-lbl" style="margin-top:22px">L'arquitectura: del concret al símbol</p>
+    <div class="mt-csa">
+      <div class="tv-pastel"><h3><span class="num">1</span>Ho toquem</h3>
+        <svg viewBox="0 0 220 70" aria-hidden="true"><rect x="40" y="28" width="140" height="36" rx="4" fill="#E9C99A" stroke="#8A6233" stroke-width="2"/><path d="M40 40h140M40 52h140" stroke="#8A6233" stroke-width="1.5"/><g fill="#F08A24" stroke="#A6500F" stroke-width="1.2"><circle cx="62" cy="22" r="12"/><circle cx="88" cy="18" r="12"/><circle cx="114" cy="22" r="12"/><circle cx="140" cy="18" r="12"/><circle cx="164" cy="22" r="11"/></g><path d="M88 6c4-4 9-4 12-1-4 3-8 3-12 1z" fill="#3E8A3A"/></svg>
+        <p>Caixes de veritat, la bàscula de la cuina, 100 fitxes taronja sobre la plantilla, una tira de paper que es plega en meitats i desenes.</p></div>
+      <div class="tv-pastel"><h3><span class="num">2</span>Ho dibuixem</h3>
+        <svg viewBox="0 0 220 70" aria-hidden="true"><g transform="translate(14 6)"><rect width="58" height="58" rx="4" fill="#fff" stroke="#3466CC" stroke-width="1.5"/><rect width="58" height="9" fill="#F08A24"/><rect y="9" width="29" height="6" fill="#F08A24"/></g><g stroke="#3466CC" stroke-width="2.4" stroke-linecap="round"><path d="M92 24h116M92 50h116"/><path d="M92 18v12M150 18v12M208 18v12M92 44v12M150 44v12M208 44v12" stroke-width="1.8"/></g><path d="M120 16v40" stroke="#F08A24" stroke-width="3"/></svg>
+        <p>La quadrícula 10×10, la recta numèrica doble i la taula de proporcionalitat: el mateix problema vist de tres maneres.</p></div>
+      <div class="tv-pastel"><h3><span class="num">3</span>Ho escrivim</h3>
+        <svg viewBox="0 0 220 70" aria-hidden="true"><text x="110" y="44" text-anchor="middle" font-family="Quicksand,sans-serif" font-weight="700" font-size="25" fill="#2A2433">15/100 = 0,15 = 15 %</text></svg>
+        <p>Fracció, decimal i percentatge com tres "vestits" del mateix nombre. El càlcul surt del dibuix, no d'una regla memoritzada.</p></div>
+    </div>
+  </section>
+
+  <section class="tv-sec">
+    <p class="tv-lbl">Prova el manipulable</p>
+    <div class="tv-glass mt-lab">
+      <h2 style="margin-bottom:6px">El laboratori del percentatge</h2>
+      <p class="tv-muted" style="margin-bottom:16px">Toca o arrossega sobre la quadrícula, o mou la maneta de la recta doble: les dues van lligades. És el mateix que l'alumnat fa amb fitxes i tires de paper, i el que veurà gran a la pantalla.</p>
+      <div class="mt-lab-top">
+        <div><div class="mt-grid" id="grid" role="img" aria-label="Quadrícula de 100 clementines"></div>
+          <div class="mt-range"><label for="pct" class="tv-muted">%</label><input type="range" id="pct" min="0" max="100" value="8" aria-label="Percentatge"><b id="pctv">8 %</b></div></div>
+        <div>
+          <div class="mt-cases" id="cases" role="group" aria-label="Casos de la cooperativa"></div>
+          <p class="mt-q" id="q"></p>
+          <div class="mt-reps"><div><small>De cada 100</small><b id="r1"></b></div><div><small>Fracció</small><b id="r2"></b></div><div><small>Decimal</small><b id="r3"></b></div><div><small>Percentatge</small><b id="r4"></b></div></div>
+          <div class="mt-res" id="res"></div>
+          <p class="tv-lbl" style="margin:16px 0 0">El camí del 10 %</p>
+          <div class="mt-steps" id="steps" aria-live="polite"></div>
+        </div>
+      </div>
+      <div class="mt-rd"><svg id="rd" viewBox="0 0 900 190" aria-label="Recta numèrica doble"></svg></div>
+      <p class="mt-note">Dades d'exemple, plausibles per a una cooperativa del Baix Ebre: caixa de 10 kg a 18 €, caixa de 5 kg a 10 €, un 8 % de destrí, un 15 % de descompte per als socis i 35 € de cada 100 € per al pagès.</p>
+    </div>
+  </section>
+
+  <section class="tv-sec">
+    <p class="tv-lbl">Com es desenvolupa la sessió 5 · "Quant és el 15 %?"</p>
+    <div class="mt-tl">
+      <div class="row"><div class="min">0-10′<i>Activació</i></div><div><h3>Quina oferta triaries?</h3><p>Caixa de 10 kg a 18 €. Oferta A: 3 € menys. Oferta B: un 15 % de descompte. Voten a mà alçada i la pantalla compta els vots.</p></div><div class="doc"><b>Tu:</b> no corregeixes res. Recull les raons ("15 és més que 3") a la pissarra: hi tornareu al final.</div></div>
+      <div class="row"><div class="min">10-25′<i>Concret</i></div><div><h3>La caixa de 100</h3><p>Per grups, 100 fitxes taronja sobre la plantilla 10×10. "Arriben 100 clementines i 8 tenen cops": les giren. 8 de 100 és el 8 %. I les que es venen?</p></div><div class="doc"><b>Mira:</b> qui compta d'una en una i qui veu files de 10. Fes-los dir en veu alta "8 de cada 100".</div></div>
+      <div class="row"><div class="min">25-40′<i>Representat</i></div><div><h3>La tira que es plega</h3><p>Ara n'arriben 500 kg. Pleguen la tira en deu parts: a dalt escriuen el %, a baix els kg. El 10 % és 50 kg, l'1 % és 5 kg, el 8 % és 40 kg.</p></div><div class="doc"><b>Pregunta clau:</b> "Per què el 8 % ja no són 8?" Que la recta doble faci veure que el % es manté i la quantitat canvia.</div></div>
+      <div class="row"><div class="min">40-50′<i>Simbòlic</i></div><div><h3>Fraccions amigues</h3><p>Emparellen ½, ¼, ¾, ⅕ i 1⁄10 amb el seu percentatge a la pantalla. Cada parella pinta la seva quadrícula.</p></div><div class="doc"><b>Institucionalitza:</b> 25/100 = 0,25 = 25 % = ¼. Queda escrit al mural de la classe.</div></div>
+      <div class="row"><div class="min">50-70′<i>Problemes</i></div><div><h3>Problemes de la cooperativa</h3><p>Modelitzeu junts la part del pagès (35 % de 18 €) a la pantalla. Després, en parelles, la fitxa: destrí, fraccions amigues, descompte dels socis i el pagès.</p></div><div class="doc"><b>Tria la versió</b> de la fitxa per a cada parella. El repte és el mateix; canvia l'ajuda.</div></div>
+      <div class="row"><div class="min">70-82′<i>Aplicació</i></div><div><h3>Revelem la predicció i el repte</h3><p>15 % de 18 € = 2,70 €: guanya l'oferta A. Repte amb cronòmetre: sempre guanya la A? Amb el lliscador del preu descobreixen que a 20 € empaten.</p></div><div class="doc"><b>Deixa'ls equivocar-se</b> primer al paper. El lliscador només per comprovar.</div></div>
+      <div class="row"><div class="min">82-90′<i>Sortida</i></div><div><h3>Tiquet de sortida</h3><p>"Què és més: el 20 % de 50 € o el 50 % de 20 €?" Voten i ho justifiquen al tiquet. I l'autoavaluació del final de la fitxa.</p></div><div class="doc"><b>Llegeix els tiquets</b> abans de divendres: la sessió 6 comença pels errors més freqüents.</div></div>
+    </div>
+    <p class="tv-lbl" style="margin-top:22px">El material manipulable</p>
+    <div class="mt-mat">
+      <div class="tv-card"><svg viewBox="0 0 200 96" aria-hidden="true"><rect x="52" y="4" width="88" height="88" rx="6" fill="#fff" stroke="#3466CC" stroke-width="1.5"/><g id="mini100"></g></svg><h3>La caixa de 100</h3><p>Plantilla A4 plastificada amb 10×10 forats i 100 fitxes (o taps) taronja. Fa visible "de cada 100" i que el 10 % és una fila.</p></div>
+      <div class="tv-card"><svg viewBox="0 0 200 96" aria-hidden="true"><path d="M10 30h180v36H10z" fill="#FFF6E8" stroke="#8A6233" stroke-width="1.5"/><g stroke="#8A6233" stroke-dasharray="3 3"><path d="M28 30v36M46 30v36M64 30v36M82 30v36M100 30v36M118 30v36M136 30v36M154 30v36M172 30v36"/></g><text x="10" y="24" font-size="11" font-family="sans-serif" fill="#564D62">0 %</text><text x="168" y="24" font-size="11" font-family="sans-serif" fill="#564D62">100 %</text><text x="10" y="82" font-size="11" font-family="sans-serif" fill="#564D62">0 kg</text><text x="160" y="82" font-size="11" font-family="sans-serif" fill="#564D62">500 kg</text></svg><h3>La tira que es plega</h3><p>Tira de paper de 30 cm. Plegada en dos dóna el 50 %; en deu, el 10 %. A dalt el %, a baix la quantitat: és la recta doble feta amb les mans.</p></div>
+      <div class="tv-card"><svg viewBox="0 0 200 96" aria-hidden="true"><rect x="40" y="38" width="120" height="50" rx="4" fill="#E9C99A" stroke="#8A6233" stroke-width="2"/><path d="M40 54h120M40 70h120" stroke="#8A6233" stroke-width="1.5"/><rect x="74" y="12" width="52" height="22" rx="4" fill="#fff" stroke="#3466CC" stroke-width="1.5"/><text x="100" y="28" text-anchor="middle" font-size="13" font-weight="700" font-family="sans-serif" fill="#2A2433">10 kg · 18 €</text></svg><h3>La caixa de veritat</h3><p>Una caixa de clementines amb l'etiqueta de preu (la de la sessió 2) presideix la taula. Totes les dades dels problemes hi remeten.</p></div>
+    </div>
+  </section>
+
+  <section class="tv-sec">
+    <p class="tv-lbl">Quatre versions de la fitxa · el mateix problema comparat</p>
+    <div class="tv-glass" style="padding:20px">
+      <div class="mt-sw" id="vsw" role="group" aria-label="Versió de la fitxa"></div>
+      <div class="mt-ver"><div class="mt-what" id="vwhat"></div><div class="mt-sheet" id="vsheet"></div></div>
+    </div>
+  </section>
+
+  <section class="tv-sec">
+    <p class="tv-lbl">Avaluació</p>
+    <div class="mt-scroll"><table class="mt-rub">
+      <thead><tr><th>Criteri</th><th>No assolit</th><th>Assoliment satisfactori</th><th>Assoliment notable</th><th>Assoliment excel·lent</th></tr></thead>
+      <tbody>
+        <tr><th>Calcula percentatges d'una quantitat</th><td>Confon el % amb una quantitat fixa (15 % = 15 €).</td><td>Troba el 10 % i el 50 % amb ajuda del model.</td><td>Combina 10 %, 5 % i 1 % per trobar qualsevol percentatge.</td><td>Tria l'estratègia més curta i la justifica (15 % = 10 % + la meitat).</td></tr>
+        <tr><th>Connecta fracció, decimal i %</th><td>No relaciona les tres formes.</td><td>Relaciona ½, ¼ i 1⁄10 amb el seu %.</td><td>Passa d'una forma a l'altra amb fraccions de denominador 100.</td><td>Ho fa amb fraccions noves (⅛, 7⁄20) i ho explica amb la quadrícula.</td></tr>
+        <tr><th>Resol i comprova en context</th><td>Dóna un número sense unitat ni comprovació.</td><td>Resol el problema i posa la unitat.</td><td>Comprova si té sentit (més o menys d'un terç, de la meitat).</td><td>Compara situacions (ofertes, setmanes) i argumenta quina convé.</td></tr>
+      </tbody></table></div>
+    <div class="mt-ev">
+      <div class="tv-card"><h3>Tiquet de sortida (formatiu)</h3><ol>
+        <li>Pinta el 30 % i digues quant és de 20 €.</li>
+        <li>Quina fracció és el 25 %? Explica-ho amb un dibuix.</li>
+        <li>Què és més: el 20 % de 50 € o el 50 % de 20 €? Per què?</li></ol>
+        <p class="tv-muted" style="margin-top:8px;font-size:1rem">Es classifiquen en tres piles (ho té · gairebé · encara no) i decideixen els grups de la sessió 6.</p></div>
+      <div class="tv-card"><h3>Llista d'observació durant la manipulació</h3><ul class="mt-chk">
+        <li>Fa servir files de 10 a la quadrícula en lloc de comptar d'una en una.</li>
+        <li>Diu "de cada 100" quan explica un percentatge.</li>
+        <li>A la recta doble, escriu les dues magnituds a cada marca.</li>
+        <li>Comprova el resultat abans de donar-lo per bo.</li></ul></div>
+    </div>
+  </section>
+
+  <section class="tv-sec"><p class="tv-lbl">Com ho veus?</p><div data-say></div></section>
+</main>
+<footer class="tv-foot">Institut Escola El Temple, Tortosa. Mostra amb dades d'exemple: la cooperativa i els seus preus són inventats però plausibles. No hi ha cap nom d'alumne; els docents apareixen pel seu rol.</footer>
+<script src="tv-say.js"></script>
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const r2=v=>Math.round(v*100)/100;
+const fmt=(v,u)=>{v=r2(v);const s=v.toLocaleString('ca-ES',{minimumFractionDigits:u==='€'&&!Number.isInteger(v)?2:0,maximumFractionDigits:2});return s+(u?' '+u:'')};
+const gcd=(a,b)=>b?gcd(b,a%b):a;
+/* mini plantilla 100 */
+(function(){const g=document.getElementById('mini100');let h='';for(let i=0;i<100;i++){const x=58+(i%10)*8.4,y=10+Math.floor(i/10)*8.4;h+=`<circle cx="${x+3}" cy="${y+3}" r="3.1" fill="${i<23?'#F08A24':'#EFE9F2'}" stroke="#B9AFC4" stroke-width=".5"/>`}g.innerHTML=h})();
+
+const CASES=[
+ {k:'destri',n:'El destrí',T:500,u:'kg',p:8,q:'Avui arriben 500 kg al magatzem i el 8 % té cops: no es pot vendre. Quants kg es perden?',tail:(v,T)=>`Es perden <b>${fmt(v,'kg')}</b> i es poden vendre ${fmt(T-v,'kg')}.`},
+ {k:'socis',n:'Descompte dels socis',T:18,u:'€',p:15,q:'Una caixa de 10 kg val 18 €. Els socis tenen un 15 % de descompte. Quant estalvien?',tail:(v,T)=>`Estalvien <b>${fmt(v,'€')}</b> i paguen ${fmt(T-v,'€')}.`},
+ {k:'pages',n:'La part del pagès',T:18,u:'€',p:35,q:'De cada 100 € que paguen els clients, 35 € arriben al pagès. Quant cobra per una caixa de 18 €?',tail:v=>`El pagès cobra <b>${fmt(v,'€')}</b> per caixa.`},
+ {k:'petita',n:'Caixa de 5 kg',T:10,u:'€',p:20,q:'La caixa de 5 kg val 10 €. Si li apliquem un 20 % de descompte, quant val?',tail:(v,T)=>`La caixa queda a <b>${fmt(T-v,'€')}</b>.`}];
+let C=CASES[0],P=C.p;
+const grid=$('grid');for(let i=0;i<100;i++)grid.appendChild(document.createElement('span'));
+const cells=[...grid.children];
+$('cases').innerHTML=CASES.map((c,i)=>`<button type="button" data-i="${i}" aria-pressed="${i===0}">${c.n}</button>`).join('');
+$('cases').onclick=e=>{const b=e.target.closest('button');if(!b)return;C=CASES[+b.dataset.i];[...$('cases').children].forEach(x=>x.setAttribute('aria-pressed',x===b));set(C.p)};
+/* pintar arrossegant: omple fins a la cel·la tocada */
+let down=false;
+function cellAt(e){const el=document.elementFromPoint(e.clientX,e.clientY);const i=cells.indexOf(el);return i}
+grid.addEventListener('pointerdown',e=>{down=true;grid.setPointerCapture(e.pointerId);const i=cellAt(e);if(i>=0)set(i+1===P?i:i+1)});
+grid.addEventListener('pointermove',e=>{if(!down)return;const i=cellAt(e);if(i>=0)set(i+1)});
+['pointerup','pointercancel'].forEach(t=>grid.addEventListener(t,()=>down=false));
+$('pct').oninput=e=>set(+e.target.value);
+
+/* recta doble */
+const rd=$('rd'),X0=50,X1=850,YT=62,YB=128;
+const px=p=>X0+(X1-X0)*p/100;
+function drawRd(){let h=`<path d="M${X0} ${YT}H${X1}M${X0} ${YB}H${X1}" stroke="#3466CC" stroke-width="3" stroke-linecap="round"/>`;
+  for(let p=0;p<=100;p+=10){const x=px(p),big=p%50===0;h+=`<path d="M${x} ${YT-(big?12:8)}V${YT+(big?12:8)}M${x} ${YB-(big?12:8)}V${YB+(big?12:8)}" stroke="#3466CC" stroke-width="${big?2.4:1.6}"/>`;
+    h+=`<text x="${x}" y="${YT-20}" text-anchor="middle" font-size="17" font-family="Fira Sans Extra Condensed,sans-serif" fill="#564D62">${p} %</text>`;
+    h+=`<text x="${x}" y="${YB+32}" text-anchor="middle" font-size="17" font-family="Fira Sans Extra Condensed,sans-serif" fill="#564D62">${fmt(C.T*p/100,'')}</text>`}
+  h+=`<text x="${X1+8}" y="${YB+5}" font-size="16" font-family="Fira Sans Extra Condensed,sans-serif" fill="#564D62">${C.u}</text>`;
+  h+=`<rect x="${X0}" y="${YT-5}" width="${px(P)-X0}" height="10" rx="5" fill="#F08A24" opacity=".85"/><rect x="${X0}" y="${YB-5}" width="${px(P)-X0}" height="10" rx="5" fill="#F08A24" opacity=".85"/>`;
+  const x=px(P);
+  h+=`<g class="hand"><path d="M${x} ${YT-2}V${YB+2}" stroke="#2A2433" stroke-width="2.5" stroke-dasharray="5 4"/><circle cx="${x}" cy="${(YT+YB)/2}" r="15" fill="#fff" stroke="#2A2433" stroke-width="2.5"/><path d="M${x-5} ${(YT+YB)/2}h10" stroke="#2A2433" stroke-width="2"/>
+   <rect x="${x-44}" y="${YT-58}" width="88" height="28" rx="14" fill="#2A2433"/><text x="${x}" y="${YT-38}" text-anchor="middle" font-size="18" font-weight="700" font-family="Quicksand,sans-serif" fill="#fff">${P} %</text>
+   <rect x="${x-60}" y="${YB+42}" width="120" height="28" rx="14" fill="#2A2433"/><text x="${x}" y="${YB+62}" text-anchor="middle" font-size="18" font-weight="700" font-family="Quicksand,sans-serif" fill="#fff">${fmt(C.T*P/100,C.u)}</text></g>`;
+  rd.innerHTML=h}
+let drag=false;
+function rdP(e){const pt=rd.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const l=pt.matrixTransform(rd.getScreenCTM().inverse());return Math.max(0,Math.min(100,Math.round((l.x-X0)/(X1-X0)*100)))}
+rd.addEventListener('pointerdown',e=>{drag=true;rd.setPointerCapture(e.pointerId);set(rdP(e))});
+rd.addEventListener('pointermove',e=>{if(drag)set(rdP(e))});
+['pointerup','pointercancel'].forEach(t=>rd.addEventListener(t,()=>drag=false));
+
+function set(p){P=Math.max(0,Math.min(100,p));cells.forEach((c,i)=>c.classList.toggle('on',i<P));$('pct').value=P;$('pctv').textContent=P+' %';
+  $('q').textContent=C.q;const g=gcd(P,100)||1;
+  $('r1').textContent=P+' de 100';$('r2').textContent=P===0?'0':P===100?'1':`${P}/100`+(g>1?` = ${P/g}/${100/g}`:'');
+  $('r3').textContent=(P/100).toLocaleString('ca-ES',{maximumFractionDigits:2});$('r4').textContent=P+' %';
+  const v=C.T*P/100;$('res').innerHTML=`El <b>${P} %</b> de ${fmt(C.T,C.u)} és <b>${fmt(v,C.u)}</b>.`+(P===C.p?' '+C.tail(v,C.T):'');
+  const t=Math.floor(P/10),u=P%10,d10=C.T/10,d1=C.T/100;
+  let s=[`100 % = ${fmt(C.T,C.u)}`,`10 % = ${fmt(d10,C.u)}`];
+  if(u===5&&t>0)s.push(`5 % = meitat del 10 % = ${fmt(d10/2,C.u)}`,`${P} % = ${t} × ${fmt(d10,'')} + ${fmt(d10/2,'')} = ${fmt(v,C.u)}`);
+  else if(u){s.push(`1 % = ${fmt(d1,C.u)}`);s.push(`${P} % = `+(t?`${t} × ${fmt(d10,'')} + `:'')+`${u} × ${fmt(d1,'')} = ${fmt(v,C.u)}`)}
+  else if(t)s.push(`${P} % = ${t} × ${fmt(d10,'')} = ${fmt(v,C.u)}`);
+  $('steps').innerHTML=s.map((x,i)=>`<span class="${i===s.length-1?'k':''}">${x}</span>`).join('');
+  drawRd()}
+set(P);
+
+/* versions de la fitxa: el problema del descompte comparat */
+const V={
+ B:{n:'Base',w:'<b>La proposta estàndard.</b> El problema amb les dades i una recta doble buida (només 0 i 100 %). Han de decidir ells les marques.<ul><li>4 problemes i autoavaluació, 2 fulls</li><li>Espai per representar en blanc</li></ul>',
+  s:'<h4>3. El descompte dels socis</h4><p>Una caixa de 10 kg val 18 €. Els socis de la cooperativa tenen un 15 % de descompte.</p><p>a) Quants euros estalvien? b) Quant paguen?</p><p>Representa-ho a la recta doble i escriu les operacions.</p><svg viewBox="0 0 400 70" style="width:100%;max-width:400px"><path d="M20 22H380M20 50H380" stroke="#2A2433" stroke-width="2"/><path d="M20 14v16M380 14v16M20 42v16M380 42v16" stroke="#2A2433" stroke-width="2"/><text x="14" y="10" font-size="12">0 %</text><text x="362" y="10" font-size="12">100 %</text><text x="14" y="68" font-size="12">0 €</text><text x="366" y="68" font-size="12">18 €</text></svg>'},
+ V:{n:'Suport visual',w:'<b>El mateix problema, amb el dibuix començat.</b> La recta doble ja porta les deu marques i un color per a cada magnitud; una icona indica cada pregunta.<ul><li>Mateixos 4 problemes</li><li>Quadrícules i rectes pautades</li></ul>',
+  s:'<h4>3. El descompte dels socis</h4><p>Caixa de 10 kg = <b>18 €</b>. Socis: <b>15 %</b> de descompte.</p><svg viewBox="0 0 400 74" style="width:100%;max-width:400px"><path d="M20 22H380" stroke="#3466CC" stroke-width="2.5"/><path d="M20 50H380" stroke="#F08A24" stroke-width="2.5"/><g stroke="#2A2433" stroke-width="1.4">'+Array.from({length:11},(_,i)=>`<path d="M${20+i*36} 16v12M${20+i*36} 44v12"/>`).join('')+'</g><text x="14" y="11" font-size="11">0 %</text><text x="50" y="11" font-size="11">10 %</text><text x="362" y="11" font-size="11">100 %</text><text x="14" y="70" font-size="11">0 €</text><text x="366" y="70" font-size="11">18 €</text></svg><p>a) Estalvien: <span class="ln"></span> € &nbsp; b) Paguen: <span class="ln"></span> €</p>'},
+ L:{n:'Lectura fàcil',w:'<b>Frases curtes, lletra gran i el camí en passos.</b> Es completen buits amb el 10 % ja calculat com a model.<ul><li>Mateixos 4 problemes, més curts</li><li>Un sol pas per línia</li></ul>',
+  s:'<div class="lf"><h4>3. El descompte</h4><p>La caixa val <b>18 €</b>.</p><p>El 10 % de 18 € és <b>1,80 €</b>.</p><p>El 5 % és la meitat: <span class="ln"></span> €</p><p>El 15 % és 10 % + 5 % = <span class="ln"></span> €</p><p>Pagues 18 € − <span class="ln"></span> = <span class="ln"></span> €</p></div>'},
+ A:{n:'Ampliació',w:'<b>Mateix problema, pregunta més exigent.</b> No és més llarga: té l\'eina escrita (com es troba el 10 %, el 5 %, l\'1 %) i una pregunta que demana comparar.<ul><li>Mateixos 4 problemes, mateixa llargada</li><li>El repte és aplicar l\'eina</li></ul>',
+  s:'<h4>3. El descompte dels socis</h4><div class="eina"><b>Eina:</b> 10 % → divideix per 10 · 5 % → la meitat del 10 % · 1 % → divideix per 100.</div><p>Una caixa de 10 kg val 18 €. Els socis tenen un 15 % de descompte. a) Quant paguen?</p><p>b) Una botiga fa "la 2a caixa al 50 %". Si compres dues caixes, quin percentatge de descompte tens sobre el total? Representa-ho i compara-ho amb el dels socis.</p>'}};
+const sw=$('vsw');let cur='B';
+function draw(){sw.innerHTML=Object.keys(V).map(k=>`<button type="button" data-v="${k}" aria-pressed="${k===cur}"><i>${k==='L'?'LF':k}</i>${V[k].n}</button>`).join('');$('vwhat').innerHTML=V[cur].w;$('vsheet').innerHTML=V[cur].s}
+sw.onclick=e=>{const b=e.target.closest('button');if(b){cur=b.dataset.v;draw()}};draw();
+})();
+</script>
+</body></html>

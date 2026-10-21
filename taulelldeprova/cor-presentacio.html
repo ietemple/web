@@ -1,0 +1,525 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>El cor per dins</title>
+<meta name="description" content="Presentació d'aula de la sessió 4: predicció, cor 3D, les cinc fases de la dissecció, cas clínic i pregunta de sortida.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<style>
+:root{--navh:96px;--pad:clamp(20px,3.4vw,72px)}
+html,body{height:100%}
+body.pr{overflow:hidden;font-size:clamp(18px,1.5vw,30px);line-height:1.35;
+  background:radial-gradient(60vmax 50vmax at 0% 100%,color-mix(in srgb,var(--malla-menta) 55%,transparent),transparent 65%),
+  radial-gradient(60vmax 50vmax at 100% 0%,color-mix(in srgb,var(--malla-cel) 45%,transparent),transparent 65%),#F7F5F9}
+.pr h1{font-size:clamp(40px,4.6vw,96px)}
+.pr h2{font-size:clamp(30px,3.1vw,64px);margin-bottom:.35em}
+.pr h3{font-size:1.15em}
+.pr-exit{position:fixed;top:12px;left:12px;z-index:40;display:inline-flex;align-items:center;gap:6px;padding:8px 14px 8px 10px;border-radius:var(--radi-pill);
+  background:var(--vidre-2);border:1px solid var(--vidre-vora);box-shadow:var(--ombra-2);font:600 15px/1 var(--font-text);color:var(--tinta-suau);text-decoration:none;opacity:.75}
+.pr-exit:hover,.pr-exit:focus-visible{opacity:1}
+.pr-deck{position:fixed;inset:0 0 var(--navh) 0}
+.pr-slide{position:absolute;inset:0;display:none;flex-direction:column;overflow:auto;padding:calc(var(--pad) + 24px) var(--pad) 18px}
+.pr-slide.on{display:flex}
+.pr-in{margin:auto;width:100%;max-width:1720px}
+.pr-k{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:.6em;font:600 .72em/1.1 var(--font-text);letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-suau)}
+.pr-k i{width:.6em;height:.6em;border-radius:50%;background:var(--cie)}
+.pr-lead{color:var(--tinta-suau);font-size:1.05em;max-width:40ch}
+.pr-two{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(20px,3.4vw,72px);align-items:center}
+.pr-two.eq{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+.pr-q{position:relative;margin:.6em 0;padding:.7em .9em .7em 1.1em;border-radius:var(--radi-lg);background:var(--vidre-3);border:1px solid var(--vidre-vora);box-shadow:var(--brill-vora),var(--ombra-8);font:700 1.08em/1.25 var(--font-display);letter-spacing:-.01em}
+.pr-q::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:6px;border-radius:6px;background:var(--cie)}
+.pr-q small{display:block;font:600 .62em/1 var(--font-text);letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-suau);margin-bottom:.45em}
+.pr-list{margin:.3em 0;padding:0;list-style:none;display:grid;gap:.35em}
+.pr-list li{display:flex;gap:.55em;align-items:flex-start}
+.pr-list li b.n{flex:none;display:grid;place-items:center;width:1.5em;height:1.5em;border-radius:50%;background:var(--cie-pastel);font:700 .8em var(--font-display);margin-top:.08em}
+.pr-warn{display:flex;gap:.5em;align-items:flex-start;margin-top:.5em;padding:.45em .7em;border-radius:var(--radi-md);background:var(--avis-fons);font-size:.85em}
+.pr-fig{position:relative;margin:0;background:#fff;border-radius:var(--radi-xl);box-shadow:var(--ombra-16);padding:clamp(10px,1.2vw,24px);display:grid;place-items:center}
+.pr-fig .im{position:relative;display:inline-block}
+.pr-fig img{max-height:calc(100vh - var(--navh) - 220px);max-height:calc(100dvh - var(--navh) - 220px);width:auto;max-width:100%;min-height:160px;object-fit:contain}
+.pr-fig figcaption{font:500 .62em/1.3 var(--font-text);color:var(--tinta-suau);margin-top:.5em;text-align:center}
+.pr-mk{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;width:1.6em;height:1.6em;border-radius:50%;background:#fff;border:3px solid var(--cie);font:700 .8em var(--font-display);box-shadow:var(--ombra-8)}
+.pr-bank{display:flex;flex-wrap:wrap;gap:.4em;margin:.4em 0}
+.pr-bank span{padding:.2em .7em;border-radius:var(--radi-pill);background:var(--cie-pastel);font-weight:600;font-size:.9em}
+/* botons grans */
+.pr-b{display:inline-flex;align-items:center;justify-content:center;gap:.45em;min-height:64px;min-width:64px;padding:0 .9em;border-radius:var(--radi-pill);border:1px solid var(--vidre-vora);
+  background:var(--vidre-3);box-shadow:var(--brill-vora),var(--ombra-8);font:600 .9em/1.1 var(--font-text);color:var(--tinta);text-decoration:none;transition:transform .15s,box-shadow .15s}
+.pr-b:hover{transform:translateY(-2px);box-shadow:var(--brill-vora),var(--ombra-16)}
+.pr-b[aria-pressed="true"],.pr-b.main{background:var(--vidre-fosc);color:#fff;border-color:transparent}
+.pr-b .ico{width:1.1em;height:1.1em}
+.pr-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:.5em 0}
+/* cronòmetre */
+.pr-tm{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:.7em;padding:10px 12px 10px 18px;border-radius:var(--radi-pill);background:var(--vidre-2);border:1px solid var(--vidre-vora);box-shadow:var(--brill-vora),var(--ombra-8);width:max-content;max-width:100%}
+.pr-tm-d{font:700 1.5em/1 var(--font-display);font-variant-numeric:tabular-nums;min-width:3.4em;display:flex;align-items:center;gap:.3em}
+.pr-tm-d .ico{width:.8em;height:.8em;color:var(--cie)}
+.pr-tm.end{background:var(--avis-fons)}
+.pr-tm.end .pr-tm-d{color:var(--estat-pendent)}
+@media (prefers-reduced-motion:no-preference){.pr-tm.end{animation:pr-pulse 1s ease-in-out 3}}
+@keyframes pr-pulse{50%{transform:scale(1.04)}}
+/* votació */
+.pr-vote{display:grid;gap:12px;margin-top:.5em}
+.pr-opt{display:grid;grid-template-columns:minmax(0,1fr) 64px;gap:10px;align-items:stretch}
+.pr-opt .add{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:72px;padding:0 20px;border-radius:var(--radi-lg);border:1px solid var(--vidre-vora);background:var(--vidre-3);box-shadow:var(--brill-vora),var(--ombra-8);font:600 1em/1.1 var(--font-text);text-align:left}
+.pr-opt .add .bar{position:absolute;left:0;top:0;bottom:0;background:var(--cie-pastel);transition:width .3s;z-index:0}
+.pr-opt .add span,.pr-opt .add b{position:relative;z-index:1}
+.pr-opt .add b{font:700 1.3em var(--font-display);font-variant-numeric:tabular-nums}
+.pr-opt .sub{min-height:72px;border-radius:var(--radi-lg);border:1px solid var(--vidre-vora);background:var(--vidre-2);display:grid;place-items:center}
+.pr-opt.ok .add{box-shadow:0 0 0 4px var(--cie),var(--ombra-8)}
+.pr-hint{font-size:.72em;color:var(--tinta-suau);margin-top:.4em}
+.pr-ans{margin-top:.6em;padding:.6em .9em;border-radius:var(--radi-lg);background:var(--cie-pastel);font-weight:500;display:none}
+.pr-ans.on{display:block}
+.pr-ans b{font-family:var(--font-display)}
+/* cor 3D */
+.pr-3d{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.36fr);gap:clamp(16px,2vw,40px);align-items:stretch}
+.pr-viewer{position:relative;height:calc(100vh - var(--navh) - 210px);height:calc(100dvh - var(--navh) - 210px);min-height:320px;border-radius:var(--radi-xl);overflow:hidden;touch-action:none;
+  background:radial-gradient(70% 60% at 50% 45%,#fff,rgba(255,255,255,.4) 70%),linear-gradient(160deg,var(--malla-rosa),var(--malla-lila) 60%,var(--malla-cel));border:1px solid var(--vidre-vora);box-shadow:var(--brill-vora),var(--ombra-16)}
+.pr-viewer canvas{display:block;width:100%;height:100%}
+.pr-load{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--tinta-suau);font-weight:600;padding:16px}
+.pr-pin{position:absolute;transform:translate(-50%,-50%);display:none;white-space:nowrap;padding:.12em .55em;border-radius:var(--radi-pill);background:#fff;border:3px solid var(--cie);font:700 .78em/1.2 var(--font-display);box-shadow:var(--ombra-8);pointer-events:none}
+.pr-ctl{display:flex;flex-direction:column;gap:12px}
+.pr-ctl .pr-b{justify-content:flex-start;width:100%}
+.pr-ctl label{font-size:.75em;color:var(--tinta-suau);font-weight:600}
+.pr-ctl input[type=range]{width:100%;height:44px;accent-color:var(--cie)}
+.pr-credit{font:500 14px/1.35 var(--font-text);color:var(--tinta-suau);margin-top:10px}
+.pr-credit a{color:var(--tinta-suau)}
+/* mesures */
+.pr-meas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:.5em 0}
+.pr-meas label{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-radius:var(--radi-lg);background:var(--vidre-3);border:1px solid var(--vidre-vora);font-weight:600;font-size:.8em}
+.pr-meas input{width:100%;min-height:64px;border-radius:14px;border:1.5px solid var(--vidre-trac);background:#fff;font:700 1.6em var(--font-display);text-align:center;padding:0 8px}
+.pr-ratio{font:700 1.2em var(--font-display)}
+/* ordenar */
+.pr-ord{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:.5em 0}
+.pr-ord button{display:flex;align-items:center;gap:14px;min-height:88px;padding:12px 16px;text-align:left;border-radius:var(--radi-lg);border:1px solid var(--vidre-vora);background:var(--vidre-3);box-shadow:var(--brill-vora),var(--ombra-8);font:600 .9em/1.2 var(--font-text)}
+.pr-ord button i{flex:none;display:grid;place-items:center;width:1.8em;height:1.8em;border-radius:50%;border:2px dashed var(--linia-buida);font:700 .95em var(--font-display);font-style:normal}
+.pr-ord button.set i{border:0;background:var(--vidre-fosc);color:#fff}
+.pr-ord button.ok{box-shadow:0 0 0 4px var(--cie)}.pr-ord button.no{box-shadow:0 0 0 4px var(--estat-pendent)}
+/* casos */
+.pr-case{padding:clamp(16px,1.6vw,30px);border-radius:var(--radi-xl);background:var(--vidre-2);border:1px solid var(--vidre-vora);box-shadow:var(--brill-vora),var(--ombra-8)}
+.pr-case h3{display:flex;align-items:center;gap:.5em;margin-bottom:.35em}
+.pr-case h3 b{display:grid;place-items:center;width:1.6em;height:1.6em;border-radius:12px;background:var(--cie-pastel);font-size:.9em}
+.pr-case p{font-size:.92em}
+.pr-board{width:100%;min-height:5em;margin-top:.5em;padding:.6em .8em;border-radius:var(--radi-lg);border:2px dashed var(--linia-buida);background:#fff;font:600 1.05em/1.35 var(--font-text);resize:vertical}
+.pr-cover{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(20px,4vw,80px);align-items:center}
+.pr-big{font:700 clamp(28px,2.8vw,58px)/1.15 var(--font-display);letter-spacing:-.02em;margin-top:.5em}
+.pr-tk{display:grid;gap:.5em;margin:.4em 0;padding:0;list-style:none;counter-reset:t}
+.pr-tk li{counter-increment:t;display:flex;gap:.6em;padding:.55em .8em;border-radius:var(--radi-lg);background:var(--vidre-3);border:1px solid var(--vidre-vora)}
+.pr-tk li::before{content:counter(t);flex:none;display:grid;place-items:center;width:1.5em;height:1.5em;border-radius:50%;background:var(--cie-pastel);font:700 .85em var(--font-display)}
+/* navegació */
+.pr-nav{position:fixed;left:0;right:0;bottom:0;height:var(--navh);display:flex;align-items:center;justify-content:center;gap:16px;padding:0 16px;z-index:30}
+.pr-nav .bar{display:flex;align-items:center;gap:12px;padding:8px;border-radius:var(--radi-pill);background:var(--vidre-2);border:1px solid var(--vidre-vora);box-shadow:var(--brill-vora),var(--ombra-16);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+.pr-nav .pr-b{font-size:20px}
+.pr-dots{display:flex;align-items:center;gap:2px}
+.pr-dots button{width:30px;height:64px;border:0;background:none;display:grid;place-items:center;padding:0}
+.pr-dots button::after{content:"";width:12px;height:12px;border-radius:50%;background:var(--linia-buida);transition:width .2s}
+.pr-dots button[aria-current="true"]::after{width:26px;border-radius:8px;background:var(--cie)}
+.pr-count{font:600 18px var(--font-text);color:var(--tinta-suau);min-width:4.2em;text-align:center}
+/* pantalles baixes (1280×720) */
+@media (max-height:820px) and (min-width:761px){
+  :root{--navh:84px}
+  .pr-slide{padding-top:calc(var(--pad) + 12px);padding-bottom:8px}
+  .pr-k{margin-bottom:.3em}.pr .pr-in h2{margin-bottom:.2em}
+  .pr-q{margin:.4em 0;padding:.5em .8em .5em 1.1em}
+  .pr-vote{gap:8px}.pr-opt .add,.pr-opt .sub{min-height:64px}
+  .pr-tm{margin-top:.4em;padding:6px 8px 6px 14px}
+  .pr-ctl{display:grid;grid-template-columns:1fr 1fr;align-content:start;gap:10px}
+  .pr-ctl>h2,.pr-ctl>label,.pr-ctl>input,.pr-ctl>.pr-row{grid-column:1/-1}
+  .pr-ctl .pr-b{font-size:.85em;padding:0 .6em}
+  .pr-viewer{height:calc(100vh - var(--navh) - 150px);height:calc(100dvh - var(--navh) - 150px)}
+  .pr-case{padding:12px 18px}.pr-case p{font-size:.88em}.pr-case h3{margin-bottom:.2em}.pr-case .pr-q{margin:.3em 0}
+  .pr-ans{margin-top:.4em;padding:.4em .8em}
+  .pr-row{margin:.35em 0}
+}
+/* mòbil: una diapositiva sota l'altra */
+@media (max-width:760px){
+  html,body{height:auto}
+  body.pr{overflow:visible;font-size:18px}
+  .pr-exit{position:absolute}
+  .pr-deck{position:static}
+  .pr-slide{position:relative;display:flex;padding:64px 16px 28px;border-bottom:1px solid var(--vidre-trac)}
+  .pr-nav{display:none}
+  .pr-two,.pr-two.eq,.pr-3d,.pr-cover{grid-template-columns:1fr}
+  .pr-viewer{height:auto;aspect-ratio:1/1.05;min-height:0}
+  .pr-meas{grid-template-columns:1fr}
+  .pr-ord{grid-template-columns:1fr}
+  .pr-fig img{max-height:60vh}
+  .pr-tm{width:100%;border-radius:var(--radi-lg)}
+}
+</style></head>
+<body class="pr" style="--cc:var(--cie);--ct:var(--cie-pastel)">
+<a class="pr-exit" href="cor.html"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Surt</a>
+
+<main class="pr-deck" id="deck">
+
+<!-- 1 · portada -->
+<section class="pr-slide" aria-label="Portada">
+ <div class="pr-in pr-cover">
+  <div>
+   <p class="pr-k"><i></i>Biologia i Geologia · 3r d'ESO · Sessió 4</p>
+   <h1>El cor per dins</h1>
+   <p class="pr-lead" style="margin-top:.6em">Avui obrim un cor de veritat. Al final de les dues hores hauràs de saber respondre això:</p>
+   <p class="pr-big">Per quina raó el cor té 4 cavitats i no 2?</p>
+  </div>
+  <figure class="pr-fig"><img src="img/cor_exterior_MUT.png" alt="Cor de porc real, vist per la cara del davant."></figure>
+ </div>
+</section>
+
+<!-- 2 · predicció -->
+<section class="pr-slide" aria-label="Predicció">
+ <div class="pr-in">
+  <p class="pr-k"><i></i>Abans de tallar</p>
+  <h2>Què creus que hi ha a dins?</h2>
+  <div class="pr-two eq">
+   <div><div class="pr-q"><small>Pregunta 1</small>Quantes cavitats té el cor per dins?</div><div class="pr-vote" data-vote="cav"></div></div>
+   <div><div class="pr-q"><small>Pregunta 2</small>La sang amb oxigen i la sang sense oxigen es barregen dins del cor?</div><div class="pr-vote" data-vote="mix"></div></div>
+  </div>
+  <p class="pr-hint">Mà alçada: toca una opció per sumar un vot. Primer, dibuixa el teu cor imaginat a la fitxa (apartat 0). Ho comprovarem tallant.</p>
+  <div class="pr-tm" data-min="8"></div>
+ </div>
+</section>
+
+<!-- 3 · cor 3D -->
+<section class="pr-slide" aria-label="El cor en 3D" id="s3d">
+ <div class="pr-in">
+  <p class="pr-k"><i></i>Un cor humà real, en 3D</p>
+  <div class="pr-3d">
+   <div>
+    <div class="pr-viewer" id="viewer" aria-label="Model 3D del cor. Arrossega per girar-lo.">
+     <div class="pr-load" id="load">Carregant el cor 3D…</div>
+    </div>
+    <p class="pr-credit">Model 3D: <a href="https://lifesciencedb.jp/bp3d/" target="_blank" rel="noopener">BodyParts3D</a>, © The Database Center for Life Science (DBCLS), llicència <a href="https://creativecommons.org/licenses/by-sa/2.1/jp/deed.ca" target="_blank" rel="noopener">CC BY-SA 2.1 JP</a>. Retallat i acolorit per a l'IE Temple.</p>
+   </div>
+   <div class="pr-ctl">
+    <h2 style="margin:0">Gira'l i talla'l</h2>
+    <button class="pr-b" type="button" data-cut="none" aria-pressed="true"><svg class="ico" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>Sencer, per fora</button>
+    <button class="pr-b" type="button" data-cut="four" aria-pressed="false"><svg class="ico" viewBox="0 0 24 24"><path d="M4 20 20 4"/><path d="M14 4h6v6"/></svg>Talla'l: les cavitats</button>
+    <button class="pr-b" type="button" data-cut="trans" aria-pressed="false"><svg class="ico" viewBox="0 0 24 24"><path d="M3 12h18"/><path d="M7 8l-4 4 4 4M17 8l4 4-4 4"/></svg>Talla'l de través: les parets</button>
+    <label for="slide">Mou el bisturí</label>
+    <input type="range" id="slide" min="-30" max="30" value="0" step="1" disabled>
+    <button class="pr-b" type="button" id="tNames" aria-pressed="false"><svg class="ico" viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/></svg>Mostra els noms</button>
+    <button class="pr-b" type="button" id="tColors" aria-pressed="false"><svg class="ico" viewBox="0 0 24 24"><circle cx="8" cy="12" r="5"/><circle cx="16" cy="12" r="5"/></svg>Colors de l'esquema</button>
+    <div class="pr-row" style="margin:0">
+     <button class="pr-b" type="button" id="tSpin" aria-pressed="false" style="width:auto;flex:1"><svg class="ico" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-3-6.2"/><path d="M20 4v5h-5"/></svg>Gira sol</button>
+     <button class="pr-b" type="button" id="tReset" aria-label="Torna a la vista inicial" title="Torna a la vista inicial" style="width:auto"><svg class="ico" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v5h5"/></svg></button>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 4 · fase 1 -->
+<section class="pr-slide" aria-label="Fase 1: per fora">
+ <div class="pr-in pr-two">
+  <figure class="pr-fig"><div class="im"><img src="img/cor_exterior_MUT.png" alt="Cor de porc real, vist per davant, amb quatre números sobre els vasos grans.">
+   <span class="pr-mk" style="left:19.5%;top:8%">1</span><span class="pr-mk" style="left:60%;top:9%">2</span><span class="pr-mk" style="left:56.5%;top:20.8%">3</span><span class="pr-mk" style="left:83.2%;top:29.1%">4</span></div>
+   <figcaption>Cor de porc real, per davant. Quin vas és cada número?</figcaption></figure>
+  <div>
+   <p class="pr-k"><i></i>Fase 1 de 5 · en grups de 4</p>
+   <h2>Per fora</h2>
+   <ul class="pr-list"><li><b class="n">1</b>Busca els 4 vasos grans i posa'ls nom.</li><li><b class="n">2</b>Prem la paret i deixa-la anar: tova o ferma?</li><li><b class="n">3</b>Busca els vasos que corren per damunt: les coronàries.</li></ul>
+   <div class="pr-bank"><span>aorta</span><span>artèria pulmonar</span><span>vena cava superior</span><span>vena cava inferior</span></div>
+   <div class="pr-q"><small>Pregunta causal</small>Per què el cor necessita les seves pròpies artèries, si per dins ja hi passa sang tota l'estona?</div>
+   <div class="pr-tm" data-min="15"></div>
+  </div>
+ </div>
+</section>
+
+<!-- 5 · fase 2 -->
+<section class="pr-slide" aria-label="Fase 2: obrim el cor">
+ <div class="pr-in pr-two">
+  <figure class="pr-fig"><img src="img/disseccio_img_tall_ventricles.png" alt="Cor de porc amb dues línies de punts que marquen els dos talls, un a cada costat del solc.">
+   <figcaption>Dos talls, un a cada costat del solc. Mai just a sobre.</figcaption></figure>
+  <div>
+   <p class="pr-k"><i></i>Fase 2 de 5 · en grups de 4</p>
+   <h2>Obrim el cor</h2>
+   <ul class="pr-list"><li><b class="n">1</b>Guants posats. El cor, sempre a la safata.</li><li><b class="n">2</b>Talla seguint una línia de punts, de dalt a baix, sense arribar a la punta.</li><li><b class="n">3</b>Obre'l com un llibre. Després, el segon tall.</li><li><b class="n">4</b>Una etiqueta a cada cavitat que trobis.</li></ul>
+   <p class="pr-warn"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>Talla sempre allunyant el fil de les mans. Qui no talla, observa i anota.</p>
+   <div class="pr-q"><small>Pregunta causal</small>Quantes cavitats hi ha? Per què és important que el septe no tingui cap forat?</div>
+   <div class="pr-tm" data-min="20"></div>
+  </div>
+ </div>
+</section>
+
+<!-- 6 · fase 3 -->
+<section class="pr-slide" aria-label="Fase 3: les vàlvules">
+ <div class="pr-in pr-two">
+  <figure class="pr-fig"><img src="img/valvules_MUT.png" alt="Esquema d'una vàlvula: a l'esquerra oberta, la sang passa; a la dreta tancada, la sang no torna enrere." style="min-height:260px">
+   <figcaption>Oberta, deixa passar. Tancada, no deixa tornar enrere.</figcaption></figure>
+  <div>
+   <p class="pr-k"><i></i>Fase 3 de 5 · en grups de 4</p>
+   <h2>Les vàlvules</h2>
+   <ul class="pr-list"><li><b class="n">1</b>Busca les portetes entre cada aurícula i el seu ventricle.</li><li><b class="n">2</b>Mou-les amb les pinces: cap a on s'obren?</li></ul>
+   <div class="pr-q"><small>Pregunta causal</small>Què impedeixen les vàlvules? I quines fan el so «lub» del batec?</div>
+   <div class="pr-row"><button class="pr-b" type="button" data-reveal="lub"><svg class="ico" viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>Comprova-ho: lub-dub</button></div>
+   <div class="pr-ans" id="ans-lub" aria-live="polite"><b>Lub:</b> es tanquen de cop les vàlvules d'entrada, entre aurícula i ventricle. <b>Dub:</b> es tanquen les de sortida, a l'aorta i a l'artèria pulmonar. El so el fan les portes, no la sang.</div>
+   <div class="pr-tm" data-min="15"></div>
+  </div>
+ </div>
+</section>
+
+<!-- 7 · fase 4 -->
+<section class="pr-slide" aria-label="Fase 4: dues parets">
+ <div class="pr-in">
+  <p class="pr-k"><i></i>Fase 4 de 5 · individual</p>
+  <h2>Dues parets, dues forces</h2>
+  <div class="pr-two eq">
+   <div>
+    <ul class="pr-list"><li><b class="n">1</b>Toca la paret dels dos ventricles.</li><li><b class="n">2</b>Mesura-les amb el regle, de la vora de dins a la de fora.</li><li><b class="n">3</b>Escriu aquí les mesures del teu grup.</li></ul>
+    <div class="pr-meas">
+     <label>Ventricle dret (mm)<input type="number" id="mVD" min="0" max="60" step="0.5" inputmode="decimal"></label>
+     <label>Ventricle esquerre (mm)<input type="number" id="mVE" min="0" max="60" step="0.5" inputmode="decimal"></label>
+     <label>Septe (mm)<input type="number" id="mSE" min="0" max="60" step="0.5" inputmode="decimal"></label>
+    </div>
+    <p>VE ÷ VD = <span class="pr-ratio" id="mRat">—</span></p>
+    <div class="pr-row"><button class="pr-b" type="button" data-go3d="trans"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/></svg>Mira-ho al cor 3D</button></div>
+   </div>
+   <div>
+    <div class="pr-q"><small>Pregunta causal</small>Per què una paret és molt més gruixuda que l'altra? Pensa fins on ha d'arribar la sang de cada costat.</div>
+    <div class="pr-tm" data-min="10"></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 8 · fase 5 -->
+<section class="pr-slide" aria-label="Fase 5: les dues voltes">
+ <div class="pr-in">
+  <p class="pr-k"><i></i>Fase 5 de 5 · vasos i recorregut</p>
+  <h2>Per on entra i per on surt?</h2>
+  <div class="pr-two eq">
+   <div>
+    <p class="pr-hint" style="margin-top:0">Toca les targetes en l'ordre del viatge. Comença on la sang arriba al cor pobra en oxigen.</p>
+    <div class="pr-ord" id="ord"></div>
+    <div class="pr-row"><button class="pr-b main" type="button" id="ordChk">Comprova</button><button class="pr-b" type="button" id="ordRst">Torna-hi</button></div>
+    <p class="pr-hint" id="ordFb" aria-live="polite"></p>
+   </div>
+   <div>
+    <div class="pr-q"><small>Pregunta causal</small>Si la sang fa dues voltes, per què li calen dues bombes separades dins del mateix cor?</div>
+    <div class="pr-tm" data-min="10"></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 9 · revelació -->
+<section class="pr-slide" aria-label="Teníeu raó?">
+ <div class="pr-in">
+  <p class="pr-k"><i></i>Tornem a la predicció</p>
+  <h2>Teníeu raó?</h2>
+  <div class="pr-two eq">
+   <div><div class="pr-q"><small>Pregunta 1</small>Quantes cavitats té el cor?</div><div class="pr-vote" data-vote="cav" data-ro></div>
+    <div class="pr-row"><button class="pr-b main" type="button" data-reveal="cav">Revela</button></div>
+    <div class="pr-ans" id="ans-cav" aria-live="polite"><b>Quatre.</b> Dues aurícules a dalt, que reben la sang, i dos ventricles a baix, que l'empenyen.</div></div>
+   <div><div class="pr-q"><small>Pregunta 2</small>Es barregen les dues sangs?</div><div class="pr-vote" data-vote="mix" data-ro></div>
+    <div class="pr-row"><button class="pr-b main" type="button" data-reveal="mix">Revela</button></div>
+    <div class="pr-ans" id="ans-mix" aria-live="polite"><b>No.</b> El septe és una paret sencera: el costat dret i l'esquerre no es toquen.</div></div>
+  </div>
+ </div>
+</section>
+
+<!-- 10 · cas clínic -->
+<section class="pr-slide" aria-label="Cas clínic">
+ <div class="pr-in">
+  <p class="pr-k"><i></i>Cas clínic · en parelles · tria'n un</p>
+  <h2>Quan el cor falla</h2>
+  <div class="pr-two eq">
+   <div class="pr-case"><h3><b>A</b>Un forat al septe</h3>
+    <p>Un noi de 14 anys va néixer amb un forat entre els dos ventricles. Corrent, es queda enrere i respira molt de pressa. En repòs, està bé. El metge li sent un bufec. No es posa blau.</p>
+    <div class="pr-q" style="font-size:.95em"><small>Vota</small>Pel forat, la sang passa…</div>
+    <div class="pr-vote" data-vote="forat"></div>
+    <div class="pr-row"><button class="pr-b" type="button" data-reveal="forat">Comprova-ho</button></div>
+    <div class="pr-ans" id="ans-forat" aria-live="polite"><b>De l'esquerre al dret.</b> L'esquerre empeny molt més fort (unes 5 vegades). La sang que va al cos porta l'oxigen normal: per això no es posa blau.</div>
+   </div>
+   <div><div class="pr-case"><h3><b>B</b>Coronàries tapades</h3>
+    <p>Una dona de 58 anys té les coronàries mig tapades per plaques de greix. Quan puja escales li fa mal el pit i s'ha d'aturar. Al cap de dos minuts, el dolor marxa.</p>
+    <div class="pr-q" style="font-size:.95em"><small>Pensa</small>Per què li fa mal pujant escales i no quan seu?</div>
+    <div class="pr-row"><button class="pr-b" type="button" data-reveal="coro">Comprova-ho</button></div>
+    <div class="pr-ans" id="ans-coro" aria-live="polite"><b>Més esforç, més oxigen.</b> Pujant, el múscul del cor en necessita més del que li arriba per les coronàries estretes, i fa mal. En aturar-se, en torna a necessitar poc.</div>
+   </div>
+   <div class="pr-tm" data-min="15"></div></div>
+  </div>
+ </div>
+</section>
+
+<!-- 11 · posem-ho en comú -->
+<section class="pr-slide" aria-label="Posem-ho en comú">
+ <div class="pr-in">
+  <p class="pr-k"><i></i>Tota la classe</p>
+  <h2>Per quina raó 4 cavitats i no 2?</h2>
+  <p class="pr-lead" style="max-width:none">Un portaveu per grup: una cosa del cor que no us esperàveu. Després, la resposta de la classe:</p>
+  <label class="pr-hint" for="board">La resposta de la classe</label>
+  <textarea class="pr-board" id="board" rows="4" placeholder="Toca aquí i escriu-la entre tots…"></textarea>
+  <div class="pr-tm" data-min="10"></div>
+ </div>
+</section>
+
+<!-- 12 · sortida -->
+<section class="pr-slide" aria-label="Tiquet de sortida">
+ <div class="pr-in">
+  <p class="pr-k"><i></i>Tiquet de sortida · sol o sola · al paper</p>
+  <h2>Abans de marxar</h2>
+  <ol class="pr-tk">
+   <li>Per què el ventricle esquerre té la paret molt més gruixuda que el dret?</li>
+   <li>Si el septe tingués un forat, cap a on passaria la sang? Què no canviaria?</li>
+   <li>El Marc té anèmia: cada litre de sang li porta menys oxigen. Per què el seu cor ha de treballar més?</li>
+  </ol>
+  <div class="pr-tm" data-min="7"></div>
+ </div>
+</section>
+</main>
+
+<nav class="pr-nav" aria-label="Diapositives"><div class="bar">
+ <button class="pr-b" type="button" id="prev" aria-label="Diapositiva anterior"><svg class="ico" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+ <div class="pr-dots" id="dots"></div>
+ <span class="pr-count" id="count">1 / 12</span>
+ <button class="pr-b" type="button" id="fs" aria-label="Pantalla completa" title="Pantalla completa"><svg class="ico" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+ <button class="pr-b main" type="button" id="next" aria-label="Diapositiva següent"><svg class="ico" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+</div></nav>
+
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const slides=[...document.querySelectorAll('.pr-slide')];const mob=matchMedia('(max-width:760px)');
+let cur=0;
+const dots=$('dots');
+slides.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Diapositiva '+(i+1)+': '+s.getAttribute('aria-label'));b.onclick=()=>go(i);dots.appendChild(b)});
+function go(i){cur=Math.max(0,Math.min(slides.length-1,i));
+  slides.forEach((s,j)=>s.classList.toggle('on',j===cur));
+  [...dots.children].forEach((d,j)=>d.setAttribute('aria-current',j===cur));
+  $('count').textContent=(cur+1)+' / '+slides.length;$('prev').disabled=cur===0;$('next').disabled=cur===slides.length-1;
+  if(mob.matches)slides[cur].scrollIntoView({block:'start'});
+  try{history.replaceState(null,'','#'+(cur+1))}catch(e){}
+  document.dispatchEvent(new CustomEvent('pr-slide',{detail:cur}))}
+window.prGo=go;
+$('prev').onclick=()=>go(cur-1);$('next').onclick=()=>go(cur+1);
+$('fs').onclick=()=>{if(document.fullscreenElement)document.exitFullscreen();else if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen().catch(()=>{})};
+document.addEventListener('keydown',e=>{const t=e.target;if(t.closest&&t.closest('input,textarea,select'))return;
+  if(['ArrowRight','PageDown'].includes(e.key)){e.preventDefault();go(cur+1)}
+  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}
+  else if(e.key==='Home')go(0);else if(e.key==='End')go(slides.length-1);
+  else if(e.key==='f'||e.key==='F')$('fs').click()});
+
+const IC={clock:'<svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>',
+ play:'<svg class="ico" viewBox="0 0 24 24"><path d="M7 5v14l11-7z"/></svg>',pause:'<svg class="ico" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>',
+ reset:'<svg class="ico" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v5h5"/></svg>',
+ minus:'<svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14"/></svg>',plus:'<svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>'};
+/* cronòmetres */
+document.querySelectorAll('.pr-tm').forEach(el=>{let total=(+el.dataset.min)*60,left=total,end=0,iv=null;
+  el.innerHTML='<span class="pr-tm-d" role="timer" aria-live="off">'+IC.clock+'<span></span></span>'+
+   '<button class="pr-b main" type="button" data-t="go" aria-label="Inicia el cronòmetre">'+IC.play+'</button>'+
+   '<button class="pr-b" type="button" data-t="m" aria-label="Un minut menys">'+IC.minus+'</button>'+
+   '<button class="pr-b" type="button" data-t="p" aria-label="Un minut més">'+IC.plus+'</button>'+
+   '<button class="pr-b" type="button" data-t="r" aria-label="Torna a començar">'+IC.reset+'</button>';
+  const d=el.querySelector('.pr-tm-d span'),bGo=el.querySelector('[data-t=go]');
+  const show=()=>{const s=Math.max(0,Math.round(left));d.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');el.classList.toggle('end',s===0&&total>0)};
+  const stop=()=>{clearInterval(iv);iv=null;bGo.innerHTML=IC.play;bGo.setAttribute('aria-label','Inicia el cronòmetre')};
+  const tick=()=>{left=(end-Date.now())/1000;if(left<=0){left=0;stop();d.textContent='Temps!';el.classList.add('end');return}show()};
+  el.addEventListener('click',e=>{const b=e.target.closest('[data-t]');if(!b)return;const k=b.dataset.t;
+    if(k==='go'){if(iv)stop();else{if(left<=0)left=total;end=Date.now()+left*1000;iv=setInterval(tick,250);bGo.innerHTML=IC.pause;bGo.setAttribute('aria-label','Atura el cronòmetre');el.classList.remove('end')}}
+    if(k==='m'||k==='p'){const dv=k==='p'?60:-60;total=Math.max(60,total+dv);left=Math.max(0,left+dv);if(iv)end=Date.now()+left*1000;el.classList.remove('end');show()}
+    if(k==='r'){stop();left=total;el.classList.remove('end');show()}});
+  show()});
+
+/* votacions */
+const VOTES={cav:{o:['2','3','4','Més de 4'],ok:2},mix:{o:['Sí, es barregen','No, no es barregen','No ho sé'],ok:1},forat:{o:["De l'esquerre al dret","Del dret a l'esquerre"],ok:0}};
+Object.values(VOTES).forEach(v=>{v.c=v.o.map(()=>0);v.shown=false});
+function drawVotes(){document.querySelectorAll('.pr-vote').forEach(box=>{const k=box.dataset.vote,v=VOTES[k],ro=box.hasAttribute('data-ro'),mx=Math.max(1,...v.c);
+  box.innerHTML=v.o.map((t,i)=>'<div class="pr-opt'+(v.shown&&i===v.ok?' ok':'')+'"'+(ro?' style="grid-template-columns:1fr"':'')+'>'+
+   '<button type="button" class="add" data-i="'+i+'"'+(ro?' tabindex="-1" disabled':'')+' aria-label="'+t+': '+v.c[i]+' vots'+(ro?'':'. Toca per sumar-ne un')+'"><span class="bar" style="width:'+(v.c[i]/mx*100)+'%"></span><span>'+t+'</span><b>'+v.c[i]+'</b></button>'+
+   (ro?'':'<button type="button" class="sub" data-s="'+i+'" aria-label="Treu un vot a '+t+'">'+IC.minus+'</button>')+'</div>').join('')})}
+document.addEventListener('click',e=>{const a=e.target.closest('.pr-vote .add,.pr-vote .sub');if(!a)return;const k=a.closest('.pr-vote').dataset.vote,v=VOTES[k];
+  if(a.dataset.i!=null)v.c[+a.dataset.i]++;else v.c[+a.dataset.s]=Math.max(0,v.c[+a.dataset.s]-1);drawVotes()});
+document.querySelectorAll('[data-reveal]').forEach(b=>b.onclick=()=>{const k=b.dataset.reveal;$('ans-'+k).classList.add('on');if(VOTES[k]){VOTES[k].shown=true;drawVotes()}});
+drawVotes();
+
+/* mesures */
+const fmt=n=>String(Math.round(n*10)/10).replace('.',',');
+['mVD','mVE','mSE'].forEach(id=>$(id).addEventListener('input',()=>{const a=parseFloat($('mVD').value),b=parseFloat($('mVE').value);
+  $('mRat').textContent=a>0&&b>0?'× '+fmt(b/a):'—'}));
+
+/* ordenar les dues voltes */
+const ORD=["Arriba al costat dret del cor, pobra en oxigen","Va als pulmons i hi carrega oxigen","Torna al costat esquerre del cor, rica en oxigen","Surt cap a tot el cos per l'aorta"];
+const SH=[2,0,3,1];let pick=[];
+function drawOrd(chk){$('ord').innerHTML=SH.map(i=>{const p=pick.indexOf(i);const cls=p>=0?'set'+(chk?(p===i?' ok':' no'):''):'';
+  return '<button type="button" class="'+cls+'" data-o="'+i+'"><i>'+(p>=0?p+1:'')+'</i><span>'+ORD[i]+'</span></button>'}).join('')}
+$('ord').addEventListener('click',e=>{const b=e.target.closest('[data-o]');if(!b)return;const i=+b.dataset.o,p=pick.indexOf(i);
+  if(p>=0)pick=pick.slice(0,p);else pick.push(i);$('ordFb').textContent='';drawOrd()});
+$('ordChk').onclick=()=>{if(pick.length<4){$('ordFb').textContent='Primer numera les quatre targetes.';return}
+  const ok=pick.every((v,i)=>v===i);drawOrd(true);$('ordFb').textContent=ok?'Exacte: una volta curta pels pulmons i una de llarga per tot el cos.':'Encara no. Pista: la sang pobra en oxigen va primer a buscar-ne.'};
+$('ordRst').onclick=()=>{pick=[];$('ordFb').textContent='';drawOrd()};drawOrd();
+
+document.querySelectorAll('[data-go3d]').forEach(b=>b.onclick=()=>{go(2);if(window.cor3d)window.cor3d.setCut(b.dataset.go3d)});
+const h=parseInt(location.hash.slice(1),10);go(h>0&&h<=slides.length?h-1:0);
+if(mob.matches)scrollTo(0,0);
+})();
+</script>
+<script type="importmap">
+{"imports":{"three":"./lib/three.module.js","three/addons/":"./lib/addons/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+const $=id=>document.getElementById(id);
+const B=(x,y,z)=>new THREE.Vector3(x,z,-y);
+const viewer=$('viewer');
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.localClippingEnabled=true;renderer.outputColorSpace=THREE.SRGBColorSpace;
+viewer.prepend(renderer.domElement);
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(35,1,0.1,200);
+const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.minDistance=8;controls.maxDistance=60;controls.autoRotateSpeed=1.6;
+scene.add(new THREE.HemisphereLight(0xffffff,0x6a4a5a,1.15));
+const key=new THREE.DirectionalLight(0xffffff,1.6);camera.add(key);key.position.set(3,4,2);scene.add(camera);
+const clipPlane=new THREE.Plane(new THREE.Vector3(0,0,-1),0);const clips=[];
+const COL={miocardi:0x9c3b35,arteria:0xd9c3b5,vena:0x7b5a6e,coronaria:0xc8302a,vena_cor:0x5b3a55,valvula:0xefe4cf,papil:0xb4544c};
+const DID={aorta_ascendent:0xd8322b,arc_aorta:0xd8322b,arteries_pulmonars:0x3a6fd0,cava_superior:0x3a6fd0,cava_inferior:0x3a6fd0,venes_pulmonars:0xd8322b};
+const mats=[];
+function groupOf(n){if(n.startsWith('paret'))return'miocardi';if(/aorta|arteries_pulm/.test(n))return'arteria';if(/cava|venes_pulm/.test(n))return'vena';
+  if(/coronaria|circumflexa|marginal/.test(n))return'coronaria';if(/si_coronari|vena_cardiaca/.test(n))return'vena_cor';if(n.startsWith('valv'))return'valvula';if(n.startsWith('papil'))return'papil';return'miocardi'}
+const loader=new GLTFLoader();
+const loadCor=(ok,_p,err)=>import('./models/cor_bp3d.glb.js').then(m=>{const s=atob(m.default),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);loader.parse(u.buffer,'',ok,err)}).catch(err);
+
+loadCor(g=>{const root=g.scene;const meshes=[];root.traverse(o=>{if(o.isMesh)meshes.push(o)});
+  meshes.forEach(o=>{const n=/^Mesh|^$/.test(o.name)&&o.parent?o.parent.name:o.name;const grp=groupOf(n);
+    const m=new THREE.MeshStandardMaterial({color:COL[grp],roughness:grp==='miocardi'?0.62:0.5,metalness:0,clippingPlanes:clips,side:THREE.FrontSide});
+    const cap=new THREE.MeshBasicMaterial({color:grp==='miocardi'||grp==='papil'?0xc0675d:0xe9d9c9,clippingPlanes:clips,side:THREE.BackSide});
+    o.material=m;o.add(new THREE.Mesh(o.geometry,cap));mats.push({n,grp,m,base:COL[grp],mesh:o})});
+  scene.add(root);$('load').remove();applyColors();setCut(cutKey)},
+  undefined,err=>{console.warn('Model 3D no carregat',err);$('load').textContent="No s'ha pogut carregar el cor 3D. Torna a obrir la pàgina. ("+(err&&err.message||err)+")"});
+function resize(){const w=viewer.clientWidth,h=viewer.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}
+new ResizeObserver(resize).observe(viewer);resize();
+
+const CUTS={four:{n:B(-0.44,0.40,-0.79).normalize(),p:B(0.1,0.2,-0.4),up:null},trans:{n:B(0,0,-1),p:B(0.8,-0.8,-3.0),up:B(0,1,0)}};
+let cutKey=null,offset=0;
+function setCut(k){cutKey=k||null;offset=0;$('slide').value=0;$('slide').disabled=!cutKey;
+  document.querySelectorAll('[data-cut]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.cut===(cutKey||'none')));
+  clips.length=0;if(cutKey)clips.push(clipPlane);applyCut();viewCut();
+  mats.forEach(o=>{o.mesh.visible=!(cutKey==='trans'&&/cava_inferior|si_coronari/.test(o.n))})}
+function applyCut(){if(!cutKey)return;const c=CUTS[cutKey];clipPlane.setFromNormalAndCoplanarPoint(c.n,c.p.clone().addScaledVector(c.n,offset*0.1))}
+function viewCut(){if(!cutKey){resetView();return}const c=CUTS[cutKey];const sup=B(0,0,1);
+  const up=c.up?c.up.clone():sup.addScaledVector(c.n,-sup.dot(c.n)).normalize();camera.up.copy(up);camera.position.copy(c.p).addScaledVector(c.n,-24);controls.target.copy(c.p);controls.update()}
+function resetView(){camera.up.set(0,1,0);camera.position.set(0,1.5,32);controls.target.set(0,0.5,0);controls.update()}
+$('slide').oninput=e=>{offset=+e.target.value;applyCut()};
+document.querySelectorAll('[data-cut]').forEach(b=>b.onclick=()=>setCut(b.dataset.cut==='none'?null:b.dataset.cut));
+$('tReset').onclick=()=>{cutKey?viewCut():resetView()};
+let didactic=false;
+function applyColors(){mats.forEach(o=>{let c=o.base;if(didactic&&DID[o.n]!==undefined)c=DID[o.n];o.m.color.setHex(c)})}
+$('tColors').onclick=()=>{didactic=!didactic;$('tColors').setAttribute('aria-pressed',didactic);applyColors()};
+$('tSpin').onclick=()=>{controls.autoRotate=!controls.autoRotate;$('tSpin').setAttribute('aria-pressed',controls.autoRotate)};
+
+const PINS={1:{c:null,pos:B(-1.2,0.6,8.6),nm:'aorta'},2:{c:null,pos:B(0.6,-2.4,4.6),nm:'artèria pulmonar'},3:{c:null,pos:B(-3.7,0.65,8.0),nm:'vena cava superior'},4:{c:null,pos:B(-3.7,0.7,-5.1),nm:'vena cava inferior'},
+  A:{c:'four',pos:B(-3.6,0.3,0.8),nm:'aurícula dreta'},B:{c:'four',pos:B(0.2,-2.8,-1.0),nm:'ventricle dret'},C:{c:'four',pos:B(1.0,3.0,1.5),nm:'aurícula esquerra'},D:{c:'four',pos:B(2.8,0.3,-2.8),nm:'ventricle esquerre'},E:{c:'four',pos:B(1.5,-1.4,-1.9),nm:'septe'},
+  X:{c:'trans',pos:B(0.2,-2.7,-3.0),nm:'ventricle dret'},Y:{c:'trans',pos:B(2.4,0.3,-3.0),nm:'ventricle esquerre'}};
+let names=false;const pinEl={};
+Object.keys(PINS).forEach(k=>{const d=document.createElement('div');d.className='pr-pin';viewer.appendChild(d);pinEl[k]=d});
+$('tNames').onclick=()=>{names=!names;$('tNames').setAttribute('aria-pressed',names);$('tNames').lastChild.textContent=names?'Amaga els noms':'Mostra els noms'};
+const v3=new THREE.Vector3();
+function updPins(){const w=viewer.clientWidth,h=viewer.clientHeight;
+  Object.entries(PINS).forEach(([k,p])=>{const el=pinEl[k];let show=p.c===cutKey&&mats.length>0&&!(cutKey&&Math.abs(offset)>12);
+    if(!show){el.style.display='none';return}
+    el.textContent=names?k+' · '+p.nm:k;
+    v3.copy(p.pos).project(camera);if(v3.z>1){el.style.display='none';return}
+    el.style.display='block';el.style.left=((v3.x+1)/2*w)+'px';el.style.top=((1-v3.y)/2*h)+'px'})}
+let visible=false;new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible)resize()}).observe(viewer);
+renderer.setAnimationLoop(()=>{if(!visible)return;controls.update();renderer.render(scene,camera);updPins()});
+window.cor3d={setCut};
+</script>
+</body></html>

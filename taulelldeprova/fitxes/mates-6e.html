@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ca"><head>
+<meta charset="UTF-8"><meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fitxa · La cooperativa de clementines — IE Temple</title>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400;1,700&amp;family=Crimson+Pro:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+:root {
+  --purple:#7B68C8; --purple-ink:#4a3b8c; --purple-light:#c5b8f0; --purple-tint:#f0edfb;
+  --ink:#1A1428; --ink-2:#3a3050; --muted:#7a7090; --surface:#fdfcff; --paper:#ffffff;
+  --rule:#e8e2f6; --rule-dark:#c8bfe8;
+  --orange:#e8834a; --orange-tint:#fdf0e8;
+  --teal:#3a9e8c;   --teal-tint:#e6f4f1;
+  --rose:#d44a6c;   --rose-tint:#fce8ed;
+  --yellow:#c8960a; --yellow-tint:#fdf7e2; --yellow-ink:#7a5800;
+  --green:#4a9e5c;  --green-tint:#eaf4ec;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family:'Fira Sans Extra Condensed', sans-serif;
+  background:#b0a8c8;
+  color:var(--ink); font-size:13px; line-height:1.5;
+  padding:52px 20px 60px;
+}
+
+/* ── BARRA ────────────────────────────────────────── */
+#toolbar {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  background:rgba(20,15,40,.93); backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(123,104,200,.35);
+  height:44px; display:flex; align-items:center; gap:10px; padding:0 18px;
+}
+.tb-tip { font-family:'Inter',sans-serif; font-size:11px; color:rgba(190,180,230,.65); flex:1; }
+.tb-tip strong { color:#b8aef0; }
+.tb-sep { width:1px; height:20px; background:rgba(123,104,200,.3); }
+.tb-btn {
+  font-family:'Inter',sans-serif; font-size:12px; font-weight:600;
+  border:none; border-radius:6px; padding:6px 13px; cursor:pointer;
+  transition:opacity .15s; white-space:nowrap;
+}
+.tb-print { background:var(--purple); color:white; }
+.tb-print:hover { opacity:.85; }
+.tb-bold { background:rgba(123,104,200,.2); border:1px solid rgba(123,104,200,.4); color:#c5b8f0; font-size:14px; font-weight:900; padding:4px 11px; }
+.tb-bold:hover { background:rgba(123,104,200,.38); }
+.tb-undo { background:rgba(212,74,108,.2); border:1px solid rgba(212,74,108,.4); color:#f0a0b8; font-size:12px; opacity:.5; transition:opacity .2s; pointer-events:none; }
+.tb-undo.active { opacity:1; pointer-events:auto; }
+.tb-undo.active:hover { background:rgba(212,74,108,.35); }
+.tb-spacer { background:rgba(123,104,200,.2); border:1px solid rgba(123,104,200,.4); color:#c5b8f0; font-size:12px; }
+.tb-spacer:hover { background:rgba(123,104,200,.35); }
+
+/* ── DOCUMENT ─────────────────────────────────────── */
+.page-wrap { width:794px; margin:0 auto; position:relative; }
+#doc { display:none; }
+
+/* ── PAGINADOR A4 REAL ─────────────────────────────── */
+#sheets { display:flex; flex-direction:column; align-items:center; gap:26px; }
+.sheet { width:794px; min-height:1123px; background:var(--paper); position:relative; box-shadow:0 4px 24px rgba(60,40,110,.18); overflow:visible; }
+.sheet-body { padding:36px 46px 18px; position:relative; overflow:visible; }
+.sheet.has-head .sheet-body { padding-top:54px; }
+.sheet-head { position:absolute; left:0; right:0; top:0; height:36px; display:none; justify-content:space-between; align-items:center; padding:0 46px; border-bottom:1.5px solid var(--purple-light); background:var(--paper); }
+.sheet.has-head .sheet-head { display:flex; }
+.sheet-head-l { font-family:'Inter',sans-serif; font-size:8.5px; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--purple-ink); }
+.sheet-head-r { font-family:'Inter',sans-serif; font-size:8.5px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); }
+.sheet-foot { position:absolute; left:0; right:0; bottom:0; height:30px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:0 46px; font-family:'Inter',sans-serif; font-size:7.5px; font-weight:600; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; border-top:.5px solid var(--rule); background:var(--paper); }
+.sheet-foot .fc { text-align:center; letter-spacing:.14em; color:var(--purple-ink); }
+.sheet-foot .fr { text-align:right; }
+.sheet-body > .header-band { margin:-36px -46px 0; }
+.sheet-body > .nivell-strip { margin:0 -46px; }
+.sheet-body > .oa-box { margin:12px 0 0; }
+
+
+/* ── EDITABLES ────────────────────────────────────── */
+[contenteditable] { outline:none; cursor:text; border-radius:3px; transition:background .12s, box-shadow .12s; }
+[contenteditable]:hover { background:rgba(123,104,200,.08); box-shadow:0 0 0 2px rgba(123,104,200,.3); }
+[contenteditable]:focus { background:rgba(123,104,200,.12); box-shadow:0 0 0 2.5px var(--purple); }
+.header-band [contenteditable]:hover { background:rgba(255,255,255,.15); box-shadow:0 0 0 2px rgba(255,255,255,.3); }
+.header-band [contenteditable]:focus { background:rgba(255,255,255,.2); box-shadow:0 0 0 2.5px #fff; }
+span[contenteditable] { display:inline-block; }
+
+/* ── LÍNIES D'ESCRIPTURA ──────────────────────────── */
+.wline {
+  display:block; width:100%; min-height:32px;
+  background:white; outline:none; padding:4px 4px;
+  border-bottom:1.5px solid #C8C2DD;
+  word-break:break-word; cursor:text; line-height:1.7;
+}
+.wline:focus { border-bottom-color:var(--purple); background:rgba(123,104,200,.04); }
+/* Cap text dins els wlines buits — els requadres d'escriptura han d'estar nets */
+/* Els "inici de frase" (text negre preimprès) s'afegeixen com a contingut HTML, no com a data-hint */
+
+/* ── FRASES A COMPLETAR AMB BLANCS (inline) ─────── */
+/* Regla fonamental: la frase sencera es veu d'una vegada; mai partir-la en dues wlines */
+.frase-completar { font-size:11.5px; line-height:2.4; margin:4px 0 6px; }
+.blank { display:inline-block; border-bottom:1.5px solid #C8C2DD; vertical-align:bottom; margin:0 3px; height:1.1em; }
+.blank-s  { width: 60px; }   /* 3-4 car.: "cor", "ATP" */
+.blank-m  { width:100px; }   /* 5-6 car.: "nucli", "teixit" */
+.blank-l  { width:140px; }   /* 7-9 car.: "glucosa", "membrana" */
+.blank-xl { width:200px; }   /* 10+ car.: "mitocondri", "fotosíntesi" */
+
+/* ── CAMP NOM / DATA: contenteditable, sense text preimprès ─── */
+/* NO usar <input> amb placeholder — el text del placeholder pot confondre l'alumne */
+.nom-field { margin-left:auto; font-size:11px; color:var(--muted); display:flex; align-items:center; gap:6px; flex-shrink:0; }
+.input-span {
+  display:inline-block; min-width:90px; border-bottom:1.5px solid var(--rule-dark);
+  font-size:11px; padding:1px 3px; outline:none; vertical-align:bottom; min-height:16px;
+  font-family:'Fira Sans Extra Condensed',sans-serif; color:var(--ink);
+}
+.input-span.data-span { min-width:65px; }
+.input-span:focus { border-bottom-color:var(--purple); }
+
+/* ── INDICADOR DE NIVELL (petit, per al docent) ──── */
+/* No mostrar "Nivell A/B/C" a la fitxa; només una lletra discreta */
+.nivell-badge-small {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:17px; height:17px; border-radius:50%;
+  background:rgba(123,104,200,.12); border:1px solid var(--purple-light);
+  font-size:9px; font-weight:900; color:var(--purple-ink); flex-shrink:0;
+}
+
+/* ── BOTONS D'ELIMINAR ────────────────────────────── */
+.deletable { position:relative; }
+.del-btn {
+  display:none; position:absolute; top:-8px; right:-8px;
+  width:18px; height:18px; border-radius:50%;
+  background:#d44a6c; color:white; border:none;
+  cursor:pointer; align-items:center; justify-content:center;
+  font-size:12px; font-weight:900; line-height:1; z-index:100;
+  box-shadow:0 1px 4px rgba(0,0,0,.3); transition:background .1s, transform .1s;
+}
+.del-btn:hover { background:#b83054; transform:scale(1.15); }
+.deletable:hover > .del-btn { display:flex; }
+.deletable:has(.deletable:hover) > .del-btn { display:none; }
+.nivell-strip .deletable { display:inline-flex; align-items:center; }
+
+/* ── CAPÇALERA — 3 columnes: emoji (esq.) | contingut (centre) | logo (dreta) ── */
+.header-band {
+  background:linear-gradient(135deg,#3a2d6e 0%,#5a4aa0 100%);
+  color:#fff; padding:14px 18px;
+  display:grid; grid-template-columns:72px 1fr 178px;
+  gap:14px; align-items:center;
+  position:relative; overflow:hidden;
+}
+.header-band::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 60% 100% at 110% 50%, rgba(255,255,255,.07) 0%, transparent 70%);
+  pointer-events:none;
+}
+/* Col 1: emoji temàtic en caixa pròpia (esquerra) */
+.header-emoji-col { display:flex; align-items:center; justify-content:center; }
+.header-emoji-box {
+  width:62px; height:62px; border-radius:14px;
+  background:rgba(255,255,255,.16); border:1.5px solid rgba(255,255,255,.28);
+  display:flex; align-items:center; justify-content:center;
+  font-size:36px; user-select:none; flex-shrink:0;
+}
+/* Col 2: SA, títol, subtítol (centre) */
+.header-main { min-width:0; }
+.header-sa { font-size:9px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; opacity:.55; margin-bottom:4px; }
+.header-title { font-size:24px; font-weight:900; letter-spacing:-.01em; line-height:1.05; }
+.header-subtitle { font-family:'Crimson Pro',serif; font-style:italic; font-size:13px; opacity:.72; margin-top:4px; }
+/* Col 3: logo + matèria/centre (dreta) */
+.header-right { display:flex; flex-direction:column; align-items:flex-end; gap:5px; }
+.logo-box {
+  background:rgba(255,255,255,.92); border-radius:7px; padding:5px 6px;
+  display:inline-flex; align-items:center; justify-content:center;
+  box-shadow:0 1px 6px rgba(0,0,0,.18);
+}
+.header-meta { font-size:9.5px; opacity:.52; text-align:right; line-height:1.7; }
+
+/* ── STRIP ────────────────────────────────────────── */
+.nivell-strip { background:var(--purple-tint); border-bottom:2px solid var(--rule); padding:5px 22px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.nivell-label { font-size:11px; color:var(--muted); font-style:italic; }
+.temps-badge { font-size:10px; font-weight:700; color:var(--purple-ink); background:white; border:1.5px solid var(--purple-light); border-radius:9999px; padding:1px 8px; }
+
+/* ── OBJECTIUS D'APRENENTATGE ─────────────────────── */
+.oa-box {
+  background:linear-gradient(to right,#f5f2ff,var(--paper));
+  border-left:4px solid var(--purple); padding:10px 16px;
+}
+.oa-title { font-size:10px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:var(--purple-ink); margin-bottom:6px; }
+.oa-list { list-style:none; padding:0; margin:0; }
+.oa-list li { font-size:11.5px; padding:3px 0 3px 22px; position:relative; line-height:1.4; border-bottom:1px dashed var(--rule); }
+.oa-list li:last-child { border-bottom:none; }
+.oa-list li::before { content:'○'; position:absolute; left:4px; top:3px; font-size:11px; color:var(--purple-light); }
+
+/* ── METACOGNICIÓ OA ─────────────────────────────── */
+.meta-oa-box { background:var(--purple-tint); border:1.5px solid var(--purple-light); border-radius:8px; padding:8px 10px; }
+.meta-oa-title { font-size:9.5px; font-weight:700; color:var(--purple-ink); text-transform:uppercase; letter-spacing:.07em; margin-bottom:6px; }
+.meta-oa-item { display:flex; align-items:flex-start; gap:8px; font-size:11px; margin-bottom:4px; padding:2px 0; }
+.meta-oa-item:last-child { margin-bottom:0; }
+.meta-oa-check { width:16px; height:16px; border:1.5px solid var(--purple); border-radius:3px; flex-shrink:0; background:white; margin-top:1px; }
+.meta-oa-text { flex:1; line-height:1.35; }
+
+/* ── FRANJA D'IMATGES: escala de la vida ─────────── */
+.img-strip { display:flex; gap:4px; justify-content:center; align-items:flex-end; margin:8px 0 4px; }
+.img-strip figure { text-align:center; margin:0; flex:0 0 auto; }
+.img-strip figcaption { font-size:8.5px; font-weight:700; color:var(--ink-2); margin-top:4px; text-transform:uppercase; letter-spacing:.03em; }
+.img-arrow { font-size:12px; color:var(--muted); align-self:center; padding-bottom:16px; }
+.img-arrow-star { font-size:13px; color:var(--orange); font-weight:900; align-self:center; padding-bottom:16px; }
+
+/* ── SECCIONS ─────────────────────────────────────── */
+.content { padding:14px 24px 24px; }
+.section { margin-top:14px; }
+.section-header { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.snum { width:26px; height:26px; border-radius:50%; font-size:13px; font-weight:900; color:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.stitle { font-size:15px; font-weight:900; text-transform:uppercase; letter-spacing:.01em; }
+.sdesc { font-size:10.5px; color:var(--ink-2); font-style:italic; font-family:'Crimson Pro',serif; }
+.temps { font-size:10px; color:var(--purple-ink); font-weight:700; margin-left:4px; }
+.divider { height:1.5px; background:linear-gradient(to right,var(--rule-dark),transparent); margin-bottom:10px; }
+.previ-box { background:var(--purple-tint); border-left:4px solid var(--purple); border-radius:0 8px 8px 0; padding:9px 12px; }
+.previ-box p { font-size:12px; }
+.connexio-box { display:flex; align-items:center; gap:10px; background:#f5f0ff; border:1.5px solid var(--purple-light); border-radius:8px; padding:8px 12px; margin:8px 0; }
+.connexio-icon { font-size:24px; flex-shrink:0; }
+.connexio-text { font-size:11px; line-height:1.4; }
+.connexio-text strong { color:var(--purple-ink); }
+.hipotesi-box { background:var(--purple-tint); border:1.5px solid var(--purple-light); border-radius:8px; padding:8px 12px; margin-bottom:10px; }
+.hipotesi-box p { font-size:12px; font-weight:700; color:var(--purple-ink); margin-bottom:4px; }
+.epist-fig { flex:0 0 74px; width:74px; margin:0; text-align:center; }
+.epist-fig img { width:74px; height:90px; object-fit:cover; object-position:top center; border-radius:5px; border:1.5px solid var(--yellow); display:block; }
+.epist-fig figcaption { font-family:'Inter',sans-serif; font-size:7px; line-height:1.3; color:var(--yellow-ink); margin-top:3px; font-weight:700; }
+.epist-fig figcaption span { font-weight:500; color:var(--muted); }
+.epist-fig.no-img { display:flex; align-items:flex-start; justify-content:center; }
+.epist-fig.no-img::before { content:'🔬'; font-size:24px; line-height:1; }
+.epist-box { display:flex; gap:10px; background:var(--yellow-tint); border:1.5px solid var(--yellow); border-radius:8px; padding:8px 12px; margin:8px 0; }
+.epist-title { font-size:9px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:var(--yellow-ink); margin-bottom:2px; }
+.epist-text { font-size:11px; font-family:'Crimson Pro',serif; line-height:1.5; color:var(--ink-2); }
+
+/* ── CAIXA DE DIBUIX (idees prèvies) ──────────────── */
+.draw-box { border:2px dashed var(--purple-light); border-radius:10px; background:#fff; min-height:150px; display:flex; align-items:flex-start; justify-content:flex-start; padding:8px 10px; }
+.draw-label { font-size:9px; color:var(--purple-light); letter-spacing:.1em; text-transform:uppercase; font-family:'Inter',sans-serif; }
+
+/* ── TAULES ───────────────────────────────────────── */
+.data-table { width:100%; border-collapse:collapse; font-size:11px; margin-bottom:10px; }
+.data-table th { background:var(--purple-ink); color:white; padding:6px 9px; text-align:left; font-size:9.5px; letter-spacing:.05em; text-transform:uppercase; }
+.data-table th:first-child { border-radius:5px 0 0 0; }
+.data-table th:last-child { border-radius:0 5px 0 0; }
+.data-table th small { font-size:8.5px; font-weight:400; letter-spacing:0; text-transform:none; opacity:.75; display:block; margin-top:1px; }
+.data-table td { padding:5px 9px; border-bottom:1px solid var(--rule); vertical-align:middle; }
+.data-table tr:nth-child(even) td { background:var(--purple-tint); }
+.icon-cell { font-size:16px; text-align:center; width:32px; }
+.fill-cell { display:block; width:100%; min-height:34px; outline:none; padding:2px 3px; word-break:break-word; cursor:text; }
+.fill-cell:focus { background:rgba(123,104,200,.08); outline:1px solid var(--purple-light); border-radius:2px; }
+.label-cell { font-size:11px; font-weight:700; color:var(--ink-2); }
+
+/* ── PLACEHOLDER IMATGE ───────────────────────────── */
+.img-placeholder { border:2px dashed var(--purple-light); border-radius:8px; background:var(--purple-tint); min-height:120px; display:flex; align-items:center; justify-content:center; text-align:center; color:var(--muted); font-size:13px; padding:16px; margin:12px 0; position:relative; }
+.img-placeholder-inner { line-height:1.6; }
+
+/* ── EXPLORE / EXIT TICKET ────────────────────────── */
+.explore-q { display:flex; gap:8px; margin-bottom:10px; align-items:flex-start; }
+.explore-qnum { flex-shrink:0; width:20px; height:20px; border-radius:50%; background:var(--orange); color:white; font-size:11px; font-weight:900; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+.explore-qtext { font-size:11.5px; flex:1; }
+.exit-box { background:#EFEAF5; border:2px solid #5a4aa0; border-radius:10px; padding:12px 14px; }
+.exit-title { font-size:11px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:#5a4aa0; margin-bottom:8px; }
+.exit-q { font-size:11px; margin-bottom:4px; line-height:1.4; }
+.exit-opts { display:grid; grid-template-columns:repeat(2,1fr); gap:3px; margin:3px 0 6px; }
+.exit-opt { display:flex; align-items:center; gap:5px; font-size:10.5px; }
+.chk { width:12px; height:12px; border:1.5px solid #5a4aa0; border-radius:3px; flex-shrink:0; background:white; }
+
+/* ── METACOGNICIÓ ─────────────────────────────────── */
+.meta-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px; }
+.meta-item { background:var(--purple-tint); border:1.5px solid var(--purple-light); border-radius:8px; padding:8px 10px; }
+.meta-icon { font-size:18px; display:block; margin-bottom:3px; }
+.meta-label { font-size:9.5px; font-weight:700; color:var(--purple-ink); text-transform:uppercase; letter-spacing:.07em; margin-bottom:4px; }
+.stars { display:flex; gap:4px; margin-top:4px; }
+.star { font-size:18px; color:#9080bc; cursor:default; }
+
+/* ── TASCA PER A CASA ─────────────────────────────── */
+.tasca-box { background:var(--purple-tint); border-left:4px solid var(--purple); border-radius:0 8px 8px 0; padding:10px 14px; margin-top:12px; }
+.tasca-title { font-size:11px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:var(--purple-ink); margin-bottom:8px; }
+.tasca-item { display:flex; gap:8px; align-items:flex-start; margin-bottom:6px; font-size:11px; }
+.tasca-item:last-child { margin-bottom:0; }
+.tasca-num { flex-shrink:0; width:20px; height:20px; border-radius:50%; background:var(--purple); color:white; font-size:11px; font-weight:900; display:flex; align-items:center; justify-content:center; }
+
+/* ── BLOC ESPAI ───────────────────────────────────── */
+.spacer-block { position:relative; height:48px; margin:4px 0; border-radius:6px; border:1.5px dashed var(--purple-light); background:repeating-linear-gradient(45deg, transparent, transparent 6px, rgba(123,104,200,.05) 6px, rgba(123,104,200,.05) 12px); display:flex; align-items:center; justify-content:center; cursor:default; }
+.spacer-label { font-family:'Inter',sans-serif; font-size:9px; color:var(--purple-light); letter-spacing:.12em; text-transform:uppercase; user-select:none; pointer-events:none; }
+
+
+.small { font-size:10px; color:var(--muted); }
+.mt8 { margin-top:8px; }
+.footer { margin-top:12px; display:flex; justify-content:space-between; align-items:center; border-top:1.5px solid var(--rule); padding-top:7px; }
+.footer-l { font-size:9px; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; }
+.footer-r { font-size:9px; color:var(--purple-ink); font-weight:700; }
+
+/* ── IMPRESSIÓ ────────────────────────────────────── */
+@media print {
+  @page { size:A4; margin:0; }
+  * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  html,body { background:#fff; padding:0; margin:0; }
+  #toolbar, .del-btn { display:none !important; }
+  #sheets { gap:0; display:block; }
+  .sheet { width:210mm; height:297mm; min-height:0; box-shadow:none; margin:0; page-break-after:always; break-after:page; overflow:hidden; }
+  .sheet:last-child { page-break-after:auto; break-after:auto; }
+  .header-emoji-box { background:#ede8f8 !important; }
+  [contenteditable]:hover,[contenteditable]:focus { background:transparent!important; box-shadow:none!important; }
+  .wline { background:transparent; padding:0; }
+  .fill-cell { background:transparent; outline:none; }
+  .input-span { border-bottom-color:#C8C2DD; }
+  .img-placeholder { -webkit-print-color-adjust:exact; }
+  .spacer-block { background:transparent !important; border:none !important; }
+  .spacer-label { display:none !important; }
+  .nivell-badge-small { background:transparent !important; border-color:#C8C2DD !important; }
+}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <a class="tb-btn" href="../index.html" style="background:rgba(255,255,255,.12);color:#fff;text-decoration:none">← Taulell</a>
+  <span class="tb-tip">✎ Clica per editar · <strong>Ctrl+B</strong> negreta · <strong>×</strong> rosa elimina · <strong>Ctrl+Z</strong> desfés</span>
+  <div class="tb-sep"></div>
+  <button class="tb-btn tb-undo" id="btn-undo" onclick="undoDelete()">↩ Desfer eliminació</button>
+  <button class="tb-btn tb-bold" onclick="document.execCommand('bold')"><b>N</b></button>
+  <button class="tb-btn tb-spacer" onclick="insertSpacer()" title="Insereix un bloc d'espai en blanc per ajustar la paginació">＋ Espai</button>
+  <button class="tb-btn tb-print" onclick="window.print()">🖨️ Imprimir / PDF</button>
+  <button class="tb-btn tb-desa" onclick="desaFitxa()" title="Desa els canvis al fitxer (Ctrl+S)">💾 Desa</button>
+</div>
+
+<div class="page-wrap" id="doc">
+<div class="header-band deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div><div class="header-emoji-col"><div class="header-emoji-box" contenteditable="true">🍊</div></div><div class="header-main"><div class="header-sa" contenteditable="true">Matemàtiques · La cooperativa de clementines</div><div class="header-title" contenteditable="true">Quant és el 15 %?</div><div class="header-subtitle" contenteditable="true">Percentatges, fraccions i rectes dobles</div></div><div class="header-right"><div class="logo-box"><img src="../logo_bio_geo_temple.png" style="height:64px;display:block" onerror="this.style.display='none'"></div><div class="header-meta" contenteditable="true">Matemàtiques · 6è<br>IE Temple</div></div></div><div class="nivell-strip deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div><span class="nivell-label deletable" contenteditable="true">Semiguiat<div class="del-btn" onclick="deleteEl(this)">✕</div></span><span class="temps-badge deletable" contenteditable="true">⏱️ 1 h 30<div class="del-btn" onclick="deleteEl(this)">✕</div></span><div class="nom-field deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div>Nom:&nbsp;<span class="input-span" contenteditable="true"></span>&nbsp;&nbsp;Data:&nbsp;<span class="input-span data-span" contenteditable="true"></span>&nbsp;<span class="nivell-badge-small" title="Versió B">B</span></div></div><div class="oa-box deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div><div class="oa-title">🎯 Objectius d'aprenentatge d'avui</div><ul class="oa-list"><li contenteditable="true">Trobo el <strong>10 %, el 5 % i l'1 %</strong> d'una quantitat i els combino per calcular altres percentatges.</li><li contenteditable="true">Passo d'una <strong>fracció</strong> a un decimal i a un <strong>percentatge</strong>.</li><li contenteditable="true">Comprovo si un resultat <strong>té sentit</strong> abans de donar-lo per bo.</li></ul></div><div class="info-box deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div><div class="info-label">🍊 Les dades de la nostra cooperativa (d'exemple)</div><p>Caixa de 10 kg: <strong>18 €</strong> · Caixa de 5 kg: <strong>10 €</strong> · Socis: <strong>15 %</strong> de descompte.</p></div><div class="section deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div><div class="section-header"><div class="snum var(--orange)">1</div><div><div class="stitle">El destrí</div><div class="sdesc" contenteditable="true">Avui arriben 500 kg de clementines i el 8 % té cops</div></div></div><div class="divider"></div><p style="font-size:12px;margin-top:6px" contenteditable="true">Les clementines amb cops no es poden vendre.</p><div style="display:flex;gap:16px;align-items:flex-start;margin-top:6px"><svg width="152" height="152" viewBox="-1 -1 152 152" aria-hidden="true" style="display:block;flex:none"><rect x="0" y="0" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="15" y="0" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="30" y="0" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="45" y="0" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="60" y="0" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="75" y="0" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="90" y="0" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="105" y="0" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="120" y="0" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="135" y="0" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="0" y="15" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="15" y="15" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="30" y="15" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="45" y="15" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="60" y="15" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="75" y="15" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="90" y="15" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="105" y="15" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="120" y="15" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="135" y="15" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="0" y="30" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="15" y="30" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="30" y="30" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="45" y="30" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="60" y="30" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="75" y="30" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="90" y="30" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="105" y="30" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="120" y="30" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="135" y="30" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="0" y="45" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="15" y="45" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="30" y="45" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="45" y="45" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="60" y="45" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="75" y="45" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="90" y="45" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="105" y="45" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="120" y="45" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="135" y="45" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="0" y="60" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="15" y="60" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="30" y="60" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="45" y="60" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="60" y="60" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="75" y="60" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="90" y="60" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="105" y="60" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="120" y="60" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="135" y="60" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="0" y="75" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="15" y="75" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="30" y="75" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="45" y="75" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="60" y="75" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="75" y="75" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="90" y="75" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="105" y="75" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="120" y="75" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="135" y="75" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="0" y="90" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="15" y="90" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="30" y="90" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="45" y="90" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="60" y="90" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="75" y="90" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="90" y="90" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="105" y="90" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="120" y="90" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="135" y="90" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="0" y="105" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="15" y="105" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="30" y="105" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="45" y="105" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="60" y="105" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="75" y="105" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="90" y="105" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="105" y="105" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="120" y="105" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="135" y="105" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="0" y="120" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="15" y="120" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="30" y="120" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="45" y="120" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="60" y="120" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="75" y="120" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="90" y="120" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="105" y="120" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="120" y="120" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="135" y="120" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="0" y="135" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="15" y="135" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="30" y="135" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="45" y="135" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="60" y="135" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="75" y="135" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="90" y="135" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="105" y="135" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="120" y="135" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect x="135" y="135" width="15" height="15" fill="#fff" stroke="#7a7090" stroke-width=".6"/><rect width="150" height="150" fill="none" stroke="#1A1428" stroke-width="1.4"/></svg><div style="flex:1;font-size:12px"><p style="font-size:12px;margin-top:6px" contenteditable="true">a) Pinta el 8 % a la quadrícula.</p><p style="font-size:12px;margin-top:6px" contenteditable="true">b) Quants kg no es poden vendre? Fes-ho a la recta doble.</p><svg viewBox="0 0 340 92" style="width:100%;max-width:340px;display:block;margin:6px 0" aria-hidden="true"><g stroke="#1A1428" stroke-width="1.4"><path d="M40 26H280 M40 66H280"/><path d="M40 20v12 M40 60v12"/><path d="M280 20v12 M280 60v12"/><path d="M64 23v6 M64 63v6" stroke-width=".8"/><path d="M88 23v6 M88 63v6" stroke-width=".8"/><path d="M112 23v6 M112 63v6" stroke-width=".8"/><path d="M136 23v6 M136 63v6" stroke-width=".8"/><path d="M160 23v6 M160 63v6" stroke-width=".8"/><path d="M184 23v6 M184 63v6" stroke-width=".8"/><path d="M208 23v6 M208 63v6" stroke-width=".8"/><path d="M232 23v6 M232 63v6" stroke-width=".8"/><path d="M256 23v6 M256 63v6" stroke-width=".8"/></g><g font-family="Fira Sans Extra Condensed,sans-serif" font-size="12" fill="#1A1428" text-anchor="middle" font-weight="700"><text x="40" y="15">0 %</text><text x="280" y="15">100 %</text><text x="40" y="88">0 kg</text><text x="280" y="88">500 kg</text></g><text x="288" y="30" font-size="10" fill="#7a7090" font-family="Fira Sans Extra Condensed,sans-serif">%</text><text x="288" y="70" font-size="10" fill="#7a7090" font-family="Fira Sans Extra Condensed,sans-serif">kg</text></svg><p style="font-size:12px;margin-top:6px" contenteditable="true">c) Quin percentatge sí que es ven? Quants kg són?</p><div class="wline" contenteditable="true"></div><div class="wline" contenteditable="true"></div></div></div></div><div class="section deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div><div class="section-header"><div class="snum var(--teal)">2</div><div><div class="stitle">Fraccions amigues</div><div class="sdesc" contenteditable="true">Completa la taula. Pots fer servir la quadrícula per ajudar-te.</div></div></div><div class="divider"></div><table class="data-table"><thead><tr><th>Fracció</th><th>De cada 100</th><th>Decimal</th><th>Percentatge</th></tr></thead><tbody><tr><td style="text-align:center"><span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1.05;font-weight:700"><span style="border-bottom:1.5px solid #1A1428;padding:0 3px">1</span><span>2</span></span></td><td>50</td><td><span class="fill-cell" contenteditable="true"></span></td><td><span class="fill-cell" contenteditable="true"></span></td></tr><tr><td style="text-align:center"><span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1.05;font-weight:700"><span style="border-bottom:1.5px solid #1A1428;padding:0 3px">1</span><span>4</span></span></td><td><span class="fill-cell" contenteditable="true"></span></td><td><span class="fill-cell" contenteditable="true"></span></td><td><span class="fill-cell" contenteditable="true"></span></td></tr><tr><td style="text-align:center"><span class="fill-cell" contenteditable="true"></span></td><td><span class="fill-cell" contenteditable="true"></span></td><td>0,75</td><td><span class="fill-cell" contenteditable="true"></span></td></tr><tr><td style="text-align:center"><span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1.05;font-weight:700"><span style="border-bottom:1.5px solid #1A1428;padding:0 3px">1</span><span>10</span></span></td><td><span class="fill-cell" contenteditable="true"></span></td><td><span class="fill-cell" contenteditable="true"></span></td><td><span class="fill-cell" contenteditable="true"></span></td></tr><tr><td style="text-align:center"><span class="fill-cell" contenteditable="true"></span></td><td><span class="fill-cell" contenteditable="true"></span></td><td><span class="fill-cell" contenteditable="true"></span></td><td>20 %</td></tr></tbody></table></div><div class="section deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div><div class="section-header"><div class="snum var(--rose)">3</div><div><div class="stitle">El descompte dels socis</div><div class="sdesc" contenteditable="true">Una caixa de 10 kg val 18 €. Els socis tenen un 15 % de descompte</div></div></div><div class="divider"></div><p style="font-size:12px;margin-top:6px" contenteditable="true">a) Quants euros estalvien? &nbsp; b) Quant paguen? Representa-ho a la recta doble i escriu les operacions.</p><svg viewBox="0 0 420 92" style="width:100%;max-width:420px;display:block;margin:6px 0" aria-hidden="true"><g stroke="#1A1428" stroke-width="1.4"><path d="M40 26H360 M40 66H360"/><path d="M40 20v12 M40 60v12"/><path d="M360 20v12 M360 60v12"/><path d="M72 23v6 M72 63v6" stroke-width=".8"/><path d="M104 23v6 M104 63v6" stroke-width=".8"/><path d="M136 23v6 M136 63v6" stroke-width=".8"/><path d="M168 23v6 M168 63v6" stroke-width=".8"/><path d="M200 23v6 M200 63v6" stroke-width=".8"/><path d="M232 23v6 M232 63v6" stroke-width=".8"/><path d="M264 23v6 M264 63v6" stroke-width=".8"/><path d="M296 23v6 M296 63v6" stroke-width=".8"/><path d="M328 23v6 M328 63v6" stroke-width=".8"/></g><g font-family="Fira Sans Extra Condensed,sans-serif" font-size="12" fill="#1A1428" text-anchor="middle" font-weight="700"><text x="40" y="15">0 %</text><text x="360" y="15">100 %</text><text x="40" y="88">0 €</text><text x="360" y="88">18 €</text></g><text x="368" y="30" font-size="10" fill="#7a7090" font-family="Fira Sans Extra Condensed,sans-serif">%</text><text x="368" y="70" font-size="10" fill="#7a7090" font-family="Fira Sans Extra Condensed,sans-serif">€</text></svg><div class="wline" contenteditable="true"></div><div class="wline" contenteditable="true"></div><div class="wline" contenteditable="true"></div></div><div class="section deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div><div class="section-header"><div class="snum var(--purple-ink)">4</div><div><div class="stitle">La part del pagès</div><div class="sdesc" contenteditable="true">De cada 100 € que paguen els clients, 35 € arriben al pagès</div></div></div><div class="divider"></div><p style="font-size:12px;margin-top:6px" contenteditable="true">a) Quant cobra el pagès per una caixa de 10 kg (18 €)?</p><svg viewBox="0 0 420 92" style="width:100%;max-width:420px;display:block;margin:6px 0" aria-hidden="true"><g stroke="#1A1428" stroke-width="1.4"><path d="M40 26H360 M40 66H360"/><path d="M40 20v12 M40 60v12"/><path d="M360 20v12 M360 60v12"/><path d="M72 23v6 M72 63v6" stroke-width=".8"/><path d="M104 23v6 M104 63v6" stroke-width=".8"/><path d="M136 23v6 M136 63v6" stroke-width=".8"/><path d="M168 23v6 M168 63v6" stroke-width=".8"/><path d="M200 23v6 M200 63v6" stroke-width=".8"/><path d="M232 23v6 M232 63v6" stroke-width=".8"/><path d="M264 23v6 M264 63v6" stroke-width=".8"/><path d="M296 23v6 M296 63v6" stroke-width=".8"/><path d="M328 23v6 M328 63v6" stroke-width=".8"/></g><g font-family="Fira Sans Extra Condensed,sans-serif" font-size="12" fill="#1A1428" text-anchor="middle" font-weight="700"><text x="40" y="15">0 %</text><text x="360" y="15">100 %</text><text x="40" y="88">0 €</text><text x="360" y="88">18 €</text></g><text x="368" y="30" font-size="10" fill="#7a7090" font-family="Fira Sans Extra Condensed,sans-serif">%</text><text x="368" y="70" font-size="10" fill="#7a7090" font-family="Fira Sans Extra Condensed,sans-serif">€</text></svg><div class="wline" contenteditable="true"></div><p style="font-size:12px;margin-top:6px" contenteditable="true">b) I per una caixa de 5 kg (10 €)?</p><div class="wline" contenteditable="true"></div><p style="font-size:12px;margin-top:6px" contenteditable="true">c) Té sentit el resultat de a)? Pista: el 35 % és una mica més d'un terç.</p><div class="wline" contenteditable="true"></div><div class="wline" contenteditable="true"></div></div><div class="meta-oa-box deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div><div class="meta-oa-title">🔁 Com ho he fet?</div><table class="data-table"><thead><tr><th></th><th>Ho sé fer sol/a</th><th>Amb ajuda</th><th>Encara no</th></tr></thead><tbody><tr><td>Sé trobar el 10 %, el 5 % i l'1 % d'una quantitat.</td><td style="text-align:center"><span class="chk-sq"></span></td><td style="text-align:center"><span class="chk-sq"></span></td><td style="text-align:center"><span class="chk-sq"></span></td></tr><tr><td>Sé passar d'una fracció a un percentatge.</td><td style="text-align:center"><span class="chk-sq"></span></td><td style="text-align:center"><span class="chk-sq"></span></td><td style="text-align:center"><span class="chk-sq"></span></td></tr><tr><td>Comprovo si el resultat té sentit.</td><td style="text-align:center"><span class="chk-sq"></span></td><td style="text-align:center"><span class="chk-sq"></span></td><td style="text-align:center"><span class="chk-sq"></span></td></tr></tbody></table><div class="meta-open"><div class="meta-open-label" contenteditable="true">Una pregunta que encara tinc:</div><div class="wline" contenteditable="true"></div><div class="wline" contenteditable="true"></div></div></div>
+</div><!-- .page-wrap -->
+
+<div id="sheets"></div>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   PAGINADOR A4 REAL — cada full es veu a pantalla tal com s'imprimira.
+   FLOW = llista ordenada dels blocs de primer nivell (la font logica).
+   Capcalera corrent a partir de la pagina 2 + peu comu amb llicencia.
+   ════════════════════════════════════════════════════════════ */
+const SA_NOM = "La cooperativa de clementines", SESSIO = "Matemàtiques · 6è";
+const SHEET_H = 1123, FOOT_H = 30, BODY_MAX = SHEET_H - FOOT_H - 8;
+let FLOW = [];
+
+function flattenDoc(){
+  const doc=document.getElementById('doc');
+  const content=doc.querySelector(':scope > .content');
+  if(content){
+    const foot=content.querySelector(':scope > .footer'); if(foot) foot.remove();
+    while(content.firstChild){ doc.insertBefore(content.firstChild, content); }
+    content.remove();
+  }
+  const f2=doc.querySelector(':scope > .footer'); if(f2) f2.remove();
+}
+function extractFlow(){
+  FLOW = Array.from(document.getElementById('doc').children);
+  // Posicio original de cada fill de seccio: el paginador la fa servir per
+  // reassemblar en ordre una seccio que ha partit (sense aixo, cada
+  // repaginacio la desordena i separa una llegenda del seu dibuix).
+  FLOW.forEach(function(b){
+    if(b.classList && b.classList.contains('section')){
+      Array.prototype.forEach.call(b.children, function(k,i){ k._ord = i; });
+    }
+  });
+}
+function topFlowBlock(el){ while(el){ if(FLOW.indexOf(el)>=0) return el; el=el.parentElement; } return null; }
+
+function saveCaret(){
+  const a=document.activeElement;
+  if(!a||!a.isContentEditable) return null;
+  const s=getSelection(); if(!s.rangeCount) return {el:a};
+  const r=s.getRangeAt(0);
+  return {el:a, sc:r.startContainer, so:r.startOffset, ec:r.endContainer, eo:r.endOffset};
+}
+function restoreCaret(d){
+  if(!d||!d.el||!document.body.contains(d.el)) return;
+  try{ d.el.focus({preventScroll:true});
+    if(d.sc && document.body.contains(d.sc)){
+      const r=document.createRange(); r.setStart(d.sc,d.so); r.setEnd(d.ec,d.eo);
+      const s=getSelection(); s.removeAllRanges(); s.addRange(r);
+    }
+  }catch(e){}
+}
+
+function repaginate(){
+  const host=document.getElementById('sheets'); if(!host) return;
+  const caret=saveCaret();
+  var _origens=[];
+  host.querySelectorAll('.section[data-cont]').forEach(function(cont){
+    var o=cont._origin; if(o){ while(cont.firstChild){ o.appendChild(cont.firstChild); } if(_origens.indexOf(o)<0) _origens.push(o); }
+  });
+  // ...i es torna l'ordre original: els fills reassemblats s'afegien al final.
+  _origens.forEach(function(o){
+    var mc=o.querySelector(':scope > .move-ctrl');
+    var kids=Array.prototype.slice.call(o.children).filter(function(k){ return typeof k._ord === 'number'; });
+    kids.sort(function(a,b){ return a._ord - b._ord; });
+    kids.forEach(function(k){ o.insertBefore(k, mc); });
+  });
+  FLOW = FLOW.filter(function(b){ return b; });
+  FLOW.forEach(function(b){ if(b.parentNode) b.parentNode.removeChild(b); });
+  host.innerHTML='';
+  let body=null;
+  function newSheet(){
+    const n=host.children.length;
+    const sheet=document.createElement('div'); sheet.className='sheet'+(n?' has-head':'');
+    if(n){
+      const head=document.createElement('div'); head.className='sheet-head';
+      head.innerHTML='<span class="sheet-head-l"></span><span class="sheet-head-r">Matemàtiques · 6è</span>';
+      head.firstChild.textContent=SA_NOM+' · '+SESSIO;
+      sheet.appendChild(head);
+    }
+    body=document.createElement('div'); body.className='sheet-body';
+    const foot=document.createElement('div'); foot.className='sheet-foot';
+    foot.innerHTML='<span class="fl">IE Temple · Matemàtiques 6è</span>'+
+                   '<span class="fc">CC BY-NC-SA 4.0</span>'+
+                   '<span class="fr foot-pg"></span>';
+    sheet.appendChild(body); sheet.appendChild(foot); host.appendChild(sheet);
+  }
+  function _flowKids(sec){ return Array.prototype.slice.call(sec.children).filter(function(c){ return !c.classList.contains('del-btn'); }); }
+  function _contentKids(sec){ return _flowKids(sec).filter(function(k){ return !k.classList.contains('section-header') && !k.classList.contains('divider'); }); }
+  function trySplitSection(sec){
+    if(BODY_MAX - body.scrollHeight < 150) return false;
+    body.appendChild(sec);
+    if(body.scrollHeight <= BODY_MAX) return true;
+    var moved=[];
+    while(body.scrollHeight > BODY_MAX && _contentKids(sec).length > 1){
+      var ck=_contentKids(sec); var last=ck[ck.length-1];
+      moved.unshift(last); sec.removeChild(last);
+    }
+    if(moved.length===0 || body.scrollHeight > BODY_MAX){
+      moved.forEach(function(k){ sec.appendChild(k); });
+      if(sec.parentNode) sec.parentNode.removeChild(sec);
+      return false;
+    }
+    var pending=moved;
+    while(pending.length){
+      newSheet();
+      var cont=document.createElement('div');
+      cont.className='section'; cont.setAttribute('data-cont','1'); cont._origin=sec;
+      body.appendChild(cont);
+      pending.forEach(function(k){ cont.appendChild(k); });
+      var rest=[];
+      while(body.scrollHeight > BODY_MAX && cont.children.length>1){
+        var l=cont.lastElementChild; rest.unshift(l); cont.removeChild(l);
+      }
+      pending=rest;
+    }
+    return true;
+  }
+  newSheet();
+  for(let i=0;i<FLOW.length;i++){
+    const blk=FLOW[i];
+    if(blk.classList.contains('spacer-block')){
+      blk.style.height='auto'; body.appendChild(blk);
+      const used = body.scrollHeight - blk.offsetHeight;
+      const remain = BODY_MAX - used;
+      blk.style.height = (remain>34?remain:34)+'px';
+      if(i < FLOW.length-1) newSheet();
+      continue;
+    }
+    body.appendChild(blk);
+    if(body.scrollHeight > BODY_MAX && body.children.length>1){
+      body.removeChild(blk);
+      var _ok=false;
+      if(blk.classList.contains('section')){ try{ _ok=trySplitSection(blk); }catch(e){ _ok=false; } }
+      if(!_ok){
+        newSheet();
+        var _ok2=false;
+        if(blk.classList.contains('section')){ try{ _ok2=trySplitSection(blk); }catch(e){ _ok2=false; } }
+        if(!_ok2){ body.appendChild(blk); }
+      }
+    }
+  }
+  const sheets=host.querySelectorAll('.sheet');
+  sheets.forEach(function(s,idx){ const pg=s.querySelector('.foot-pg'); if(pg) pg.textContent='Pàgina '+(idx+1)+' / '+sheets.length; });
+  restoreCaret(caret);
+}
+let _pgT=null;
+function schedulePageBreaks(){ clearTimeout(_pgT); _pgT=setTimeout(repaginate,120); }
+document.addEventListener('focusout', function(){ schedulePageBreaks(); });
+
+/* ── eliminar / desfer / espai ─────────────────────── */
+const delStack = [];
+function deleteEl(btn){
+  const el=btn.closest('.deletable'); if(!el) return;
+  const blk=topFlowBlock(el);
+  if(blk===el){ const i=FLOW.indexOf(el); delStack.push({el:el, flowIdx:i}); if(i>=0) FLOW.splice(i,1); el.remove(); }
+  else { delStack.push({el:el, parent:el.parentNode, sibling:el.nextSibling}); el.remove(); }
+  document.getElementById('btn-undo').classList.add('active');
+  repaginate();
+}
+function undoDelete(){
+  if(!delStack.length) return;
+  const d=delStack.pop();
+  if(d.parent){ d.parent.insertBefore(d.el, d.sibling); }
+  else { FLOW.splice(Math.max(0,Math.min(d.flowIdx,FLOW.length)),0,d.el); }
+  if(!delStack.length) document.getElementById('btn-undo').classList.remove('active');
+  repaginate();
+}
+document.addEventListener('keydown', function(e){
+  if(e.key==='z' && (e.ctrlKey||e.metaKey)){
+    if(document.activeElement && document.activeElement.contentEditable==='true') return;
+    e.preventDefault(); undoDelete();
+  }
+});
+let _lastClickedBlock=null;
+document.addEventListener('click', function(e){
+  const b=topFlowBlock(e.target);
+  if(b && !b.classList.contains('spacer-block')) _lastClickedBlock=b;
+});
+function insertSpacer(){
+  const sp=document.createElement('div'); sp.className='spacer-block deletable';
+  sp.innerHTML='<div class="del-btn" onclick="deleteEl(this)">✕</div><span class="spacer-label">↕ espai en blanc</span>';
+  let idx=FLOW.length;
+  if(_lastClickedBlock){ const i=FLOW.indexOf(_lastClickedBlock); if(i>=0) idx=i+1; }
+  FLOW.splice(idx,0,sp);
+  delStack.push({el:sp, flowIdx:idx});
+  document.getElementById('btn-undo').classList.add('active');
+  repaginate();
+}
+function rebuildDocFromFlow(){
+  const doc=document.getElementById('doc');
+  var _origens2=[];
+  document.querySelectorAll('.section[data-cont]').forEach(function(cont){
+    var o=cont._origin; if(o){ while(cont.firstChild){ o.appendChild(cont.firstChild); } if(_origens2.indexOf(o)<0) _origens2.push(o); }
+  });
+  // ...i es torna l'ordre original: en desar, els fills reassemblats s'afegien
+  // al final i el desordre quedava escrit al fitxer.
+  _origens2.forEach(function(o){
+    var mc=o.querySelector(':scope > .move-ctrl');
+    var kids=Array.prototype.slice.call(o.children).filter(function(k){ return typeof k._ord === 'number'; });
+    kids.sort(function(a,b){ return a._ord - b._ord; });
+    kids.forEach(function(k){ o.insertBefore(k, mc); });
+  });
+  FLOW.forEach(function(b){ if(b.classList.contains('spacer-block')) b.style.height=''; });
+  FLOW.forEach(function(b){ if(b.parentNode!==doc){ if(b.parentNode) b.parentNode.removeChild(b); doc.appendChild(b); } });
+  document.getElementById('sheets').innerHTML='';
+}
+window.addEventListener('load', function(){
+  flattenDoc(); extractFlow(); repaginate();
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ repaginate(); }); }
+  document.querySelectorAll('img').forEach(function(img){ if(!img.complete) img.addEventListener('load', schedulePageBreaks, {once:true}); });
+  setTimeout(repaginate, 400); setTimeout(repaginate, 1200);
+});
+</script>
+
+<script>
+/* === DESAR EDICIONS AL FITXER === */
+function _fitxaToast(msg){
+  let t=document.getElementById('fitxa-toast');
+  if(!t){t=document.createElement('div');t.id='fitxa-toast';
+    t.style.cssText='position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#3a2d6e;color:#fff;font-family:Inter,sans-serif;font-size:13px;font-weight:600;padding:9px 18px;border-radius:9999px;box-shadow:0 4px 18px rgba(0,0,0,.28);z-index:9999;opacity:0;transition:opacity .2s';
+    document.body.appendChild(t);}
+  t.textContent=msg;t.style.opacity='1';
+  clearTimeout(t._h);t._h=setTimeout(()=>t.style.opacity='0',2200);
+}
+async function desaFitxa(){
+  rebuildDocFromFlow();
+  const clone=document.documentElement.cloneNode(true);
+  clone.querySelectorAll('#fitxa-toast').forEach(n=>n.remove());
+  const _sh=clone.querySelector('#sheets'); if(_sh) _sh.innerHTML='';
+  const html='<!DOCTYPE html>\n'+clone.outerHTML;
+  const fname=(location.pathname.split('/').pop()||'fitxa.html');
+  if(window.showSaveFilePicker){
+    try{
+      const h=await window.showSaveFilePicker({suggestedName:fname,types:[{description:'Pàgina HTML',accept:{'text/html':['.html']}}]});
+      const w=await h.createWritable();await w.write(html);await w.close();
+      _fitxaToast('✓ Canvis desats al fitxer');return;
+    }catch(e){if(e.name==='AbortError')return;}
+  }
+  const blob=new Blob([html],{type:'text/html'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fname;
+  document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(a.href);
+  _fitxaToast('✓ Fitxa descarregada (reemplaça l\'original)');
+  extractFlow(); repaginate();
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='s'&&(e.ctrlKey||e.metaKey)){e.preventDefault();desaFitxa();}
+});
+</script>
+
+<script>
+/* si encara no hi ha el retrat, el requadre torna a la icona sense trencar la maqueta */
+window.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.epist-fig img').forEach(function(im){
+    function ko(){ var f=im.closest('.epist-fig'); if(!f) return;
+      f.classList.add('no-img'); f.querySelectorAll('img,figcaption').forEach(function(n){ n.remove(); }); }
+    im.addEventListener('error', ko);
+    if(im.complete && im.naturalWidth===0) ko();
+  });
+});
+</script>
+
+
+</body></html>

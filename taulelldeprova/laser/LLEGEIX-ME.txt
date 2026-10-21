@@ -1,0 +1,48 @@
+SÍNIA DE CASSOLETES · fitxers de tall làser
+Institut Escola El Temple (Tortosa) · FAIG · Mitjans (1r a 3r)
+Disseny propi per a l'escola (no és la còpia de cap màquina real).
+
+FITXER
+  sinia-planxa.svg  -> totes les peces en una planxa de 600 x 400 mm (unitats en mm).
+  sinia-peces.js    -> la geometria d'origen (la mateixa que fa servir la vista 3D).
+
+MATERIAL
+  - 1 planxa de contraplacat de 3 mm, 600 x 400 mm (millor de pollancre o bedoll).
+  - Pal rodó de fusta de 8 mm: un tros de 9 cm (eix) i un de 4 cm (mànec de la maneta).
+  - 8 gots petits de plàstic reutilitzats (cònics, de cafè o de xarop) que encaixin al forat de 34 mm.
+  - 2 gomes elàstiques, cola blanca, paper de vidre, cinta adhesiva ampla (per folrar el canal).
+  - 1 brick de llet d'1 L tombat i obert per dalt (fa de safata, uns 4 cm d'aigua).
+  - 1 got mesurador (vas graduat) per recollir l'aigua al final del canal.
+
+COLORS DEL FITXER
+  Vermell #FF0000, traç 0,1 mm  = TALL
+  Negre (farcit)                = GRAVAT (números de peça, marques 4/6/8, textos)
+  Blau discontinu               = vora de la planxa (guia, NO tallar; desactiveu aquest color)
+
+KERF I RANURES
+  Les ranures són de 3,0 mm nominals. Talleu primer la peça 10 (provador):
+  la ranura que encaixi justa amb el vostre contraplacat us diu el kerf.
+  Si encaixa la de 2,9 o 2,8, el feix menja uns 0,1-0,2 mm: compenseu el kerf
+  (uns 0,15 mm) al programa de la talladora o escaleu les ranures.
+  El forat dels suports (3) és de 8,6 mm perquè l'eix giri lliure;
+  el de la roda (1) i la maneta (5) és de 8,0 mm (encaix just + cola).
+
+POTÈNCIA ORIENTATIVA (làser de CO2 de 40-60 W; proveu-ho sempre abans)
+  Gravat:  velocitat alta, 15-25 % de potència (una passada).
+  Tall:    velocitat baixa, 60-80 % de potència (1-2 passades per a 3 mm).
+  Els valors canvien molt d'una màquina a l'altra: feu una prova al racó de la planxa.
+
+ORDRE DE TREBALL
+  1. Gravat (capa "gravat").
+  2. Tall interior (capa "tall-interior": forats i ranures).
+  3. Tall exterior (capa "tall-exterior": el contorn de cada peça).
+  Així les peces no es mouen abans d'acabar els forats.
+
+PECES
+  1 Roda x2 · 2 Porta-got (cassoleta) x8 · 3 Suport en A x2 · 4 Base · 5 Maneta
+  6 Volandera x2 · 7 Fons del canal · 8 Paret del canal x2 · 9 Pota del canal · 10 Provador de ranura
+
+SEGURETAT
+  La talladora la fa servir només una persona adulta formada, amb la tapa tancada,
+  l'extracció de fums engegada i sense deixar-la mai sola mentre talla.
+  Els infants llimen vores amb paper de vidre i munten; no toquen la màquina.
