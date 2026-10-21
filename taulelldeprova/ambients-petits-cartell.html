@@ -1,0 +1,73 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cartell d'ambient</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<style>
+.ct-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 18px}
+.ct-bar .tv-seg button{display:inline-flex;align-items:center;gap:7px}
+.ct-bar .tv-seg button i{width:12px;height:12px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.ct-note{color:var(--tinta-suau);max-width:72ch;margin:0 0 16px}
+/* full: sempre blanc */
+.sheet{background:#fff;color:#1d1a22;border-radius:14px;box-shadow:var(--ombra-16);margin:0 auto 22px;width:100%;max-width:1000px;aspect-ratio:1.414/1;padding:3.2%;display:grid;grid-template-columns:38% 1fr;gap:4%;border:8px solid var(--ac)}
+.p-med{align-self:center;justify-self:center;width:100%;aspect-ratio:1;border-radius:50%;background:var(--ac);display:grid;place-items:center;box-shadow:inset 0 0 0 10px rgba(255,255,255,.65)}
+.p-med img{width:76%;height:76%;object-fit:contain;mix-blend-mode:multiply}
+.p-right{display:grid;grid-template-rows:auto auto 1fr;gap:5%;min-width:0}
+.p-name{font:700 clamp(1.4rem,4.4vw,3rem)/1 var(--font-display);letter-spacing:-.02em;color:var(--ink)}
+.p-cap{display:flex;flex-wrap:wrap;gap:2.2%;align-items:center}
+.p-cap svg{width:9%;min-width:22px;height:auto;fill:var(--ac);stroke:var(--ink);stroke-width:1.2}
+.p-rules{display:grid;grid-template-columns:repeat(3,1fr);gap:4%;align-content:end}
+.p-rule{border:3px solid var(--ac);border-radius:18px;aspect-ratio:1;display:grid;place-items:center;font-size:clamp(1.6rem,5vw,3.6rem);position:relative}
+.p-rule.no::after{content:"";position:absolute;inset:16%;border:5px solid #C0392B;border-radius:50%;background:linear-gradient(45deg,transparent 46%,#C0392B 46% 54%,transparent 54%)}
+/* targetes */
+.cards{background:#fff;border-radius:14px;box-shadow:var(--ombra-16);margin:0 auto 22px;max-width:1000px;padding:3%;display:grid;grid-template-columns:repeat(3,1fr);gap:3%}
+.card{border:4px dashed var(--ac);border-radius:18px;padding:8% 6%;display:grid;grid-template-rows:auto 1fr;gap:8%;aspect-ratio:.72}
+.card .c-top{display:flex;justify-content:space-between;align-items:center}
+.card .c-top span{width:30%;aspect-ratio:1;border-radius:50%;background:var(--ac);display:grid;place-items:center}
+.card .c-top span img{width:78%;mix-blend-mode:multiply}
+.card .c-top b{font:700 1.6rem/1 var(--font-display);color:var(--ink)}
+.card .c-pic{display:grid;place-items:center;align-content:center;gap:6%;font-size:clamp(2rem,7vw,4.6rem);line-height:1}
+.card .c-pic i{font-style:normal;font-size:.5em;color:#bbb}
+.c-say{max-width:1000px;margin:-10px auto 22px;display:grid;grid-template-columns:repeat(3,1fr);gap:3%;font-size:1rem;color:var(--tinta-suau);padding:0 3%}
+@media (max-width:640px){.sheet{grid-template-columns:1fr;aspect-ratio:auto;padding:16px;gap:16px}.p-right{gap:14px}.p-rules{gap:10px}.p-med{width:70%}.cards{grid-template-columns:1fr;padding:16px}.card{aspect-ratio:auto;max-width:320px;justify-self:center;width:100%}.c-say{grid-template-columns:1fr}}
+@media print{@page{size:A4 landscape;margin:8mm}.ct-bar,.ct-note,.tv-head,.c-say,.tv-foot{display:none!important}
+  .sheet,.cards{box-shadow:none;max-width:none;margin:0;page-break-after:always;border-radius:0}.tv-wrap{max-width:none;padding:0}
+  .sheet,.cards,.p-med,.card .c-top span{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style></head><body>
+<div class="tv-top"><div class="tv-wrap"><div class="tv-glass">
+  <a class="tv-back" href="ambients-petits.html"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Ambients de Petits</a>
+  <span class="tv-crumb">Petits · Material de l'ambient</span><span class="tv-stamp">Per imprimir</span></div></div></div>
+<main class="tv-wrap">
+  <header class="tv-glass tv-head">
+    <div class="tv-kicker"><span class="tv-chip" style="--cc:var(--petits)"><i></i>Petits · P3 a P5</span><span class="tv-chip dark">Sense paraules</span></div>
+    <h1>Cartell i targetes de repte</h1>
+    <p class="tv-lead">Això és el que fa de presentació a Petits: un cartell per a l'entrada de l'ambient i tres targetes per a la taula. Els infants no han de llegir res. El nom gran és per als adults.</p>
+  </header>
+  <div class="ct-bar"><div class="tv-seg" role="group" aria-label="Tria l'ambient" id="ct-seg"></div>
+    <button class="tv-btn main" type="button" onclick="print()"><svg class="ico" viewBox="0 0 24 24"><path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z"/></svg>Imprimeix</button></div>
+  <p class="ct-note">Al cartell: la medalla, quants infants hi caben (una silueta per lloc) i tres normes amb imatges: tenim cura del material, ho deixem tot endreçat i no correm. Les targetes tenen dues imatges, i l'adult explica el repte en veu alta la primera vegada.</p>
+  <section class="sheet" id="sheet"></section>
+  <section class="cards" id="cards"></section>
+  <div class="c-say" id="say"></div>
+</main>
+<footer class="tv-foot">A l'aula, millor pictogrames d'ARASAAC o fotos del vostre material que no pas emojis. Claude us pot preparar les cerques i la maqueta.</footer>
+<script src="ambients-petits-data.js"></script>
+<script>
+(()=>{
+ const P='<svg viewBox="0 0 24 32" aria-hidden="true"><circle cx="12" cy="7" r="5.5"/><path d="M3 31v-9a9 9 0 0 1 18 0v9z"/></svg>';
+ const RULES={def:[["🤲",""],["🧺",""],["🏃","no"]],move:[["👟",""],["🤝",""],["🧺",""]],llums:[["🤲",""],["🔦",""],["🏃","no"]]};
+ const seg=document.getElementById("ct-seg");
+ seg.innerHTML=AMB.map((a,i)=>`<button type="button" data-i="${i}" style="--ac:${a.c}" aria-pressed="${i?'false':'true'}"><i></i>${a.n}</button>`).join("");
+ function show(i){const a=AMB[i];
+  document.querySelectorAll("#ct-seg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.i==i));
+  document.body.style.setProperty("--ac",a.c);document.body.style.setProperty("--ink",a.ink);
+  const r=RULES[a.id]||RULES.def;
+  document.getElementById("sheet").innerHTML=`<div class="p-med"><img src="img/petits/${a.id}.webp" alt="${a.n}"></div><div class="p-right"><div class="p-name">${a.n}</div><div class="p-cap" aria-label="Hi caben ${a.cap} infants">${P.repeat(a.cap)}</div><div class="p-rules">${r.map(([e,c])=>`<div class="p-rule ${c}">${e}</div>`).join("")}</div></div>`;
+  document.getElementById("cards").innerHTML=a.rep.map(([x,y],k)=>`<div class="card"><div class="c-top"><span><img src="img/petits/${a.id}.webp" alt=""></span><b>${"●".repeat(k+1)}</b></div><div class="c-pic"><span>${x}</span><i>▼</i><span>${y}</span></div></div>`).join("");
+  document.getElementById("say").innerHTML=a.rep.map(t=>`<span><b>L'adult diu:</b> «${t[2]}»</span>`).join("");
+ }
+ seg.addEventListener("click",e=>{const b=e.target.closest("button");if(b)show(+b.dataset.i)});
+ show(0);
+})();
+</script>
+</body></html>

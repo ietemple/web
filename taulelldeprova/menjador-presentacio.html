@@ -1,0 +1,244 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>El menjador ideal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css"><link rel="stylesheet" href="mj-deck.css">
+</head>
+<body style="--k:var(--llen);--kp:var(--llen-pastel)">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 12a8 8 0 108-8H7"/><path d="M10 1L7 4l3 3"/></symbol>
+  <symbol id="i-speak" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 9a4 4 0 010 6M18.5 6.5a7.5 7.5 0 010 11"/></symbol>
+  <symbol id="i-step" viewBox="0 0 24 24"><path d="M5 19h4v-4h4v-4h4V7h2"/></symbol>
+</svg>
+
+<a class="pr-exit" href="llengues-menjador.html"><svg class="pr-ico"><use href="#i-left"/></svg>Surt</a>
+
+<main class="pr-deck" aria-roledescription="presentació" aria-label="El menjador ideal">
+
+  <!-- 1 · portada -->
+  <section class="pr-slide" aria-label="Portada">
+    <div class="pr-in pr-cover">
+      <div>
+        <div class="pr-kick"><i></i>Català · Text argumentatiu</div>
+        <h1>El menjador ideal</h1>
+        <p class="pr-bigq">Si poguéssim canviar una cosa del menjador de l'institut, quina seria? I com convenceríem la direcció?</p>
+      </div>
+      <figure class="pr-photo" style="margin:0"><img src="img/menjador/buit.webp" alt="Un menjador escolar buit, amb taules llargues i bancs"><figcaption>Foto: Agostina · domini públic · Wikimedia Commons</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 2 · safates -->
+  <section class="pr-slide" aria-label="Safates del món">
+    <div class="pr-in">
+      <div class="pr-kick"><i></i>Mirem</div>
+      <h2>Què hi ha a la safata?</h2>
+      <p class="pr-sub">Vuit dinars escolars de vuit països. Abans d'obrir una foto, digueu en veu alta: d'on deu ser? Què hi veieu?</p>
+      <div class="pr-world" id="world"></div>
+    </div>
+  </section>
+
+  <!-- 3 · paraules -->
+  <section class="pr-slide" aria-label="Paraules del menjador">
+    <div class="pr-in">
+      <div class="pr-kick"><i></i>Paraules</div>
+      <h2>Les paraules del menjador</h2>
+      <p class="pr-sub">Toca una imatge i escolta-la. Tria una llengua per veure-hi la traducció.</p>
+      <div class="pr-langs" id="langs" role="group" aria-label="Traducció"></div>
+      <div class="pr-words" id="words"></div>
+    </div>
+  </section>
+
+  <!-- 4 · fet o opinió -->
+  <section class="pr-slide" aria-label="Fet o opinió">
+    <div class="pr-in">
+      <div class="pr-kick"><i></i>Pensem</div>
+      <h2>Fet o opinió?</h2>
+      <p class="pr-sub">Un <b>fet</b> es pot comprovar. Una <b>opinió</b> és el que algú pensa. Un bon argument fa servir les dues coses.</p>
+      <div class="pr-sort" id="facts"></div>
+    </div>
+  </section>
+
+  <!-- 5 · hamburguesa -->
+  <section class="pr-slide" aria-label="L'hamburguesa argumentativa">
+    <div class="pr-in pr-burger">
+      <div>
+        <div class="pr-kick"><i></i>Com es construeix</div>
+        <h2>L'hamburguesa argumentativa</h2>
+        <p class="pr-sub" style="margin-bottom:.6em">Tria una frase i toca el lloc de l'hamburguesa on va. Fixa't en les paraules del principi.</p>
+        <div class="pr-pool" id="pool"></div>
+        <div class="pr-feed" id="b-feed" role="status" aria-live="polite">Tria una frase.</div>
+      </div>
+      <div class="pr-stack" id="stack">
+        <div class="pr-layer top" data-k="t"><em>Pa de dalt · tesi</em><span>Què proposem?</span></div>
+        <div class="pr-layer l1" data-k="a1"><em>Argument 1</em><span></span></div>
+        <div class="pr-layer l2" data-k="a2"><em>Argument 2</em><span></span></div>
+        <div class="pr-layer l3" data-k="a3"><em>Argument 3</em><span></span></div>
+        <div class="pr-layer bot" data-k="c"><em>Pa de baix · conclusió</em><span>Què demanem?</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · connectors -->
+  <section class="pr-slide" aria-label="Connectors">
+    <div class="pr-in">
+      <div class="pr-kick"><i></i>Les peces que lliguen</div>
+      <h2>Els connectors</h2>
+      <div class="pr-legend"><span><b>Ordenar</b> en primer lloc, finalment</span><span><b>Afegir</b> a més, també</span><span><b>Contraposar</b> tanmateix, en canvi</span><span><b>Conseqüència</b> per tant</span><span><b>Concloure</b> per tot això</span></div>
+      <div class="pr-gaps" id="gaps"></div>
+    </div>
+  </section>
+
+  <!-- 7 · escala -->
+  <section class="pr-slide" aria-label="Millorem un argument">
+    <div class="pr-in pr-two">
+      <div>
+        <div class="pr-kick"><i></i>De queixa a argument</div>
+        <h2>Pugem l'escala</h2>
+        <p class="pr-sub">«El menjar és dolent» no convencerà ningú. Què li falta? Abans de tocar el botó, digueu-ho vosaltres.</p>
+        <div class="pr-row"><button class="pr-btn main" id="up"></button><button class="pr-btn" id="up-reset" aria-label="Torna a començar"><svg class="pr-ico"><use href="#i-reset"/></svg></button></div>
+      </div>
+      <div class="pr-steps" id="steps">
+        <div class="pr-step on"><b class="n">1</b><div><em>Opinió</em>El menjar és dolent.</div></div>
+        <div class="pr-step"><b class="n">2</b><div><em>Concreta</em>El segon plat <mark>sovint arriba fred</mark> a la taula.</div></div>
+        <div class="pr-step"><b class="n">3</b><div><em>Raó</em>El segon plat sovint arriba fred, <mark>perquè es serveix tot alhora i espera als carros mentre mengem el primer.</mark></div></div>
+        <div class="pr-step"><b class="n">4</b><div><em>Prova i proposta</em>… <mark>La setmana passada vam comptar dotze plats tornats sencers.</mark> Proposem servir el segon plat quan acabem el primer.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · votació -->
+  <section class="pr-slide" aria-label="Votem">
+    <div class="pr-in">
+      <div class="pr-kick"><i></i>Decidim</div>
+      <h2>Què canviaríem primer?</h2>
+      <p class="pr-sub">Mans amunt i compteu-les. La proposta que guanyi serà la tesi de la carta de tota la classe.</p>
+      <div class="pr-vote" id="vote"></div>
+    </div>
+  </section>
+
+  <!-- 9 · missió -->
+  <section class="pr-slide" aria-label="La missió">
+    <div class="pr-in">
+      <div class="pr-kick"><i></i>La missió</div>
+      <h2>Una carta a la direcció</h2>
+      <p class="pr-sub">Tota la classe defensa la mateixa proposta. Cadascú escriu la seva carta amb el seu full, i tothom hi aporta una frase a la carta comuna, en català i també en la seva llengua.</p>
+      <div class="pr-mission">
+        <div class="pr-mcard"><img src="img/picto/magrada.webp" alt=""><b>1 · Tesi</b>Què proposem, en una sola frase clara.</div>
+        <div class="pr-mcard"><img src="img/picto/taula.webp" alt=""><b>2 · Arguments</b>Tres, ordenats amb connectors. Cada un amb una raó i una prova.</div>
+        <div class="pr-mcard"><img src="img/picto/cuiner.webp" alt=""><b>3 · Conclusió</b>Què demanem, a qui i des de quan.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · sortida -->
+  <section class="pr-slide" aria-label="Abans de marxar">
+    <div class="pr-in pr-two">
+      <div>
+        <div class="pr-kick"><i></i>Abans de marxar</div>
+        <h2>Digues-ho en veu alta</h2>
+        <div class="pr-frames">
+          <div class="pr-frame">Jo proposo que <u>&nbsp;</u> perquè <u>&nbsp;</u>.</div>
+          <div class="pr-frame">Un fet que ho demostra és que <u>&nbsp;</u>.</div>
+          <div class="pr-frame">Algú dirà que <u>&nbsp;</u>, però <u>&nbsp;</u>.</div>
+        </div>
+      </div>
+      <div>
+        <p style="font-weight:600">Com ho porto?</p>
+        <div class="pr-sem" id="sem"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<p class="pr-credit">Fotos: Wikimedia Commons (autors a cada foto). Pictogrames: Sergio Palao, ARASAAC, CC BY-NC-SA.</p>
+
+<nav class="pr-nav" aria-label="Diapositives">
+  <button class="pr-btn" id="prev" aria-label="Diapositiva anterior"><svg class="pr-ico"><use href="#i-left"/></svg></button>
+  <div class="pr-dots" id="dots"></div>
+  <span class="pr-count" id="count" aria-live="polite"></span>
+  <button class="pr-btn main" id="next" aria-label="Diapositiva següent"><svg class="pr-ico"><use href="#i-right"/></svg></button>
+  <button class="pr-btn pr-fs" id="fs" aria-label="Pantalla completa"><svg class="pr-ico"><use href="#i-full"/></svg></button>
+</nav>
+
+<script src="menjador-data.js"></script>
+<script src="mj-deck.js"></script>
+<script>
+(function(){
+"use strict";
+var $=MJD.$,$$=MJD.$$,ic=MJD.ic;
+
+/* 2 */
+MJD.world($("#world"),"ca",["I el nostre?","Toca per fer-hi una foto del menjador de l'institut"]);
+$$("#world .pr-tray").forEach(function(b){var p=MJ.PHOTOS[$$("#world .pr-tray").indexOf(b)];if(p)b.title="Foto: "+p.cr});
+
+/* 3 */
+MJD.words($("#words"),$("#langs"),["pa","arros","pasta","peix","pollastre","carn","ou","llenties","amanida","verdura","fruita","iogurt","aigua","sopa","safata","cuiner","soroll","rellotge","plastic","magrada","nomagrada"],"ca","ca-ES",["en","es","ar","ro","ur","zh"]);
+
+/* 4 */
+var FACTS=[
+ ["Per dinar tenim trenta minuts.",1,"Es pot comprovar amb el rellotge."],
+ ["Els macarrons del dimarts són els millors.",0,"És el gust d'algú. Un altre pot pensar el contrari."],
+ ["A Finlàndia, el dinar escolar és gratuït.",1,"Es pot comprovar en una font fiable."],
+ ["El menjador és massa sorollós.",0,"És una opinió… però si mesurem el soroll amb el mòbil, la convertim en un fet!"],
+ ["Cada dia llencem fruita sencera a les escombraries.",1,"Es pot comprovar: n'hi ha prou de comptar-la una setmana."],
+ ["El peix és avorrit.",0,"És una manera de veure-ho, no una dada."]];
+$("#facts").innerHTML=FACTS.map(function(f,i){return '<div class="pr-card" data-i="'+i+'"><p>'+f[0]+'</p><div class="pr-row"><button class="pr-btn" data-a="1">Fet</button><button class="pr-btn" data-a="0">Opinió</button></div><span class="why"></span></div>'}).join("");
+$("#facts").addEventListener("click",function(e){var b=e.target.closest("[data-a]");if(!b)return;var c=b.closest(".pr-card"),f=FACTS[+c.dataset.i],ok=+b.dataset.a===f[1];
+  c.classList.remove("ok","ko");c.classList.add("done",ok?"ok":"ko");$(".why",c).innerHTML="<b>"+(f[1]?"Fet. ":"Opinió. ")+"</b>"+f[2]});
+
+/* 5 */
+var B=[["t","Proposem que el menjador sigui un lloc més tranquil, amb menys soroll."],
+ ["a1","En primer lloc, amb tant de soroll no podem parlar amb els companys sense cridar."],
+ ["a2","A més, el soroll cansa: a la tarda ens costa més concentrar-nos a classe."],
+ ["a3","Finalment, hi ha solucions senzilles, com posar tacs de feltre a les potes de les cadires."],
+ ["c","Per tot això, demanem a la direcció que provi aquestes mesures durant un mes."]];
+var bfeed=function(cls,t){var f=$("#b-feed");f.className="pr-feed "+(cls||"");f.textContent=t};
+function resetB(){
+  $("#pool").innerHTML=MJD.shuffle(B).map(function(x){return '<button class="pr-chip" data-k="'+x[0]+'">'+x[1]+'</button>'}).join("");
+  $$("#stack .pr-layer").forEach(function(l){l.classList.remove("full");if(/a\d/.test(l.dataset.k))$("span",l).textContent=""});
+  $('#stack [data-k="t"] span').textContent="Què proposem?";$('#stack [data-k="c"] span').textContent="Què demanem?";
+}
+var placed=0;
+MJD.pickPlace($("#pool"),$$("#stack .pr-layer"),function(chip,layer){
+  if(layer.classList.contains("full"))return false;
+  if(chip.dataset.k===layer.dataset.k){$("span",layer).textContent=chip.textContent;layer.classList.add("full");placed++;
+    bfeed("good",placed===5?"Hamburguesa completa! Mireu les primeres paraules de cada capa: són connectors.":"Molt bé. Ja n'hi ha "+placed+" de 5.");return true}
+  var hint={t:"La tesi diu què proposem.",a1:"El primer argument comença amb «En primer lloc».",a2:"Aquest afegeix una raó: «A més».",a3:"L'últim argument comença amb «Finalment».",c:"La conclusió comença amb «Per tot això»."};
+  bfeed("nope","Aquí no. "+hint[layer.dataset.k]);return false;
+},bfeed);
+resetB();
+
+/* 6 */
+var G=[["___, amb tant de soroll no podem parlar sense cridar.",["En primer lloc","En canvi","Per tot això"],0],
+ ["Cada dia hi ha fruita. ___, sovint no és madura i la llencem.",["Per tant","Tanmateix","En primer lloc"],1],
+ ["Els gots de plàstic fan molts residus. ___, proposem gots de vidre.",["Per tant","A més","En canvi"],0],
+ ["___, demanem a la direcció un menjador més tranquil.",["A més","Per exemple","Per tot això"],2]];
+$("#gaps").innerHTML=G.map(function(g,i){return '<div class="pr-gap" data-i="'+i+'"><p>'+g[0].replace("___",'<span class="hole">?</span>')+'</p><div class="pr-row">'+g[1].map(function(o,j){return '<button class="pr-btn" data-j="'+j+'">'+o+'</button>'}).join("")+'</div></div>'}).join("");
+$("#gaps").addEventListener("click",function(e){var b=e.target.closest("[data-j]");if(!b)return;var g=b.closest(".pr-gap"),d=G[+g.dataset.i],j=+b.dataset.j,h=$(".hole",g);
+  if(j===d[2]){h.textContent=d[1][j];g.classList.add("ok")}
+  else{b.animate&&b.animate([{transform:"translateX(-6px)"},{transform:"translateX(6px)"},{transform:"none"}],{duration:300})}});
+
+/* 7 */
+var lvl=1,stp=$$("#steps .pr-step"),LB=["Fes-la concreta","Afegeix-hi una raó","Afegeix-hi una prova i una proposta","Ja és un argument!"];
+function drawUp(){stp.forEach(function(s,i){s.classList.toggle("on",i<lvl)});var u=$("#up");u.innerHTML='<svg class="pr-ico"><use href="#i-step"/></svg>'+LB[lvl-1];u.disabled=lvl>=4}
+$("#up").addEventListener("click",function(){lvl=Math.min(4,lvl+1);drawUp()});
+$("#up-reset").addEventListener("click",function(){lvl=1;drawUp()});drawUp();
+
+/* 8 */
+var V=[["soroll","Menys soroll"],["rellotge","Més temps per dinar"],["plastic","Menys plàstic"],["fruita","Fruita madura i de temporada"],["safata","Un menú del món cada mes"],["magrada","Poder triar entre dos plats"]],vv=V.map(function(){return 0});
+function drawV(){var mx=Math.max.apply(null,vv),tot=vv.reduce(function(a,b){return a+b},0);
+  $("#vote").innerHTML=V.map(function(o,i){return '<div class="pr-vr'+(mx>0&&vv[i]===mx?" win":"")+'"><img src="'+MJ.pic(o[0])+'" alt=""><div><b>'+o[1]+'</b><div class="bar"><i style="width:'+(tot?vv[i]/mx*100:0)+'%"></i></div></div><div class="pr-row"><button class="pr-btn" data-v="'+i+'" data-d="-1" aria-label="'+o[1]+': treu un vot">'+ic("minus")+'</button><output>'+vv[i]+'</output><button class="pr-btn" data-v="'+i+'" data-d="1" aria-label="'+o[1]+': afegeix un vot">'+ic("plus")+'</button></div></div>'}).join("")}
+$("#vote").addEventListener("click",function(e){var b=e.target.closest("[data-v]");if(!b)return;vv[+b.dataset.v]=Math.max(0,vv[+b.dataset.v]+(+b.dataset.d));drawV()});drawV();
+
+/* 10 */
+MJD.sem($("#sem"),[["var(--cie)","Sé fer un argument amb raó i prova"],["var(--lec)","Em falta la prova o el connector"],["var(--amb)","Necessito un cop de mà"]]);
+
+MJD.nav();
+})();
+</script>
+</body></html>

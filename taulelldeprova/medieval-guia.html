@@ -1,0 +1,108 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guia de raonament històric</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700&family=Alegreya+SC:wght@500;700&family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="gih-fitxa.css">
+<style>
+.fx-v{display:block}
+.steps{display:grid;gap:2.2mm}
+.step{display:grid;grid-template-columns:30mm 1fr 1fr;gap:3mm;align-items:stretch;border:1.5px solid var(--line);border-radius:3mm;overflow:hidden}
+.step .h{display:grid;align-content:center;gap:.6mm;padding:2mm 2.6mm;color:#fff;background:var(--k)}
+.step .h b{font:700 13pt/1.05 var(--font-display)}
+.step .h small{font-size:8.6pt;opacity:.92;line-height:1.15}
+.step:nth-child(2) .h{background:#9A5A1E}.step:nth-child(3) .h{background:var(--r)}.step:nth-child(4) .h{background:#5B3A1E}.step:nth-child(5) .h{background:#3B4F7A}
+.step .qq{padding:2mm 0;font-size:10pt;line-height:1.3;display:grid;gap:.6mm;align-content:center}
+.step .qq i{font-style:normal;color:var(--ts)}
+.step .ej{padding:2mm 2.6mm 2mm 0;font-size:9.6pt;line-height:1.3;color:var(--t);align-self:center}
+.step .ej::before{content:"Exemple · ";font:700 8pt/1 var(--font-sc);color:var(--k);letter-spacing:.04em}
+.mini{display:grid;grid-template-columns:42mm 1fr;gap:4mm;align-items:start}
+.cx{display:grid;grid-template-columns:repeat(3,1fr);gap:2mm;font-size:9.8pt}
+.cx div{border:1px solid var(--line);border-radius:2mm;padding:1.6mm 2.2mm}
+.cx b{display:block;font:700 9pt/1.2 var(--font-sc);color:var(--k);margin-bottom:.6mm}
+.model{padding:2.6mm 3.5mm;border-radius:2.5mm;background:#FBF6EE;border:1px solid #E9DDCD;font-size:10.5pt;line-height:1.45}
+.model mark{background:none;padding:0 .4mm;border-bottom:2px solid}
+.model .a{border-color:var(--k)}.model .p{border-color:var(--r)}.model .r{border-color:#5B3A1E}
+.legend{display:flex;gap:4mm;font-size:9pt;color:var(--ts)}
+.legend span::before{content:"";display:inline-block;width:6mm;height:0;border-bottom:2px solid;margin-right:1.4mm;vertical-align:middle}
+.legend .a::before{border-color:var(--k)}.legend .p::before{border-color:var(--r)}.legend .r::before{border-color:#5B3A1E}
+</style>
+</head>
+<body>
+<nav class="fx-bar" aria-label="Navegació">
+  <a class="back" href="gih-medieval.html">← Proposta</a>
+  <a href="medieval-fitxa.html">Full de treball</a>
+  <button class="print" onclick="window.print()">Imprimeix</button>
+</nav>
+
+<section class="fx-v on">
+<div class="pg">
+  <header class="hd"><div class="kick">Geografia i Història · 2n ESO · Eina per a totes les sessions</div><span class="lv" style="font-size:9pt">Guia</span><h1>Pensa com un historiador</h1></header>
+  <div class="who"><span>Nom:</span><span>Grup:</span><span>Data:</span></div>
+  <div class="obj"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></svg><div><b>Objectiu d'aprenentatge</b>Faré servir cinc passos per passar del que veig en una font a una explicació que demostra el que dic.<br><span style="color:var(--ts)">Ho sabré fer si cada idea de la meva explicació surt d'una font i dic per què la font ho demostra.</span></div></div>
+
+  <div class="ex"><h2><b>1</b>Els cinc passos <small>Cada pas té preguntes per començar i un exemple amb la miniatura d'octubre</small></h2>
+    <div class="steps">
+      <div class="step"><div class="h"><b>Observo</b><small>Què hi ha? Només el que es veu</small></div>
+        <div class="qq"><span>Hi veig…</span><span>A dalt / a baix / al fons hi ha…</span><i>No expliquis encara. Descriu.</i></div>
+        <div class="ej">Hi veig un castell blanc molt gran, una muralla i pagesos treballant un camp.</div></div>
+      <div class="step"><div class="h"><b>Dedueixo</b><small>Què vol dir el que veig?</small></div>
+        <div class="qq"><span>Això em fa pensar que…</span><span>Probablement… perquè…</span><i>Cada deducció ha de tenir un perquè.</i></div>
+        <div class="ej">El castell és el lloc més alt i més fort: qui hi viu té poder i protegeix el territori.</div></div>
+      <div class="step"><div class="h"><b>Connecto</b><small>Amb què ho relaciono?</small></div>
+        <div class="qq"><span>Això s'assembla a…</span><span>A la font … també…</span><span>Avui encara / ja no…</span></div>
+        <div class="ej">Com a la font 2, qui té el castell rep la fidelitat i el treball d'altres.</div></div>
+      <div class="step"><div class="h"><b>Explico</b><small>Afirmació + prova + raonament</small></div>
+        <div class="qq"><span>Penso que… perquè a la font … es veu que… Això demostra que…</span></div>
+        <div class="ej">Els pagesos obeïen perquè la terra era del senyor: a la font 1 treballen als peus del seu castell.</div></div>
+      <div class="step"><div class="h"><b>Dubto</b><small>Fins on em puc fiar de la font?</small></div>
+        <div class="qq"><span>Qui la va fer? Per a qui?</span><span>Què no hi surt?</span><span>Què hi diria un pagès?</span></div>
+        <div class="ej">Ho va pintar un artista per a un duc: els pagesos semblen tranquils, però no sabem què en pensaven.</div></div>
+    </div>
+  </div>
+
+  <div class="ex"><h2><b>2</b>Prova-ho tu amb una font nova</h2>
+    <div class="mini">
+      <div><div class="mk"><img src="img/med/cardona.webp" alt="Castell de Cardona dalt d'un turó amb la vila al peu" style="height:30mm"></div><p class="cap">Castell de Cardona (Bages), segles X–XIV.</p></div>
+      <div class="lns tight"><div class="ln pre">Observo:</div><div class="ln pre">Dedueixo:</div><div class="ln pre">Connecto:</div><div class="ln pre">Dubto:</div></div>
+    </div>
+  </div>
+  <div class="pg-foot"><span>Guia de raonament · Qui manava al castell?</span><span>1 / 2</span></div>
+</div>
+
+<div class="pg">
+  <div class="ex"><h2><b>3</b>Connectors per lligar les idees</h2>
+    <div class="cx">
+      <div><b>Causa</b>perquè · ja que · a causa de · com que</div>
+      <div><b>Conseqüència</b>per tant · per això · així doncs · de manera que</div>
+      <div><b>Prova</b>a la font … es veu que · segons · això demostra que</div>
+      <div><b>Contrast</b>en canvi · però · tot i que · no obstant això</div>
+      <div><b>Temps</b>abans · després · al mateix temps · segles més tard</div>
+      <div><b>Límit</b>la font no diu · cal tenir en compte que · potser</div>
+    </div>
+  </div>
+
+  <div class="ex"><h2><b>4</b>Una explicació model</h2>
+    <div class="legend"><span class="a">Afirmació</span><span class="p">Prova</span><span class="r">Raonament</span></div>
+    <div class="model"><mark class="a">Els pagesos obeïen el senyor feudal perquè la terra que treballaven era seva i, a canvi, ell els protegia.</mark> <mark class="p">A la font 1 es veu que els pagesos llauren i sembren just als peus del castell, envoltat de muralles,</mark> <mark class="r">i això demostra que vivien sota el poder i la protecció del senyor. Per tant, obeir era la manera de poder treballar la terra i viure-hi segurs.</mark> Tot i això, la font la va encarregar un duc, i potser mostra els pagesos més contents del que estaven.</div>
+  </div>
+
+  <div class="ex"><h2><b>5</b>Revisa la teva explicació</h2>
+    <table class="rub">
+      <tr><th></th><th>Ho estic aprenent</th><th>Ho faig</th><th>Ho faig molt bé</th></tr>
+      <tr><td>Afirmació</td><td>Dic una idea, però no respon la pregunta.</td><td>Responc la pregunta amb una idea clara.</td><td>Responc la pregunta i en matiso el límit.</td></tr>
+      <tr><td>Prova</td><td>No faig servir cap font.</td><td>Cito una font i què s'hi veu.</td><td>Cito dues fonts diferents i les comparo.</td></tr>
+      <tr><td>Raonament</td><td>No dic per què la prova demostra la idea.</td><td>Dic per què la prova demostra la idea.</td><td>Ho relaciono amb una causa o una conseqüència.</td></tr>
+      <tr><td>Vocabulari</td><td>Faig servir poques paraules de la història.</td><td>Faig servir senyor, vassall, feu, pagès.</td><td>Faig servir també homenatge, remença, mals usos.</td></tr>
+      <tr><td>Dubte</td><td>No penso en qui va fer la font.</td><td>Dic qui va fer la font.</td><td>Dic com això pot canviar el que mostra.</td></tr>
+    </table>
+    <p class="note">Marca amb una creu on et trobes ara. Pinta de color on vols arribar a la propera explicació.</p>
+  </div>
+
+  <div class="meta"><h2><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>Metacognició · Com penso?</h2>
+    <div class="sem"><b style="font-weight:600">Faig servir els cinc passos:</b><span><i class="g"></i>Sol/a</span><span><i class="y"></i>Amb la guia</span><span><i class="rr"></i>Encara no</span></div>
+    <div class="q"><span>El pas que em surt més fàcil:</span><div class="ln"></div><span>El pas que em costa més i per què:</span><div class="ln"></div><span>La propera vegada, abans d'escriure faré…</span><div class="ln"></div></div>
+  </div>
+  <div class="pg-foot"><span>Imatge: Alvesgaspar, CC BY-SA 4.0, Wikimedia Commons.</span><span>2 / 2</span></div>
+</div>
+</section>
+</body></html>

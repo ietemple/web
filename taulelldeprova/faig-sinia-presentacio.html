@@ -1,0 +1,676 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sínia a l'aula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<style>
+/* pr- = presentació */
+:root{--pr-fs:clamp(20px,1.5vw,32px);--pr-ft:clamp(34px,3.4vw,76px);--pr-gap:clamp(12px,1.4vw,30px)}
+html,body{overflow-x:hidden}
+body{font-size:var(--pr-fs)}
+.pr-deck{display:grid;grid-template-rows:auto minmax(0,1fr) auto;height:100dvh;padding:0 clamp(16px,2vw,40px) clamp(10px,1vw,22px);gap:clamp(8px,.8vw,16px)}
+.pr-bar{display:flex;align-items:center;gap:12px;padding-top:10px;min-height:46px}
+.pr-exit{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font:600 15px/1 var(--font-text);color:var(--tinta-suau);padding:8px 12px 8px 8px;border-radius:999px;background:var(--vidre-2);border:1px solid var(--vidre-vora)}
+.pr-exit .ico{width:18px;height:18px}
+.pr-count{margin-left:auto;font:700 16px/1 var(--font-display);color:var(--tinta-suau)}
+.pr-stage{min-height:0;display:grid}
+.pr-slide{display:none;flex-direction:column;gap:var(--pr-gap);padding:clamp(18px,2.4vw,52px);min-height:0;overflow:auto;border-radius:clamp(20px,2vw,40px);align-items:stretch}
+.pr-slide.on{display:flex;animation:pr-in .35s ease both}
+@keyframes pr-in{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.pr-k{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font:600 clamp(15px,1vw,20px)/1 var(--font-text);letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-suau);background:var(--vidre-3);border:1px solid var(--vidre-vora);padding:8px 14px;border-radius:999px}
+.pr-k i{width:10px;height:10px;border-radius:50%;background:var(--faig)}
+.pr-t{font:700 var(--pr-ft)/1.05 var(--font-display);letter-spacing:-.03em;margin:0}
+.pr-p{font-size:var(--pr-fs);line-height:1.3;color:var(--tinta-suau);margin:0;max-width:34em}
+.pr-grow{flex:1;min-height:0;display:flex;gap:var(--pr-gap);align-items:stretch}
+.pr-btn{min-height:64px;min-width:64px;padding:0 clamp(20px,1.8vw,36px);font-size:max(20px,1.35vw);gap:10px}
+.pr-btn .ico{width:1.2em;height:1.2em}
+.pr-btn.big{min-height:76px}
+.pr-btn[disabled]{opacity:.45;cursor:default;transform:none}
+.pr-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+/* nav */
+.pr-nav{display:flex;align-items:center;gap:clamp(10px,1.2vw,24px);padding:10px clamp(10px,1.2vw,22px);border-radius:999px}
+.pr-nav .pr-btn{border-radius:999px}
+.pr-dots{flex:1;display:flex;justify-content:center;flex-wrap:wrap;gap:0}
+.pr-dots button{width:44px;height:44px;border:0;background:none;display:grid;place-items:center;padding:0}
+.pr-dots button i{width:16px;height:16px;border-radius:50%;background:var(--linia-buida);transition:transform .2s,background .2s}
+.pr-dots button[aria-current="true"] i{background:var(--faig);transform:scale(1.5)}
+.pr-dots button.seen i{background:var(--tinta-tenue)}
+
+/* 1 portada */
+.pr-cover{justify-content:center;align-items:flex-start}
+.pr-cover-wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:var(--pr-gap);align-items:center;flex:1;min-height:0}
+.pr-cover h1{font-size:clamp(44px,5.6vw,128px);letter-spacing:-.04em}
+.pr-cover .pr-p{margin:clamp(10px,1.2vw,24px) 0 clamp(16px,2vw,40px)}
+.pr-cover svg{width:100%;max-height:60dvh;height:auto}
+.pr-spin{transform-origin:0 0;animation:pr-rot 40s linear infinite}
+@keyframes pr-rot{to{transform:rotate(360deg)}}
+
+/* 2 problema */
+.pr-scheme{display:grid;grid-template-columns:1fr auto 1fr;gap:var(--pr-gap);align-items:center}
+.pr-node{background:var(--vidre-3);border:1px solid var(--vidre-vora);border-radius:28px;box-shadow:var(--ombra-8);padding:clamp(12px,1.4vw,28px);display:flex;flex-direction:column;align-items:center;gap:8px;font:700 clamp(24px,2.4vw,52px)/1 var(--font-display)}
+.pr-node svg{width:clamp(70px,8vw,170px);height:auto;color:var(--faig);fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.pr-mid{font:700 clamp(60px,7vw,150px)/1 var(--font-display);color:var(--faig);min-width:1.2em;text-align:center;transition:transform .3s}
+.pr-mid.ok{font-size:clamp(28px,2.8vw,60px);display:flex;flex-direction:column;align-items:center}
+.pr-options{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--pr-gap)}
+.pr-opt{border-radius:28px;border:2px solid var(--vidre-vora);background:var(--vidre-2);box-shadow:var(--brill-vora),var(--ombra-8);padding:clamp(14px,1.4vw,28px);text-align:left;min-height:clamp(96px,10vh,160px);display:flex;flex-direction:column;gap:8px;font:700 clamp(24px,2vw,44px)/1.1 var(--font-display)}
+.pr-opt small{font:500 var(--pr-fs)/1.25 var(--font-text);color:var(--tinta-suau);display:none}
+.pr-opt[aria-pressed="true"]{border-color:var(--faig);background:var(--vidre-3)}
+.pr-opt[aria-pressed="true"] small{display:block}
+.pr-opt.star[aria-pressed="true"]{background:var(--faig-pastel)}
+
+/* 3 la sínia */
+.pr-sinia{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--pr-gap)}
+.pr-scene{min-height:0;border-radius:28px;background:linear-gradient(#fff9,#fff3);border:1px solid var(--vidre-vora);overflow:hidden;position:relative}
+.pr-scene svg{width:100%;height:100%;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.pr-scene svg:active{cursor:grabbing}
+.pr-side{display:flex;flex-direction:column;gap:14px;justify-content:center;min-width:clamp(200px,17vw,340px)}
+.pr-stat{background:var(--vidre-3);border:1px solid var(--vidre-vora);border-radius:22px;padding:14px 18px;font:700 clamp(26px,2.4vw,52px)/1 var(--font-display)}
+.pr-stat small{display:block;font:600 clamp(15px,1vw,20px)/1 var(--font-text);letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-suau);margin-bottom:6px}
+.pr-seg{display:flex;gap:6px;padding:6px;border-radius:999px;background:var(--vidre-1);border:1px solid var(--vidre-vora)}
+.pr-seg button{flex:1;min-height:64px;min-width:64px;border:0;border-radius:999px;background:none;font:700 clamp(24px,2vw,44px)/1 var(--font-display);color:var(--tinta-suau)}
+.pr-seg button[aria-pressed="true"]{background:var(--vidre-fosc);color:#fff}
+.pr-hint{position:absolute;left:16px;bottom:12px;background:var(--vidre-3);border-radius:999px;padding:8px 16px;font:600 clamp(16px,1.1vw,22px)/1 var(--font-text);color:var(--tinta-suau);pointer-events:none}
+
+/* 4 votació */
+.pr-vote{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--pr-gap);flex:1;min-height:0}
+.pr-vc{display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:space-between;border-radius:28px;background:var(--vidre-2);border:2px solid var(--vidre-vora);box-shadow:var(--brill-vora),var(--ombra-8);padding:clamp(10px,1.2vw,24px);min-height:0}
+.pr-vc.lead{border-color:var(--faig);background:var(--faig-pastel)}
+.pr-vc svg{width:100%;flex:1;min-height:0;max-height:34dvh}
+.pr-vc h3{font:700 clamp(24px,2.2vw,48px)/1 var(--font-display)}
+.pr-vc .n{font:700 clamp(48px,5vw,110px)/1 var(--font-display);color:var(--tinta)}
+.pr-vc .pm{display:flex;gap:10px}
+.pr-vc .pm button{width:clamp(64px,5vw,96px);height:clamp(64px,5vw,96px);border-radius:50%;border:1px solid var(--vidre-vora);background:var(--vidre-3);box-shadow:var(--ombra-8);font:700 clamp(32px,3vw,56px)/1 var(--font-display)}
+.pr-vc .pm button.plus{background:var(--vidre-fosc);color:#fff}
+.pr-voted{display:none;padding:16px 22px;border-radius:22px;background:var(--faig-pastel);border:1px solid #fff;font:700 clamp(24px,2.2vw,48px)/1.15 var(--font-display)}
+.pr-voted.on{display:block}
+@media (max-width:1100px){.pr-vote{grid-template-columns:repeat(2,1fr)}}
+
+/* 5 prova justa */
+.pr-tiles{display:flex;flex-wrap:wrap;gap:12px;min-height:clamp(76px,8vh,110px)}
+.pr-tile{min-height:64px;padding:12px 22px;border-radius:999px;border:2px solid var(--vidre-vora);background:var(--vidre-3);box-shadow:var(--ombra-8);font:600 var(--pr-fs)/1.1 var(--font-text);color:var(--tinta)}
+.pr-tile[aria-pressed="true"]{outline:4px solid var(--faig);outline-offset:2px;background:#fff}
+.pr-tile.shake{animation:pr-shake .4s}
+@keyframes pr-shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.pr-buckets{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--pr-gap);flex:1;min-height:0}
+.pr-bk{border-radius:28px;border:3px dashed var(--linia-buida);background:var(--vidre-1);padding:clamp(12px,1.2vw,24px);display:flex;flex-direction:column;gap:10px;text-align:left;align-items:stretch;justify-content:flex-start;min-height:0;overflow:auto}
+.pr-bk h3{display:flex;align-items:center;gap:10px;font:700 clamp(26px,2.4vw,52px)/1.05 var(--font-display)}
+.pr-bk h3 svg{width:1.2em;height:1.2em;flex:none;fill:none;stroke:var(--faig);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pr-bk:hover{border-color:var(--faig)}
+.pr-bk .got{padding:10px 18px;border-radius:999px;background:var(--faig-pastel);border:1px solid #fff;font:600 var(--pr-fs)/1.1 var(--font-text);animation:pr-in .3s both}
+.pr-bk .hint{font:500 clamp(16px,1.1vw,22px)/1.2 var(--font-text);color:var(--tinta-tenue)}
+.pr-done{display:none;padding:14px 22px;border-radius:22px;background:var(--faig-pastel);border:1px solid #fff;font:700 clamp(24px,2.2vw,48px)/1.15 var(--font-display)}
+.pr-done.on{display:block}
+
+/* 6 rols */
+.pr-roles{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--pr-gap);flex:1;min-height:0}
+.pr-rol{perspective:1200px;border:0;background:none;padding:0;min-height:clamp(220px,34vh,420px)}
+.pr-rol .in{display:block;position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.pr-rol[aria-pressed="true"] .in{transform:rotateY(180deg)}
+.pr-rol .f,.pr-rol .b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:18px;border:2px solid var(--vidre-vora);box-shadow:var(--brill-vora),var(--ombra-8)}
+.pr-rol .f{background:var(--vidre-3)}
+.pr-rol .b{background:var(--faig-pastel);transform:rotateY(180deg);text-align:center}
+.pr-rol svg{width:clamp(72px,8vw,170px);height:auto;fill:none;stroke:var(--faig);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pr-rol h3{font:700 clamp(28px,2.8vw,60px)/1 var(--font-display)}
+.pr-rol .b p{font:600 var(--pr-fs)/1.25 var(--font-text);color:var(--tinta)}
+.pr-rol .tap{font:600 clamp(15px,1vw,20px)/1 var(--font-text);color:var(--tinta-tenue)}
+.pr-ribbon{padding:14px 22px;border-radius:22px;background:var(--vidre-3);border:1px solid var(--vidre-vora);font:700 clamp(22px,2vw,44px)/1.15 var(--font-display)}
+
+/* 7 cronòmetre */
+.pr-timer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:var(--pr-gap);flex:1;min-height:0;align-items:center}
+.pr-ring{position:relative;display:grid;place-items:center;min-height:0}
+.pr-ring svg{width:auto;max-width:100%;height:36dvh}
+.pr-ring .time{position:absolute;font:700 clamp(44px,5vw,120px)/1 var(--font-display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.pr-ring .fg{transition:stroke-dashoffset .4s linear}
+.pr-timer.warn .fg{stroke:var(--amb)}
+.pr-timer.end .pr-ring{animation:pr-pulse .8s ease-in-out 6}
+@keyframes pr-pulse{50%{transform:scale(1.06)}}
+.pr-steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.pr-steps button{width:100%;min-height:64px;display:grid;grid-template-columns:44px 1fr 36px;gap:14px;align-items:center;text-align:left;border-radius:20px;border:1px solid var(--vidre-vora);background:var(--vidre-3);box-shadow:var(--ombra-2);padding:8px 16px;font:600 var(--pr-fs)/1.1 var(--font-text)}
+.pr-steps .nu{width:44px;height:44px;border-radius:14px;background:var(--faig-pastel);display:grid;place-items:center;font:700 22px/1 var(--font-display)}
+.pr-steps .ck{width:34px;height:34px;border-radius:50%;border:2px solid var(--linia-buida);display:grid;place-items:center}
+.pr-steps .ck svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.pr-steps button[aria-pressed="true"]{background:var(--faig-pastel)}
+.pr-steps button[aria-pressed="true"] .ck{background:var(--faig);border-color:var(--faig)}
+.pr-steps button[aria-pressed="true"] .ck svg{opacity:1}
+.pr-steps button[aria-pressed="true"] span:nth-child(2){text-decoration:line-through;text-decoration-thickness:2px}
+
+/* 8 resultats */
+.pr-reveal{display:flex;gap:var(--pr-gap);align-items:center;flex-wrap:wrap}
+.pr-pcard{min-width:clamp(220px,20vw,400px);min-height:84px;border-radius:24px;border:3px dashed var(--faig);background:var(--vidre-2);font:700 clamp(26px,2.4vw,52px)/1.1 var(--font-display);padding:14px 22px;text-align:center;color:var(--tinta)}
+.pr-pcard.shown{border-style:solid;background:var(--faig-pastel)}
+.pr-res{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--pr-gap);flex:1;min-height:0}
+.pr-col{display:grid;grid-template-rows:minmax(0,1fr) auto;gap:10px;min-height:0;background:var(--vidre-2);border:1px solid var(--vidre-vora);border-radius:28px;padding:clamp(10px,1.2vw,22px)}
+.pr-col .plot{position:relative;display:flex;align-items:flex-end;justify-content:center;min-height:90px;border-bottom:4px solid var(--tinta-suau)}
+.pr-col .bar{width:55%;height:0;background:linear-gradient(0deg,var(--faig),#4cb5c0);border-radius:14px 14px 0 0;transition:height .5s}
+.pr-col .bar.win{background:linear-gradient(0deg,var(--amb),#e88f6c)}
+.pr-col .val{position:absolute;top:0;left:0;right:0;text-align:center;font:700 clamp(28px,3vw,64px)/1 var(--font-display)}
+.pr-col h3{text-align:center;font:700 clamp(24px,2.2vw,48px)/1 var(--font-display)}
+.pr-col .ctl{margin-top:8px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.pr-col .ctl button{min-width:64px;min-height:64px;border-radius:20px;border:1px solid var(--vidre-vora);background:var(--vidre-3);box-shadow:var(--ombra-8);font:700 clamp(20px,1.6vw,34px)/1 var(--font-display)}
+.pr-col .ctl button.p{background:var(--vidre-fosc);color:#fff}
+.pr-verdict{display:none;padding:14px 22px;border-radius:22px;background:var(--faig-pastel);border:1px solid #fff;font:700 clamp(24px,2.2vw,48px)/1.15 var(--font-display)}
+.pr-verdict.on{display:block}
+
+/* 9 sortida */
+.pr-ans{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--pr-gap)}
+.pr-ans button{min-height:clamp(120px,16vh,220px);border-radius:28px;border:2px solid var(--vidre-vora);background:var(--vidre-2);box-shadow:var(--brill-vora),var(--ombra-8);padding:clamp(14px,1.4vw,28px);text-align:left;font:700 clamp(24px,2.2vw,48px)/1.1 var(--font-display);display:flex;flex-direction:column;gap:8px}
+.pr-ans button small{display:none;font:500 var(--pr-fs)/1.25 var(--font-text);color:var(--tinta)}
+.pr-ans button[data-s="ok"]{border-color:var(--faig);background:var(--faig-pastel)}
+.pr-ans button[data-s="ok"] small{display:block}
+.pr-ans button[data-s="no"]{opacity:.7}
+.pr-ans button[data-s="no"] small{display:block}
+.pr-next{padding:16px 22px;border-radius:22px;background:var(--vidre-3);border:1px solid var(--vidre-vora);display:flex;gap:14px;align-items:center;font:700 clamp(22px,2vw,44px)/1.15 var(--font-display)}
+.pr-next svg{width:1.6em;height:1.6em;flex:none;fill:none;stroke:var(--faig);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* pantalla petita: una diapositiva sota l'altra */
+@media (max-width:760px){
+  html,body{height:auto}
+  .pr-deck{display:block;height:auto;padding:0 16px 24px}
+  .pr-nav,.pr-count{display:none}
+  .pr-bar{position:sticky;top:0;z-index:5;padding:8px 0}
+  .pr-stage{display:block}
+  .pr-slide,.pr-slide.on{display:flex;margin-bottom:18px;animation:none;overflow:visible;padding:20px 16px}
+  .pr-grow,.pr-sinia,.pr-vote,.pr-buckets,.pr-roles,.pr-timer,.pr-res,.pr-cover-wrap{flex:none}
+  .pr-cover-wrap{grid-template-columns:1fr}
+  .pr-scheme{grid-template-columns:1fr}
+  .pr-options,.pr-ans,.pr-buckets,.pr-res{grid-template-columns:1fr}
+  .pr-roles{grid-template-columns:1fr 1fr}
+  .pr-sinia,.pr-timer{grid-template-columns:1fr}
+  .pr-scene{height:62vw;min-height:230px}
+  .pr-vote{grid-template-columns:1fr 1fr}
+  .pr-vc svg{max-height:150px}
+  .pr-rol{min-height:200px}
+  .pr-col .plot{min-height:150px}
+  .pr-side{min-width:0}
+}
+</style></head>
+<body style="--cc:var(--faig);--ct:var(--faig-pastel)">
+<div class="pr-deck" id="deck">
+  <div class="pr-bar">
+    <a class="pr-exit" href="faig-sinia.html"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Surt</a>
+    <span class="pr-count" id="count" aria-live="polite">1 / 9</span>
+  </div>
+
+  <div class="pr-stage" id="stage">
+
+    <!-- 1 -->
+    <section class="tv-glass pr-slide pr-cover on" aria-label="Portada">
+      <div class="pr-cover-wrap">
+        <div>
+          <span class="pr-k"><i></i>Repte · Mitjans</span>
+          <h1 class="pr-t" style="margin-top:14px">Una sínia que pugi aigua</h1>
+          <p class="pr-p">Avui descobrirem com pujava l'aigua abans de les bombes. I la farem pujar nosaltres!</p>
+          <button class="tv-btn main pr-btn big" data-go="next">Comencem<svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+        <svg viewBox="-180 -180 360 360" role="img" aria-label="Una roda amb cassoletes que gira" id="cover-wheel"></svg>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="tv-glass pr-slide" aria-label="El problema">
+      <span class="pr-k"><i></i>El problema</span>
+      <h2 class="pr-t">Fa molt de temps no hi havia aixeta.</h2>
+      <p class="pr-p">L'aigua era al pou. L'hort era a dalt. Com pujava l'aigua? Toca una idea.</p>
+      <div class="pr-scheme">
+        <div class="pr-node"><svg viewBox="0 0 64 64"><ellipse cx="32" cy="18" rx="24" ry="8"/><path d="M8 18v30a24 8 0 0 0 48 0V18"/><path d="M16 44c6 3 26 3 32 0" stroke-dasharray="3 4"/></svg>El pou</div>
+        <div class="pr-mid" id="pr-mid" aria-live="polite">?</div>
+        <div class="pr-node"><svg viewBox="0 0 64 64"><path d="M4 56h56"/><path d="M16 56V30M16 38c-8 0-11-8-11-13 7 0 11 5 11 13zM16 34c0-9 7-13 14-13 0 7-5 13-14 13"/><path d="M46 56V24M46 34c-8 0-11-8-11-13 7 0 11 5 11 13zM46 29c0-9 7-13 14-13 0 7-5 13-14 13"/></svg>L'hort</div>
+      </div>
+      <div class="pr-options" id="pr-opts">
+        <button class="pr-opt" aria-pressed="false" data-o="poal">Amb poals<small>Sí! Però cansa molt i triga.</small></button>
+        <button class="pr-opt star" aria-pressed="false" data-o="sinia">Amb una roda de cassoletes<small>Aquesta és la sínia!</small></button>
+        <button class="pr-opt" aria-pressed="false" data-o="animal">Amb un animal que gira<small>Sí! Un animal feia girar la roda.</small></button>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="tv-glass pr-slide" aria-label="La sínia gira">
+      <span class="pr-k"><i></i>Una sínia</span>
+      <h2 class="pr-t">Fes-la girar!</h2>
+      <div class="pr-sinia">
+        <div class="pr-scene"><svg id="sn" viewBox="0 0 900 640" role="img" aria-label="Sínia: una roda amb cassoletes que treuen aigua de la bassa i la aboquen a un canal"></svg>
+          <span class="pr-hint">Arrossega la roda cap a la dreta</span></div>
+        <div class="pr-side">
+          <div class="pr-stat"><small>Voltes</small><span id="sn-v">0</span></div>
+          <div class="pr-seg" id="sn-n" role="group" aria-label="Cassoletes"><button aria-pressed="false" data-n="4">4</button><button aria-pressed="false" data-n="6">6</button><button aria-pressed="true" data-n="8">8</button></div>
+          <button class="tv-btn main pr-btn" id="sn-auto" aria-pressed="false"><svg class="ico" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v4h-4"/></svg><span>Gira sola</span></button>
+          <button class="tv-btn pr-btn" id="sn-clear">Buida el got</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="tv-glass pr-slide" aria-label="Què creus que passarà">
+      <span class="pr-k"><i></i>Què creus que passarà?</span>
+      <h2 class="pr-t">Amb quantes cassoletes pujarà més aigua?</h2>
+      <div class="pr-vote" id="pr-vote"></div>
+      <div class="pr-row">
+        <button class="tv-btn main pr-btn" id="pr-close"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tanquem la votació</button>
+        <button class="tv-btn pr-btn" id="pr-reset">Torna a votar</button>
+        <span class="pr-p" id="pr-tot">Mans alçades: 0</span>
+      </div>
+      <div class="pr-voted" id="pr-voted" role="status"></div>
+    </section>
+
+    <!-- 5 -->
+    <section class="tv-glass pr-slide" aria-label="La prova justa">
+      <span class="pr-k"><i></i>La prova justa</span>
+      <h2 class="pr-t">Toca una targeta i digues on va.</h2>
+      <div class="pr-tiles" id="pr-tiles"></div>
+      <div class="pr-buckets" id="pr-bks">
+        <button class="pr-bk" data-b="canviem"><h3><svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></svg>Què canviem?</h3><span class="hint">Una sola cosa</span></button>
+        <button class="pr-bk" data-b="mirem"><h3><svg viewBox="0 0 24 24"><path d="M6 3h12l-1.5 18h-9z"/><path d="M7 11h10"/></svg>Què mirem?</h3><span class="hint">El que descobrim</span></button>
+        <button class="pr-bk" data-b="igual"><h3><svg viewBox="0 0 24 24"><path d="M5 9h14M5 15h14"/></svg>Què deixem igual?</h3><span class="hint">Tota la resta</span></button>
+      </div>
+      <div class="pr-done" id="pr-done" role="status">Una prova justa canvia una sola cosa. Tota la resta, igual!</div>
+    </section>
+
+    <!-- 6 -->
+    <section class="tv-glass pr-slide" aria-label="Rols del grup">
+      <span class="pr-k"><i></i>El grup</span>
+      <h2 class="pr-t">Qui fa què? Toca una targeta.</h2>
+      <div class="pr-roles">
+        <button class="pr-rol" aria-pressed="false"><span class="in"><span class="f"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg><h3>Aigua</h3><span class="tap">Toca</span></span><span class="b"><h3>Aigua</h3><p>Omple la bassa fins a la marca. Buida el got.</p></span></span></button>
+        <button class="pr-rol" aria-pressed="false"><span class="in"><span class="f"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v4h-4"/></svg><h3>Maneta</h3><span class="tap">Toca</span></span><span class="b"><h3>Maneta</h3><p>Gira a poc a poc. Sempre igual.</p></span></span></button>
+        <button class="pr-rol" aria-pressed="false"><span class="in"><span class="f"><svg viewBox="0 0 24 24"><path d="M9 4 7 20M17 4l-2 16M4 9h17M3 15h17"/></svg><h3>Compta</h3><span class="tap">Toca</span></span><span class="b"><h3>Compta</h3><p>Compta les voltes en veu alta. Fins a 10.</p></span></span></button>
+        <button class="pr-rol" aria-pressed="false"><span class="in"><span class="f"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg><h3>Apunta</h3><span class="tap">Toca</span></span><span class="b"><h3>Apunta</h3><p>Mira el got i escriu els ml a la fitxa.</p></span></span></button>
+      </div>
+      <div class="pr-ribbon">A cada prova, canvieu de rol.</div>
+    </section>
+
+    <!-- 7 -->
+    <section class="tv-glass pr-slide" aria-label="Muntatge" id="s-timer">
+      <span class="pr-k"><i></i>A muntar!</span>
+      <h2 class="pr-t">Teniu temps. Mireu el rellotge.</h2>
+      <div class="pr-timer" id="pr-timer">
+        <div>
+          <div class="pr-ring">
+            <svg viewBox="0 0 240 240" aria-hidden="true"><circle cx="120" cy="120" r="108" fill="none" stroke="rgba(86,77,98,.18)" stroke-width="16"/><circle class="fg" id="pr-fg" cx="120" cy="120" r="108" fill="none" stroke="#0E7782" stroke-width="16" stroke-linecap="round" transform="rotate(-90 120 120)" stroke-dasharray="678.58" stroke-dashoffset="0"/></svg>
+            <div class="time" id="pr-time" role="timer">20:00</div>
+          </div>
+          <div class="pr-row" style="justify-content:center;margin-top:12px">
+            <button class="tv-btn main pr-btn" id="pr-go"><svg class="ico" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg><span>Comença</span></button>
+            <button class="tv-btn pr-btn" id="pr-rst">De nou</button>
+          </div>
+          <div class="pr-seg" id="pr-min" role="group" aria-label="Minuts" style="margin-top:12px"><button aria-pressed="false" data-m="15">15</button><button aria-pressed="true" data-m="20">20</button><button aria-pressed="false" data-m="25">25</button><button aria-pressed="false" data-m="30">30</button></div>
+        </div>
+        <ul class="pr-steps" id="pr-steps">
+          <li><button aria-pressed="false"><span class="nu">1</span><span>Peces fora i llimades</span><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span></button></li>
+          <li><button aria-pressed="false"><span class="nu">2</span><span>Suports, eix i roda</span><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span></button></li>
+          <li><button aria-pressed="false"><span class="nu">3</span><span>Cassoletes i maneta</span><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span></button></li>
+          <li><button aria-pressed="false"><span class="nu">4</span><span>El canal</span><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span></button></li>
+          <li><button aria-pressed="false"><span class="nu">5</span><span>Aigua i got: a provar!</span><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span></button></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="tv-glass pr-slide" aria-label="Resultats">
+      <span class="pr-k"><i></i>Ho comprovem</span>
+      <h2 class="pr-t">Quanta aigua ha pujat?</h2>
+      <div class="pr-reveal">
+        <span class="pr-p" style="max-width:none">Vam dir:</span>
+        <button class="pr-pcard" id="pr-pcard" aria-live="polite">Toca per descobrir-ho</button>
+      </div>
+      <div class="pr-res" id="pr-res"></div>
+      <div class="pr-verdict" id="pr-verdict" role="status"></div>
+    </section>
+
+    <!-- 9 -->
+    <section class="tv-glass pr-slide" aria-label="Pregunta de sortida">
+      <span class="pr-k"><i></i>Abans de marxar</span>
+      <h2 class="pr-t">Volem saber si més cassoletes pugen més aigua. Què hem de fer?</h2>
+      <div class="pr-ans" id="pr-ans">
+        <button data-a="no">Canviar-ho tot a la vegada<small>Així no sabríem què ho ha provocat.</small></button>
+        <button data-a="ok">Canviar només les cassoletes<small>Exacte! Una sola cosa canvia. Tota la resta, igual.</small></button>
+        <button data-a="no">Triar la sínia més maca<small>Això no ens diu res de l'aigua.</small></button>
+      </div>
+      <div class="pr-next"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>Dijous: d'on ve l'aigua de l'aixeta de la nostra escola?</div>
+    </section>
+  </div>
+
+  <nav class="tv-glass pr-nav" aria-label="Diapositives">
+    <button class="tv-btn pr-btn" id="prev" aria-label="Diapositiva anterior"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span>Enrere</span></button>
+    <div class="pr-dots" id="dots"></div>
+    <button class="tv-btn pr-btn" id="fs" aria-label="Pantalla completa" aria-pressed="false"><svg class="ico" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    <button class="tv-btn main pr-btn" id="next" aria-label="Diapositiva següent"><span>Endavant</span><svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </nav>
+</div>
+
+<script>
+(function(){
+'use strict';
+var NS='http://www.w3.org/2000/svg';
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+var S={pred:null,votes:{'4':0,'6':0,'8':0,'=':0},closed:false};
+
+/* ---------- navegació ---------- */
+var slides=$$('.pr-slide'),cur=0,seen={0:1};
+var dots=$('#dots');
+slides.forEach(function(_,i){var b=document.createElement('button');b.innerHTML='<i></i>';b.setAttribute('aria-label','Diapositiva '+(i+1));b.addEventListener('click',function(){go(i)});dots.appendChild(b)});
+function go(i){
+  i=Math.max(0,Math.min(slides.length-1,i));cur=i;seen[i]=1;
+  slides.forEach(function(s,k){s.classList.toggle('on',k===i)});
+  $$('button',dots).forEach(function(b,k){b.setAttribute('aria-current',k===i?'true':'false');b.classList.toggle('seen',!!seen[k]&&k!==i)});
+  $('#count').textContent=(i+1)+' / '+slides.length;
+  $('#prev').disabled=i===0;$('#next').disabled=i===slides.length-1;
+  $('#prev').style.opacity=i===0?.4:1;$('#next').style.opacity=i===slides.length-1?.4:1;
+  try{history.replaceState(null,'','#'+(i+1))}catch(e){}
+  if(i===7)buildResults();
+  if(i===2)wake();
+}
+$('#prev').addEventListener('click',function(){go(cur-1)});
+$('#next').addEventListener('click',function(){go(cur+1)});
+$$('[data-go=next]').forEach(function(b){b.addEventListener('click',function(){go(cur+1)})});
+document.addEventListener('keydown',function(e){
+  if(/INPUT|TEXTAREA|SELECT/.test((e.target||{}).tagName||''))return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'){go(cur+1);e.preventDefault()}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){go(cur-1);e.preventDefault()}
+  else if(e.key==='Home')go(0);else if(e.key==='End')go(slides.length-1);
+});
+var fs=$('#fs');
+fs.addEventListener('click',function(){
+  try{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen()}catch(e){}
+});
+document.addEventListener('fullscreenchange',function(){fs.setAttribute('aria-pressed',String(!!document.fullscreenElement))});
+if(!document.documentElement.requestFullscreen)fs.style.display='none';
+
+/* ---------- roda (esquema propi) ---------- */
+function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function wheelMarkup(n,R){
+  var k=R/200*1.5,s='';
+  s+='<circle r="'+R+'" fill="none" stroke="#9C6B3C" stroke-width="'+(8*R/200+2)+'"/>';
+  s+='<circle r="'+(R*.86)+'" fill="none" stroke="#9C6B3C" stroke-width="3" opacity=".5"/>';
+  for(var i=0;i<8;i++)s+='<line x1="0" y1="0" x2="0" y2="'+(-R)+'" transform="rotate('+(i*45)+')" stroke="#9C6B3C" stroke-width="'+(4*R/200+1)+'" stroke-linecap="round" opacity=".75"/>';
+  s+='<circle r="'+(R*.08)+'" fill="#9C6B3C"/>';
+  for(var j=0;j<n;j++){
+    var a=j*360/n;
+    s+='<g class="cup" transform="rotate('+a+') translate(0 '+(-R)+') scale('+k+')"><rect class="w" x="-14" y="-11" width="14" height="22" rx="3" fill="#2E9FB3" style="display:none"/><path d="M14 -13H-8Q-15 -13 -15 -6V6Q-15 13 -8 13H14" fill="rgba(255,255,255,.55)" stroke="#0E7782" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></g>';
+  }
+  return s;
+}
+function staticWheel(svg,n,spin){
+  svg.innerHTML='<g class="'+(spin?'pr-spin':'')+'">'+wheelMarkup(n,spin?130:130)+'</g>';
+}
+/* portada */
+(function(){var c=$('#cover-wheel');c.innerHTML='<g><path d="M-170 100 Q-85 90 0 100 T170 100 V170 H-170Z" fill="#C4ECF1"/></g><g class="pr-spin">'+wheelMarkup(8,130)+'</g>'})();
+
+/* ---------- 2 problema ---------- */
+(function(){
+  var mid=$('#pr-mid');
+  $('#pr-opts').addEventListener('click',function(e){
+    var b=e.target.closest('.pr-opt');if(!b)return;
+    var on=b.getAttribute('aria-pressed')!=='true';
+    b.setAttribute('aria-pressed',String(on));
+    if(b.dataset.o==='sinia'&&on){mid.classList.add('ok');mid.innerHTML='<svg viewBox="-100 -100 200 200" style="width:clamp(80px,9vw,200px)">'+wheelMarkup(6,80)+'</svg>La sínia'}
+    else if(b.dataset.o==='sinia'){mid.classList.remove('ok');mid.textContent='?'}
+  });
+})();
+
+/* ---------- 3 la sínia ---------- */
+var sn=$('#sn'),CX=380,CY=330,R=200;
+var snState={n:8,th:0,vel:0,auto:false,full:[],level:0,drops:[],drag:null,run:false,last:0,voltes:0};
+var wg,dropG,glassW,waterShape;
+function snBuild(){
+  sn.innerHTML='';
+  /* suport */
+  el('path',{d:'M'+(CX-140)+' 612 L'+CX+' '+CY+' L'+(CX+140)+' 612',fill:'none',stroke:'#9C6B3C','stroke-width':14,'stroke-linecap':'round','stroke-linejoin':'round'},sn);
+  /* canal */
+  el('path',{d:'M330 150 L730 180',stroke:'#9C6B3C','stroke-width':16,'stroke-linecap':'round'},sn);
+  el('path',{d:'M330 142 L730 172',stroke:'#C4ECF1','stroke-width':6,'stroke-linecap':'round'},sn);
+  /* roda */
+  wg=el('g',{transform:'translate('+CX+' '+CY+') rotate(0)'},sn);
+  wg.innerHTML=wheelMarkup(snState.n,R);
+  /* bassa */
+  el('rect',{x:110,y:488,width:540,height:140,rx:20,fill:'rgba(14,119,130,.28)',stroke:'#0E7782','stroke-opacity':.5,'stroke-width':3},sn);
+  el('path',{d:'M110 488 Q180 478 250 488 T390 488 T530 488 T650 488',fill:'none',stroke:'#0E7782','stroke-width':3,'stroke-opacity':.6},sn);
+  /* got */
+  el('path',{d:'M700 372 L820 372 L808 568 L712 568 Z',fill:'rgba(255,255,255,.7)',stroke:'#564D62','stroke-width':4,'stroke-linejoin':'round'},sn);
+  waterShape=el('rect',{x:714,y:568,width:92,height:0,fill:'#2E9FB3',opacity:.7},sn);
+  for(var i=1;i<5;i++)el('line',{x1:808-i*2.5,x2:822-i*2.5,y1:568-i*39,y2:568-i*39,stroke:'#564D62','stroke-width':3},sn);
+  dropG=el('g',{},sn);
+  snState.full=[];for(var j=0;j<snState.n;j++)snState.full.push(false);
+  snState.cupEls=$$('.cup',wg);
+  snDraw();
+}
+function norm(a){a=a%360;return a<0?a+360:a}
+function snDraw(){
+  wg.setAttribute('transform','translate('+CX+' '+CY+') rotate('+snState.th+')');
+  var n=snState.n;
+  snState.cupEls.forEach(function(c,i){
+    var ph=norm(snState.th+i*360/n),w=$('.w',c);
+    w.style.display=(snState.full[i]&&ph>=150&&ph<=342)?'block':'none';
+  });
+  $('#sn-v').textContent=Math.floor(snState.th/360);
+  waterShape.setAttribute('height',snState.level/400*190);
+  waterShape.setAttribute('y',568-snState.level/400*190);
+}
+function chuteY(x){return 150+(x-330)*(30/400)}
+function snSpill(ph){
+  var a=ph*Math.PI/180,x=CX+R*Math.sin(a),y=CY-R*Math.cos(a);
+  for(var k=0;k<8;k++){
+    var d=el('circle',{r:6,fill:'#2E9FB3'},dropG);
+    snState.drops.push({e:d,x:x+k*2,y:y-4,vx:30+Math.random()*90,vy:-20,ph:0});
+  }
+}
+function snAdvance(d){
+  while(d>0){
+    var s=Math.min(d,6);snState.th+=s;d-=s;
+    for(var i=0;i<snState.n;i++){
+      var ph=norm(snState.th+i*360/snState.n);
+      if(ph>=150&&ph<=205)snState.full[i]=true;
+      if(snState.full[i]&&(ph>=340||ph<15)){snState.full[i]=false;snSpill(ph>=340?ph:360+ph);}
+    }
+  }
+}
+function snStepDrops(dt){
+  var D=snState.drops;
+  for(var i=D.length-1;i>=0;i--){
+    var p=D[i],gone=false;
+    if(p.ph===0){
+      p.vy+=1500*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;
+      if(p.x>=330&&p.x<=730&&p.y>=chuteY(p.x)-10&&p.vy>0){p.ph=1;p.y=chuteY(p.x)-10}
+      if(p.y>700)gone=true;
+    }else if(p.ph===1){
+      p.x+=300*dt;p.y=chuteY(Math.min(p.x,730))-10;
+      if(p.x>=730){p.ph=2;p.vx=40;p.vy=0}
+    }else{
+      p.vy+=1500*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;
+      var top=568-snState.level/400*190;
+      if(p.y>=top&&p.x>716&&p.x<806){snState.level=Math.min(400,snState.level+4);gone=true}
+      else if(p.y>620)gone=true;
+    }
+    if(gone){dropG.removeChild(p.e);D.splice(i,1)}else{p.e.setAttribute('cx',p.x);p.e.setAttribute('cy',p.y)}
+  }
+}
+function snFrame(t){
+  var dt=Math.min(.05,(t-snState.last)/1000);snState.last=t;
+  if(snState.auto)snAdvance(70*dt);
+  else if(!snState.drag&&Math.abs(snState.vel)>1){snAdvance(Math.max(0,snState.vel*dt));snState.vel*=Math.pow(.05,dt)}
+  snStepDrops(dt);snDraw();
+  var alive=snState.auto||snState.drag||Math.abs(snState.vel)>1||snState.drops.length;
+  if(alive&&cur===2)requestAnimationFrame(snFrame);else snState.run=false;
+}
+function wake(){if(!snState.run&&cur===2){snState.run=true;snState.last=performance.now();requestAnimationFrame(snFrame)}}
+function svgPt(e){var pt=sn.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;return pt.matrixTransform(sn.getScreenCTM().inverse())}
+function ang(e){var p=svgPt(e);return Math.atan2(p.x-CX,-(p.y-CY))*180/Math.PI}
+sn.addEventListener('pointerdown',function(e){
+  var p=svgPt(e),dist=Math.hypot(p.x-CX,p.y-CY);
+  if(dist>R+60||dist<20)return;
+  sn.setPointerCapture(e.pointerId);
+  snState.drag={a:ang(e),t:performance.now()};snState.vel=0;wake();
+  var h=$('.pr-hint');if(h)h.style.display='none';
+});
+sn.addEventListener('pointermove',function(e){
+  var d=snState.drag;if(!d)return;
+  var a=ang(e),delta=a-d.a;if(delta>180)delta-=360;if(delta<-180)delta+=360;
+  var now=performance.now(),dt=Math.max(1,now-d.t);
+  if(delta>0){snAdvance(delta);snState.vel=delta/dt*1000}
+  d.a=a;d.t=now;
+});
+function snEnd(){snState.drag=null;wake()}
+sn.addEventListener('pointerup',snEnd);sn.addEventListener('pointercancel',snEnd);
+$('#sn-auto').addEventListener('click',function(){
+  snState.auto=!snState.auto;this.setAttribute('aria-pressed',String(snState.auto));
+  $('span',this).textContent=snState.auto?'Atura':'Gira sola';wake();
+});
+$('#sn-clear').addEventListener('click',function(){snState.level=0;snDraw()});
+$('#sn-n').addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;
+  snState.n=+b.dataset.n;$$('#sn-n button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});
+  snState.drops=[];snBuild();wake();
+});
+snBuild();
+
+/* ---------- 4 votació ---------- */
+var vote=$('#pr-vote');
+var opts=[['4','4 cassoletes'],['6','6 cassoletes'],['8','8 cassoletes'],['=','Totes igual']];
+opts.forEach(function(o){
+  var c=document.createElement('div');c.className='pr-vc';c.dataset.k=o[0];
+  c.innerHTML='<h3>'+o[1]+'</h3><svg viewBox="-175 -175 350 350" aria-hidden="true">'+(o[0]==='='?'<g opacity=".9">'+wheelMarkup(4,60).replace(/^/,'<g transform="translate(-95 0)">')+'</g><g transform="translate(95 0)">'+wheelMarkup(8,60)+'</g></g>':wheelMarkup(+o[0],140))+'</svg><div class="n" aria-live="polite">0</div><div class="pm"><button aria-label="Treu una mà">−</button><button class="plus" aria-label="Afegeix una mà alçada">+</button></div>';
+  vote.appendChild(c);
+});
+function voteDraw(){
+  var tot=0,max=0;
+  for(var k in S.votes){tot+=S.votes[k];max=Math.max(max,S.votes[k])}
+  $$('.pr-vc',vote).forEach(function(c){var v=S.votes[c.dataset.k];$('.n',c).textContent=v;c.classList.toggle('lead',max>0&&v===max)});
+  $('#pr-tot').textContent='Mans alçades: '+tot;
+}
+vote.addEventListener('click',function(e){
+  if(S.closed)return;
+  var b=e.target.closest('.pm button'),c=e.target.closest('.pr-vc');if(!b||!c)return;
+  var k=c.dataset.k;S.votes[k]=Math.max(0,S.votes[k]+(b.classList.contains('plus')?1:-1));voteDraw();
+});
+function predLabel(k){return k==='='?'Totes igual':k+' cassoletes'}
+$('#pr-close').addEventListener('click',function(){
+  var max=0,lead=[];for(var k in S.votes)max=Math.max(max,S.votes[k]);
+  if(!max)return;
+  for(var k2 in S.votes)if(S.votes[k2]===max)lead.push(k2);
+  S.closed=true;S.pred=lead.length===1?lead[0]:lead.join(' i ');
+  var v=$('#pr-voted');v.classList.add('on');
+  v.textContent=lead.length===1?'Hem predit: '+predLabel(lead[0])+'. Ho comprovarem!':'Empat entre '+lead.map(predLabel).join(' i ')+'. Ho comprovarem!';
+  S.predText=lead.length===1?predLabel(lead[0]):lead.map(predLabel).join(' o ');
+});
+$('#pr-reset').addEventListener('click',function(){
+  S.closed=false;S.pred=null;S.predText=null;for(var k in S.votes)S.votes[k]=0;
+  $('#pr-voted').classList.remove('on');voteDraw();
+});
+voteDraw();
+
+/* ---------- 5 prova justa ---------- */
+(function(){
+  var items=[['El nombre de cassoletes','canviem'],['Els ml d\'aigua del got','mirem'],['L\'aigua de la bassa','igual'],['Les voltes: 10','igual'],['La velocitat de la maneta','igual'],['El mateix got','igual']];
+  var tiles=$('#pr-tiles'),sel=null,done=0;
+  items.forEach(function(it,i){var b=document.createElement('button');b.className='pr-tile';b.setAttribute('aria-pressed','false');b.textContent=it[0];b.dataset.i=i;tiles.appendChild(b)});
+  tiles.addEventListener('click',function(e){
+    var b=e.target.closest('.pr-tile');if(!b)return;
+    $$('.pr-tile',tiles).forEach(function(x){x.setAttribute('aria-pressed',String(x===b&&sel!==b))});
+    sel=sel===b?null:b;
+  });
+  $('#pr-bks').addEventListener('click',function(e){
+    var bk=e.target.closest('.pr-bk');if(!bk||!sel)return;
+    var it=items[+sel.dataset.i];
+    if(it[1]===bk.dataset.b){
+      var g=document.createElement('span');g.className='got';g.textContent=it[0];
+      $('.hint',bk)&&($('.hint',bk).style.display='none');bk.appendChild(g);
+      sel.remove();sel=null;done++;
+      if(done===items.length)$('#pr-done').classList.add('on');
+    }else{
+      sel.classList.remove('shake');void sel.offsetWidth;sel.classList.add('shake');
+    }
+  });
+})();
+
+/* ---------- 6 rols ---------- */
+$$('.pr-rol').forEach(function(b){b.addEventListener('click',function(){b.setAttribute('aria-pressed',String(b.getAttribute('aria-pressed')!=='true'))})});
+
+/* ---------- 7 cronòmetre ---------- */
+(function(){
+  var C=678.58,total=20*60,left=total,run=false,t0=0,base=0,raf=0;
+  var time=$('#pr-time'),fg=$('#pr-fg'),box=$('#pr-timer'),go$=$('#pr-go');
+  function fmt(s){s=Math.max(0,Math.ceil(s));var m=Math.floor(s/60),r=s%60;return (m<10?'0':'')+m+':'+(r<10?'0':'')+r}
+  function draw(){
+    time.textContent=fmt(left);fg.setAttribute('stroke-dashoffset',String(C*(1-left/total)));
+    box.classList.toggle('warn',left<=total*.15&&left>0);
+  }
+  function beep(){
+    try{var A=window.AudioContext||window.webkitAudioContext,c=new A();
+      [0,.35,.7].forEach(function(d){var o=c.createOscillator(),g=c.createGain();o.frequency.value=660;o.connect(g);g.connect(c.destination);g.gain.setValueAtTime(.0001,c.currentTime+d);g.gain.exponentialRampToValueAtTime(.25,c.currentTime+d+.02);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+d+.3);o.start(c.currentTime+d);o.stop(c.currentTime+d+.32)});
+    }catch(e){}
+  }
+  function tick(){
+    left=base-(performance.now()-t0)/1000;
+    if(left<=0){left=0;stop();box.classList.add('end');time.textContent='Temps!';fg.setAttribute('stroke-dashoffset',String(C));beep();return}
+    draw();raf=requestAnimationFrame(tick);
+  }
+  function setBtn(){$('span',go$).textContent=run?'Pausa':(left<total&&left>0?'Continua':'Comença');
+    $('path',go$).setAttribute('d',run?'M7 5v14M17 5v14':'M7 4l13 8-13 8z')}
+  function start(){box.classList.remove('end');run=true;base=left;t0=performance.now();setBtn();raf=requestAnimationFrame(tick)}
+  function stop(){run=false;cancelAnimationFrame(raf);setBtn()}
+  go$.addEventListener('click',function(){if(run)stop();else if(left>0)start()});
+  $('#pr-rst').addEventListener('click',function(){stop();left=total;box.classList.remove('end','warn');draw();setBtn()});
+  $('#pr-min').addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    $$('#pr-min button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});
+    stop();total=left=+b.dataset.m*60;box.classList.remove('end','warn');draw();setBtn();
+  });
+  $('#pr-steps').addEventListener('click',function(e){var b=e.target.closest('button');if(b)b.setAttribute('aria-pressed',String(b.getAttribute('aria-pressed')!=='true'))});
+  draw();
+})();
+
+/* ---------- 8 resultats ---------- */
+var ml={'4':0,'6':0,'8':0},resBuilt=false;
+function buildResults(){
+  if(resBuilt){updRes();return}
+  resBuilt=true;
+  var res=$('#pr-res');
+  ['4','6','8'].forEach(function(n){
+    var c=document.createElement('div');c.className='pr-col';c.dataset.n=n;
+    c.innerHTML='<div class="plot"><span class="val">0 ml</span><div class="bar"></div></div><div><h3>'+n+' cassoletes</h3><div class="ctl"><button aria-label="Menys 10 ml" data-d="-10">−10</button><button class="p" aria-label="Més 10 ml" data-d="10">+10</button><button class="p" aria-label="Més 50 ml" data-d="50">+50</button></div></div>';
+    res.appendChild(c);
+  });
+  res.addEventListener('click',function(e){
+    var b=e.target.closest('[data-d]'),c=e.target.closest('.pr-col');if(!b||!c)return;
+    ml[c.dataset.n]=Math.max(0,Math.min(1000,ml[c.dataset.n]+ +b.dataset.d));updRes();
+  });
+  $('#pr-pcard').addEventListener('click',function(){
+    this.classList.add('shown');this.textContent=S.predText||'Encara no havíem votat';
+  });
+  updRes();
+}
+function updRes(){
+  var vals=['4','6','8'].map(function(n){return ml[n]}),max=Math.max.apply(null,vals),all=vals.every(function(v){return v>0});
+  $$('.pr-col',$('#pr-res')).forEach(function(c){
+    var v=ml[c.dataset.n];$('.val',c).textContent=v+' ml';
+    var bar=$('.bar',c);bar.style.height=(max?v/Math.max(max,100)*82:0)+'%';
+    bar.classList.toggle('win',all&&v===max&&vals.filter(function(x){return x===max}).length===1);
+  });
+  var vd=$('#pr-verdict');
+  if(!all){vd.classList.remove('on');return}
+  var min=Math.min.apply(null,vals),winners=['4','6','8'].filter(function(n){return ml[n]===max}),txt;
+  if(max-min<=Math.round(max*.1))txt='Amb totes ha pujat quasi el mateix.';
+  else txt=winners.length===1?'Ha pujat més aigua amb '+winners[0]+' cassoletes.':'Ha pujat més aigua amb '+winners.join(' i ')+' cassoletes.';
+  var hit=null;
+  if(S.pred){
+    var same=(S.pred==='=')?(max-min<=Math.round(max*.1)):(winners.length===1&&winners[0]===S.pred&&max-min>Math.round(max*.1));
+    hit=same;
+  }
+  vd.textContent=txt+(hit===null?'':hit?' Ho havíem predit!':' No és el que havíem predit. Això també és descobrir! Per què creus que ha passat?');
+  vd.classList.add('on');
+}
+
+/* ---------- 9 sortida ---------- */
+$('#pr-ans').addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;
+  b.dataset.s=b.dataset.a;
+});
+
+/* inici */
+var h=parseInt((location.hash||'').slice(1),10);
+go(h>=1&&h<=slides.length?h-1:0);
+})();
+</script>
+</body></html>

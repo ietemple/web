@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="ca"><head>
+<meta charset="UTF-8"><meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sessió 4 · El cor per dins (dissecció) — IE Temple</title>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Fira+Sans+Extra+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400;1,700&amp;family=Crimson+Pro:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --purple:       #7B68C8;
+  --purple-ink:   #4a3b8c;
+  --purple-light: #c5b8f0;
+  --purple-tint:  #f0edfb;
+  --ink:          #1A1428;
+  --ink-2:        #3a3050;
+  --muted:        #7a7090;
+  --surface:      #fdfcff;
+  --rule:         #e8e2f6;
+  --rule-dark:    #c8bfe8;
+  --art:     #c0474a; --art-tint:     #fef5f5;
+  --ven:     #6b7ab5; --ven-tint:     #f0f2ff;
+  --orange:  #e8834a; --orange-tint:  #fdf0e8;
+  --teal:    #3a9e8c; --teal-tint:    #e6f4f1;
+  --rose:    #d44a6c; --rose-tint:    #fce8ed;
+  --yellow:  #c8960a; --yellow-tint:  #fdf7e2;
+  --green:   #4a9e5c; --green-tint:   #eaf4ec;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Fira Sans Extra Condensed',sans-serif; background:#e9e6f2; color:var(--ink); font-size:14.5px; line-height:1.5; }
+
+#toolbar { position:fixed; top:0; left:0; right:0; z-index:9000; background:#2d2347; display:flex; gap:6px; align-items:center; padding:6px 12px; box-shadow:0 2px 10px rgba(0,0,0,.25); }
+.tb-btn { font-family:'Inter',sans-serif; font-size:12px; font-weight:600; color:#fff; background:rgba(255,255,255,.12); border:none; cursor:pointer; padding:6px 11px; border-radius:7px; }
+.tb-btn:hover { background:rgba(255,255,255,.24); }
+.tb-btn.active { background:var(--purple); }
+.tb-title { font-family:'Inter',sans-serif; font-size:11px; color:#cfc6ec; margin-left:auto; letter-spacing:.04em; }
+
+.page-wrap { margin:29px auto 24px; }
+#doc { display:none; }
+#sheets { display:flex; flex-direction:column; align-items:center; gap:26px; }
+.sheet { width:794px; min-height:1123px; background:var(--surface); position:relative; box-shadow:0 4px 24px rgba(60,40,110,.16); overflow:visible; padding-bottom:16px; }
+.sheet-body { padding:24px 18px 5px; position:relative; overflow:visible; }
+.sheet-foot { position:absolute; left:0; right:0; bottom:0; height:26px; display:flex; justify-content:space-between; align-items:center; padding:0 22px; font-family:'Inter',sans-serif; font-size:8px; font-weight:600; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; border-top:.5px solid var(--rule); background:var(--surface); }
+.sheet-body > .header-band { margin:-40px -18px 0; }
+.sheet-body > .nivell-strip { margin:0 -18px; }
+.sheet-body > .oa-box { margin-left:0; margin-right:0; }
+.sheet-body > .content { padding:0; }
+.spacer-fill { display:flex; align-items:center; justify-content:center; }
+
+.header-band { background:linear-gradient(135deg,#3a2d6e 0%,#5a4aa0 100%); color:#fff; padding:15px 18px 14px; display:grid; grid-template-columns:54px 1fr auto; gap:0 16px; align-items:center; position:relative; overflow:hidden; }
+.header-emoji-box { width:50px; height:50px; background:rgba(255,255,255,.18); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0; position:relative; z-index:2; }
+.header-center { min-width:0; position:relative; z-index:2; }
+.header-sa { font-family:'Inter',sans-serif; font-size:9px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; opacity:.8; margin-bottom:2px; }
+.header-title { font-family:'Fira Sans Extra Condensed',sans-serif; font-size:30px; font-weight:900; line-height:1.05; color:#fff; margin:0; }
+.header-subtitle { font-family:'Crimson Pro',serif; font-size:13px; font-style:italic; opacity:.88; margin-top:2px; }
+.header-right { display:flex; flex-direction:column; align-items:flex-end; gap:6px; flex-shrink:0; position:relative; z-index:2; }
+.logo-box { background:#fff; border-radius:12px; padding:5px 11px; box-shadow:0 3px 12px rgba(20,10,40,.28); }
+.logo-box img { height:84px; display:block; }
+.header-meta { font-family:'Inter',sans-serif; font-size:8px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; opacity:.82; text-align:right; line-height:1.4; }
+
+.nivell-strip { background:var(--purple-tint); border-bottom:2px solid var(--rule); padding:4px 18px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; position:relative; }
+.badge { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#fff; background:var(--purple); padding:2px 9px; border-radius:9999px; position:relative; }
+.temps-badge { font-size:11px; font-weight:600; color:var(--purple-ink); background:#fff; border:1.5px solid var(--purple-light); padding:2px 8px; border-radius:9999px; position:relative; }
+.nom-field { font-size:13.5px; color:var(--muted); display:flex; align-items:center; gap:4px; position:relative; }
+.nom-field:first-of-type { margin-left:auto; }
+.input-span { display:inline-block; min-width:90px; border-bottom:1.5px solid var(--rule-dark); font-size:13.5px; padding:1px 3px; outline:none; vertical-align:bottom; min-height:16px; }
+.input-span.data-span { min-width:70px; }
+.nivell-badge-small { display:inline-flex; align-items:center; justify-content:center; width:17px; height:17px; border-radius:50%; background:rgba(123,104,200,.12); border:1px solid var(--purple-light); font-size:9px; font-weight:900; color:var(--purple-ink); vertical-align:middle; margin-left:4px; flex-shrink:0; }
+
+.oa-box { background:linear-gradient(135deg,#f0edfb 0%,#e8e2f6 100%); border:1.5px solid var(--purple-light); border-radius:8px; padding:6px 14px 7px; margin:7px 18px 2px; position:relative; }
+.oa-title { font-family:'Fira Sans Extra Condensed',sans-serif; font-size:14.5px; font-weight:900; color:var(--purple-ink); letter-spacing:.03em; margin-bottom:4px; }
+.oa-list { margin:0; padding-left:18px; list-style:none; }
+.oa-list li { font-size:13.5px; line-height:1.5; color:var(--ink-2); margin-bottom:2px; padding-left:4px; }
+.oa-list li::before { content:"\2610 "; color:var(--purple); font-weight:700; margin-left:-18px; margin-right:4px; }
+
+.content { padding:2px 18px 8px; }
+.section { margin-top:7px; position:relative; }
+.section-header { display:flex; align-items:center; gap:10px; margin-bottom:5px; }
+.snum { width:26px; height:26px; border-radius:50%; font-size:14.5px; font-weight:900; color:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.snum.n0 { background:var(--muted); } .snum.n1 { background:var(--orange); } .snum.n2 { background:var(--teal); }
+.snum.n3 { background:var(--art); } .snum.n4 { background:var(--purple-ink); }
+.stitle { font-size:16px; font-weight:900; text-transform:uppercase; letter-spacing:.01em; }
+.sdesc { font-size:11px; color:var(--muted); font-style:italic; font-family:'Crimson Pro',serif; }
+.divider { height:1.5px; background:linear-gradient(to right,var(--rule-dark),transparent); margin-bottom:6px; }
+
+.previ-box { background:var(--purple-tint); border-left:4px solid var(--purple); border-radius:0 8px 8px 0; padding:5px 12px; }
+.previ-box p { font-size:14px; }
+.previ-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:stretch; margin-top:5px; }
+.draw-box { background:#fff; border:1.5px solid var(--purple-light); border-radius:8px; padding:5px 12px; display:flex; flex-direction:column; }
+.draw-box .card-label { color:var(--purple-ink); }
+.draw-area { flex:1 1 auto; min-height:240px; border:1.5px dashed var(--rule-dark); border-radius:8px; background:#fff; margin-top:4px; display:flex; align-items:flex-start; justify-content:flex-end; }
+.draw-area .draw-hint { font-size:9px; color:#c0b8d8; font-style:italic; padding:5px 8px; user-select:none; pointer-events:none; }
+.wline { display:block; width:100%; border-bottom:1.5px solid #C8C2DD; min-height:26px; margin-top:4px; background:#fff; outline:none; padding:2px 4px; }
+.pista { font-size:11px; color:var(--muted); font-style:italic; margin:2px 0 2px; }
+.card { background:#fff; border:1.5px solid var(--rule); border-radius:8px; padding:6px 12px; margin-bottom:5px; }
+.card.orange { border-color:var(--orange); background:var(--orange-tint); }
+.card.teal { border-color:var(--teal); background:var(--teal-tint); }
+.card.rose { border-color:var(--rose); background:var(--rose-tint); }
+.card.yellow { border-color:var(--yellow); background:var(--yellow-tint); }
+.card-label { font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:2px; }
+
+.connexio-box { display:flex; align-items:center; gap:10px; background:#f5f0ff; border:1.5px solid var(--purple-light); border-radius:8px; padding:5px 12px; margin:5px 0; }
+.connexio-icon { font-size:24px; flex-shrink:0; }
+.connexio-text { font-size:13.5px; line-height:1.5; }
+.connexio-text strong { color:var(--purple-ink); }
+
+.word-bank { background:var(--purple-tint); border-radius:8px; padding:4px 10px; margin-bottom:6px; }
+.word-bank-title { font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--purple-ink); margin-bottom:2px; }
+.chips { display:flex; flex-wrap:wrap; gap:4px; }
+.chip { font-size:13.5px; font-weight:600; padding:2px 8px; border-radius:9999px; background:#fff; border:1.5px solid var(--purple-light); color:var(--purple-ink); }
+
+.data-table { width:100%; border-collapse:collapse; font-size:13.5px; }
+.data-table th { background:var(--purple-ink); color:#fff; padding:3px 8px; text-align:left; font-size:11px; letter-spacing:.05em; text-transform:uppercase; }
+.data-table th:first-child { border-radius:5px 0 0 0; }
+.data-table th:last-child { border-radius:0 5px 0 0; }
+.data-table td { padding:3px 8px; border-bottom:1px solid var(--rule); vertical-align:middle; }
+.data-table tr:nth-child(even) td { background:var(--purple-tint); }
+.fill-cell { display:block; width:100%; min-height:22px; border-bottom:1.5px solid #C8C2DD; background:#fff; outline:none; padding:2px 3px; }
+.hint-cell { font-size:11px; color:var(--muted); }
+.yn-opt { font-size:13.5px; display:inline-flex; align-items:center; gap:3px; }
+.chk-sq { width:12px; height:12px; border:1.5px solid var(--rule-dark); border-radius:2px; flex-shrink:0; display:inline-block; print-color-adjust:exact; }
+
+.blank { display:inline-block; border:1px solid var(--rule); border-bottom:1.5px solid #C8C2DD; border-radius:3px 3px 0 0; vertical-align:bottom; margin:0 3px; height:auto; min-height:1.45em; line-height:1.5; padding:0 5px; background:#fff; outline:none; }
+.blank-s { min-width:60px; } .blank-m { min-width:100px; } .blank-l { min-width:140px; } .blank-xl { min-width:200px; }
+.frase-completar { font-size:13.5px; line-height:2.3; margin-bottom:2px; }
+
+.info-box { background:#fff; border:1.5px solid var(--purple-light); border-left:5px solid var(--purple); border-radius:8px; padding:5px 12px; margin:5px 0; position:relative; }
+.info-label { font-size:11px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:var(--purple-ink); margin-bottom:2px; }
+.info-box p { font-size:13.5px; line-height:1.5; margin-bottom:2px; }
+.chain { display:flex; flex-wrap:wrap; gap:4px; align-items:center; margin:4px 0 2px; }
+.chain-chip { font-size:13.5px; font-weight:600; background:var(--purple-tint); border:1.5px solid var(--purple-light); color:var(--purple-ink); border-radius:9999px; padding:2px 9px; }
+.chain-arrow { color:var(--purple); font-weight:900; font-size:14.5px; }
+
+.circ-row { font-size:13.5px; line-height:2.1; margin-bottom:2px; }
+.circ-opt { display:inline-block; border:1.5px dashed var(--rule-dark); border-radius:9999px; padding:0 9px; margin:0 2px; font-weight:600; color:var(--ink-2); background:#fff; }
+
+.epist-box { display:flex; gap:10px; background:var(--yellow-tint); border:1.5px solid var(--yellow); border-radius:8px; padding:5px 12px; margin:5px 0; position:relative; }
+.epist-title { font-size:11px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:var(--yellow); margin-bottom:2px; }
+.epist-text { font-size:13.5px; font-family:'Crimson Pro',serif; line-height:1.5; color:var(--ink-2); }
+
+.meta-oa-box { background:var(--purple-tint); border:1px solid var(--purple-light); border-radius:8px; padding:6px 14px 7px; margin-top:7px; position:relative; }
+.meta-oa-title { font-family:'Fira Sans Extra Condensed',sans-serif; font-size:14px; font-weight:900; color:var(--purple-ink); margin-bottom:5px; }
+.meta-oa-item { display:flex; align-items:flex-start; gap:8px; margin-bottom:3px; }
+.meta-oa-check { width:14px; height:14px; flex-shrink:0; border:1.5px solid var(--purple); border-radius:3px; margin-top:1px; print-color-adjust:exact; }
+.meta-oa-text { font-size:13.5px; color:var(--ink-2); line-height:1.5; }
+.meta-open { margin-top:5px; padding-top:5px; border-top:1px solid var(--rule-dark); }
+.meta-open-label { font-size:11px; font-weight:700; color:var(--muted); margin-bottom:2px; }
+
+.tasca-box { background:var(--purple-tint); border:1.5px solid var(--purple-ink); border-radius:8px; padding:6px 12px; margin-top:6px; position:relative; }
+
+.footer { margin-top:8px; display:flex; justify-content:space-between; align-items:center; border-top:1.5px solid var(--rule); padding-top:4px; }
+.footer-l { font-size:9px; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; }
+.footer-r { font-size:9px; color:var(--purple-ink); font-weight:700; }
+
+.deletable { position:relative; }
+.del-btn { display:none; position:absolute; top:-8px; right:-8px; width:18px; height:18px; background:var(--rose); color:#fff; border-radius:50%; font-size:11px; line-height:18px; text-align:center; cursor:pointer; z-index:50; box-shadow:0 1px 4px rgba(0,0,0,.3); }
+.deletable:hover > .del-btn { display:flex; align-items:center; justify-content:center; }
+.deletable:has(.deletable:hover) > .del-btn { display:none; }
+
+.move-ctrl { display:none; position:absolute; top:-9px; right:14px; z-index:51; gap:2px; }
+.deletable:hover > .move-ctrl { display:flex; }
+.deletable:has(.deletable:hover) > .move-ctrl { display:none; }
+.mv { width:18px; height:18px; background:var(--purple); color:#fff; border-radius:50%; font-size:11px; line-height:18px; text-align:center; cursor:pointer; box-shadow:0 1px 4px rgba(0,0,0,.3); user-select:none; }
+.mv:hover { background:var(--purple-ink); }
+.mv.mv-space { background:var(--green); }
+.mv.mv-space:hover { background:#357a44; }
+
+.wline { position:relative; }
+.wline-del { display:none; position:absolute; top:50%; right:-7px; transform:translateY(-50%); width:16px; height:16px; background:var(--rose); color:#fff; border-radius:50%; font-size:10px; line-height:16px; text-align:center; cursor:pointer; z-index:40; box-shadow:0 1px 3px rgba(0,0,0,.3); user-select:none; }
+.wline:hover > .wline-del { display:block; }
+
+.spacer-block { position:relative; height:48px; margin:2px 0; border-radius:6px; border:1.5px dashed var(--purple-light); background:repeating-linear-gradient(45deg,transparent,transparent 6px,rgba(123,104,200,.05) 6px,rgba(123,104,200,.05) 12px); display:flex; align-items:center; justify-content:center; }
+.spacer-label { font-size:9px; color:var(--purple-light); letter-spacing:.12em; text-transform:uppercase; user-select:none; pointer-events:none; }
+
+.mt8 { margin-top:5px; } .bold { font-weight:700; } .small { font-size:11px; color:var(--muted); }
+
+/* ── Figures de diagrama / fotografia (ancoratge visual) ── */
+.fig-grid { display:grid; gap:10px; margin:5px 0; }
+.fig-grid.g2 { grid-template-columns:1fr 1fr; }
+.dfig { background:#fff; border:1.5px solid var(--rule); border-radius:8px; padding:6px; text-align:center; }
+.dfig img { max-width:100%; max-height:165px; object-fit:contain; display:block; margin:0 auto; }
+.fig-cap { font-size:11px; color:var(--muted); margin-top:2px; line-height:1.5; }
+
+
+.figw { position:relative; display:inline-block; line-height:0; }
+.figw img { display:block; max-width:100%; max-height:340px; object-fit:contain; }
+.fig-mark { position:absolute; transform:translate(-50%,-50%); width:19px; height:19px; border-radius:50%;
+            background:#fff; border:2.2px solid var(--purple-ink); color:var(--purple-ink);
+            font-family:'Inter',sans-serif; font-weight:800; font-size:13.5px; line-height:15px; text-align:center;
+            box-shadow:0 1px 2px rgba(0,0,0,.35); }
+.dfig.tall img { max-height:340px; }
+.fig-legend { font-size:13.5px; line-height:1.9; padding-left:2px; }
+.fig-legend .lg-n { display:inline-block; width:17px; height:17px; border-radius:50%; background:var(--purple-ink);
+            color:#fff; font-family:'Inter',sans-serif; font-weight:800; font-size:11px; line-height:17px;
+            text-align:center; margin-right:6px; }
+.fig-legend li { list-style:none; margin-bottom:2px; }
+.figbox { display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:start; margin:5px 0; }
+.protocol { counter-reset:pas; }
+.protocol li { list-style:none; font-size:13.5px; margin-bottom:3px; padding-left:22px; position:relative; }
+.protocol li::before { counter-increment:pas; content:counter(pas); position:absolute; left:0; top:1px;
+            width:16px; height:16px; border-radius:50%; background:var(--teal); color:#fff;
+            font-family:'Inter',sans-serif; font-weight:700; font-size:11px; line-height:16px; text-align:center; }
+.segur { background:var(--yellow-tint); border:1.5px solid var(--yellow); border-radius:8px; padding:4px 9px; margin-top:4px; }
+.volta-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin:4px 0; }
+.volta-cell { border:1.5px solid var(--rule-dark); border-radius:8px; background:#fff; padding:4px 5px; text-align:center; font-size:13.5px; }
+.volta-num { display:block; width:100%; height:26px; border-bottom:1.5px solid #C8C2DD; margin-bottom:2px; background:#fdfcff; }
+.amp-box { border:2px solid var(--orange); border-left-width:6px; background:var(--orange-tint); border-radius:8px; padding:5px 11px; margin-top:5px; }
+.amp-title { font-family:'Inter',sans-serif; font-size:13.5px; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:#a35a1f; margin-bottom:3px; }
+.dades-taula { width:100%; border-collapse:collapse; font-size:13.5px; margin:4px 0; }
+.dades-taula th, .dades-taula td { border:1px solid var(--rule-dark); padding:2px 5px; text-align:left; }
+.dades-taula th { background:var(--purple-tint); font-family:'Inter',sans-serif; font-size:11px; }
+
+
+@media print {
+  @page { size:A4; margin:0; }
+  * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  html,body { background:#fff; padding:0; margin:0; }
+  #toolbar, .del-btn, .move-ctrl, .wline-del { display:none !important; }
+  .page-wrap { margin:0; }
+  #sheets { gap:0; display:block; }
+  .sheet { width:210mm; height:297mm; min-height:0; box-shadow:none; margin:0; page-break-after:always; break-after:page; overflow:hidden; }
+  .sheet:last-child { page-break-after:auto; break-after:auto; }
+  [contenteditable]:hover,[contenteditable]:focus { background:transparent!important; box-shadow:none!important; }
+  .wline,.fill-cell,.blank { background:transparent; }
+  .spacer-block { background:transparent !important; border:none !important; }
+  .spacer-label { display:none !important; }
+  .input-span:empty::before { display:none; }
+  .header-emoji-box { background:#ede8f8; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   LLEGIBILITAT-C v1 — llegibilitat de la Versió C (dislèxia). 09/09/2026.
+   Cos en 'Fira Sans Condensed' (mateixa família que l'Extra Condensed
+   de la casa, però amb lletres més obertes i distingibles), interlineat
+   ample i separació de paraules. Titulars, capçalera i peu no es toquen.
+   ══════════════════════════════════════════════════════════════ */
+.sheet-body,#doc{font-family:'Fira Sans Condensed','Fira Sans Extra Condensed',sans-serif;
+  line-height:1.52;letter-spacing:.004em;word-spacing:.06em}
+.sheet-body p,#doc p,.sheet-body li,#doc li,.sheet-body td,#doc td,.sheet-body dd,#doc dd,.sheet-body .wline,#doc .wline,.sheet-body .tria,#doc .tria,.sheet-body .frase-completar,#doc .frase-completar{text-align:left;hyphens:none;-webkit-hyphens:none}
+.sheet-body .stitle,#doc .stitle,.sheet-body .snum,#doc .snum,.sheet-body .clau,#doc .clau,.sheet-body .passos-cap,#doc .passos-cap,.sheet-body .oa-title,#doc .oa-title,.sheet-body .info-head,#doc .info-head,.sheet-body .header-band,#doc .header-band,.sheet-body .nivell-strip,#doc .nivell-strip{font-family:'Fira Sans Extra Condensed',sans-serif}
+</style>
+<style>.sheet{background:#fff!important}</style></head>
+<body>
+
+<div id="toolbar"><a class="tb-btn" href="../index.html" style="background:rgba(255,255,255,.12);color:#fff;text-decoration:none">← Taulell</a><a class="tb-btn" href="cor-B.html" style="color:#fff;text-decoration:none;">B</a><a class="tb-btn active" href="cor-C.html" style="color:#fff;text-decoration:none;background:#7B68C8">C</a><a class="tb-btn" href="cor-A.html" style="color:#fff;text-decoration:none;">A</a>
+  <button class="tb-btn" id="btn-undo" onclick="undoDelete()" title="Desfés l'última eliminació (Ctrl+Z)">↩ Desfés</button>
+  <button class="tb-btn" onclick="document.execCommand('bold')" title="Negreta">𝐁 Negreta</button>
+  <button class="tb-btn" onclick="addWlineToolbar()" title="Afegeix una línia d'escriptura (o prem Enter dins d'una línia)">＋ Línia</button>
+  <button class="tb-btn" onclick="insertSpacer()" title="Insereix un espai en blanc">＋ Espai</button>
+  <button class="tb-btn" onclick="window.print()" title="Imprimeix">🖨️ Imprimeix</button>
+  <button class="tb-btn tb-desa" onclick="desaFitxa()" title="Desa els canvis al fitxer (Ctrl+S)">💾 Desa</button>
+  <span class="tb-title">Fitxa Sessió 4 · El cor per dins · IE Temple</span>
+</div>
+
+<div class="page-wrap">
+<div id="doc">
+
+<div class="header-band deletable">
+  <div class="del-btn" onclick="deleteEl(this)">✕</div>
+  <div class="header-emoji-box">🫀</div>
+  <div class="header-center">
+    <div class="header-sa" contenteditable="true">El nostre cos en marxa · Sessió 4 de 7</div>
+    <div class="header-title" contenteditable="true">El cor per dins</div>
+    <div class="header-subtitle" contenteditable="true">Una bomba doble a les teves mans — per quina raó 4 cavitats i no 2</div>
+  </div>
+  <div class="header-right">
+    <div class="logo-box"><img src="../logo_bio_geo_temple.png" alt="IE Temple" onerror="this.style.display='none'"></div>
+    <div class="header-meta" contenteditable="true">3r ESO</div>
+  </div>
+</div>
+
+<div class="nivell-strip deletable">
+  <div class="del-btn" onclick="deleteEl(this)">✕</div>
+  <span class="badge deletable" contenteditable="true">Amb suport visual<div class="del-btn" onclick="deleteEl(this)">✕</div></span>
+  <span class="temps-badge deletable">⏱️ 2h total<div class="del-btn" onclick="deleteEl(this)">✕</div></span>
+  <div class="nom-field deletable">Nom: <span class="input-span" contenteditable="true"></span><div class="del-btn" onclick="deleteEl(this)">✕</div></div>
+  <div class="nom-field deletable">Data: <span class="input-span data-span" contenteditable="true"></span><span class="nivell-badge-small" title="Versió C — Adaptació">C</span><div class="del-btn" onclick="deleteEl(this)">✕</div></div>
+</div>
+
+<div class="oa-box deletable">
+  <div class="del-btn" onclick="deleteEl(this)">✕</div>
+  <div class="oa-title" contenteditable="true">🎯 Objectius d'aprenentatge d'avui</div>
+  <ul class="oa-list">
+    <li contenteditable="true">Sé com es diuen les cavitats del cor: les aurícules són a dalt i els ventricles a baix.</li>
+    <li contenteditable="true">Sé que una paret, el septe, separa el costat dret de l'esquerre i que la sang dels dos costats no es barreja.</li>
+    <li contenteditable="true">Sé que les vàlvules deixen passar la sang en un sol sentit i que el so «lub-dub» el fan elles en tancar-se.</li>
+    <li contenteditable="true">Sé quin ventricle té la paret més gruixuda i sé dir per quina raó.</li>
+    <li contenteditable="true">Sé ordenar les dues voltes de la sang: una als pulmons i una a tot el cos.</li>
+  </ul>
+</div>
+
+<div class="content">
+
+<div class="word-bank deletable" style="margin-top:6px">
+  <div class="del-btn" onclick="deleteEl(this)">✕</div>
+  <div class="word-bank-title" contenteditable="true">📖 Vocabulari clau d'avui</div>
+  <div class="chips">
+    <span class="chip" contenteditable="true">aurícula = cavitat de dalt; rep la sang que torna al cor</span>
+    <span class="chip" contenteditable="true">ventricle = cavitat de baix; expulsa la sang amb força</span>
+    <span class="chip" contenteditable="true">septe (o envà) = paret que separa el costat dret de l'esquerre</span>
+    <span class="chip" contenteditable="true">vàlvula = porta d'un sol sentit; evita que la sang torni enrere</span>
+    <span class="chip" contenteditable="true">miocardi = el múscul del cor</span>
+    <span class="chip" contenteditable="true">artèries coronàries = vasos que porten sang al propi cor</span>
+    <span class="chip" contenteditable="true">vena cava = vena molt gruixuda que torna la sang al cor</span>
+    <span class="chip" contenteditable="true">artèria pulmonar = artèria que porta la sang del cor als pulmons</span>
+    <span class="chip" contenteditable="true">aorta = l'artèria gran que surt del ventricle esquerre</span>
+    <span class="chip" contenteditable="true">hemoglobina = la proteïna del glòbul vermell que transporta l'oxigen</span>
+    <span class="chip" contenteditable="true">bufec = soroll estrany que se sent al cor quan la sang passa per on no toca</span>
+  </div>
+</div>
+
+
+<div class="section deletable">
+  <div class="del-btn" onclick="deleteEl(this)">✕</div>
+  <div class="section-header"><div class="snum n0">0</div><div><div class="stitle" contenteditable="true">La teva predicció — el cor per dins</div><div class="sdesc" contenteditable="true">Individual · ⏱️ 8 min · No es corregeix: el compararàs amb el cor real al final</div></div></div>
+  <div class="divider"></div>
+  <div class="previ-grid" style="grid-template-columns:1fr;gap:10px">
+    <div class="draw-box">
+      <div class="card-label" contenteditable="true">✏️ Dibuixa el cor tal com te l'imagines per dins (no passa res si t'equivoques: per això és una predicció)</div>
+      <div class="draw-area"></div>
+    </div>
+    <div class="previ-box">
+      <p class="frase-completar" contenteditable="false">Crec que el cor té <span class="blank blank-s"></span> cavitats (cambres) per dins.</p>
+      <p contenteditable="true" style="font-size:13.5px;margin-top:4px">Hi ha algun punt on la sang neta i la sang bruta es barregen?&nbsp;&nbsp;<span class="yn-opt"><span class="chk-sq"></span> Sí</span>&nbsp;&nbsp;<span class="yn-opt"><span class="chk-sq"></span> No</span></p>
+      <p contenteditable="true" style="font-size:13.5px;margin-top:2px">Per què ho creus?</p>
+<div class="wline" contenteditable="true"></div><div class="wline" contenteditable="true"></div>
+    </div>
+  </div>
+</div>
+<div class="section deletable">
+  <div class="del-btn" onclick="deleteEl(this)">✕</div>
+  <div class="section-header"><div class="snum n1">1</div><div><div class="stitle" contenteditable="true">Observació exterior</div><div class="sdesc" contenteditable="true">En grups de 4 · ⏱️ 15 min · El cor per fora, abans d'obrir-lo</div></div></div>
+  <div class="divider"></div>
+
+  <div class="connexio-box deletable">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="connexio-icon">🔗</div>
+    <div class="connexio-text" contenteditable="true"><strong>Recorda la Sessió 3 (la sang):</strong> ja saps que la sang fa una <strong>circulació doble</strong> — una volta pels pulmons i una per la resta del cos. Avui obriràs la bomba que fa possible aquestes dues voltes, i veuràs amb les teves mans <strong>quantes cambres té i per quina raó</strong>.</div>
+  </div><div class="figbox"><div class="dfig tall deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div><div class="figw"><img src="../img/cor_exterior_MUT.png" alt="Cor de porc real, vist per la cara del davant. Els 4 números marquen els vasos grans que entren i surten del cor." onerror="this.style.display='none'"><span class="fig-mark" style="left:19.5%;top:8.0%">1</span><span class="fig-mark" style="left:60.0%;top:9.0%">2</span><span class="fig-mark" style="left:56.5%;top:20.8%">3</span><span class="fig-mark" style="left:83.2%;top:29.1%">4</span></div><div class="fig-cap" contenteditable="true">Cor de porc real, vist per la cara del davant. Els 4 números marquen els vasos grans que entren i surten del cor.</div></div><div><p class="pista" contenteditable="true">Localitza cada número a la foto i escriu-ne el nom a la línia. Els noms ja te'ls donem: només has de fer-los coincidir.</p><ul class="fig-legend"><li contenteditable="true"><span class="lg-n">1</span>vena cava superior</li><li contenteditable="true"><span class="lg-n">2</span>aorta</li><li contenteditable="true"><span class="lg-n">3</span>artèria pulmonar</li><li contenteditable="true"><span class="lg-n">4</span>vena cava inferior</li></ul></div></div><div class="dfig deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div><img src="../img/coronaries_MUT.png" alt="Esquema del cor per fora: els vasos vermells que hi corren per damunt són les artèries coronàries, que reguen el múscul del propi cor." onerror="this.style.display='none'"><div class="fig-cap" contenteditable="true">Esquema del cor per fora: els vasos vermells que hi corren per damunt són les artèries coronàries, que reguen el múscul del propi cor.</div></div>
+  <div class="info-box deletable">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="info-label" contenteditable="true">📖 Per llegir — el cor és un múscul, i els músculs mengen</div>
+    <p contenteditable="true">El cor no és una bossa buida: és <strong>múscul</strong> de dalt a baix. Aquest múscul es diu <strong>miocardi</strong>. Com qualsevol múscul, necessita oxigen i menjar per treballar — i el cor treballa <strong>tota la vida, sense parar</strong>. Per això té uns vasos propis que li porten sang a ell mateix: les <strong>artèries coronàries</strong>, que corren per fora del cor (mira la segona figura).</p>
+  </div>
+  <p class="pista" contenteditable="true">Paraules per triar: ferma · miocardi · coronàries</p>
+  <p class="frase-completar" contenteditable="false">Quan toco el cor per fora, la textura és <span class="blank blank-m"></span> i elàstica, com un múscul.</p>
+  <p class="frase-completar" contenteditable="false">Tot el cor és un múscul que es diu <span class="blank blank-m"></span>.</p>
+  <p class="frase-completar" contenteditable="false">Els vasos que corren per fora del cor i el reguen es diuen artèries <span class="blank blank-m"></span>.</p>
+  <div class="card teal mt8 deletable">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="card-label" contenteditable="true">◯ Encercla l'opció correcta i digues per què</div>
+    <p style="font-size:13.5px" contenteditable="true">Les artèries coronàries porten sang <span class="circ-opt">al múscul del propi cor</span> <span class="circ-opt">als pulmons</span>.</p>
+    <p style="font-size:13.5px" contenteditable="true">Per què ho has triat?</p>
+<div class="wline" contenteditable="true"></div>
+  </div>
+</div>
+<div class="section deletable">
+  <div class="del-btn" onclick="deleteEl(this)">✕</div>
+  <div class="section-header"><div class="snum n2">2</div><div><div class="stitle" contenteditable="true">Obrim el cor — les cavitats per dins</div><div class="sdesc" contenteditable="true">En grups de 4 · ⏱️ 35 min · Tall guiat, cavitats, septe i vàlvules</div></div></div>
+  <div class="divider"></div>
+
+  <div class="card teal deletable">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="card-label" contenteditable="true">🧪 Material i com fer el tall — llegiu-ho TOT abans de començar</div>
+    <p style="font-size:13.5px" contenteditable="true"><strong>Material per grup:</strong> 1 cor de porc o de xai · safata de dissecció · guants · tisores de punta rodona (o bisturí) · pinces · 4 etiquetes de colors · paper de cuina.</p>
+    <ol class="protocol">
+      <li contenteditable="true">Poseu-vos els <strong>guants</strong>. El cor es queda SEMPRE dins de la safata.</li>
+      <li contenteditable="true">Abans de tallar, feu la secció 1: mireu-lo per fora i toqueu-lo.</li>
+      <li contenteditable="true">Localitzeu el <strong>solc</strong> (la ratlla de greix que baixa en diagonal per davant): separa els dos ventricles. NO talleu just a sobre del solc.</li>
+      <li contenteditable="true">Feu el <strong>primer tall</strong> a un costat del solc, seguint una de les dues línies de punts de la foto. Talleu de dalt a baix, poc a poc, sense arribar a la punta.</li>
+      <li contenteditable="true">Obriu-lo com un llibre i mireu-hi dins. Buideu els coàguls amb les pinces si cal.</li>
+      <li contenteditable="true">Feu el <strong>segon tall</strong> a l'altre costat del solc i obriu l'altre ventricle.</li>
+      <li contenteditable="true">Poseu una etiqueta de color a cada cavitat que trobeu.</li>
+      <li contenteditable="true">En acabar: el cor a la bossa de residus, safata i eines a la pica, guants fora i <strong>mans amb sabó</strong>.</li>
+    </ol>
+    <div class="segur">
+      <p style="font-size:13.5px" contenteditable="true"><strong>⚠️ Seguretat:</strong> talleu sempre <strong>allunyant</strong> el fil de les vostres mans i de les dels companys. Mai amb el cor a la mà: sempre a la safata. Res de menjar ni beure a la taula. Si us talleu, aviseu de seguida.</p>
+    </div>
+  </div><div class="fig-grid g2"><div class="dfig tall deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div><img src="../img/disseccio_img_tall_ventricles.png" alt="Les dues línies de punts marquen els DOS talls que fareu: un per obrir cada ventricle. En obrir-los tots dos podreu comparar el gruix de les dues parets — i descobrir quin dels dos és el ventricle esquerre." onerror="this.style.display='none'"><div class="fig-cap" contenteditable="true">Les dues línies de punts marquen els DOS talls que fareu: un per obrir cada ventricle. En obrir-los tots dos podreu comparar el gruix de les dues parets — i descobrir quin dels dos és el ventricle esquerre.</div></div><div class="dfig deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div><img src="../img/valvules_MUT.png" alt="Com funciona una vàlvula: quan està oberta (esquerra) deixa passar la sang; quan està tancada (dreta) no la deixa tornar enrere. És una porta d'un sol sentit." onerror="this.style.display='none'"><div class="fig-cap" contenteditable="true">Com funciona una vàlvula: quan està oberta (esquerra) deixa passar la sang; quan està tancada (dreta) no la deixa tornar enrere. És una porta d'un sol sentit.</div></div></div>
+  <div class="info-box deletable">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="info-label" contenteditable="true">📖 Per llegir — què hi trobaràs a dins</div>
+    <p contenteditable="true">A dins el cor no és buit: està dividit en <strong>cambres</strong>. N'hi ha <strong>dues a dalt</strong>, que reben la sang que torna al cor: es diuen <strong>aurícules</strong>. I <strong>dues a baix</strong>, més grosses i musculoses, que l'expulsen: es diuen <strong>ventricles</strong>.</p>
+    <p contenteditable="true" style="margin-top:2px">Pel mig hi ha una paret sencera, el <strong>septe</strong> (també se'n diu envà), que separa el costat dret del costat esquerre. Com que és sencera, <strong>la sang d'un costat no passa a l'altre</strong>. I entre les cambres hi ha les <strong>vàlvules</strong>: portes que només s'obren en un sentit.</p>
+  </div>
+
+  <div class="info-box deletable">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="info-label" contenteditable="true">📖 Per llegir — d'on surt el so «lub-dub»</div>
+    <p contenteditable="true">Quan escoltes un batec no sents un cop, sinó dos: <strong>lub — dub</strong>. El so no el fa la sang movent-se: el fan <strong>les vàlvules en tancar-se de cop</strong>, com una porta que peta.</p>
+    <p contenteditable="true" style="margin-top:2px">El <strong>lub</strong> són les vàlvules d'<strong>entrada</strong> (les que hi ha entre cada aurícula i el seu ventricle) quan es tanquen, just quan el ventricle comença a estrènyer. El <strong>dub</strong> són les vàlvules de <strong>sortida</strong> (a la boca de l'aorta i de l'artèria pulmonar) quan es tanquen, just quan el ventricle acaba d'estrènyer.</p>
+  </div>
+  <div class="card teal deletable">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="card-label" contenteditable="true">🧭 Compta i completa (mira dins del cor obert)</div>
+    <p class="pista" contenteditable="true">Paraules i números per triar: 2 · 2 · 4 · septe · vàlvules · entrada · sortida</p>
+    <p class="frase-completar" contenteditable="false">He comptat <span class="blank blank-s"></span> cavitats: <span class="blank blank-s"></span> aurícules a dalt i <span class="blank blank-s"></span> ventricles a baix.</p>
+    <p class="frase-completar" contenteditable="false">La paret del mig que separa el costat dret de l'esquerre es diu el <span class="blank blank-m"></span>.</p>
+    <p class="frase-completar" contenteditable="false">Les portes que deixen passar la sang en un sol sentit es diuen <span class="blank blank-m"></span>.</p>
+    <p class="frase-completar" contenteditable="false">El so «lub» el fan les vàlvules d'<span class="blank blank-m"></span> i el so «dub», les de <span class="blank blank-m"></span>.</p>
+  </div>
+  <div class="card mt8 deletable">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="card-label" contenteditable="true">◯ Encercla l'opció correcta i digues per què</div>
+    <p style="font-size:13.5px" contenteditable="true">Per funcionar bé, el septe ha de tenir <span class="circ-opt">un forat petit</span> <span class="circ-opt">cap forat</span>.</p>
+    <p style="font-size:13.5px" contenteditable="true">Per què ho has triat?</p>
+<div class="wline" contenteditable="true"></div>
+  <div class="draw-box deletable" style="margin-top:5px">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="card-label" contenteditable="true">✏️ Dibuixa el cor OBERT tal com el veus ara i posa-hi els noms de totes les cavitats que hi trobis</div>
+    <p class="pista" contenteditable="true">Escriu el nom al costat de cada cambra, amb una fletxa. Si no recordes un nom, mira el vocabulari de la primera pàgina.</p>
+    <div class="draw-area"></div>
+  </div>
+  </div>
+</div>
+<div class="section deletable">
+  <div class="del-btn" onclick="deleteEl(this)">✕</div>
+  <div class="section-header"><div class="snum n3">3</div><div><div class="stitle" contenteditable="true">Dues bombes en un sol cor</div><div class="sdesc" contenteditable="true">Individual · ⏱️ 20 min · Per quina raó una paret és més gruixuda que l'altra</div></div></div>
+  <div class="divider"></div>
+
+  <div class="info-box deletable">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="info-label" contenteditable="true">📖 Per llegir — un múscul es fa fort segons la feina que fa</div>
+    <p contenteditable="true">Pensa en la teva cama: el múscul de la cuixa és molt més gros que el del dit petit, perquè ha d'empènyer molt més pes. Amb el cor passa el mateix: <strong>el costat que ha d'empènyer la sang més lluny té la paret més gruixuda</strong>.</p>
+    <p contenteditable="true" style="margin-top:2px">Un dels dos costats del cor fa un viatge molt curt: la sang només ha d'anar fins als pulmons, que són just al costat. L'altre l'ha d'enviar fins al cap i fins als dits dels peus, i tornar.</p>
+  </div>
+  <div class="card teal deletable">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="card-label" contenteditable="true">◯ Toca les dues parets del cor obert i encercla</div>
+    <p style="font-size:13.5px" contenteditable="true">La paret més gruixuda és la del ventricle <span class="circ-opt">dret</span> <span class="circ-opt">esquerre</span>.</p>
+    <p style="font-size:13.5px" contenteditable="true">I aquest ventricle envia la sang <span class="circ-opt">als pulmons, que són a prop</span> <span class="circ-opt">a tot el cos, fins als peus</span>.</p>
+    <p style="font-size:13.5px" contenteditable="true">Explica com ho has decidit tocant el cor:</p>
+<div class="wline" contenteditable="true"></div><div class="wline" contenteditable="true"></div>
+  </div>
+
+  <div class="card deletable">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="card-label" contenteditable="true">🔢 Posa els números 1-2-3-4 per ordenar les dues voltes de la sang</div>
+    <p class="pista" contenteditable="true">Comença pel número 1 allà on la sang arriba al cor <strong>pobra</strong> en oxigen.</p>
+    <div class="volta-grid">
+      <div class="volta-cell"><span class="volta-num" contenteditable="true"></span>Arriba al <strong>costat dret</strong> del cor, pobra en oxigen</div>
+      <div class="volta-cell"><span class="volta-num" contenteditable="true"></span>Va als <strong>pulmons</strong> i hi carrega oxigen</div>
+      <div class="volta-cell"><span class="volta-num" contenteditable="true"></span>Torna al <strong>costat esquerre</strong> del cor, rica en oxigen</div>
+      <div class="volta-cell"><span class="volta-num" contenteditable="true"></span>Surt cap a <strong>tot el cos</strong> per l'aorta</div>
+    </div>
+  </div>
+</div>
+<div class="section deletable">
+  <div class="del-btn" onclick="deleteEl(this)">✕</div>
+  <div class="section-header"><div class="snum n4">4</div><div><div class="stitle" contenteditable="true">Cas clínic — quan el cor falla</div><div class="sdesc" contenteditable="true">En parelles · ⏱️ 15 min · Aplica el que has vist a un cas real</div></div></div>
+  <div class="divider"></div>
+
+  <div class="fig-grid g2">
+    <div class="card deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div>
+      <div class="card-label" contenteditable="true">🅰 Cas Arnau — un forat al septe</div>
+      <p style="font-size:13.5px" contenteditable="true">L'Arnau té 14 anys i va néixer amb un <strong>forat al septe</strong> que separa els dos ventricles. <em>Símptomes:</em> corrent es queda enrere molt abans que els companys i respira molt de pressa; en repòs està perfectament bé. El metge li sent un <strong>bufec</strong> (un soroll de sang que passa per on no hauria de passar). Els llavis i les ungles li tenen el color normal: <strong>no es posa blau</strong>.</p>
+    </div>
+    <div class="card deletable"><div class="del-btn" onclick="deleteEl(this)">✕</div>
+      <div class="card-label" contenteditable="true">🅱 Cas Nadia — coronàries tapades</div>
+      <p style="font-size:13.5px" contenteditable="true">La Nadia té 58 anys i té les <strong>artèries coronàries</strong> parcialment tapades per plaques de greix. <em>Símptomes:</em> quan puja escales li fa un dolor opressiu al pit i s'ha d'aturar; en aturar-se, al cap d'un parell de minuts el dolor desapareix del tot.</p>
+    </div>
+  </div>
+  <p class="pista" contenteditable="true">Tria UN dels dos casos i respon només aquell.</p>
+  <div class="info-box deletable">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="info-label" contenteditable="true">📖 Per llegir — què passa de debò a cada cas</div>
+    <p contenteditable="true"><strong>Cas A (forat al septe).</strong> El costat esquerre empeny molt més fort que el dret (ho has comprovat tocant les parets). Per això, pel forat, la sang passa <strong>de l'esquerre al dret</strong>, i no al contrari. Resultat: una part de la sang que ja portava oxigen <strong>torna als pulmons una segona vegada</strong>, sense haver anat al cos. El costat dret i els pulmons han de moure molta més sang del que els toca, i s'esgoten. Quan l'Arnau corre i necessita molt més cabal, el sistema no dóna més de si: es cansa i respira ràpid. <strong>La sang que surt cap al cos porta l'oxigen normal</strong> — per això no es posa blau.</p>
+    <p contenteditable="true" style="margin-top:2px"><strong>Cas B (coronàries tapades).</strong> Les coronàries reguen el <strong>múscul del propi cor</strong>. Si estan mig tapades, en repòs encara hi passa prou sang. Però pujant escales el cor ha de treballar molt més i necessita més oxigen del que li arriba: el múscul es queixa i fa mal. En aturar-se, el cor torna a necessitar poc i el dolor marxa.</p>
+  </div>
+  <p class="pista" contenteditable="true">Escriu A o B a la primera línia. Paraules per triar a les altres dues: oxigen · miocardi</p>
+  <p class="frase-completar" contenteditable="false">He triat el cas <span class="blank blank-s"></span>.</p>
+  <p class="frase-completar" contenteditable="false">Si he triat el cas A: al costat dret del cor i als pulmons hi arriba <strong>massa sang</strong>, i el que NO canvia és l'<span class="blank blank-m"></span> que surt cap al cos.</p>
+  <p class="frase-completar" contenteditable="false">Si he triat el cas B: al múscul del cor (el <span class="blank blank-m"></span>) li arriba menys sang de la que necessita quan fa esforç.</p>
+  <div class="card teal mt8 deletable">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="card-label" contenteditable="true">◯ Encercla i explica</div>
+    <p style="font-size:13.5px" contenteditable="true">Els dos casos tenen els símptomes <span class="circ-opt">només quan fan esforç</span> <span class="circ-opt">tot el dia igual</span>.</p>
+    <p style="font-size:13.5px" contenteditable="true">Per què ho has triat?</p>
+<div class="wline" contenteditable="true"></div>
+  </div>
+  <div class="card mt8 deletable">
+    <div class="del-btn" onclick="deleteEl(this)">✕</div>
+    <div class="card-label" contenteditable="true">✍️ Escriu el teu raonament pas a pas</div>
+    <p class="pista" contenteditable="true">Fes servir els 4 passos de sempre. Si et costa començar: «Observo que…», «Em pregunto per quina raó…», «Això té a veure amb…», «Per tant…».</p>
+    <p style="font-size:13.5px" contenteditable="true">Per quina raó la persona que has triat es troba malament quan fa esforç i bé en repòs?</p>
+    <p style="font-size:13.5px;font-weight:700;margin-top:3px" contenteditable="true">OBSERVO:</p>
+<div class="wline" contenteditable="true"></div>
+    <p style="font-size:13.5px;font-weight:700;margin-top:2px" contenteditable="true">EM PREGUNTO:</p>
+<div class="wline" contenteditable="true"></div>
+    <p style="font-size:13.5px;font-weight:700;margin-top:2px" contenteditable="true">CONNECTO:</p>
+<div class="wline" contenteditable="true"></div>
+    <p style="font-size:13.5px;font-weight:700;margin-top:2px" contenteditable="true">DEDUEIXO:</p>
+<div class="wline" contenteditable="true"></div>
+  </div>
+</div>
+<div class="section deletable">
+  <div class="del-btn" onclick="deleteEl(this)">✕</div>
+  <div class="section-header"><div class="snum n5">5</div><div><div class="stitle" contenteditable="true">Posem-ho en comú — es resol el repte del principi</div><div class="sdesc" contenteditable="true">Tota la classe · ⏱️ 10 min + 7 min de full de sortida (te'l dono a part) · Recollida i tancament</div></div></div>
+  <div class="divider"></div>
+  <p style="font-size:13.5px" contenteditable="true">Un portaveu de cada grup diu <strong>una</strong> cosa que ha vist al cor i que no s'esperava. Després tornem a la pregunta del principi: <strong>per quina raó el cor té 4 cavitats i no 2?</strong> Escriu aquí la resposta de la classe, amb les teves paraules:</p>
+<div class="wline" contenteditable="true"></div><div class="wline" contenteditable="true"></div><div class="wline" contenteditable="true"></div>
+</div>
+<div class="meta-oa-box deletable">
+  <div class="del-btn" onclick="deleteEl(this)">✕</div>
+  <div class="meta-oa-title" contenteditable="true">🎯 Torna als objectius del principi — Marca el que has après avui:</div>
+<div class="meta-oa-item"><div class="meta-oa-check"></div><div class="meta-oa-text" contenteditable="true">Sé com es diuen les cavitats del cor: les aurícules són a dalt i els ventricles a baix.</div></div><div class="meta-oa-item"><div class="meta-oa-check"></div><div class="meta-oa-text" contenteditable="true">Sé que una paret, el septe, separa el costat dret de l'esquerre i que la sang dels dos costats no es barreja.</div></div><div class="meta-oa-item"><div class="meta-oa-check"></div><div class="meta-oa-text" contenteditable="true">Sé que les vàlvules deixen passar la sang en un sol sentit i que el so «lub-dub» el fan elles en tancar-se.</div></div><div class="meta-oa-item"><div class="meta-oa-check"></div><div class="meta-oa-text" contenteditable="true">Sé quin ventricle té la paret més gruixuda i sé dir per quina raó.</div></div><div class="meta-oa-item"><div class="meta-oa-check"></div><div class="meta-oa-text" contenteditable="true">Sé ordenar les dues voltes de la sang: una als pulmons i una a tot el cos.</div></div>
+  <div class="meta-open">
+    <div class="meta-open-label" contenteditable="true">🪞 Compara el dibuix de la secció 0 (el cor imaginat) amb el de la secció 2 (el cor real): en què tenies raó? En què t'equivocaves?</div>
+<div class="wline" contenteditable="true"></div><div class="wline" contenteditable="true"></div>
+    <div class="meta-open-label" style="margin-top:4px" contenteditable="true">❓ Encara em pregunto…</div>
+<div class="wline" contenteditable="true"></div>
+  </div>
+</div>
+<div class="tasca-box deletable">
+  <div class="del-btn" onclick="deleteEl(this)">✕</div>
+  <div class="card-label" contenteditable="true">📚 Per a la propera sessió</div>
+  <p style="font-size:12px;font-weight:700;color:var(--purple-ink)" contenteditable="true">Avui no hi ha tasca per a casa. La setmana que ve resoldrem l'enigma de la gràfica del cor del Marc Fontana, el corredor.</p>
+</div>
+
+<div class="footer deletable">
+  <div class="del-btn" onclick="deleteEl(this)">✕</div>
+  <div class="footer-l" contenteditable="true">IE Temple · Biologia i Geologia 3r ESO · El nostre cos en marxa · Sessió 4 · Versió C</div>
+  <div class="footer-r" contenteditable="true">Biologia i Geologia · 3r ESO</div>
+</div>
+
+</div><!-- /content -->
+</div><!-- /doc -->
+<div id="sheets"></div>
+</div><!-- /page-wrap -->
+<script>
+const SHEET_H = 1123;
+const FOOT_H  = 26;
+const BODY_MAX = SHEET_H - FOOT_H - 10;
+let FLOW = [];
+
+function flattenDoc(){
+  const doc=document.getElementById('doc');
+  const content=doc.querySelector(':scope > .content');
+  if(content){
+    const foot=content.querySelector(':scope > .footer'); if(foot) foot.remove();
+    while(content.firstChild){ doc.insertBefore(content.firstChild, content); }
+    content.remove();
+  }
+  const f2=doc.querySelector(':scope > .footer'); if(f2) f2.remove();
+}
+function extractFlow(){
+  FLOW = Array.from(document.getElementById('doc').children);
+  // Posicio original de cada fill de seccio: el paginador la fa servir per
+  // reassemblar en ordre una seccio que ha partit (sense aixo, cada
+  // repaginacio la desordena i separa una llegenda del seu dibuix).
+  FLOW.forEach(function(b){
+    if(b.classList && b.classList.contains('section')){
+      Array.prototype.forEach.call(b.children, function(k,i){ k._ord = i; });
+    }
+  });
+}
+function topFlowBlock(el){ while(el){ if(FLOW.indexOf(el)>=0) return el; el=el.parentElement; } return null; }
+
+function saveCaret(){
+  const a=document.activeElement;
+  if(!a||!a.isContentEditable) return null;
+  const s=getSelection(); if(!s.rangeCount) return {el:a};
+  const r=s.getRangeAt(0);
+  return {el:a, sc:r.startContainer, so:r.startOffset, ec:r.endContainer, eo:r.endOffset};
+}
+function restoreCaret(d){
+  if(!d||!d.el||!document.body.contains(d.el)) return;
+  try{ d.el.focus({preventScroll:true});
+    if(d.sc && document.body.contains(d.sc)){
+      const r=document.createRange(); r.setStart(d.sc,d.so); r.setEnd(d.ec,d.eo);
+      const s=getSelection(); s.removeAllRanges(); s.addRange(r);
+    }
+  }catch(e){}
+}
+
+function repaginate(){
+  const host=document.getElementById('sheets'); if(!host) return;
+  const caret=saveCaret();
+  // reassembla seccions partides de la passada anterior (torna els fills a la secció original)
+  var _origens=[];
+  host.querySelectorAll('.section[data-cont]').forEach(function(cont){ var o=cont._origin; if(o){ var mc=o.querySelector(':scope > .move-ctrl'); while(cont.firstChild){ o.insertBefore(cont.firstChild, mc); } if(_origens.indexOf(o)<0) _origens.push(o); } });
+  // ...i es torna l'ordre original: els fills reassemblats s'afegien al final.
+  _origens.forEach(function(o){
+    var mc=o.querySelector(':scope > .move-ctrl');
+    var kids=Array.prototype.slice.call(o.children).filter(function(k){ return typeof k._ord === 'number'; });
+    kids.sort(function(a,b){ return a._ord - b._ord; });
+    kids.forEach(function(k){ o.insertBefore(k, mc); });
+  });
+  FLOW = FLOW.filter(b=>b);
+  FLOW.forEach(b=>{ if(b.parentNode) b.parentNode.removeChild(b); });
+  host.innerHTML='';
+  let body=null;
+  function newSheet(){
+    const sheet=document.createElement('div'); sheet.className='sheet';
+    body=document.createElement('div'); body.className='sheet-body';
+    const foot=document.createElement('div'); foot.className='sheet-foot';
+    foot.innerHTML='<span>IE Temple · Biologia i Geologia 3r ESO</span><span class="foot-pg"></span>';
+    sheet.appendChild(body); sheet.appendChild(foot); host.appendChild(sheet);
+  }
+  function _flowKids(sec){ return Array.prototype.slice.call(sec.children).filter(function(c){ return !c.classList.contains('del-btn') && !c.classList.contains('move-ctrl'); }); }
+  function _contentKids(sec){ return _flowKids(sec).filter(function(k){ return !k.classList.contains('section-header') && !k.classList.contains('divider'); }); }
+  function trySplitSection(sec){
+    if(BODY_MAX - body.scrollHeight < 150) return false;
+    body.appendChild(sec);
+    if(body.scrollHeight <= BODY_MAX) return true;
+    var moved=[];
+    while(body.scrollHeight > BODY_MAX && _contentKids(sec).length > 1){
+      var ck=_contentKids(sec); var last=ck[ck.length-1];
+      moved.unshift(last); sec.removeChild(last);
+    }
+    if(moved.length===0 || body.scrollHeight > BODY_MAX){
+      moved.forEach(function(k){ sec.appendChild(k); });
+      if(sec.parentNode) sec.parentNode.removeChild(sec);
+      return false;
+    }
+    var pending=moved;
+    while(pending.length){
+      newSheet();
+      var cont=document.createElement('div');
+      cont.className='section'; cont.setAttribute('data-cont','1'); cont._origin=sec;
+      body.appendChild(cont);
+      pending.forEach(function(k){ cont.appendChild(k); });
+      var rest=[];
+      while(body.scrollHeight > BODY_MAX && cont.children.length>1){
+        var l=cont.lastElementChild; rest.unshift(l); cont.removeChild(l);
+      }
+      pending=rest;
+    }
+    return true;
+  }
+  newSheet();
+  for(let i=0;i<FLOW.length;i++){
+    const blk=FLOW[i];
+    if(blk.classList.contains('spacer-block')){
+      blk.style.height='auto'; body.appendChild(blk);
+      const used = body.scrollHeight - blk.offsetHeight;
+      const remain = BODY_MAX - used;
+      blk.style.height = (remain>34?remain:34)+'px';
+      if(i < FLOW.length-1) newSheet();
+      continue;
+    }
+    body.appendChild(blk);
+    if(body.scrollHeight > BODY_MAX && body.children.length>1){
+      body.removeChild(blk);
+      var _ok=false;
+      if(blk.classList.contains('section')){ try{ _ok=trySplitSection(blk); }catch(e){ _ok=false; } }
+      if(!_ok){
+        newSheet();
+        var _ok2=false;
+        if(blk.classList.contains('section')){ try{ _ok2=trySplitSection(blk); }catch(e){ _ok2=false; } }
+        if(!_ok2){ body.appendChild(blk); }
+      }
+    }
+  }
+  const sheets=host.querySelectorAll('.sheet');
+  sheets.forEach((s,idx)=>{ const pg=s.querySelector('.foot-pg'); if(pg) pg.textContent='Pàgina '+(idx+1)+' / '+sheets.length; });
+  restoreCaret(caret);
+}
+let _pgT=null;
+function schedulePageBreaks(){ clearTimeout(_pgT); _pgT=setTimeout(repaginate,120); }
+document.addEventListener('focusout', ()=>schedulePageBreaks());
+
+const delStack = [];
+function deleteEl(btn){
+  const el = btn.closest('.deletable'); if(!el) return;
+  const idx = FLOW.indexOf(el);
+  delStack.push({ el, flowIdx: idx, parent: el.parentNode, sibling: el.nextSibling });
+  if(idx>=0) FLOW.splice(idx,1);
+  el.remove();
+  document.getElementById('btn-undo').classList.add('active');
+  repaginate();
+}
+function undoDelete(){
+  const last = delStack.pop(); if(!last) return;
+  if(last.flowIdx>=0){ FLOW.splice(Math.min(last.flowIdx,FLOW.length),0,last.el); }
+  else if(last.parent){ last.parent.insertBefore(last.el, last.sibling); }
+  if(delStack.length===0) document.getElementById('btn-undo').classList.remove('active');
+  repaginate();
+}
+document.addEventListener('keydown', e=>{
+  if(e.key==='z' && (e.ctrlKey||e.metaKey)){
+    const ed = document.activeElement && document.activeElement.isContentEditable;
+    if(!ed){ e.preventDefault(); undoDelete(); }
+  }
+});
+
+let _lastClickedBlock = null;
+document.addEventListener('click', e=>{
+  const blk = e.target.closest && e.target.closest('.deletable');
+  if(blk) _lastClickedBlock = blk;
+});
+function _newSpacer(){
+  const sp=document.createElement('div'); sp.className='spacer-block deletable spacer-fill';
+  sp.innerHTML='<div class="del-btn" onclick="deleteEl(this)">✕</div><span class="spacer-label">↕ espai · la resta passa a la pàgina següent</span>';
+  return sp;
+}
+function _registerSpacer(sp, idx){
+  if(idx>=0) FLOW.splice(idx,0,sp); else FLOW.push(sp);
+  delStack.push({ el:sp, flowIdx:FLOW.indexOf(sp) });
+  document.getElementById('btn-undo').classList.add('active');
+  repaginate();
+  if(typeof makeMovable==='function') makeMovable();
+}
+function insertSpacer(){
+  const ref = topFlowBlock(_lastClickedBlock);
+  const i = ref ? FLOW.indexOf(ref) : -1;
+  _registerSpacer(_newSpacer(), i>=0 ? i+1 : -1);
+}
+function addSpacerAfter(span){
+  const ref = topFlowBlock(span.closest('.deletable'));
+  const i = ref ? FLOW.indexOf(ref) : -1;
+  _registerSpacer(_newSpacer(), i>=0 ? i+1 : -1);
+}
+
+function _fitxaToast(msg){
+  let t=document.getElementById('fitxa-toast');
+  if(!t){t=document.createElement('div');t.id='fitxa-toast';
+    t.style.cssText='position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#3a2d6e;color:#fff;font-family:Inter,sans-serif;font-size:13px;font-weight:600;padding:9px 18px;border-radius:9999px;box-shadow:0 4px 18px rgba(0,0,0,.28);z-index:9999;opacity:0;transition:opacity .2s';
+    document.body.appendChild(t);}
+  t.textContent=msg;t.style.opacity='1';clearTimeout(t._h);t._h=setTimeout(()=>t.style.opacity='0',2200);
+}
+function rebuildDocFromFlow(){
+  const doc=document.getElementById('doc');
+  // reassembla seccions partides abans de reconstruir: sense aixo, en desar es
+  // perdia tot el que el paginador havia passat a un full de continuacio.
+  var _origens2=[];
+  document.querySelectorAll('.section[data-cont]').forEach(function(cont){ var o=cont._origin; if(o){ var mc=o.querySelector(':scope > .move-ctrl'); while(cont.firstChild){ o.insertBefore(cont.firstChild, mc); } if(_origens2.indexOf(o)<0) _origens2.push(o); } });
+  _origens2.forEach(function(o){
+    var mc=o.querySelector(':scope > .move-ctrl');
+    var kids=Array.prototype.slice.call(o.children).filter(function(k){ return typeof k._ord === 'number'; });
+    kids.sort(function(a,b){ return a._ord - b._ord; });
+    kids.forEach(function(k){ o.insertBefore(k, mc); });
+  });
+  FLOW.forEach(b=>{ if(b.classList.contains('spacer-block')) b.style.height=''; });
+  FLOW.forEach(b=>{ if(b.parentNode!==doc){ if(b.parentNode) b.parentNode.removeChild(b); doc.appendChild(b); } });
+  document.getElementById('sheets').innerHTML='';
+}
+async function desaFitxa(){
+  rebuildDocFromFlow();
+  const clone=document.documentElement.cloneNode(true);
+  clone.querySelectorAll('#fitxa-toast').forEach(n=>n.remove());
+  const sh=clone.querySelector('#sheets'); if(sh) sh.innerHTML='';
+  const html='<!DOCTYPE html>\n'+clone.outerHTML;
+  const fname=(location.pathname.split('/').pop()||'fitxa.html');
+  try{
+    if(window.showSaveFilePicker){
+      try{
+        const h=await window.showSaveFilePicker({suggestedName:fname,types:[{description:'Pàgina HTML',accept:{'text/html':['.html']}}]});
+        const w=await h.createWritable();await w.write(html);await w.close();
+        _fitxaToast('✓ Canvis desats al fitxer');return;
+      }catch(e){if(e.name==='AbortError')return;}
+    }
+    const blob=new Blob([html],{type:'text/html'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fname;
+    document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(a.href);
+    _fitxaToast('✓ Fitxa descarregada (reemplaça l\'original)');
+  } finally {
+    extractFlow(); repaginate();
+  }
+}
+document.addEventListener('keydown',e=>{ if(e.key==='s'&&(e.ctrlKey||e.metaKey)){e.preventDefault();desaFitxa();} });
+
+function makeEditable(){
+  const sels=[
+    '.oa-title','.stitle','.sdesc','.card-label','.word-bank-title','.chip',
+    '.previ-box p','.connexio-text','.epist-text','.epist-title',
+    '.data-table th','.hint-cell','.tasca-box p',
+    '.meta-oa-title','.meta-open-label','.pista',
+    '.footer-l','.footer-r','.card p','.section p','.previ-box strong',
+    '.card ol li','.card ul li','.draw-box p','.info-box p','.info-label','.chain-chip','.circ-row','.fig-cap'
+  ].join(',');
+  document.querySelectorAll(sels).forEach(el=>{
+    if(el.isContentEditable) return;
+    if(el.closest('[contenteditable="true"]')) return;
+    if(el.querySelector('.fill-cell,.wline,.input-span,.chk-sq,.yes-no,.yn-opt,.blank,.del-btn,.move-ctrl,img,table,svg')) return;
+    el.setAttribute('contenteditable','true');
+  });
+  document.querySelectorAll('.blank').forEach(b=>b.setAttribute('contenteditable','true'));
+}
+
+const _MV_UP='<span class="mv" title="Mou amunt" onmousedown="event.preventDefault();event.stopPropagation();moveEl(this,-1)">↑</span>';
+const _MV_DOWN='<span class="mv" title="Mou avall" onmousedown="event.preventDefault();event.stopPropagation();moveEl(this,1)">↓</span>';
+const _MV_SPACE='<span class="mv mv-space" title="Afegeix un espai en blanc a sota d\'aquest bloc" onmousedown="event.preventDefault();event.stopPropagation();addSpacerAfter(this)">＋</span>';
+function makeMovable(){
+  document.querySelectorAll('.deletable').forEach(el=>{
+    let mc=el.querySelector(':scope > .move-ctrl');
+    if(!mc){
+      el.insertAdjacentHTML('beforeend','<div class="move-ctrl">'+_MV_UP+_MV_DOWN+_MV_SPACE+'</div>');
+    } else if(!mc.querySelector('.mv-space')){
+      mc.insertAdjacentHTML('beforeend', _MV_SPACE);
+    }
+  });
+}
+function moveEl(span,dir){
+  const el=span.closest('.deletable'); if(!el) return;
+  const i=FLOW.indexOf(el);
+  if(i>=0){
+    const j=i+dir; if(j<0||j>=FLOW.length) return;
+    const t=FLOW[i]; FLOW[i]=FLOW[j]; FLOW[j]=t;
+    repaginate(); return;
+  }
+  let sib = dir<0 ? el.previousElementSibling : el.nextElementSibling;
+  while(sib && !sib.classList.contains('deletable')) sib = dir<0 ? sib.previousElementSibling : sib.nextElementSibling;
+  if(sib){ if(dir<0) el.parentNode.insertBefore(el,sib); else el.parentNode.insertBefore(sib,el); }
+  repaginate();
+}
+
+let _lastWline=null;
+function wlineText(w){ let s=''; w.childNodes.forEach(n=>{ if(n.nodeType===3) s+=n.textContent; else if(n.nodeType===1 && !n.classList.contains('wline-del')) s+=n.textContent; }); return s; }
+function makeWline(){
+  const w=document.createElement('div');
+  w.className='wline'; w.setAttribute('contenteditable','true');
+  w.insertAdjacentHTML('beforeend','<span class="wline-del" contenteditable="false" title="Treu aquesta línia" onmousedown="event.preventDefault();event.stopPropagation();delWline(this)">✕</span>');
+  return w;
+}
+function decorateWlines(){
+  document.querySelectorAll('.wline').forEach(w=>{
+    if(w.querySelector(':scope > .wline-del')) return;
+    w.insertAdjacentHTML('beforeend','<span class="wline-del" contenteditable="false" title="Treu aquesta línia" onmousedown="event.preventDefault();event.stopPropagation();delWline(this)">✕</span>');
+  });
+}
+function addWlineAfter(ref){
+  if(!ref||!ref.parentNode) return null;
+  const nw=makeWline(); ref.parentNode.insertBefore(nw, ref.nextSibling);
+  _lastWline=nw; placeCaretStart(nw); schedulePageBreaks(); return nw;
+}
+function delWline(btn){
+  const w=btn.closest('.wline'); if(!w) return;
+  const prev=w.previousElementSibling;
+  w.remove();
+  if(prev && prev.classList && prev.classList.contains('wline')){ _lastWline=prev; placeCaretStart(prev); }
+  schedulePageBreaks();
+}
+function addWlineToolbar(){
+  let ref=_lastWline && document.body.contains(_lastWline) ? _lastWline : null;
+  if(!ref){ const all=document.querySelectorAll('.wline'); ref=all[all.length-1]; }
+  if(ref) addWlineAfter(ref); else _fitxaToast('Fes clic dins d\'una línia d\'escriptura primer');
+}
+function placeCaretStart(el){
+  el.focus();
+  try{ const r=document.createRange(); r.setStart(el,0); r.collapse(true); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }catch(e){}
+}
+document.addEventListener('focusin',e=>{ if(e.target.classList&&e.target.classList.contains('wline')) _lastWline=e.target; });
+document.addEventListener('keydown',e=>{
+  const t=e.target;
+  if(t&&t.classList&&t.classList.contains('wline')){
+    if(e.key==='Enter'){ e.preventDefault(); addWlineAfter(t); }
+    else if(e.key==='Backspace' && wlineText(t).trim()===''){
+      const prev=t.previousElementSibling;
+      if(prev&&prev.classList&&prev.classList.contains('wline')){ e.preventDefault(); t.remove(); _lastWline=prev; placeCaretEnd(prev); schedulePageBreaks(); }
+    }
+  }
+},true);
+function placeCaretEnd(el){
+  el.focus();
+  try{ const r=document.createRange(); r.selectNodeContents(el); r.collapse(false); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }catch(e){}
+}
+
+window.addEventListener('load', ()=>{
+  flattenDoc();
+  makeEditable();
+  decorateWlines();
+  extractFlow();
+  makeMovable();
+  repaginate();
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(()=>repaginate()); }
+  document.querySelectorAll('img').forEach(img=>{ if(!img.complete) img.addEventListener('load', ()=>schedulePageBreaks(), {once:true}); });
+  setTimeout(repaginate, 400);
+  setTimeout(repaginate, 1200);
+});
+</script>
+
+</body></html>

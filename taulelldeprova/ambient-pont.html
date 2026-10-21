@@ -1,0 +1,616 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ambient del pont</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<style>
+.am-sec{margin:0 0 26px}
+.am-sec>h2{margin:0 0 6px;display:flex;align-items:center;gap:10px}
+.am-sec>h2 .ico{color:var(--amb)}
+.am-intro{color:var(--tinta-suau);max-width:70ch;margin:0 0 16px}
+.am-card{padding:22px 24px}
+@media (max-width:640px){.am-card{padding:18px 16px}}
+.am-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.am-dl{display:grid;gap:14px;margin:0}
+.am-dl dt{font:600 .85rem/1 var(--font-text);letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-suau);margin-bottom:5px}
+.am-dl dd{margin:0}
+.am-ul{margin:0;padding-left:1.2em}
+.am-ul li{margin:0 0 5px}
+.am-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.am-tags .tv-chip{font-size:1rem}
+.am-fig{margin:0 0 22px;border-radius:var(--radi-lg);overflow:hidden;border:1px solid var(--vidre-vora);box-shadow:var(--ombra-8);background:var(--vidre-2)}
+.am-fig img{width:100%;height:auto}
+.am-fig figcaption{padding:10px 16px;font-size:1rem;color:var(--tinta-suau)}
+
+/* targeta de repte */
+.am-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:0 0 16px}
+.am-duas{display:grid;gap:16px;grid-template-columns:1fr}
+.am-duas.all{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.am-ticket{position:relative;background:#fff;border-radius:var(--radi-lg);border:1px solid var(--vidre-trac);box-shadow:var(--ombra-8);padding:20px 22px 20px 28px;overflow:hidden}
+.am-ticket::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;background:var(--amb)}
+.am-ticket[hidden]{display:none}
+.am-ticket h3{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.am-ver{display:inline-grid;place-items:center;min-width:2.1em;height:2.1em;padding:0 .4em;border-radius:var(--radi-pill);background:var(--amb-pastel);border:2px solid var(--amb);font:700 1rem/1 var(--font-display);color:var(--tinta)}
+.am-ticket .am-q{font:700 1.3rem/1.25 var(--font-display);letter-spacing:-.01em;margin:4px 0 12px}
+.am-ticket ol{margin:0 0 10px;padding-left:1.3em}
+.am-ticket ol li{margin:0 0 5px}
+.am-note{background:var(--amb-pastel);border-radius:var(--radi-md);padding:10px 14px;margin-top:10px;font-size:1rem}
+.am-picto{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px;margin:8px 0 12px;padding:0;list-style:none}
+.am-picto li{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;font:600 1rem/1.15 var(--font-text);padding:10px 6px;border-radius:var(--radi-md);background:var(--amb-pastel);border:1px solid #fff;position:relative;margin:0}
+.am-picto svg{width:56px;height:56px;color:var(--tinta);stroke-width:2.2}
+.am-picto b{position:absolute;top:6px;left:8px;font:700 .95rem/1 var(--font-display);color:var(--tinta-suau)}
+.am-lf p{font-size:1.2rem;line-height:1.6;margin:0 0 6px}
+
+/* plànol */
+.am-plan{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.am-plan{grid-template-columns:1fr}}
+.am-plan svg{width:100%;height:auto;border-radius:var(--radi-md);background:rgba(255,255,255,.55);border:1px solid var(--vidre-vora)}
+.am-zone{cursor:pointer}
+.am-zone .zb{transition:stroke-width .15s,filter .15s}
+.am-zone:hover .zb{stroke-width:4}
+.am-zone[aria-pressed="true"] .zb{stroke:var(--tinta);stroke-width:4;stroke-dasharray:none}
+.am-zone:focus-visible{outline:none}
+.am-zone:focus-visible .zb{stroke:var(--tinta);stroke-width:5}
+.am-num{fill:var(--tinta);}
+.pl-t{font:700 15px var(--font-display);fill:var(--tinta)}
+@media (max-width:640px){.pl-t{display:none}}
+.am-legend{display:grid;gap:8px;margin:0 0 14px;padding:0;list-style:none}
+.am-legend button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--vidre-vora);background:var(--vidre-2);border-radius:var(--radi-md);padding:10px 12px;font:600 1.05rem/1.2 var(--font-text);box-shadow:var(--ombra-2)}
+.am-legend button[aria-pressed="true"]{background:var(--vidre-fosc);color:#fff}
+.am-legend .n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--zc);border:2px solid var(--zs);color:var(--tinta);font:700 .95rem/1 var(--font-display);flex:none}
+.am-info{min-height:160px}
+.am-info h3{margin-bottom:8px}
+
+/* internivell */
+.am-team{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin:0 0 18px}
+.am-shape{display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:var(--radi-pill);background:#fff;border:1px solid var(--vidre-trac);font-weight:600}
+.am-shape svg{width:28px;height:28px}
+.am-roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:0 0 20px}
+.am-role{background:#fff;border-radius:var(--radi-md);border:1px solid var(--vidre-trac);padding:14px 16px}
+.am-role svg{width:38px;height:38px;color:var(--amb);margin-bottom:4px;stroke-width:2}
+.am-role h4{font-size:1.1rem;margin-bottom:4px}
+.am-role p{font-size:1rem;line-height:1.35;color:var(--tinta-suau)}
+.am-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:var(--radi-md);overflow:hidden;border:1px solid var(--vidre-trac)}
+.am-table th,.am-table td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--vidre-trac);font-size:1.02rem;line-height:1.35}
+.am-table thead th{background:var(--amb-pastel);font:700 1.05rem/1.1 var(--font-display)}
+.am-table tbody th{font:700 1.05rem/1.1 var(--font-display);background:#fbf8fc;white-space:nowrap}
+.am-table tr:last-child>*{border-bottom:0}
+@media (max-width:760px){
+  .am-table.stack,.am-table.stack tbody,.am-table.stack tr,.am-table.stack th,.am-table.stack td{display:block}
+  .am-table.stack thead{display:none}
+  .am-table.stack td[data-l]::before{content:attr(data-l);display:block;font:600 .85rem/1 var(--font-text);letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-suau);margin-bottom:4px}
+  .am-table.stack tbody th{background:var(--amb-pastel)}
+}
+
+/* simulador */
+.am-lab{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.am-lab{grid-template-columns:1fr}}
+.am-warn{display:flex;gap:12px;align-items:flex-start;background:var(--avis-fons);border:1px solid #fff;border-radius:var(--radi-md);padding:12px 16px;margin:0 0 16px;font-weight:600}
+.am-warn .ico{color:var(--estat-pendent);margin-top:2px}
+.am-stage{background:linear-gradient(#fdf8f4,#fff);border-radius:var(--radi-md);border:1px solid var(--vidre-vora);overflow:hidden}
+.am-stage svg{width:100%;height:auto}
+.am-brg{transform-box:fill-box;transform-origin:50% 50%;transition:transform 1s cubic-bezier(.5,0,.9,.5)}
+.am-brg.down{transform:translateY(95px) rotate(-7deg)}
+.am-ctl{display:grid;gap:14px}
+.am-ctl .tv-seg button{padding:9px 12px;font-size:1rem}
+.am-ctl label{font-weight:600}
+.am-ctl input[type=number]{width:5.5em;padding:8px 10px;border-radius:var(--radi-sm);border:1px solid var(--vidre-trac);background:#fff;font-size:1.1rem}
+.am-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.am-status{min-height:3.2em;background:var(--vidre-3);border-radius:var(--radi-md);padding:10px 14px;font-weight:600;border:1px solid var(--vidre-vora)}
+.am-meter{height:14px;border-radius:var(--radi-pill);background:rgba(86,77,98,.15);overflow:hidden;margin-top:8px}
+.am-meter i{display:block;height:100%;width:0;background:var(--amb);transition:width .25s}
+.am-res{margin-top:18px}
+.am-res .am-table td,.am-res .am-table th{padding:9px 12px}
+.am-bar2{display:block;height:12px;border-radius:6px;background:var(--amb);min-width:3px}
+.am-empty{padding:14px;color:var(--tinta-suau);font-style:italic}
+
+/* adult */
+.am-q-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:0 0 20px}
+.am-q-list blockquote{margin:0;background:#fff;border-left:8px solid var(--amb);border-radius:var(--radi-md);padding:12px 16px;font:600 1.1rem/1.35 var(--font-text);border-top:1px solid var(--vidre-trac);border-right:1px solid var(--vidre-trac);border-bottom:1px solid var(--vidre-trac)}
+.am-q-list small{display:block;font:600 .85rem/1 var(--font-text);letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-suau);margin-bottom:6px}
+.am-obs{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:var(--radi-md);overflow:hidden;border:1px solid var(--vidre-trac)}
+.am-obs th,.am-obs td{padding:6px;border-bottom:1px solid var(--vidre-trac);text-align:center;font-size:1rem}
+.am-obs thead th{background:var(--amb-pastel);font:700 1rem/1.15 var(--font-display);padding:10px 6px}
+.am-obs tbody th{text-align:left;padding:8px 12px;font-weight:600}
+.am-obs td button{width:100%;min-width:76px;min-height:44px;border:1px solid var(--vidre-trac);border-radius:var(--radi-sm);background:#fff;font:600 .95rem/1.1 var(--font-text);color:var(--tinta-suau)}
+.am-obs td button[data-v="1"]{background:var(--lec-pastel);color:var(--tinta)}
+.am-obs td button[data-v="2"]{background:var(--cie-pastel);color:var(--tinta)}
+.am-obs td button[data-v="3"]{background:var(--mat-pastel);color:var(--tinta);font-weight:700}
+.am-scroll{overflow-x:auto;border-radius:var(--radi-md)}
+.am-scroll .am-obs{min-width:620px}
+.am-time{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.am-time ol{list-style:none;margin:0;padding:0}
+.am-time li{display:grid;grid-template-columns:64px 1fr;gap:10px;padding:8px 0;border-bottom:1px dashed var(--linia-buida)}
+.am-time li:last-child{border:0}
+.am-time li b{font:700 1.05rem/1.2 var(--font-display);color:var(--tinta);background:var(--amb-pastel);border-radius:var(--radi-pill);text-align:center;padding:4px 0;height:fit-content}
+
+/* com ho veus */
+.am-vote{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0}
+.am-why{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.am-why[hidden]{display:none}
+.am-ok{margin-top:12px;font-weight:700;font-size:1.15rem}
+.am-ok[hidden]{display:none}
+
+/* impressió només de la fitxa */
+@media print{
+  body.am-pf main>*:not(.am-pr){display:none!important}
+  body.am-pf .tv-foot{display:none!important}
+  .am-ticket{box-shadow:none;border:1px solid #888;break-inside:avoid}
+  .am-ticket::before{background:#888!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .am-picto li,.am-note,.am-ver{background:#fff!important;border:1px solid #888!important}
+  .am-bar{display:none}
+}
+</style></head>
+<body style="--cc:var(--amb);--ct:var(--amb-pastel)">
+
+<!-- pictogrames propis -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+ <defs>
+  <symbol id="p-riu" viewBox="0 0 48 48"><rect x="2" y="22" width="12" height="18" rx="2"/><rect x="34" y="22" width="12" height="18" rx="2"/><path d="M14 36q2.5-3 5 0t5 0 5 0 5 0"/><circle cx="8" cy="14" r="3"/><path d="M8 17v5"/></symbol>
+  <symbol id="p-dibuixa" viewBox="0 0 48 48"><path d="M9 39l2-9 20-20 7 7-20 20z"/><path d="M28 13l7 7"/><path d="M11 30l7 7"/></symbol>
+  <symbol id="p-construeix" viewBox="0 0 48 48"><rect x="5" y="30" width="38" height="5" rx="1.5"/><rect x="9" y="21" width="30" height="5" rx="1.5"/><rect x="13" y="12" width="22" height="5" rx="1.5"/></symbol>
+  <symbol id="p-posa" viewBox="0 0 48 48"><rect x="2" y="26" width="11" height="16" rx="2"/><rect x="35" y="26" width="11" height="16" rx="2"/><path d="M8 26h32"/><path d="M24 6v12M19 13l5 5 5-5"/></symbol>
+  <symbol id="p-moneda" viewBox="0 0 48 48"><circle cx="24" cy="31" r="10"/><circle cx="24" cy="31" r="5"/><path d="M24 4v10M19 9l5 5 5-5"/></symbol>
+  <symbol id="p-foto" viewBox="0 0 48 48"><rect x="5" y="15" width="38" height="25" rx="4"/><circle cx="24" cy="27" r="7"/><path d="M16 15l3-6h10l3 6"/></symbol>
+  <symbol id="p-compta" viewBox="0 0 48 48"><ellipse cx="24" cy="36" rx="12" ry="4"/><path d="M12 36v-6M36 36v-6"/><ellipse cx="24" cy="30" rx="12" ry="4"/><path d="M12 30v-6M36 30v-6"/><ellipse cx="24" cy="24" rx="12" ry="4"/><path d="M18 12l4 4 8-8"/></symbol>
+ </defs>
+</svg>
+
+<div class="tv-top tv-wrap"><div class="tv-glass">
+  <a class="tv-back" href="index.html"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Taulell</a>
+  <span class="tv-crumb">Mitjans · Dimecres 15:00 · Ambients</span><span class="tv-stamp">Mostra</span></div></div>
+
+<main class="tv-wrap">
+  <header class="tv-glass tv-head">
+    <div class="tv-kicker"><span class="tv-chip" style="--cc:var(--mitjans)"><i></i>Mitjans · 1r a 3r</span><span class="tv-chip"><i></i>Ambients · internivell</span><span class="tv-chip dark">2 sessions de 90 min</span></div>
+    <h1>Construïm un pont que aguanti</h1>
+    <p class="tv-lead">El riu ha crescut i el ninot no pot passar a l'altra banda. Infants de primer, segon i tercer, barrejats en equips de tres, proven, fallen, miren per què i ho tornen a provar. Aquí tens l'ambient sencer: l'espai, els rols, el repte en quatre versions i un banc de proves per fer prediccions abans de tocar el paper.</p>
+  </header>
+
+  <figure class="am-fig"><img src="img/ambient-pont.webp" alt="Ambient de construcció d'una escola amb ponts de paper i pals de gelat sobre dues piles de llibres" onerror="this.closest('figure').remove()"><figcaption>Ponts de paper i pals sobre dues ribes: l'ambient a punt per provar.</figcaption></figure>
+
+  <!-- 1. FITXA -->
+  <section class="am-sec am-pr" id="fitxa">
+    <h2><svg class="ico" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg>Fitxa i targeta de repte</h2>
+    <p class="am-intro">El repte és el mateix per a tothom. El que canvia és l'ajuda: tria una versió o compara-les les quatre.</p>
+    <div class="tv-glass am-card">
+      <div class="am-cols" style="margin-bottom:20px">
+        <dl class="am-dl">
+          <div><dt>Objectiu</dt><dd>Explorar què fa que un pont aguanti més pes: provar formes i materials senzills, predir què passarà, comprovar-ho amb les mans i explicar-ho amb paraules i amb números.</dd></div>
+          <div><dt>Durada</dt><dd>2 sessions de 90 min: dimecres, <em>Construïm un pont que aguanti</em>; divendres, <em>El pont, segona prova</em>.</dd></div>
+          <div><dt>Provocació</dt><dd>«El riu ha crescut i el ninot no pot passar a l'altra banda. Quin pont aguanta més pes?» Tortosa té l'Ebre al davant: els ponts són a tocar. Pots deixar que els infants els recordin, sense dibuixar-los de memòria.</dd></div>
+        </dl>
+        <dl class="am-dl">
+          <div><dt>Criteris d'avaluació (Decret 175/2022)</dt>
+            <dd><ul class="am-ul">
+              <li><b>Coneixement del medi.</b> Plantejar-se preguntes i fer prediccions sobre què passa quan es prova un objecte; experimentar amb materials senzills; comunicar el que s'ha descobert amb dibuixos, paraules i dades.</li>
+              <li><b>Matemàtiques.</b> Comptar i comparar quantitats; mesurar longituds (els 20 cm del riu); registrar dades en una taula senzilla i interpretar-les (a tercer, també relacionar dues quantitats).</li>
+            </ul></dd></div>
+          <div><dt>Competències transversals</dt>
+            <dd class="am-tags"><span class="tv-chip">Aprendre a aprendre</span><span class="tv-chip">Personal i social</span><span class="tv-chip">Comunicativa</span><span class="tv-chip">Emprenedora</span></dd></div>
+        </dl>
+        <dl class="am-dl">
+          <div><dt>Recursos (material no estructurat)</dt>
+            <dd><ul class="am-ul"><li>Paper i cartolina</li><li>Pals de gelat, pinces, gomes i cinta</li><li>Gots de iogurt (per a pilars)</li><li>Monedes d'1 cèntim o volanderes, com a pes</li><li>Dos blocs com a ribes, a 20 cm</li><li>Un ninot, regle i bàscula (per a l'ampliació)</li></ul></dd></div>
+        </dl>
+      </div>
+
+      <div class="am-bar tv-noprint">
+        <div class="tv-seg" role="group" aria-label="Versió de la targeta de repte" id="am-ver">
+          <button type="button" data-v="B" aria-pressed="true">B · Base</button>
+          <button type="button" data-v="V" aria-pressed="false">V · Suport visual</button>
+          <button type="button" data-v="LF" aria-pressed="false">LF · Lectura fàcil</button>
+          <button type="button" data-v="A" aria-pressed="false">A · Ampliació</button>
+        </div>
+        <button class="tv-btn" type="button" id="am-all" aria-pressed="false">Compara les quatre</button>
+        <button class="tv-btn" type="button" id="am-print"><svg class="ico" viewBox="0 0 24 24"><path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z"/></svg>Imprimeix la fitxa</button>
+      </div>
+
+      <div class="am-duas" id="am-duas">
+        <!-- B -->
+        <article class="am-ticket" data-v="B">
+          <h3><span class="am-ver">B</span>Base</h3>
+          <p class="am-q">El riu ha crescut. El ninot no pot passar. Construeix un pont que aguanti més pes.</p>
+          <ol>
+            <li>Mira les dues ribes. Estan a 20 cm.</li>
+            <li>Pensa un pont i dibuixa'l.</li>
+            <li>Tria el material i construeix-lo.</li>
+            <li>Posa'l a les ribes. Hi ha de passar el ninot.</li>
+            <li>Posa monedes sobre el pont, d'una en una.</li>
+            <li>Anota què ha passat: aguanta o cau?</li>
+          </ol>
+          <p class="am-note"><b>Per pensar:</b> què fa que un pont sigui més fort?</p>
+        </article>
+        <!-- V -->
+        <article class="am-ticket" data-v="V" hidden>
+          <h3><span class="am-ver">V</span>Suport visual</h3>
+          <p class="am-q">Fes un pont. Que aguanti.</p>
+          <ol class="am-picto">
+            <li><b>1</b><svg class="ico" viewBox="0 0 48 48"><use href="#p-riu"/></svg>Mira el riu</li>
+            <li><b>2</b><svg class="ico" viewBox="0 0 48 48"><use href="#p-dibuixa"/></svg>Dibuixa</li>
+            <li><b>3</b><svg class="ico" viewBox="0 0 48 48"><use href="#p-construeix"/></svg>Construeix</li>
+            <li><b>4</b><svg class="ico" viewBox="0 0 48 48"><use href="#p-posa"/></svg>Posa'l a les ribes</li>
+            <li><b>5</b><svg class="ico" viewBox="0 0 48 48"><use href="#p-moneda"/></svg>Una moneda cada cop</li>
+            <li><b>6</b><svg class="ico" viewBox="0 0 48 48"><use href="#p-foto"/></svg>Fes una foto</li>
+          </ol>
+          <p class="am-note">Els pictogrames sempre van en aquest ordre. Pots enganxar-los a la taula.</p>
+        </article>
+        <!-- LF -->
+        <article class="am-ticket am-lf" data-v="LF" hidden>
+          <h3><span class="am-ver">LF</span>Lectura fàcil</h3>
+          <p class="am-q">Fem un pont.</p>
+          <p>El ninot és en una banda del riu.</p>
+          <p>Vol anar a l'altra banda.</p>
+          <p>Fes un pont.</p>
+          <p>El pont ha d'aguantar monedes.</p>
+          <p>Posa les monedes d'una en una.</p>
+          <p>Compta les monedes.</p>
+          <p>Si cau, mira per què.</p>
+          <p>Explica-ho al teu equip.</p>
+        </article>
+        <!-- A -->
+        <article class="am-ticket" data-v="A" hidden>
+          <h3><span class="am-ver">A</span>Ampliació</h3>
+          <p class="am-q">Un pont amb poc material. Quin és el més eficient?</p>
+          <ol>
+            <li>Només tens <b>10 pals</b> i <b>1 m de cinta</b>. Cap altre material.</li>
+            <li>Construeix un pont per a les ribes de 20 cm.</li>
+            <li>Pesa el pont acabat (en grams).</li>
+            <li>Posa monedes fins que caigui. Anota quantes n'aguanta.</li>
+            <li>Calcula: <b>monedes aguantades ÷ grams del pont</b>.</li>
+            <li>Compara amb el pont d'un altre equip i amb el vostre primer pont. Quin aprofita millor el material? Per què?</li>
+          </ol>
+          <p class="am-note"><b>Per pensar:</b> si tens més pes de pont, aguanta més sempre? Què canvia si el fas més lleuger?</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. ESPAI -->
+  <section class="am-sec" id="espai">
+    <h2><svg class="ico" viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 9v12"/></svg>L'espai</h2>
+    <p class="am-intro">L'ambient té cinc racons. Toca un racó del plànol (o de la llista) i mira per a què serveix.</p>
+    <div class="tv-glass am-card am-plan">
+      <div>
+        <svg viewBox="0 0 600 400" role="group" aria-label="Plànol de l'ambient de construcció, amb cinc zones">
+          <rect x="8" y="8" width="584" height="384" rx="18" fill="#fff" fill-opacity=".7" stroke="#756C82" stroke-opacity=".5" stroke-width="3"/>
+          <path d="M470 392h90" stroke="#fff" stroke-width="8"/>
+          <text x="515" y="380" text-anchor="middle" class="pl-t" style="font-size:13px">porta</text>
+          <!-- 1 prestatge -->
+          <g class="am-zone" data-z="1" role="button" tabindex="0" aria-pressed="false" aria-label="Prestatge de materials">
+            <rect class="zb" x="24" y="22" width="238" height="66" rx="12" fill="#E1F1C0" stroke="#5A8410" stroke-width="2.5"/>
+            <path d="M34 55h218" stroke="#5A8410" stroke-width="2"/>
+            <rect x="40" y="32" width="26" height="20" rx="3" fill="#fff" stroke="#5A8410"/><rect x="72" y="36" width="26" height="16" rx="3" fill="#E9C9A0" stroke="#5A8410"/><rect x="104" y="32" width="26" height="20" rx="3" fill="#FFE4B8" stroke="#5A8410"/><rect x="136" y="38" width="26" height="14" rx="3" fill="#CFE0FF" stroke="#5A8410"/><rect x="168" y="32" width="26" height="20" rx="3" fill="#FFD2E1" stroke="#5A8410"/>
+            <rect x="40" y="62" width="40" height="20" rx="3" fill="#fff" stroke="#5A8410"/><rect x="90" y="62" width="40" height="20" rx="3" fill="#E5D8FF" stroke="#5A8410"/><rect x="140" y="62" width="40" height="20" rx="3" fill="#C4ECF1" stroke="#5A8410"/>
+            <circle cx="238" cy="38" r="15" fill="#fff" stroke="#2A2433" stroke-width="2"/><text x="238" y="44" text-anchor="middle" class="am-num" font-family="Quicksand" font-weight="700" font-size="17">1</text>
+            <text x="150" y="104" text-anchor="middle" class="pl-t" >Materials</text>
+          </g>
+          <!-- 4 mural -->
+          <g class="am-zone" data-z="4" role="button" tabindex="0" aria-pressed="false" aria-label="Mural de descobriments">
+            <rect class="zb" x="334" y="22" width="248" height="66" rx="12" fill="#E5D8FF" stroke="#7046CC" stroke-width="2.5"/>
+            <rect x="350" y="34" width="44" height="34" rx="3" fill="#fff" stroke="#7046CC"/><rect x="404" y="36" width="44" height="30" rx="3" fill="#FFE4B8" stroke="#7046CC" transform="rotate(-3 426 51)"/><rect x="458" y="34" width="44" height="34" rx="3" fill="#CBEFD8" stroke="#7046CC"/><rect x="512" y="38" width="44" height="30" rx="3" fill="#FFD2E1" stroke="#7046CC" transform="rotate(3 534 53)"/>
+            <path d="M356 76h32M410 76h32M464 76h32M518 76h32" stroke="#7046CC" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="566" cy="38" r="15" fill="#fff" stroke="#2A2433" stroke-width="2"/><text x="566" y="44" text-anchor="middle" class="am-num" font-family="Quicksand" font-weight="700" font-size="17">4</text>
+            <text x="458" y="104" text-anchor="middle" class="pl-t">Mural de descobriments</text>
+          </g>
+          <!-- 2 taules -->
+          <g class="am-zone" data-z="2" role="button" tabindex="0" aria-pressed="false" aria-label="Taules de construcció">
+            <rect class="zb" x="24" y="118" width="288" height="170" rx="14" fill="#FFDACA" stroke="#BC5029" stroke-width="2.5"/>
+            <rect x="42" y="140" width="116" height="52" rx="10" fill="#fff" stroke="#BC5029" stroke-width="2"/><rect x="178" y="140" width="116" height="52" rx="10" fill="#fff" stroke="#BC5029" stroke-width="2"/><rect x="42" y="214" width="116" height="52" rx="10" fill="#fff" stroke="#BC5029" stroke-width="2"/><rect x="178" y="214" width="116" height="52" rx="10" fill="#fff" stroke="#BC5029" stroke-width="2"/>
+            <path d="M58 166h24M92 166h24M194 166h24M228 166h24M58 240h24M92 240h24M194 240h24M228 240h24" stroke="#BC5029" stroke-width="5" stroke-linecap="round" opacity=".55"/>
+            <circle cx="296" cy="134" r="15" fill="#fff" stroke="#2A2433" stroke-width="2"/><text x="296" y="140" text-anchor="middle" class="am-num" font-family="Quicksand" font-weight="700" font-size="17">2</text>
+            <text x="168" y="282" text-anchor="middle" class="pl-t" style="font-size:14px">Taules de construcció</text>
+          </g>
+          <!-- 3 proves -->
+          <g class="am-zone" data-z="3" role="button" tabindex="0" aria-pressed="false" aria-label="Zona de proves amb les dues ribes">
+            <rect class="zb" x="338" y="118" width="244" height="170" rx="14" fill="#C4ECF1" stroke="#0E7782" stroke-width="2.5"/>
+            <rect x="354" y="176" width="58" height="64" rx="5" fill="#fff" stroke="#0E7782" stroke-width="2"/><rect x="508" y="176" width="58" height="64" rx="5" fill="#fff" stroke="#0E7782" stroke-width="2"/>
+            <path d="M412 252q10-8 20 0t20 0 20 0 16 0" fill="none" stroke="#3466CC" stroke-width="3" stroke-linecap="round"/><path d="M412 230q10-8 20 0t20 0 20 0 16 0" fill="none" stroke="#3466CC" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+            <path d="M400 176h120" stroke="#BC5029" stroke-width="7" stroke-linecap="round"/>
+            <path d="M384 154h28M512 154h28" stroke="#2A2433" stroke-width="2"/><path d="M412 270h96M412 264v12M508 264v12" stroke="#2A2433" stroke-width="2"/>
+            <text x="460" y="298" text-anchor="middle" class="pl-t" style="font-size:13px" dy="-1">20 cm</text>
+            <circle cx="548" cy="150" r="11" fill="#E9C9A0" stroke="#2A2433" stroke-width="1.8"/>
+            <circle cx="566" cy="134" r="15" fill="#fff" stroke="#2A2433" stroke-width="2"/><text x="566" y="140" text-anchor="middle" class="am-num" font-family="Quicksand" font-weight="700" font-size="17">3</text>
+          </g>
+          <!-- 5 dibuix -->
+          <g class="am-zone" data-z="5" role="button" tabindex="0" aria-pressed="false" aria-label="Racó de dibuix de plànols">
+            <rect class="zb" x="24" y="314" width="288" height="62" rx="12" fill="#FFE4B8" stroke="#9E6400" stroke-width="2.5"/>
+            <rect x="44" y="326" width="70" height="38" rx="3" fill="#fff" stroke="#9E6400"/><path d="M52 340l18-6 18 8 18-8" fill="none" stroke="#9E6400" stroke-width="2"/>
+            <rect x="130" y="326" width="70" height="38" rx="3" fill="#fff" stroke="#9E6400" transform="rotate(-4 165 345)"/>
+            <path d="M222 336h60M222 352h60" stroke="#9E6400" stroke-width="5" stroke-linecap="round"/><path d="M222 336v-6M232 336v-6M242 336v-6M252 336v-6M262 336v-6M272 336v-6" stroke="#9E6400" stroke-width="2"/>
+            <circle cx="296" cy="330" r="15" fill="#fff" stroke="#2A2433" stroke-width="2"/><text x="296" y="336" text-anchor="middle" class="am-num" font-family="Quicksand" font-weight="700" font-size="17">5</text>
+            <text x="168" y="392" text-anchor="middle" class="pl-t" style="font-size:13px;display:none">Plànols</text>
+          </g>
+        </svg>
+        <p class="tv-credit">Plànol esquemàtic dissenyat per a aquesta mostra; la distribució real s'adapta a l'aula.</p>
+      </div>
+      <div>
+        <ul class="am-legend" id="am-legend"></ul>
+        <div class="tv-pastel am-info" id="am-info" aria-live="polite"><h3>Toca un racó</h3><p>Aquí veuràs per a què serveix, què hi passa i què hi ha de fer l'adult.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. INTERNIVELL -->
+  <section class="am-sec" id="internivell">
+    <h2><svg class="ico" viewBox="0 0 24 24"><circle cx="6" cy="8" r="3"/><circle cx="18" cy="8" r="3"/><circle cx="12" cy="17" r="3"/><path d="M8.5 9.5l2 5M15.5 9.5l-2 5"/></svg>Internivell de debò</h2>
+    <p class="am-intro">No és «cada nivell a la seva». Els tres cursos treballen en el mateix equip, amb el mateix repte, i cadascú aporta el que pot i es pregunta el que toca.</p>
+    <div class="tv-glass am-card">
+      <h3 style="margin-bottom:10px">Equips de tres</h3>
+      <div class="am-team">
+        <span class="am-shape"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" fill="#FFE4B8" stroke="#2A2433" stroke-width="2"/></svg>1 infant de 1r</span>
+        <span class="am-shape"><svg viewBox="0 0 28 28"><rect x="4" y="4" width="20" height="20" rx="3" fill="#CBEFD8" stroke="#2A2433" stroke-width="2"/></svg>1 infant de 2n</span>
+        <span class="am-shape"><svg viewBox="0 0 28 28"><path d="M14 3l11 20H3z" fill="#E5D8FF" stroke="#2A2433" stroke-width="2" stroke-linejoin="round"/></svg>1 infant de 3r</span>
+      </div>
+      <p style="margin-bottom:18px">Es formen equips d'un de cada curs. Els rols es reparteixen sense mirar l'edat i <b>roten</b>: dimecres un el tria cada infant; divendres tothom en prova un de diferent. Una taula pot tenir dos equips que es miren els ponts.</p>
+
+      <h3 style="margin-bottom:10px">Quatre rols (en un equip de tres, un rol es comparteix)</h3>
+      <div class="am-roles">
+        <div class="am-role"><svg class="ico" viewBox="0 0 48 48"><use href="#p-dibuixa"/></svg><h4>Arquitecte</h4><p>Dibuixa el pla abans de tallar i el va actualitzant quan el pont canvia.</p></div>
+        <div class="am-role"><svg class="ico" viewBox="0 0 48 48"><use href="#p-construeix"/></svg><h4>Constructor</h4><p>Talla, plega, lliga i enganxa amb el material que l'equip ha triat.</p></div>
+        <div class="am-role"><svg class="ico" viewBox="0 0 48 48"><use href="#p-compta"/></svg><h4>Provador</h4><p>Posa les monedes d'una en una a la zona de proves i les compta en veu alta.</p></div>
+        <div class="am-role"><svg class="ico" viewBox="0 0 48 48"><use href="#p-foto"/></svg><h4>Cronista</h4><p>Fa la foto o el dibuix del que passa i ho deixa al mural de descobriments.</p></div>
+      </div>
+
+      <h3 style="margin-bottom:10px">Què s'espera de cada nivell davant del mateix repte</h3>
+      <table class="am-table stack">
+        <thead><tr><th></th><th>1r</th><th>2n</th><th>3r</th></tr></thead>
+        <tbody>
+          <tr><th>Què fa</th><td data-l="1r">Prova el pont i mira si aguanta o no aguanta.</td><td data-l="2n">Compta les monedes que aguanta i les anota.</td><td data-l="3r">Compara dos ponts i explica per què un aguanta més.</td></tr>
+          <tr><th>Com ho diu</th><td data-l="1r">Amb el cos, un dibuix o una paraula: «cau», «aguanta».</td><td data-l="2n">Amb un número i una frase: «n'aguanta 12».</td><td data-l="3r">Amb una frase de «perquè» i la diferència entre dos números.</td></tr>
+          <tr><th>Pregunta de l'adult</th><td data-l="1r">Què ha passat quan has posat la moneda?</td><td data-l="2n">Quantes n'ha aguantat? I el de l'altre equip?</td><td data-l="3r">Quant més aguanta? Què té de diferent?</td></tr>
+          <tr><th>Què deixa escrit</th><td data-l="1r">Una creu o un visto a la taula.</td><td data-l="2n">El número de monedes a la taula.</td><td data-l="3r">Una frase al mural: «hem descobert que…».</td></tr>
+        </tbody>
+      </table>
+      <p class="am-note" style="margin-top:14px">Els nivells no són límits: un infant de 1r que compta fins a 12 ho anota, i un de 3r pot dibuixar el pla. L'equip decideix qui fa què; l'adult vigila que ningú es quedi sempre amb el mateix.</p>
+    </div>
+  </section>
+
+  <!-- 4. BANC DE PROVES -->
+  <section class="am-sec" id="proves">
+    <h2><svg class="ico" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/><path d="M7.5 15h9"/></svg>Banc de proves: prova el pont</h2>
+    <p class="am-intro">Tria una forma i un material, escriu què creus que passarà i afegeix monedes una a una. Al final, anota el resultat a la taula.</p>
+    <div class="am-warn" role="note"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg><span>Això és una estimació per fer prediccions. La prova de debò és amb les mans: el vostre pont pot aguantar més o menys que aquest.</span></div>
+    <div class="tv-glass am-card am-lab">
+      <div>
+        <div class="am-stage">
+          <svg id="am-svg" viewBox="0 0 600 300" role="img" aria-label="Simulació d'un pont entre dues ribes amb monedes al damunt">
+            <rect width="600" height="300" fill="#fff" fill-opacity="0"/>
+            <rect x="120" y="212" width="360" height="70" fill="#BEE0FF" opacity=".55"/>
+            <g id="am-pil"></g>
+            <g id="am-brgw" class="am-brg"><g id="am-brg"></g><g id="am-coin"></g></g>
+            <rect x="120" y="205" width="360" height="77" fill="#BEE0FF" opacity=".45"/>
+            <path d="M120 224q15-8 30 0t30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0" fill="none" stroke="#3466CC" stroke-width="3" opacity=".6"/>
+            <rect x="30" y="150" width="90" height="132" rx="6" fill="#F5F1F7" stroke="#756C82" stroke-width="3"/>
+            <rect x="480" y="150" width="90" height="132" rx="6" fill="#F5F1F7" stroke="#756C82" stroke-width="3"/>
+            <g id="am-ninot"><circle cx="75" cy="136" r="14" fill="#fff" stroke="#2A2433" stroke-width="3"/><circle cx="75" cy="113" r="9" fill="#fff" stroke="#2A2433" stroke-width="3"/></g>
+            <path d="M120 292h360M120 286v12M480 286v12" stroke="#2A2433" stroke-width="2"/>
+            <text x="300" y="276" text-anchor="middle" font-family="Quicksand" font-weight="700" font-size="22" fill="#2A2433">20 cm</text>
+          </svg>
+        </div>
+        <div class="am-meter" aria-hidden="true"><i id="am-fill"></i></div>
+        <div class="am-status" id="am-status" aria-live="polite" style="margin-top:12px"></div>
+      </div>
+      <div class="am-ctl">
+        <div><p class="tv-lbl">Forma</p>
+          <div class="tv-seg" id="am-forma" role="group" aria-label="Forma del pont">
+            <button type="button" data-k="pla" aria-pressed="true">Pla</button><button type="button" data-k="acord" aria-pressed="false">Acordió</button><button type="button" data-k="arc" aria-pressed="false">Arc</button><button type="button" data-k="pilars" aria-pressed="false">Amb pilars</button>
+          </div></div>
+        <div><p class="tv-lbl">Material</p>
+          <div class="tv-seg" id="am-mat" role="group" aria-label="Material del pont">
+            <button type="button" data-k="paper" aria-pressed="true">Paper</button><button type="button" data-k="carto" aria-pressed="false">Cartolina</button><button type="button" data-k="pals" aria-pressed="false">Pals</button>
+          </div></div>
+        <div><label for="am-pred">Quantes monedes creus que aguantarà?</label><br><input type="number" id="am-pred" min="0" max="99" inputmode="numeric"></div>
+        <div class="am-row">
+          <button class="tv-btn main" type="button" id="am-add1">+1 moneda</button>
+          <button class="tv-btn" type="button" id="am-add5">+5</button>
+          <button class="tv-btn" type="button" id="am-reset">Torna a començar</button>
+        </div>
+        <button class="tv-btn" type="button" id="am-save"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Anota el resultat</button>
+      </div>
+    </div>
+    <div class="tv-glass am-card am-res">
+      <h3 style="margin-bottom:10px">Taula de resultats</h3>
+      <div id="am-restab"></div>
+      <div class="am-row tv-noprint" style="margin-top:12px">
+        <button class="tv-btn" type="button" id="am-clear">Esborra la taula</button>
+      </div>
+      <p class="tv-credit">Aquesta mateixa taula és la del full de registre: quan facis la prova de debò, compara el teu resultat amb la predicció.</p>
+    </div>
+  </section>
+
+  <!-- 5. ADULT -->
+  <section class="am-sec" id="adult">
+    <h2><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>Paper de l'adult</h2>
+    <p class="am-intro">L'adult no explica com es fa un pont. Fa preguntes, mira i deixa que els ponts fallin.</p>
+    <div class="tv-glass am-card">
+      <h3 style="margin-bottom:10px">Preguntes per acompanyar, sense donar la resposta</h3>
+      <div class="am-q-list">
+        <blockquote><small>Abans de provar</small>Què creus que passarà si hi poses una moneda al mig?</blockquote>
+        <blockquote><small>Quan cau</small>On ha començat a doblegar-se? Què ha fallat primer?</blockquote>
+        <blockquote><small>Per millorar</small>Com ho podries fer més fort? Què canviaries només una cosa?</blockquote>
+        <blockquote><small>Per comparar</small>Quin dels dos ponts aguanta més? Com ho saps?</blockquote>
+        <blockquote><small>Per al cronista</small>Què voldries que sàpiguen els altres equips d'aquest pont?</blockquote>
+      </div>
+
+      <div class="am-cols" style="margin-bottom:20px">
+        <div><h3 style="margin-bottom:8px">Què observar</h3>
+          <ul class="am-ul"><li>Fan prediccions i les diuen en veu alta?</li><li>Tornen a provar després de caure, en lloc de començar de zero?</li><li>Canvien una sola cosa cada vegada, o tot alhora?</li><li>Els tres nivells participen o un parla per tots?</li><li>Usen els números per comparar, o només «aquest és millor»?</li></ul></div>
+        <div><h3 style="margin-bottom:8px">Què no cal fer</h3>
+          <ul class="am-ul"><li>No dir quina forma és la bona.</li><li>No arreglar el pont que ha caigut.</li><li>No repartir el material: que el vagin a buscar.</li></ul></div>
+      </div>
+
+      <h3 style="margin-bottom:8px">Graella d'observació per equips</h3>
+      <p class="tv-muted" style="margin-bottom:10px">Sense noms: equips 1 a 4. Toca una casella per canviar-ne l'estat: <b>No s'hi veu</b> → <b>Comença</b> → <b>Ho fa</b> → <b>Ho fa i ho explica</b>.</p>
+      <div class="am-scroll"><table class="am-obs" id="am-obs"></table></div>
+      <div class="am-row tv-noprint" style="margin-top:10px"><button class="tv-btn" type="button" id="am-obs-clear">Buida la graella</button></div>
+    </div>
+
+    <div class="am-time" style="margin-top:18px">
+      <div class="tv-glass am-card"><h3 style="margin-bottom:8px">Dimecres · Construïm un pont que aguanti</h3>
+        <ol><li><b>10'</b><span>Provocació: el riu i el ninot. Prediccions en veu alta.</span></li><li><b>15'</b><span>Formen equips, reparteixen rols, dibuixen el pla.</span></li><li><b>35'</b><span>Construeixen amb el material que triïn.</span></li><li><b>20'</b><span>Proves: monedes d'una en una, anoten.</span></li><li><b>10'</b><span>Cronistes pengen una descoberta al mural.</span></li></ol></div>
+      <div class="tv-glass am-card"><h3 style="margin-bottom:8px">Divendres · El pont, segona prova</h3>
+        <ol><li><b>10'</b><span>Mirem el mural. Què vam descobrir?</span></li><li><b>15'</b><span>Cada equip decideix què millorarà i per què. Rols diferents.</span></li><li><b>35'</b><span>Milloren el pont (sense començar de zero).</span></li><li><b>20'</b><span>Segona prova: comparen amb la del dimecres.</span></li><li><b>10'</b><span>Mural final: «el que hem après amb el pont».</span></li></ol></div>
+    </div>
+  </section>
+
+  <!-- 6. COM HO VEUS -->
+  <section class="am-sec tv-noprint" id="veus">
+    <div class="tv-pastel">
+      <h2 style="margin-bottom:8px">Com ho veus?</h2><div data-say></div>
+    </div>
+  </section>
+</main>
+<footer class="tv-foot">Institut Escola El Temple, Tortosa. Mostra amb dades d'exemple. No hi ha cap nom d'alumne; els docents apareixen pel seu rol.</footer>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+/* ---- targeta DUA ---- */
+const verBtns=$$('#am-ver button'), tickets=$$('.am-ticket'), duas=$('#am-duas'), allBtn=$('#am-all');
+let verSel='B', all=false;
+function showVer(){
+  duas.classList.toggle('all',all);
+  tickets.forEach(t=>t.hidden=!(all||t.dataset.v===verSel));
+  verBtns.forEach(b=>b.setAttribute('aria-pressed',String(!all&&b.dataset.v===verSel)));
+  allBtn.setAttribute('aria-pressed',String(all));
+}
+verBtns.forEach(b=>b.onclick=()=>{verSel=b.dataset.v;all=false;showVer()});
+allBtn.onclick=()=>{all=!all;showVer()};
+showVer();
+$('#am-print').onclick=()=>{
+  document.body.classList.add('am-pf');
+  const sec=$('#fitxa');
+  window.print();
+  setTimeout(()=>document.body.classList.remove('am-pf'),500);
+};
+
+/* ---- plànol ---- */
+const ZONES={
+ 1:{n:'Prestatge de materials',c:'#E1F1C0',s:'#5A8410',t:'Aquí hi ha tot el material, a la vista i en safates: paper, cartolina, pals, pinces, gomes, cinta i gots de iogurt.',u:'Els equips hi van a buscar el que necessiten, no tot alhora. Així decideixen què triar i per què. L\'adult no reparteix.'},
+ 2:{n:'Taules de construcció',c:'#FFDACA',s:'#BC5029',t:'Cada taula és d\'un equip de tres, amb una safata pròpia. Aquí es talla, es plega, es lliga i es munta el pont.',u:'Hi ha prou espai per tenir dos ponts alhora (el de la primera prova i el millorat). Els papers dels rols es queden a la taula.'},
+ 3:{n:'Zona de proves',c:'#C4ECF1',s:'#0E7782',t:'Dues ribes fetes amb blocs, separades 20 cm i marcades amb cinta al terra. Hi ha un pot de monedes i el ninot.',u:'Es prova d\'un equip cada vegada, i tothom mira. El provador posa les monedes d\'una en una i les compta en veu alta. Aquí hi passa tot el que importa.'},
+ 4:{n:'Mural de descobriments',c:'#E5D8FF',s:'#7046CC',t:'Un tauler on cada equip penja una foto o un dibuix i una frase que comença per «hem descobert que…».',u:'El cronista hi penja la descoberta. Dimecres s\'omple; divendres s\'hi torna a mirar abans de millorar el pont.'},
+ 5:{n:'Racó de dibuix de plànols',c:'#FFE4B8',s:'#9E6400',t:'Papers, llapis, regle i una taula tranquil·la. Aquí l\'arquitecte pensa el pont abans de tallar.',u:'Els plànols es guarden. Divendres serveixen per veure què s\'ha canviat respecte del primer pont.'}
+};
+const legend=$('#am-legend'), info=$('#am-info');
+Object.keys(ZONES).forEach(k=>{
+  const z=ZONES[k], li=document.createElement('li');
+  li.innerHTML='<button type="button" data-z="'+k+'" aria-pressed="false" style="--zc:'+z.c+';--zs:'+z.s+'"><span class="n">'+k+'</span>'+z.n+'</button>';
+  legend.appendChild(li);
+});
+function selZone(k){
+  const z=ZONES[k];
+  $$('.am-zone').forEach(g=>g.setAttribute('aria-pressed',String(g.dataset.z===String(k))));
+  $$('#am-legend button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.z===String(k))));
+  info.innerHTML='<h3>'+z.n+'</h3><p style="margin-bottom:8px">'+z.t+'</p><p><b>Com s\'usa.</b> '+z.u+'</p>';
+}
+$$('.am-zone').forEach(g=>{
+  g.addEventListener('click',()=>selZone(g.dataset.z));
+  g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selZone(g.dataset.z)}});
+});
+$$('#am-legend button').forEach(b=>b.addEventListener('click',()=>selZone(b.dataset.z)));
+
+/* ---- simulador ---- */
+const MAT={paper:{n:'paper',base:3,col:'#F2E8D2',w:4,dash:''},carto:{n:'cartolina',base:8,col:'#D9A878',w:6,dash:''},pals:{n:'pals',base:12,col:'#C98F4F',w:9,dash:'46 3'}};
+const SH={pla:{n:'pla',m:1,sag:70,rise:0},acord:{n:'plegat en acordió',m:4,sag:48,rise:0},arc:{n:'arc',m:3.5,sag:28,rise:60},pilars:{n:'amb pilars',m:2.5,sag:20,rise:0}};
+const Y0=150, XL=100, XR=500;
+let forma='pla', mat='paper', coins=0, fallen=false;
+const cap=()=>Math.round(MAT[mat].base*SH[forma].m);
+function yTop(x){
+  const u=(x-300)/200, par=1-u*u, s=SH[forma].sag*Math.pow(Math.min(coins,cap())/cap(),1.5);
+  return Y0-SH[forma].rise*par+s*par;
+}
+function draw(){
+  const m=MAT[mat], s=SH[forma];
+  let pts=[];
+  for(let x=XL;x<=XR;x+=10){
+    let y=yTop(x);
+    if(forma==='acord'){ const ph=((x-XL)/25)%2; y+=(ph<1?ph:2-ph)*14-7; }
+    pts.push(x+','+y.toFixed(1));
+  }
+  $('#am-brg').innerHTML='<polyline points="'+pts.join(' ')+'" fill="none" stroke="'+m.col+'" stroke-width="'+m.w+'" stroke-linejoin="round" '+(m.dash?'stroke-dasharray="'+m.dash+'" ':'')+'stroke-linecap="butt"/><polyline points="'+pts.join(' ')+'" fill="none" stroke="#2A2433" stroke-opacity=".55" stroke-width="1.5" stroke-linejoin="round"/>';
+  /* pilars */
+  $('#am-pil').innerHTML= forma==='pilars'
+    ? [235,365].map(x=>'<path d="M'+(x-18)+' '+(Y0+3)+'h36l-6 85h-24z" fill="#FFD2E1" stroke="#2A2433" stroke-width="2.5" stroke-linejoin="round"/>').join('')
+    : '';
+  /* monedes */
+  let h='', n=coins, rows=6, cols=Math.ceil(n/rows);
+  for(let i=0;i<n;i++){
+    const c=Math.floor(i/rows), r=i%rows, x=300+(c-(cols-1)/2)*16;
+    const y=yTop(x)-m.w/2-5-r*5;
+    h+='<rect x="'+(x-7)+'" y="'+y.toFixed(1)+'" width="14" height="4.5" rx="2" fill="#E0A265" stroke="#2A2433" stroke-width="1.2"/>';
+  }
+  $('#am-coin').innerHTML=h;
+  $('#am-brgw').classList.toggle('down',fallen);
+  $('#am-fill').style.width=Math.min(100,Math.round(coins/cap()*100))+'%';
+  let t;
+  if(fallen) t='El pont ha caigut amb '+coins+' monedes. N\'ha aguantat '+(coins-1)+'. Anota el resultat o torna a començar.';
+  else if(coins===0) t='Pont '+s.n+' de '+m.n+'. Posa la primera moneda.';
+  else t='Monedes al pont: '+coins+'. Encara aguanta. Continua d\'una en una.';
+  $('#am-status').textContent=t;
+  $('#am-add1').disabled=$('#am-add5').disabled=fallen;
+}
+function addCoins(k){
+  for(let i=0;i<k&&!fallen;i++){ coins++; if(coins>cap()) fallen=true; }
+  draw();
+}
+function reset(){coins=0;fallen=false;draw()}
+function press(group,fn){
+  $$(group+' button').forEach(b=>b.onclick=()=>{
+    $$(group+' button').forEach(o=>o.setAttribute('aria-pressed',String(o===b)));
+    fn(b.dataset.k); reset();
+  });
+}
+press('#am-forma',k=>forma=k);
+press('#am-mat',k=>mat=k);
+$('#am-add1').onclick=()=>addCoins(1);
+$('#am-add5').onclick=()=>addCoins(5);
+$('#am-reset').onclick=reset;
+
+let rows=[];
+function renderRes(){
+  const box=$('#am-restab');
+  if(!rows.length){box.innerHTML='<p class="am-empty">Encara no hi ha resultats. Prova un pont i prem «Anota el resultat».</p>';return}
+  const mx=Math.max(...rows.map(r=>r.a),1);
+  box.innerHTML='<table class="am-table"><thead><tr><th>Forma</th><th>Material</th><th>Prediem</th><th>Aguanta</th><th>Gràfic</th></tr></thead><tbody>'+
+   rows.map(r=>'<tr><td>'+r.f+'</td><td>'+r.m+'</td><td>'+(r.p===''?'—':r.p)+'</td><td><b>'+r.a+'</b>'+(r.p!==''?(r.a>r.p?' (+'+(r.a-r.p)+')':r.a<r.p?' ('+(r.a-r.p)+')':' (just!)'):'')+'</td><td style="min-width:90px"><span class="am-bar2" style="width:'+Math.round(r.a/mx*100)+'%"></span></td></tr>').join('')+'</tbody></table>';
+}
+$('#am-save').onclick=()=>{
+  if(coins===0){$('#am-status').textContent='Posa almenys una moneda abans d\'anotar el resultat.';return}
+  const p=$('#am-pred').value.trim();
+  rows.push({f:SH[forma].n,m:MAT[mat].n,p:p===''?'':parseInt(p,10),a:fallen?coins-1:coins});
+  renderRes(); $('#am-status').textContent='Anotat. Pots provar una altra forma o material.';
+};
+$('#am-clear').onclick=()=>{rows=[];renderRes()};
+renderRes(); draw();
+
+/* ---- graella d'observació ---- */
+const IND=['Prediu abans de provar','Torna a provar després de caure','Canvia una sola cosa cada cop','Es reparteixen els rols','Compten o comparen amb números','S\'ajuden entre nivells'];
+const ST=['No s\'hi veu','Comença','Ho fa','Ho fa i ho explica'];
+const TEAMS=4;
+const obs=$('#am-obs');
+let ob={};
+function renderObs(){
+  let h='<thead><tr><th></th>'+Array.from({length:TEAMS},(_,i)=>'<th>Equip '+(i+1)+'</th>').join('')+'</tr></thead><tbody>';
+  IND.forEach((t,i)=>{
+    h+='<tr><th scope="row">'+t+'</th>';
+    for(let j=0;j<TEAMS;j++){const v=ob[i+'-'+j]||0;h+='<td><button type="button" data-i="'+i+'" data-j="'+j+'" data-v="'+v+'" aria-label="'+t+', equip '+(j+1)+': '+ST[v]+'">'+(v?ST[v]:'·')+'</button></td>'}
+    h+='</tr>';
+  });
+  obs.innerHTML=h+'</tbody>';
+}
+obs.addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  const k=b.dataset.i+'-'+b.dataset.j; ob[k]=((ob[k]||0)+1)%4;
+  b.dataset.v=ob[k]; b.textContent=ob[k]?ST[ob[k]]:'·';
+  b.setAttribute('aria-label',IND[b.dataset.i]+', equip '+(+b.dataset.j+1)+': '+ST[ob[k]]);
+});
+$('#am-obs-clear').onclick=()=>{ob={};renderObs()};
+renderObs();
+
+})();
+</script>
+<script src="tv-say.js"></script>
+</body></html>

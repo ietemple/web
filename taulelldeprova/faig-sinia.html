@@ -1,0 +1,970 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sínia que puja aigua</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<style>
+/* sn- = sínia */
+.sn-sec{padding:24px 26px;margin:0 0 22px}
+.sn-sec>h2{margin-bottom:6px}
+.sn-sec>.sn-intro{color:var(--tinta-suau);max-width:68ch;margin-bottom:18px}
+@media (max-width:640px){.sn-sec{padding:20px 16px}}
+.sn-why{display:grid;grid-template-columns:1.2fr 1fr;gap:18px;align-items:stretch}
+@media (max-width:820px){.sn-why{grid-template-columns:1fr}}
+.sn-route{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:10px}
+.sn-route span{background:var(--vidre-3);border:1px solid var(--vidre-vora);border-radius:var(--radi-pill);padding:5px 12px;font-weight:600;box-shadow:var(--ombra-2)}
+.sn-route b{color:var(--faig);font-weight:700}
+.sn-photo{margin:0}
+.sn-photo img{border-radius:var(--radi-md);width:100%;aspect-ratio:3/2;object-fit:cover}
+
+.sn-aula{padding:18px 26px}.sn-aula-btns{display:flex;flex-wrap:wrap;gap:12px}.sn-aula-btns .tv-btn{padding:16px 24px;font-size:1.2rem}
+@media (max-width:640px){.sn-aula{padding:16px}.sn-aula-btns .tv-btn{width:100%}}
+
+/* fitxa */
+.sn-fields{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+@media (max-width:1000px){.sn-fields{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.sn-fields{grid-template-columns:1fr}}
+.sn-fields .tv-card{padding:16px 18px}
+.sn-fields ul{margin:0;padding-left:1.1em}
+.sn-fields li{margin:0 0 6px}
+.sn-fields .sn-wide{grid-column:span 2}
+@media (max-width:560px){.sn-fields .sn-wide{grid-column:auto}}
+.sn-duabar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sn-dua{display:grid;gap:14px}
+.sn-dua.compare{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1100px){.sn-dua.compare{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.sn-dua.compare{grid-template-columns:1fr}}
+.sn-v{display:none}
+.sn-dua:not(.compare) .sn-v.on,.sn-dua.compare .sn-v{display:block}
+.sn-v h3{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sn-badge{display:inline-grid;place-items:center;min-width:34px;height:34px;padding:0 8px;border-radius:12px;background:var(--vidre-fosc);color:var(--sobre-fosc);font:700 .95rem/1 var(--font-display)}
+.sn-v ol,.sn-v ul{margin:8px 0 0;padding-left:1.25em}
+.sn-v li{margin-bottom:6px}
+.sn-v .sn-help{margin-top:12px;padding:10px 14px;border-radius:var(--radi-md);background:var(--vidre-3);border-left:4px solid var(--faig);font-size:1rem}
+.sn-lf p{font-size:1.15rem;line-height:1.6;margin-bottom:8px}
+.sn-lf strong{background:var(--faig-pastel);padding:0 4px;border-radius:4px}
+.sn-vis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.sn-dua.compare .sn-vis{grid-template-columns:1fr 1fr}
+.sn-vis figure{margin:0;background:var(--vidre-3);border-radius:var(--radi-md);padding:10px 8px;text-align:center;border:1px solid var(--vidre-vora)}
+.sn-vis svg{width:56px;height:56px;margin:0 auto 6px;color:var(--faig)}
+.sn-vis figcaption{font-weight:600;font-size:1rem;line-height:1.2}
+.sn-vis .n{display:block;font:700 .9rem/1 var(--font-display);color:var(--tinta-suau);margin-bottom:4px}
+
+/* experiment */
+.sn-q{font:700 clamp(1.3rem,2.6vw,1.7rem)/1.2 var(--font-display);margin:0 0 14px}
+.sn-fair{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0 20px}
+@media (max-width:820px){.sn-fair{grid-template-columns:1fr}}
+.sn-fair .tv-card h3{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.sn-fair .tv-card h3 .ico{color:var(--faig)}
+.sn-fair ul{margin:0;padding-left:1.1em}
+.sn-pred{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 6px}
+.sn-pred button{min-width:110px;padding:14px 16px;border-radius:var(--radi-md);border:1px solid var(--vidre-vora);background:var(--vidre-2);box-shadow:var(--brill-vora),var(--ombra-8);font:700 1.25rem/1 var(--font-display);display:flex;flex-direction:column;align-items:center;gap:6px}
+.sn-pred button small{font:500 .95rem/1 var(--font-text);color:var(--tinta-suau)}
+.sn-pred button[aria-pressed="true"]{outline:3px solid var(--faig);background:var(--vidre-3)}
+.sn-why-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.sn-why-chips button{border:1px solid var(--vidre-vora);background:var(--vidre-2);border-radius:var(--radi-pill);padding:8px 14px;font-weight:600}
+.sn-why-chips button[aria-pressed="true"]{background:var(--vidre-fosc);color:var(--sobre-fosc)}
+.sn-expgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media (max-width:900px){.sn-expgrid{grid-template-columns:1fr}}
+.sn-sim{display:grid;grid-template-columns:1fr 120px;gap:12px;align-items:end}
+.sn-sim svg{width:100%;height:auto}
+.sn-simctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.sn-simout{font-size:1.05rem;color:var(--tinta-suau);margin-top:8px;min-height:2.9em}
+.sn-table{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:1.05rem}
+.sn-table th{font:600 .9rem/1.2 var(--font-text);text-align:left;color:var(--tinta-suau);padding:0 6px}
+.sn-table td{background:var(--vidre-3);padding:8px 6px}
+.sn-table td:first-child{border-radius:12px 0 0 12px;font-weight:700;white-space:nowrap}
+.sn-table td:last-child{border-radius:0 12px 12px 0}
+.sn-table input{width:100%;min-width:56px;max-width:110px;padding:8px;border-radius:10px;border:1px solid var(--linia-buida);background:#fff;font-size:1.05rem}
+.sn-sym{display:inline-block;width:14px;height:14px;vertical-align:-1px;margin-right:6px;color:var(--faig)}
+.sn-bars{display:grid;gap:8px;margin-top:12px}
+.sn-bar{display:grid;grid-template-columns:110px 1fr 70px;gap:8px;align-items:center;font-weight:600}
+.sn-bar .trk{height:22px;border-radius:999px;background:var(--vidre-1);border:1px solid var(--vidre-vora);overflow:hidden}
+.sn-bar .fil{height:100%;width:0;background:linear-gradient(90deg,var(--faig-pastel),var(--faig));transition:width .4s}
+.sn-concl{margin-top:16px;line-height:2.1;font-size:1.1rem}
+.sn-concl select{padding:6px 10px;border-radius:10px;border:1px solid var(--linia-buida);background:#fff;font-weight:600}
+.sn-note{font-size:1rem;color:var(--tinta-suau);margin-top:8px}
+
+/* làser */
+.sn-laser{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start}
+@media (max-width:900px){.sn-laser{grid-template-columns:1fr}}
+.sn-sheet{background:#fff;border-radius:var(--radi-md);padding:10px;box-shadow:var(--ombra-8);overflow:hidden}
+.sn-sheet svg{width:100%;height:auto}
+.sn-sheet [stroke="#FF0000"]{stroke-width:.5}
+.sn-sheet [data-peca]{transition:fill .2s}
+.sn-sheet [data-peca].hi{fill:rgba(14,119,130,.22)}
+.sn-specs{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.sn-legend{display:grid;gap:8px;font-size:1rem}
+.sn-legend i{display:inline-block;width:26px;height:0;border-top:2px solid #FF0000;vertical-align:middle;margin-right:8px}
+.sn-legend i.k{border-top:6px solid #000}
+.sn-legend i.b{border-top:2px dashed #3a5ad8}
+.sn-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+
+/* 3D */
+.sn-3d{display:grid;grid-template-columns:1fr 290px;gap:18px}
+@media (max-width:900px){.sn-3d{grid-template-columns:1fr}}
+.sn-stage{position:relative;border-radius:var(--radi-lg);overflow:hidden;min-height:420px;aspect-ratio:4/3;background:radial-gradient(ellipse at 50% 30%,rgba(255,255,255,.55),rgba(255,255,255,.12));border:1px solid var(--vidre-vora);box-shadow:var(--brill-vora)}
+@media (max-width:640px){.sn-stage{min-height:0;aspect-ratio:1/1}}
+.sn-stage canvas{width:100%!important;height:100%!important;touch-action:none;cursor:grab}
+.sn-hint{position:absolute;left:12px;bottom:10px;font-size:.95rem;color:var(--tinta-suau);background:var(--vidre-3);border-radius:var(--radi-pill);padding:5px 12px;pointer-events:none}
+.sn-load{position:absolute;inset:0;display:grid;place-items:center;color:var(--tinta-suau);font-weight:600}
+.sn-ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.sn-range{display:flex;align-items:center;gap:10px;font-weight:600;flex:1 1 260px}
+.sn-range input{flex:1;accent-color:var(--faig)}
+.sn-count{font-weight:600;color:var(--tinta-suau)}
+.sn-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.sn-list button{width:100%;display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;text-align:left;border:1px solid var(--vidre-vora);background:var(--vidre-2);border-radius:14px;padding:7px 10px;font-size:1rem;line-height:1.2}
+.sn-list button .nu{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:var(--faig-pastel);border:1px solid #fff;font:700 1rem/1 var(--font-display)}
+.sn-list button small{color:var(--tinta-suau);font-size:.95rem}
+.sn-list button[aria-pressed="true"]{background:var(--vidre-fosc);color:var(--sobre-fosc)}
+.sn-list button[aria-pressed="true"] small{color:#e8e2f0}
+.sn-list button[aria-pressed="true"] .nu{background:var(--faig);color:#fff}
+.sn-pinfo{margin-top:10px;font-size:1rem;color:var(--tinta-suau);min-height:2.8em}
+
+/* muntatge */
+.sn-steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:pas}
+.sn-steps li{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:start;background:var(--vidre-2);border:1px solid var(--vidre-vora);border-radius:var(--radi-md);padding:14px 16px;box-shadow:var(--ombra-2)}
+.sn-steps .ic{width:56px;height:56px;border-radius:16px;background:var(--faig-pastel);display:grid;place-items:center;color:var(--faig);position:relative}
+.sn-steps .ic svg{width:34px;height:34px}
+.sn-steps .ic::after{counter-increment:pas;content:counter(pas);position:absolute;top:-8px;left:-8px;width:24px;height:24px;border-radius:50%;background:var(--vidre-fosc);color:#fff;font:700 .85rem/24px var(--font-display);text-align:center}
+.sn-steps h3{font-size:1.1rem;margin-bottom:4px}
+.sn-pcs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.sn-pcs span{font:600 .9rem/1 var(--font-text);padding:5px 9px;border-radius:999px;background:var(--vidre-3);border:1px solid var(--vidre-vora)}
+.sn-pcs span b{color:var(--faig)}
+body[data-dua="V"] .sn-steps li{grid-template-columns:92px 1fr}
+body[data-dua="V"] .sn-steps .ic{width:92px;height:92px}
+body[data-dua="V"] .sn-steps .ic svg{width:58px;height:58px}
+.sn-steps .t-b,.sn-steps .t-lf,.sn-steps .t-v{display:none}
+body[data-dua="B"] .sn-steps .t-b,body[data-dua="A"] .sn-steps .t-b,body[data-dua="LF"] .sn-steps .t-lf,body[data-dua="V"] .sn-steps .t-v{display:block}
+.sn-steps .t-a{display:none;margin-top:6px;font-size:1rem;color:var(--tinta-suau)}
+body[data-dua="A"] .sn-steps .t-a{display:block}
+.sn-twocol{display:grid;grid-template-columns:1.6fr 1fr;gap:18px;align-items:start}
+@media (max-width:900px){.sn-twocol{grid-template-columns:1fr}}
+.sn-safe{background:var(--avis-fons);border-radius:var(--radi-lg);padding:18px 20px;border:1px solid #fff}
+.sn-safe h3{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.sn-safe h3 .ico{color:var(--amb)}
+.sn-safe ul{margin:0;padding-left:1.1em}
+.sn-safe li{margin-bottom:6px}
+.sn-versionnote{font-size:1rem;color:var(--tinta-suau);margin:-6px 0 14px}
+
+/* dijous */
+.sn-route2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.sn-route2{grid-template-columns:1fr}}
+.sn-route2 figure{margin:0}
+.sn-route2 svg{width:100%;height:auto;max-width:380px;margin:0 auto}
+.sn-route2 figcaption{font:700 1.15rem/1.2 var(--font-display);margin-bottom:8px;text-align:center}
+.sn-route2 .tv-card{padding:16px}
+
+/* impressió: només la fitxa */
+.sn-printonly{display:none}
+@media print{
+  body.sn-printing main>*:not(.sn-print){display:none!important}
+  body.sn-printing .sn-print .tv-noprint{display:none!important}
+  body.sn-printing .tv-foot{display:none}
+  body.sn-printing .sn-printonly{display:block}
+  body.sn-printing .sn-sec{break-inside:auto;padding:10px 0}
+  body.sn-printing .tv-card,body.sn-printing .sn-vis figure,body.sn-printing .sn-table td{background:#fff!important}
+  body.sn-printing .sn-bar .fil{background:#ccc!important}
+  body.sn-printing .sn-table input{border:1px solid #999}
+}
+@media (prefers-reduced-motion:reduce){.sn-bar .fil{transition:none}}
+</style></head>
+<body style="--cc:var(--faig);--ct:var(--faig-pastel)" data-dua="B">
+<div class="tv-top tv-wrap"><div class="tv-glass">
+  <a class="tv-back" href="index.html"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Taulell</a>
+  <span class="tv-crumb">Mitjans · Dimarts 15:00 · FAIG</span><span class="tv-stamp">Mostra</span></div></div>
+
+<main class="tv-wrap">
+  <header class="tv-glass tv-head sn-print">
+    <div class="tv-kicker">
+      <span class="tv-chip"><i></i>FAIG</span>
+      <span class="tv-chip" style="--cc:var(--mitjans)"><i></i>Mitjans · 1r a 3r</span>
+      <span class="tv-chip">Dimarts 15:00 · Com viatja l'aigua fins a l'escola?</span>
+    </div>
+    <h1>Una sínia que pugi aigua</h1>
+    <p class="tv-lead">Abans de l'aixeta, a les hortes de l'Ebre l'aigua pujava del pou amb una roda de cassoletes. Ara la construïm a classe, la fem girar i comprovem, amb una prova justa, amb quantes cassoletes puja més aigua.</p>
+  </header>
+
+  <!-- PER A L'AULA -->
+  <section class="tv-glass sn-sec sn-aula tv-noprint" aria-labelledby="h-aula">
+    <p class="tv-lbl" id="h-aula">Per a l'aula</p>
+    <div class="sn-aula-btns">
+      <a class="tv-btn main" href="faig-sinia-presentacio.html"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Presentació a l'aula</a>
+      <a class="tv-btn" href="faig-sinia-fitxa.html"><svg class="ico" viewBox="0 0 24 24"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg>Fitxa per imprimir</a>
+      <a class="tv-btn" href="cami-faig-sinia.html"><svg class="ico" viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a4 4 0 0 0 0-8h-2a4 4 0 0 1 0-8h6"/></svg>Camí de la seqüència</a>
+    </div>
+  </section>
+
+  <!-- PER QUÈ -->
+  <section class="tv-glass sn-sec" aria-labelledby="h-why">
+    <div class="sn-why">
+      <div class="tv-pastel">
+        <p class="tv-lbl">La pregunta de la franja</p>
+        <h2 id="h-why">Abans de l'aixeta, com arribava l'aigua?</h2>
+        <p style="margin-top:10px">Una sínia és una roda amb cassoletes que entren buides a l'aigua del pou, surten plenes i, a dalt de tot, l'aboquen en un canal. A les Terres de l'Ebre la feia girar un animal que caminava en rodó. Tocar-la i fer-la funcionar ajuda a entendre que l'aigua no "apareix": algú o alguna cosa la fa pujar.</p>
+        <p class="tv-lbl" style="margin-top:16px">Abans</p>
+        <div class="sn-route"><span>Pou</span><b>→</b><span>Sínia</span><b>→</b><span>Séquia</span><b>→</b><span>Hort</span></div>
+        <p class="tv-lbl" style="margin-top:12px">Ara</p>
+        <div class="sn-route"><span>Riu</span><b>→</b><span>Potabilitzadora</span><b>→</b><span>Dipòsit</span><b>→</b><span>Canonades</span><b>→</b><span>Escola</span></div>
+      </div>
+      <div class="tv-card">
+        <p class="tv-lbl">Una sínia de veritat</p>
+        <p>A l'arxiu fotogràfic del Centre Excursionista de Catalunya hi ha una foto antiga d'un home amb un ase fent girar una sínia a Tivenys, a tocar de Tortosa. És de domini públic: la podeu projectar a classe.</p>
+        <p class="tv-actions" style="margin-top:12px"><a class="tv-btn" href="https://commons.wikimedia.org/wiki/File:Un_home_amb_un_ase_en_una_s%C3%ADnia_de_Tivenys.jpeg" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 8"/></svg>Mira la foto de Tivenys</a></p>
+        <p class="tv-credit">«Un home amb un ase en una sínia de Tivenys», Antoni Gallardo i Garriga. Domini públic, via Wikimedia Commons (fons del Centre Excursionista de Catalunya).</p>
+        <figure class="sn-photo" style="margin-top:14px"><img src="img/faig-sinia-mans.webp" alt="Mans d'infants encaixant cassoletes de fusta a la roda de la maqueta" onerror="this.closest('figure').remove()"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- FITXA -->
+  <section class="tv-glass sn-sec sn-print" id="fitxa" aria-labelledby="h-fitxa">
+    <h2 id="h-fitxa">Fitxa del material</h2>
+    <p class="sn-intro">Un repte maker de dues sessions: construir, provar i comparar. El repte és el mateix per a tothom; el que canvia és l'ajuda.</p>
+    <div class="sn-fields">
+      <div class="tv-card"><p class="tv-lbl">Objectiu</p><p>Construir una maqueta de sínia que pugi aigua i descobrir, amb una prova justa, si amb més cassoletes en puja més.</p></div>
+      <div class="tv-card"><p class="tv-lbl">Durada</p><ul><li><strong>Sessió 1 (90 min):</strong> la pregunta, la sínia de veritat, muntatge per equips.</li><li><strong>Sessió 2 (90 min):</strong> predicció, prova justa amb 4, 6 i 8 cassoletes, taula i conclusió.</li></ul></div>
+      <div class="tv-card sn-wide"><p class="tv-lbl">Recursos</p><ul><li>Peces tallades amb làser (una planxa de contraplacat de 3 mm per equip) i pal de fusta de 8 mm.</li><li>8 gots petits de plàstic reutilitzats, 2 gomes elàstiques, cola blanca, cinta adhesiva, paper de vidre.</li><li>Un brick de llet d'1 L tombat i obert (la "bassa"), aigua, un got mesurador per equip, draps.</li></ul></div>
+      <div class="tv-card sn-wide"><p class="tv-lbl">Criteris d'avaluació (en paraules)</p><ul>
+        <li><strong>Coneixement del medi natural, social i cultural.</strong> Planteja una pregunta senzilla, fa una predicció i la comprova amb una prova justa: canvia una sola cosa i mira què passa.</li>
+        <li><strong>Coneixement del medi.</strong> Construeix un objecte senzill seguint uns passos i el millora si no funciona.</li>
+        <li><strong>Coneixement del medi.</strong> Explica com arribava l'aigua abans a les hortes i com arriba ara, i valora l'aigua com un bé que costa de portar.</li>
+        <li><strong>Matemàtiques.</strong> Mesura quantitats d'aigua amb un got graduat, les anota en una taula i les compara amb una gràfica de barres.</li></ul></div>
+      <div class="tv-card sn-wide"><p class="tv-lbl">Competències transversals</p><ul>
+        <li><strong>Personal, social i d'aprendre a aprendre:</strong> repartir-se les feines de l'equip, esperar el torn de fer girar la maneta.</li>
+        <li><strong>Emprenedora:</strong> provar, equivocar-se i tornar-ho a provar fins que la sínia puja aigua.</li>
+        <li><strong>Ciutadana</strong> (vector de sostenibilitat): l'aigua que arriba a l'escola ha fet un llarg camí; no la malbaratem.</li></ul></div>
+    </div>
+
+    <div class="sn-duabar tv-noprint">
+      <div class="tv-seg" role="tablist" aria-label="Versions DUA">
+        <button role="tab" aria-selected="true" data-dua="B">B · Base</button>
+        <button role="tab" aria-selected="false" data-dua="V">V · Suport visual</button>
+        <button role="tab" aria-selected="false" data-dua="LF">LF · Lectura fàcil</button>
+        <button role="tab" aria-selected="false" data-dua="A">A · Ampliació</button>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="tv-btn" id="sn-compare" aria-pressed="false"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="16" rx="2"/><rect x="14" y="4" width="7" height="16" rx="2"/></svg>Compara les quatre</button>
+        <button class="tv-btn main" id="sn-print"><svg class="ico" viewBox="0 0 24 24"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg>Imprimeix la fitxa</button>
+      </div>
+    </div>
+
+    <div class="sn-dua" id="sn-dua">
+      <article class="tv-card sn-v on" data-v="B">
+        <h3><span class="sn-badge">B</span>Base</h3>
+        <p><strong>Repte:</strong> construïu una sínia que pugi aigua de la bassa al canal. Després, descobriu amb quantes cassoletes en puja més.</p>
+        <ol>
+          <li>Abans de començar, digues què creus: amb 4, 6 o 8 cassoletes, quina pujarà més aigua? Per què?</li>
+          <li>Munteu la sínia seguint els passos. Poseu les cassoletes a les ranures del símbol que toca.</li>
+          <li>Ompliu la bassa fins a la marca. Poseu el got mesurador al final del canal.</li>
+          <li>Feu 10 voltes a poc a poc amb la maneta. Mireu quanta aigua hi ha al got i apunteu-ho.</li>
+          <li>Repetiu-ho amb 4, 6 i 8 cassoletes. Tota la resta, igual!</li>
+          <li>Compareu les barres i completeu la frase de la conclusió.</li>
+        </ol>
+        <p class="sn-help">Una prova és justa si només canviem una cosa (el nombre de cassoletes) i tota la resta queda igual.</p>
+      </article>
+      <article class="tv-card sn-v" data-v="V">
+        <h3><span class="sn-badge">V</span>Suport visual</h3>
+        <p><strong>Repte:</strong> la sínia puja aigua. Amb quantes cassoletes en puja més?</p>
+        <div class="sn-vis">
+          <figure><span class="n">1</span><svg class="ico" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg><figcaption>Què creus?</figcaption></figure>
+          <figure><span class="n">2</span><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="1.5"/><path d="M12 5v3M12 16v3M5 12h3M16 12h3"/></svg><figcaption>Munta la roda</figcaption></figure>
+          <figure><span class="n">3</span><svg class="ico" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg><figcaption>Aigua a la bassa</figcaption></figure>
+          <figure><span class="n">4</span><svg class="ico" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v4h-4"/><text x="12" y="15.5" font-size="7" text-anchor="middle" stroke="none" fill="currentColor" font-family="Quicksand,sans-serif" font-weight="700">10</text></svg><figcaption>10 voltes</figcaption></figure>
+          <figure><span class="n">5</span><svg class="ico" viewBox="0 0 24 24"><path d="M6 3h12l-1.5 18h-9z"/><path d="M7 11h10"/><path d="M14 7h2M14 15h2"/></svg><figcaption>Mira el got</figcaption></figure>
+          <figure><span class="n">6</span><svg class="ico" viewBox="0 0 24 24"><path d="M4 20h16"/><rect x="5" y="12" width="3.5" height="8"/><rect x="10.25" y="8" width="3.5" height="12"/><rect x="15.5" y="4" width="3.5" height="16"/></svg><figcaption>4, 6 o 8?</figcaption></figure>
+        </div>
+        <p class="sn-help">Les cassoletes van a les ranures amb el mateix símbol: <svg class="sn-sym" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5" fill="currentColor"/></svg>4 · <svg class="sn-sym" viewBox="0 0 14 14"><path d="M7 1.5l6 10.5H1z" fill="currentColor"/></svg>6 · <svg class="sn-sym" viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" fill="currentColor"/></svg>8</p>
+      </article>
+      <article class="tv-card sn-v sn-lf" data-v="LF">
+        <h3><span class="sn-badge">LF</span>Lectura fàcil</h3>
+        <p>Fem una <strong>sínia</strong>.</p>
+        <p>La sínia és una <strong>roda</strong> que puja aigua.</p>
+        <p>Primer, pensa: <strong>4, 6 o 8</strong> cassoletes?</p>
+        <p>Fem girar la maneta <strong>10 voltes</strong>.</p>
+        <p>Mirem l'aigua del <strong>got</strong>.</p>
+        <p>Ho fem 3 vegades: 4, 6 i 8.</p>
+        <p>On hi ha <strong>més aigua</strong>?</p>
+        <p class="sn-help">Treballes amb un company o una companya. Un fa girar, l'altre mira el got.</p>
+      </article>
+      <article class="tv-card sn-v" data-v="A">
+        <h3><span class="sn-badge">A</span>Ampliació</h3>
+        <p><strong>Repte:</strong> el mateix que la Base, i a més us feu investigadors de l'aigua.</p>
+        <ol>
+          <li>Feu cada prova <strong>dues vegades</strong>. Si surten diferents, per què pot ser?</li>
+          <li>Calculeu quanta aigua puja <strong>en una volta</strong> (la de 10 voltes, dividida entre 10).</li>
+          <li>Feu la <strong>gràfica de barres</strong> de les tres proves i expliqueu-la a un altre equip.</li>
+          <li>Repte extra: si la roda fes 100 voltes, quanta aigua pujaria? N'hi hauria prou per regar una tomaquera (uns 2 litres)?</li>
+          <li>Repte de disseny: què passa si gireu més de pressa? I si les cassoletes miren cap enrere?</li>
+        </ol>
+        <p class="sn-help">Mantingueu igual l'alçada de l'aigua, la velocitat de la maneta i el got mesurador. Si no, la prova deixa de ser justa.</p>
+      </article>
+    </div>
+    <div class="sn-printonly" style="margin-top:16px"><p class="tv-lbl">Taula de registre</p>
+      <table class="sn-table" style="max-width:640px"><tr><th>Cassoletes</th><th>Predicció</th><th>Prova 1 (ml)</th><th>Prova 2 (ml)</th></tr>
+      <tr><td>4</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>6</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>8</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></table>
+      <p style="margin-top:14px">Amb ______ cassoletes ha pujat més aigua. Ho havíem predit? ______</p></div>
+  </section>
+
+  <!-- EXPERIMENT -->
+  <section class="tv-glass sn-sec" aria-labelledby="h-exp">
+    <h2 id="h-exp">Proposta d'experimentació: una prova justa</h2>
+    <p class="sn-intro">La maqueta és un banc de treball: el que compta és l'experiment i els resultats que van a la fitxa.</p>
+    <p class="sn-q">Puja més aigua amb 4, 6 o 8 cassoletes?</p>
+
+    <div class="tv-pastel">
+      <p class="tv-lbl">1 · La predicció (abans de tocar res)</p>
+      <p>Amb quantes cassoletes creieu que pujarà més aigua?</p>
+      <div class="sn-pred" id="sn-pred">
+        <button aria-pressed="false" data-n="4">4<small>cada quart de volta</small></button>
+        <button aria-pressed="false" data-n="6">6<small>cada sisè</small></button>
+        <button aria-pressed="false" data-n="8">8<small>cada vuitè</small></button>
+        <button aria-pressed="false" data-n="=">Igual<small>totes iguals</small></button>
+      </div>
+      <p style="margin-top:10px">Per què ho creieu?</p>
+      <div class="sn-why-chips" id="sn-whyc">
+        <button aria-pressed="false">Més cassoletes, més aigua</button>
+        <button aria-pressed="false">Si n'hi ha moltes, es vessen</button>
+        <button aria-pressed="false">Pesa més i costa de girar</button>
+        <button aria-pressed="false">Una altra idea</button>
+      </div>
+    </div>
+
+    <div class="sn-fair">
+      <div class="tv-card"><h3><svg class="ico" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></svg>Què canviem</h3><ul><li>Només el nombre de cassoletes: 4, 6 o 8.</li><li>Les posem a les ranures del símbol <svg class="sn-sym" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5" fill="currentColor"/></svg><svg class="sn-sym" viewBox="0 0 14 14"><path d="M7 1.5l6 10.5H1z" fill="currentColor"/></svg><svg class="sn-sym" viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" fill="currentColor"/></svg> que toca.</li></ul></div>
+      <div class="tv-card"><h3><svg class="ico" viewBox="0 0 24 24"><path d="M5 9h14M5 15h14"/></svg>Què mantenim igual</h3><ul><li>L'aigua de la bassa, fins a la marca.</li><li>10 voltes, a poc a poc (comptem en veu alta).</li><li>La mateixa sínia, el mateix got mesurador.</li><li>Abans de cada prova, buidem el got.</li></ul></div>
+      <div class="tv-card"><h3><svg class="ico" viewBox="0 0 24 24"><path d="M6 3h12l-1.5 18h-9z"/><path d="M7 11h10"/></svg>Què mirem</h3><ul><li>Quants mil·lilitres hi ha al got després de 10 voltes.</li><li>Ho apuntem a la taula i ho veiem a les barres.</li></ul></div>
+    </div>
+
+    <div class="sn-expgrid">
+      <div class="tv-card">
+        <p class="tv-lbl">2 · Mini-simulació (opcional)</p>
+        <p class="sn-note" style="margin-top:0">Per pensar la predicció, no per substituir la prova: a la maqueta de veritat pot sortir diferent!</p>
+        <div class="sn-sim" style="margin-top:10px">
+          <svg id="sn-simwheel" viewBox="-130 -130 260 260" role="img" aria-label="Roda simulada amb cassoletes"></svg>
+          <svg id="sn-simglass" viewBox="0 0 120 200" role="img" aria-label="Got mesurador simulat"></svg>
+        </div>
+        <div class="sn-simctl">
+          <div class="tv-seg" id="sn-simn" aria-label="Cassoletes de la simulació">
+            <button aria-pressed="true" data-n="4">4</button><button aria-pressed="false" data-n="6">6</button><button aria-pressed="false" data-n="8">8</button>
+          </div>
+          <button class="tv-btn main" id="sn-simgo"><svg class="ico" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v4h-4"/></svg>Fes 10 voltes</button>
+        </div>
+        <p class="sn-simout" id="sn-simout" aria-live="polite">Tria quantes cassoletes i fes girar la roda.</p>
+      </div>
+      <div class="tv-card">
+        <p class="tv-lbl">3 · Taula de registre (la prova de veritat)</p>
+        <table class="sn-table" id="sn-table">
+          <thead><tr><th>Cassoletes</th><th>Prova 1 (ml)</th><th>Prova 2 (ml)</th><th class="sn-acol">Per volta</th></tr></thead>
+          <tbody>
+            <tr data-n="4"><td><svg class="sn-sym" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5" fill="currentColor"/></svg>4</td><td><input type="number" inputmode="numeric" min="0" max="3000" step="10" aria-label="4 cassoletes, prova 1"></td><td><input type="number" inputmode="numeric" min="0" max="3000" step="10" aria-label="4 cassoletes, prova 2"></td><td class="sn-acol" data-pv>–</td></tr>
+            <tr data-n="6"><td><svg class="sn-sym" viewBox="0 0 14 14"><path d="M7 1.5l6 10.5H1z" fill="currentColor"/></svg>6</td><td><input type="number" inputmode="numeric" min="0" max="3000" step="10" aria-label="6 cassoletes, prova 1"></td><td><input type="number" inputmode="numeric" min="0" max="3000" step="10" aria-label="6 cassoletes, prova 2"></td><td class="sn-acol" data-pv>–</td></tr>
+            <tr data-n="8"><td><svg class="sn-sym" viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" fill="currentColor"/></svg>8</td><td><input type="number" inputmode="numeric" min="0" max="3000" step="10" aria-label="8 cassoletes, prova 1"></td><td><input type="number" inputmode="numeric" min="0" max="3000" step="10" aria-label="8 cassoletes, prova 2"></td><td class="sn-acol" data-pv>–</td></tr>
+          </tbody>
+        </table>
+        <div class="sn-bars" id="sn-bars" aria-live="polite"></div>
+        <p class="sn-concl">4 · Conclusió: amb
+          <select id="sn-c1" aria-label="Nombre de cassoletes"><option value="">…</option><option>4</option><option>6</option><option>8</option></select>
+          cassoletes ha pujat més aigua. Ho havíem predit?
+          <select id="sn-c2" aria-label="Ho havíem predit"><option value="">…</option><option>Sí</option><option>No</option><option>Una mica</option></select>
+        </p>
+        <p class="sn-note" id="sn-cnote"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LÀSER -->
+  <section class="tv-glass sn-sec" aria-labelledby="h-laser">
+    <h2 id="h-laser">Les peces per tallar amb làser</h2>
+    <p class="sn-intro">Disseny propi per a l'escola: totes les peces caben en una planxa de contraplacat de 3 mm de 600 × 400 mm. Toca una peça a la llista del 3D i també s'il·lumina aquí.</p>
+    <div class="sn-laser">
+      <div class="sn-sheet" id="sn-sheet" aria-label="Planxa de tall làser"></div>
+      <div>
+        <div class="sn-specs"><span class="tv-chip">Contraplacat 3 mm</span><span class="tv-chip">600 × 400 mm</span><span class="tv-chip">Unitats en mm</span><span class="tv-chip">Ranures 3 mm</span></div>
+        <div class="sn-legend">
+          <span><i></i>Tall, vermell #FF0000, 0,1 mm</span>
+          <span><i class="k"></i>Gravat, negre: números i marques</span>
+          <span><i class="b"></i>Vora de la planxa (no es talla)</span>
+        </div>
+        <p class="sn-note">Ajusteu el kerf (uns 0,15 mm) abans de tallar-ho tot: la peça 10 té ranures de 2,8 a 3,2 mm per veure quina encaixa justa.</p>
+        <p class="sn-note">Ordre: gravat → tall interior → tall exterior.</p>
+        <div class="sn-actions">
+          <a class="tv-btn main" href="laser/sinia-planxa.svg" download="sinia-planxa.svg"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Descarrega l'SVG</a>
+          <a class="tv-btn" href="laser/LLEGEIX-ME.txt" download="LLEGEIX-ME.txt"><svg class="ico" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/></svg>Llegeix-me</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3D -->
+  <section class="tv-glass sn-sec" aria-labelledby="h-3d">
+    <h2 id="h-3d">Com quedarà: la sínia en 3D</h2>
+    <p class="sn-intro">Cada peça és la mateixa forma de la planxa, amb 3 mm de gruix. Gira-la amb el dit, desmunta-la i fes-la girar per veure on va l'aigua.</p>
+    <div class="sn-3d">
+      <div>
+        <div class="sn-stage" id="sn-stage"><div class="sn-load" id="sn-load">Preparant les peces…</div><span class="sn-hint">Arrossega per girar · pessiga per apropar</span></div>
+        <div class="sn-ctl">
+          <button class="tv-btn" id="sn-explode" aria-pressed="false"><svg class="ico" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Desmunta</button>
+          <label class="sn-range">Muntat <input type="range" id="sn-exr" min="0" max="1" step="0.01" value="0" aria-label="Muntat a desmuntat"> Desmuntat</label>
+        </div>
+        <div class="sn-ctl">
+          <button class="tv-btn main" id="sn-spin" aria-pressed="false"><svg class="ico" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v4h-4"/></svg><span>Fes-la girar</span></button>
+          <div class="tv-seg" id="sn-3dn" aria-label="Cassoletes a la roda">
+            <button aria-pressed="false" data-n="4">4</button><button aria-pressed="false" data-n="6">6</button><button aria-pressed="true" data-n="8">8</button>
+          </div>
+          <span class="sn-count" id="sn-turns" aria-live="polite">0 voltes</span>
+          <button class="tv-btn" id="sn-empty">Buida el got</button>
+        </div>
+      </div>
+      <div>
+        <p class="tv-lbl">Peces (número gravat)</p>
+        <ul class="sn-list" id="sn-list"></ul>
+        <p class="sn-pinfo" id="sn-pinfo">Toca una peça per veure-la.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MUNTATGE -->
+  <section class="tv-glass sn-sec" aria-labelledby="h-mun">
+    <h2 id="h-mun">Passos de muntatge</h2>
+    <p class="sn-versionnote" id="sn-vnote">Versió Base. Canvia la versió a la fitxa i els passos s'adapten.</p>
+    <div class="sn-twocol">
+      <ol class="sn-steps">
+        <li><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M4 20l6-6M14 4l6 6-8 8-6-6z"/></svg></div><div>
+          <h3>Prepara les peces</h3>
+          <p class="t-b">L'adult talla la planxa. Desenganxeu les peces i llimeu les vores amb paper de vidre. Busqueu el número gravat de cada peça.</p>
+          <p class="t-lf">Treu les peces. Llima les vores. Mira el número.</p>
+          <p class="t-v">Peces fora · llimar</p>
+          <p class="t-a">Proveu la peça 10: quina ranura encaixa justa? Aquesta és la mida bona.</p>
+          <div class="sn-pcs"><span><b>10</b> provador</span></div></div></li>
+        <li><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M3 20h18"/><path d="M6 20L12 6l6 14"/><circle cx="12" cy="10" r="1.5"/></svg></div><div>
+          <h3>Suports a la base</h3>
+          <p class="t-b">Encaixeu els peus dels dos suports en A a les ranures de la base. Una gota de cola a cada ranura.</p>
+          <p class="t-lf">Posa les dues A a la base. Una gota de cola.</p>
+          <p class="t-v">A + A → base</p>
+          <p class="t-a">Comproveu amb un regle que els dos forats de dalt queden a la mateixa alçada.</p>
+          <div class="sn-pcs"><span><b>3</b> suport ×2</span><span><b>4</b> base</span></div></div></li>
+        <li><div class="ic"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="1.5"/><path d="M2 12h20"/></svg></div><div>
+          <h3>L'eix i la roda</h3>
+          <p class="t-b">Passeu l'eix pel suport del darrere, una volandera, els dos discs, l'altra volandera i el suport del davant. Els discs, a 6 cm l'un de l'altre i amb les ranures alineades: enganxeu-los a l'eix.</p>
+          <p class="t-lf">Passa el pal pels forats. Posa les dues rodes. Les ranures, iguals.</p>
+          <p class="t-v">Pal → A → roda → roda → A</p>
+          <p class="t-a">Fixeu-vos que les marques del punt, el triangle i el quadrat coincideixen als dos discs.</p>
+          <div class="sn-pcs"><span><b>1</b> roda ×2</span><span><b>6</b> volandera ×2</span><span>eix 8 mm</span></div></div></li>
+        <li><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M5 9h14l-2 10H7z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg></div><div>
+          <h3>Les cassoletes</h3>
+          <p class="t-b">Poseu un got a cada porta-got, amb la boca cap endavant. Llisqueu-los a les ranures del símbol que toca i aguanteu-los amb una goma elàstica a cada costat.</p>
+          <p class="t-lf">Posa el got al forat. Posa la peça a la ranura. Goma elàstica.</p>
+          <p class="t-v">Got → porta-got → ranura</p>
+          <p class="t-a">Totes les boques han de mirar cap al mateix costat. Què passaria si una mirés al revés?</p>
+          <div class="sn-pcs"><span><b>2</b> porta-got ×4, 6 o 8</span><span>gots reutilitzats</span><span>gomes</span></div></div></li>
+        <li><div class="ic"><svg class="ico" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><path d="M8.5 12H18"/><circle cx="18" cy="12" r="2"/></svg></div><div>
+          <h3>La maneta</h3>
+          <p class="t-b">Enganxeu la maneta a la punta de l'eix del davant i el tros de pal curt a l'altre forat: és el mànec.</p>
+          <p class="t-lf">Posa la maneta. Posa el mànec.</p>
+          <p class="t-v">Maneta + mànec</p>
+          <p class="t-a">Gireu-la sempre cap al mateix costat: cap a on han de mirar les boques dels gots?</p>
+          <div class="sn-pcs"><span><b>5</b> maneta</span><span>pal de 4 cm</span></div></div></li>
+        <li><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M3 8l18 6"/><path d="M3 12l18 6"/><path d="M14 16v5"/></svg></div><div>
+          <h3>El canal</h3>
+          <p class="t-b">Encaixeu les dues parets al fons del canal i folreu-lo per dins amb cinta adhesiva perquè no s'escoli. Poseu la pota a la base i el canal a sobre, amb la part alta tocant a la roda.</p>
+          <p class="t-lf">Munta el canal. Posa cinta a dins. Posa'l a la pota.</p>
+          <p class="t-v">Canal → pota → base</p>
+          <p class="t-a">El canal fa baixada. Per què cal que sigui així?</p>
+          <div class="sn-pcs"><span><b>7</b> fons</span><span><b>8</b> paret ×2</span><span><b>9</b> pota</span></div></div></li>
+        <li><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></div><div>
+          <h3>Aigua i a provar!</h3>
+          <p class="t-b">Poseu el brick tombat entre els suports, a sobre de la marca, amb 4 cm d'aigua. El got mesurador, sota el final del canal. Feu 10 voltes.</p>
+          <p class="t-lf">Aigua al brick. Got al final del canal. 10 voltes.</p>
+          <p class="t-v">Brick + aigua · got · 10 voltes</p>
+          <p class="t-a">Abans de mesurar, feu una volta de prova: tota l'aigua cau al canal?</p>
+          <div class="sn-pcs"><span><b>4</b> base (marca)</span><span>brick d'1 L</span><span>got mesurador</span></div></div></li>
+      </ol>
+      <div class="sn-safe">
+        <h3><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>Seguretat</h3>
+        <ul>
+          <li>La <strong>talladora làser la fa servir només l'adult</strong>, amb la tapa tancada i l'extracció de fums engegada. Mai la deixem sola mentre talla.</li>
+          <li>Els infants munten, llimen i proven; no toquen la màquina.</li>
+          <li>Paper de vidre amb la peça sobre la taula, no a la mà.</li>
+          <li>Cola blanca, mai cola calenta.</li>
+          <li>L'aigua, lluny d'endolls i ordinadors. Draps a punt: si es vessa, s'eixuga de seguida.</li>
+          <li>La maneta es gira a poc a poc i d'un en un.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIJOUS -->
+  <section class="tv-glass sn-sec" aria-labelledby="h-dij">
+    <h2 id="h-dij">I dijous… fem el mapa del recorregut de l'aigua</h2>
+    <p class="sn-intro">La sínia ens ha ensenyat el camí d'abans. Dijous a les 15:00 dibuixem el d'ara, fins a l'aixeta de la nostra escola. Aquest esquema fa de pont entre les dues sessions.</p>
+    <div class="sn-route2">
+      <figure class="tv-card"><figcaption>Abans: a l'hort</figcaption>
+        <svg viewBox="0 0 340 470" role="img" aria-label="Abans: pou, sínia, séquia, hort">
+          <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0E7782"/></marker></defs>
+          <g font-family="Fira Sans Extra Condensed,Arial Narrow,sans-serif" fill="#2A2433">
+            <g transform="translate(20 10)"><rect width="300" height="86" rx="20" fill="#fff" fill-opacity=".85" stroke="#0E7782" stroke-opacity=".35"/>
+              <g transform="translate(16 13)" fill="none" stroke="#0E7782" stroke-width="2.4" stroke-linecap="round"><ellipse cx="30" cy="16" rx="26" ry="8"/><path d="M4 16v30a26 8 0 0 0 52 0V16"/><path d="M14 44c5 3 27 3 32 0" stroke-dasharray="3 4"/></g>
+              <text x="96" y="40" font-size="22" font-weight="700">El pou</text><text x="96" y="64" font-size="16" fill="#564D62">aigua sota terra</text></g>
+            <path d="M170 98v22" stroke="#0E7782" stroke-width="2.4" marker-end="url(#ar)"/>
+            <g transform="translate(20 124)"><rect width="300" height="86" rx="20" fill="#fff" fill-opacity=".85" stroke="#0E7782" stroke-opacity=".35"/>
+              <g transform="translate(16 11)" fill="none" stroke="#0E7782" stroke-width="2.4" stroke-linecap="round"><circle cx="32" cy="32" r="26"/><circle cx="32" cy="32" r="3"/><path d="M32 6v52M6 32h52M14 14l36 36M50 14L14 50" stroke-opacity=".5"/></g>
+              <text x="96" y="40" font-size="22" font-weight="700">La sínia</text><text x="96" y="64" font-size="16" fill="#564D62">la roda puja l'aigua</text></g>
+            <path d="M170 212v22" stroke="#0E7782" stroke-width="2.4" marker-end="url(#ar)"/>
+            <g transform="translate(20 238)"><rect width="300" height="86" rx="20" fill="#fff" fill-opacity=".85" stroke="#0E7782" stroke-opacity=".35"/>
+              <g transform="translate(16 18)" fill="none" stroke="#0E7782" stroke-width="2.4" stroke-linecap="round"><path d="M2 10h60M2 40h60"/><path d="M8 25c8-6 14 6 22 0s14 6 22 0"/></g>
+              <text x="96" y="40" font-size="22" font-weight="700">La séquia</text><text x="96" y="64" font-size="16" fill="#564D62">un canal entre camps</text></g>
+            <path d="M170 326v22" stroke="#0E7782" stroke-width="2.4" marker-end="url(#ar)"/>
+            <g transform="translate(20 352)"><rect width="300" height="86" rx="20" fill="#fff" fill-opacity=".85" stroke="#0E7782" stroke-opacity=".35"/>
+              <g transform="translate(16 14)" fill="none" stroke="#28703F" stroke-width="2.4" stroke-linecap="round"><path d="M2 56h60"/><path d="M14 56V30M14 36c-8 0-10-8-10-12 6 0 10 4 10 12zM14 32c0-8 6-12 12-12 0 6-4 12-12 12"/><path d="M44 56V26M44 34c-8 0-10-8-10-12 6 0 10 4 10 12zM44 30c0-8 6-12 12-12 0 6-4 12-12 12"/></g>
+              <text x="96" y="40" font-size="22" font-weight="700">L'hort</text><text x="96" y="64" font-size="16" fill="#564D62">tomaqueres i enciams</text></g>
+          </g></svg>
+      </figure>
+      <figure class="tv-card"><figcaption>Ara: fins a l'escola</figcaption>
+        <svg viewBox="0 0 340 470" role="img" aria-label="Ara: riu, potabilitzadora, dipòsit, canonades, escola, depuradora">
+          <defs><marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0E7782"/></marker></defs>
+          <g font-family="Fira Sans Extra Condensed,Arial Narrow,sans-serif" fill="#2A2433" font-size="19" font-weight="700">
+            <g fill="none" stroke="#0E7782" stroke-width="2.4" stroke-linecap="round">
+              <path d="M170 70v14" marker-end="url(#ar2)"/><path d="M170 144v14" marker-end="url(#ar2)"/><path d="M170 218v14" marker-end="url(#ar2)"/><path d="M170 292v14" marker-end="url(#ar2)"/><path d="M170 366v14" marker-end="url(#ar2)"/>
+              <path d="M24 420c-18 0-18-380 0-380" stroke-dasharray="5 6" stroke-opacity=".6" marker-end="url(#ar2)"/>
+            </g>
+            <g transform="translate(40 8)"><rect width="260" height="60" rx="18" fill="#fff" fill-opacity=".85" stroke="#0E7782" stroke-opacity=".35"/><path d="M14 24c8-6 14 6 22 0s14 6 22 0M14 38c8-6 14 6 22 0s14 6 22 0" fill="none" stroke="#0E7782" stroke-width="2.4" stroke-linecap="round"/><text x="74" y="37">El riu Ebre</text></g>
+            <g transform="translate(40 82)"><rect width="260" height="60" rx="18" fill="#fff" fill-opacity=".85" stroke="#0E7782" stroke-opacity=".35"/><path d="M16 16h40v28H16zM16 30h40M30 16v28" fill="none" stroke="#0E7782" stroke-width="2.4"/><text x="74" y="30">Potabilitzadora</text><text x="74" y="50" font-size="16" font-weight="500" fill="#564D62">netegen l'aigua per beure</text></g>
+            <g transform="translate(40 156)"><rect width="260" height="60" rx="18" fill="#fff" fill-opacity=".85" stroke="#0E7782" stroke-opacity=".35"/><path d="M18 22a18 6 0 0 1 36 0v18a18 6 0 0 1-36 0zM18 22a18 6 0 0 0 36 0" fill="none" stroke="#0E7782" stroke-width="2.4"/><text x="74" y="37">El dipòsit</text></g>
+            <g transform="translate(40 230)"><rect width="260" height="60" rx="18" fill="#fff" fill-opacity=".85" stroke="#0E7782" stroke-opacity=".35"/><path d="M12 22h24v16h20M12 30h16v16h28" fill="none" stroke="#0E7782" stroke-width="2.4" stroke-linecap="round"/><text x="74" y="37">Les canonades</text></g>
+            <g transform="translate(40 304)"><rect width="260" height="60" rx="18" fill="#fff" fill-opacity=".85" stroke="#0E7782" stroke-opacity=".35"/><path d="M14 46V26l22-12 22 12v20zM30 46V34h12v12" fill="none" stroke="#0E7782" stroke-width="2.4" stroke-linejoin="round"/><text x="74" y="30">L'escola</text><text x="74" y="50" font-size="16" font-weight="500" fill="#564D62">l'aixeta del lavabo</text></g>
+            <g transform="translate(40 378)"><rect width="260" height="60" rx="18" fill="#fff" fill-opacity=".85" stroke="#0E7782" stroke-opacity=".35"/><circle cx="36" cy="30" r="16" fill="none" stroke="#0E7782" stroke-width="2.4"/><path d="M28 30c4-4 8 4 16 0" fill="none" stroke="#0E7782" stroke-width="2.4"/><text x="74" y="30">Depuradora</text><text x="74" y="50" font-size="16" font-weight="500" fill="#564D62">l'aigua bruta torna neta al riu</text></g>
+          </g></svg>
+      </figure>
+    </div>
+    <div class="tv-pastel" style="margin-top:16px"><p class="tv-lbl">Pregunta pont per a dijous</p><p>Quina feina feia la sínia que ara fan les bombes i les canonades? Cada equip porta dijous una idea dibuixada.</p></div>
+  </section>
+
+  <!-- COM HO VEUS -->
+  <section class="tv-sec"><p class="tv-lbl">Com ho veus?</p><div data-say></div></section>
+</main>
+<footer class="tv-foot">Institut Escola El Temple, Tortosa. Mostra amb dades d'exemple. No hi ha cap nom d'alumne; els docents apareixen pel seu rol.</footer>
+<script src="tv-say.js"></script>
+
+<script type="module">
+import { PIECES, buildSVG } from './laser/sinia-peces.js';
+
+/* ---------- DUA ---------- */
+const body = document.body;
+const duaTabs = [...document.querySelectorAll('[data-dua][role="tab"]')];
+const duaBox = document.getElementById('sn-dua');
+const vnames = { B: 'Base', V: 'Suport visual (icones grans)', LF: 'Lectura fàcil (frases curtes)', A: 'Ampliació (amb preguntes de més)' };
+function setDua(v) {
+  body.dataset.dua = v;
+  duaTabs.forEach((b) => b.setAttribute('aria-selected', String(b.dataset.dua === v)));
+  duaBox.querySelectorAll('.sn-v').forEach((a) => a.classList.toggle('on', a.dataset.v === v));
+  document.getElementById('sn-vnote').textContent = `Versió ${vnames[v]}. Canvia la versió a la fitxa i els passos s'adapten.`;
+  document.querySelectorAll('.sn-acol').forEach((c) => (c.style.display = v === 'A' ? '' : 'none'));
+}
+duaTabs.forEach((b) => b.addEventListener('click', () => setDua(b.dataset.dua)));
+const cmp = document.getElementById('sn-compare');
+cmp.addEventListener('click', () => {
+  const on = !duaBox.classList.contains('compare');
+  duaBox.classList.toggle('compare', on);
+  cmp.setAttribute('aria-pressed', String(on));
+});
+setDua('B');
+document.getElementById('sn-print').addEventListener('click', () => {
+  body.classList.add('sn-printing');
+  window.print();
+});
+window.addEventListener('afterprint', () => body.classList.remove('sn-printing'));
+
+/* ---------- predicció ---------- */
+const pred = document.getElementById('sn-pred');
+let predN = null;
+pred.addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  pred.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  predN = b.dataset.n; updateConcl();
+});
+document.getElementById('sn-whyc').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true'));
+});
+
+/* ---------- mini-simulació 2D ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+const sw = document.getElementById('sn-simwheel'), sg = document.getElementById('sn-simglass');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let simN = 4, simAng = 0, simBusy = false;
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent && parent.appendChild(e); return e; }
+function drawWheel() {
+  sw.innerHTML = '';
+  el('rect', { x: -130, y: 70, width: 260, height: 60, rx: 10, fill: '#C4ECF1' }, sw);
+  el('path', { d: 'M-130 92 Q-65 84 0 92 T130 92', fill: 'none', stroke: '#0E7782', 'stroke-width': 1.5, 'stroke-opacity': .5 }, sw);
+  el('path', { d: 'M-128 -78 L-80 -60', stroke: '#9C6B3C', 'stroke-width': 7, 'stroke-linecap': 'round' }, sw);
+  const g = el('g', { transform: `rotate(${-simAng})` }, sw);
+  el('circle', { r: 70, fill: '#F1DFC0', stroke: '#9C6B3C', 'stroke-width': 2 }, g);
+  el('circle', { r: 6, fill: '#9C6B3C' }, g);
+  for (let i = 0; i < simN; i++) {
+    const a = (i * 360 / simN) * Math.PI / 180;
+    el('line', { x1: 0, y1: 0, x2: 70 * Math.cos(a), y2: -70 * Math.sin(a), stroke: '#9C6B3C', 'stroke-opacity': .35, 'stroke-width': 2 }, g);
+    const cx = 92 * Math.cos(a), cy = -92 * Math.sin(a);
+    const cup = el('g', { transform: `translate(${cx} ${cy}) rotate(${-(i * 360 / simN) - 90})` }, g);
+    el('path', { d: 'M-13 -8 L13 -8 L9 14 L-9 14 Z', fill: 'rgba(255,255,255,.85)', stroke: '#0E7782', 'stroke-width': 2 }, cup);
+  }
+}
+function drawGlass(ml, max = 1200) {
+  sg.innerHTML = '';
+  const h = Math.min(1, ml / max) * 160;
+  el('path', { d: 'M20 20 L100 20 L94 190 L26 190 Z', fill: 'rgba(255,255,255,.7)', stroke: '#564D62', 'stroke-width': 2 }, sg);
+  el('rect', { x: 26, y: 190 - h, width: 68, height: h, fill: '#0E7782', 'fill-opacity': .45 }, sg);
+  for (let i = 1; i <= 4; i++) { const y = 190 - i * 40; el('line', { x1: 94, x2: 104, y1: y, y2: y, stroke: '#564D62', 'stroke-width': 1.5 }, sg); }
+  const t = el('text', { x: 60, y: 14, 'text-anchor': 'middle', 'font-size': 14, 'font-weight': 700, fill: '#2A2433', 'font-family': 'Fira Sans Extra Condensed,sans-serif' }, sg);
+  t.textContent = ml ? `${Math.round(ml)} ml` : '0 ml';
+}
+// model senzill i explícit: cada got porta uns 25 ml; se'n perd una part en vessar-se,
+// i com més gots, més es fan nosa (s'esquitxen entre ells).
+const simModel = (n) => { const eff = { 4: 0.62, 6: 0.58, 8: 0.52 }[n]; return n * 25 * eff * 10 * (0.93 + Math.random() * 0.14); };
+drawWheel(); drawGlass(0);
+document.getElementById('sn-simn').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b || simBusy) return;
+  simN = +b.dataset.n; document.querySelectorAll('#sn-simn button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  drawWheel(); drawGlass(0); document.getElementById('sn-simout').textContent = `${simN} cassoletes. Fes 10 voltes!`;
+});
+document.getElementById('sn-simgo').addEventListener('click', () => {
+  if (simBusy) return; simBusy = true;
+  const target = simModel(simN), dur = reduce ? 1 : 3200, t0 = performance.now();
+  const out = document.getElementById('sn-simout');
+  const step = (t) => {
+    const k = Math.max(0, Math.min(1, (t - t0) / dur));
+    simAng = k * 3600; drawWheel(); drawGlass(target * k);
+    if (k < 1) requestAnimationFrame(step);
+    else { simBusy = false; out.textContent = `Simulació amb ${simN} cassoletes: uns ${Math.round(target / 10) * 10} ml en 10 voltes. Si la tornes a fer, surt una mica diferent, com a la vida real.`; }
+  };
+  requestAnimationFrame(step);
+});
+
+/* ---------- taula i barres ---------- */
+const tbody = document.querySelector('#sn-table tbody');
+const bars = document.getElementById('sn-bars');
+function readRows() {
+  return [...tbody.rows].map((r) => {
+    const v = [...r.querySelectorAll('input')].map((i) => parseFloat(i.value)).filter((x) => !isNaN(x));
+    const avg = v.length ? v.reduce((a, b) => a + b, 0) / v.length : null;
+    r.querySelector('[data-pv]').textContent = avg == null ? '–' : `${Math.round(avg / 10)} ml`;
+    return { n: r.dataset.n, avg };
+  });
+}
+function drawBars() {
+  const rows = readRows();
+  const max = Math.max(1, ...rows.map((r) => r.avg || 0));
+  bars.innerHTML = rows.map((r) => `<div class="sn-bar"><span>${r.n} cassoletes</span><span class="trk"><span class="fil" style="width:${r.avg ? (r.avg / max) * 100 : 0}%"></span></span><span>${r.avg == null ? '–' : Math.round(r.avg) + ' ml'}</span></div>`).join('');
+  updateConcl();
+}
+function updateConcl() {
+  const note = document.getElementById('sn-cnote');
+  const c1 = document.getElementById('sn-c1').value;
+  if (predN && c1) note.textContent = predN === c1 ? 'La predicció i el resultat coincideixen. Ho tornaríeu a provar per estar-ne segurs?' : 'El resultat no és el que havíeu predit, i això també és aprendre. Què ha passat?';
+  else note.textContent = '';
+}
+tbody.addEventListener('input', drawBars);
+document.getElementById('sn-c1').addEventListener('change', updateConcl);
+drawBars();
+
+/* ---------- planxa SVG en línia ---------- */
+const sheet = document.getElementById('sn-sheet');
+sheet.innerHTML = buildSVG().replace(/^<\?xml[^>]*>\s*/, '').replace(/width="600mm" height="400mm"/, 'width="600" height="400" role="img" aria-label="Planxa de 600 per 400 mil·límetres amb totes les peces de la sínia"');
+window.__snHighlightSheet = (num) => sheet.querySelectorAll('[data-peca]').forEach((p) => p.classList.toggle('hi', num != null && +p.dataset.peca === num));
+
+/* ---------- llista de peces ---------- */
+const list = document.getElementById('sn-list');
+list.innerHTML = PIECES.map((p) => `<li><button aria-pressed="false" data-id="${p.id}"><span class="nu">${p.num}</span><span>${p.nom}</span><small>×${p.qty}</small></button></li>`).join('');
+const pinfo = document.getElementById('sn-pinfo');
+let sel = null;
+window.__snSelect = (id) => {
+  sel = sel === id ? null : id;
+  const p = PIECES.find((x) => x.id === sel);
+  list.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.id === sel)));
+  pinfo.textContent = p ? `Peça ${p.num}, ${p.nom.toLowerCase()} (×${p.qty}). ${p.desc}.${p.noAssembly ? ' No va a la maqueta.' : ''}` : 'Toca una peça per veure-la.';
+  window.__snHighlightSheet(p ? p.num : null);
+  window.__sn3dHighlight && window.__sn3dHighlight(sel);
+};
+list.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) window.__snSelect(b.dataset.id); });
+setTimeout(() => { if (!window.__sn3dReady) document.getElementById('sn-load').textContent = "No s'ha pogut carregar la vista 3D. La planxa i els passos funcionen igual."; }, 9000);
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { PIECES, T, AXLE_Y, DISC_Z, A_Z, CUP_R, CANAL, slotsFor, canalPoint } from './laser/sinia-peces.js';
+
+const stage = document.getElementById('sn-stage');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const byId = Object.fromEntries(PIECES.map((p) => [p.id, p]));
+const V3 = (x, y, z) => new THREE.Vector3(x, y, z);
+const D2R = Math.PI / 180;
+
+/* escena */
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+renderer.setClearColor(0x000000, 0);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+stage.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(34, 4 / 3, 5, 6000);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = !reduce;
+controls.minDistance = 180; controls.maxDistance = 1500;
+controls.maxPolarAngle = Math.PI * 0.53;
+controls.target.set(-55, 85, 0);
+
+scene.add(new THREE.HemisphereLight(0xfffaf2, 0xd9d0e8, 1.25));
+const sun = new THREE.DirectionalLight(0xffffff, 1.7);
+sun.position.set(180, 520, 320); sun.castShadow = true;
+sun.shadow.mapSize.set(1024, 1024);
+Object.assign(sun.shadow.camera, { left: -380, right: 380, top: 380, bottom: -380, near: 10, far: 1600 });
+sun.shadow.radius = 5; scene.add(sun);
+const fill = new THREE.DirectionalLight(0xfff0e0, 0.5); fill.position.set(-300, 200, -200); scene.add(fill);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(3000, 3000), new THREE.ShadowMaterial({ opacity: 0.13 }));
+ground.rotation.x = -Math.PI / 2; ground.position.y = -3.05; ground.receiveShadow = true; scene.add(ground);
+
+/* materials: cares de fusta clara, cantells una mica cremats pel làser */
+const mats = {};
+const matsFor = (id) => mats[id] || (mats[id] = [
+  new THREE.MeshStandardMaterial({ color: 0xe8cfa0, roughness: 0.82 }),
+  new THREE.MeshStandardMaterial({ color: 0x9a6a3c, roughness: 0.9 }),
+]);
+const dowelMat = new THREE.MeshStandardMaterial({ color: 0xd8b580, roughness: 0.7 });
+const cupMat = new THREE.MeshStandardMaterial({ color: 0xf4f8fa, roughness: 0.25, transparent: true, opacity: 0.55, side: THREE.DoubleSide, depthWrite: false });
+const waterMat = new THREE.MeshStandardMaterial({ color: 0x3fa9bb, roughness: 0.15, transparent: true, opacity: 0.6, depthWrite: false });
+const brickMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5, transparent: true, opacity: 0.4, side: THREE.DoubleSide, depthWrite: false });
+
+/* la mateixa geometria 2D de la planxa, extrudida 3 mm */
+const geos = {};
+function geoFor(id) {
+  if (geos[id]) return geos[id];
+  const p = byId[id];
+  const toV = (c) => c.map(([x, y]) => new THREE.Vector2(x, y));
+  const s = new THREE.Shape(toV(p.contours[0]));
+  p.contours.slice(1).forEach((c) => s.holes.push(new THREE.Path(toV(c))));
+  p.circles.forEach((c) => { const h = new THREE.Path(); h.absarc(c.x, c.y, c.r, 0, Math.PI * 2, true); s.holes.push(h); });
+  return (geos[id] = new THREE.ExtrudeGeometry(s, { depth: T, bevelEnabled: false, curveSegments: 28 }));
+}
+
+const parts = []; // { obj, base, off }
+const pickable = [];
+const quat = (U, V, W) => new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(U, V, W));
+function addPiece(id, parent, U, V, W, O, off) {
+  const m = new THREE.Mesh(geoFor(id), matsFor(id));
+  m.quaternion.copy(quat(U, V, W)); m.position.copy(O);
+  m.castShadow = m.receiveShadow = true; m.userData.id = id;
+  parent.add(m); pickable.push(m);
+  parts.push({ obj: m, base: O.clone(), off });
+  return m;
+}
+function addGroup(parent, O, off) {
+  const g = new THREE.Group(); g.position.copy(O); parent.add(g);
+  parts.push({ obj: g, base: O.clone(), off }); return g;
+}
+const X = V3(1, 0, 0), Y = V3(0, 1, 0), Z = V3(0, 0, 1);
+const root = new THREE.Group(); scene.add(root);
+
+// 4 base
+addPiece('base', root, X, V3(0, 0, -1), Y, V3(0, -3, 0), V3(0, 0, 0));
+// 3 suports en A
+for (const s of [1, -1]) addPiece('suport', root, X, Y, Z, V3(0, 0, s * A_Z - 1.5), V3(0, 0, s * 62));
+// 6 volanderes
+for (const s of [1, -1]) addPiece('volandera', root, X, Y, Z, V3(0, AXLE_Y, s * 32.5 - 1.5), V3(0, 50, s * 44));
+
+// roda: grup que gira a l'eix
+const wheel = addGroup(root, V3(0, AXLE_Y, 0), V3(0, 50, 0));
+for (const s of [1, -1]) addPiece('roda', wheel, X, Y, Z, V3(0, 0, s * DISC_Z - 1.5), V3(0, 0, s * 45));
+const axle = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 90, 20), dowelMat);
+axle.rotation.x = Math.PI / 2; axle.castShadow = true; wheel.add(axle);
+const maneta = addPiece('maneta', wheel, X, Y, Z, V3(0, 0, 39.5), V3(0, 0, 70));
+const handle = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 40, 18), dowelMat);
+handle.rotation.x = Math.PI / 2; handle.position.set(55, 0, T + 20); handle.castShadow = true; maneta.add(handle);
+
+// 2 porta-gots + gots, a les ranures que fan servir 4, 6 o 8
+const cupGeo = new THREE.LatheGeometry([new THREE.Vector2(0, -20), new THREE.Vector2(15, -20), new THREE.Vector2(22, 20)], 32);
+const fillGeo = new THREE.CylinderGeometry(16.5, 15, 9, 24);
+const slotUnion = [...new Set([...slotsFor(4), ...slotsFor(6), ...slotsFor(8)])].sort((a, b) => a - b);
+const cups = {}; // k -> { group, water, full }
+for (const k of slotUnion) {
+  const a = k * 15 * D2R;
+  const U = Z, V = V3(Math.cos(a), Math.sin(a), 0), W = V3(-Math.sin(a), Math.cos(a), 0);
+  const g = new THREE.Group(); wheel.add(g);
+  addPiece('cassoleta', g, U, V, W, W.clone().multiplyScalar(-1.5), V.clone().multiplyScalar(38));
+  const cup = new THREE.Mesh(cupGeo, cupMat);
+  cup.quaternion.setFromUnitVectors(Y, W);
+  const cpos = V.clone().multiplyScalar(CUP_R).addScaledVector(W, 8.6);
+  cup.position.copy(cpos); cup.userData.id = 'cassoleta'; g.add(cup); pickable.push(cup);
+  parts.push({ obj: cup, base: cpos.clone(), off: V.clone().multiplyScalar(78) });
+  const w = new THREE.Mesh(fillGeo, waterMat); w.position.set(0, -15, 0); w.visible = false; cup.add(w);
+  cups[k] = { group: g, water: w, full: false };
+}
+
+// 7 + 8 + 9 canal i pota
+const ca = CANAL.ang * D2R;
+const dC = V3(-Math.cos(ca), -Math.sin(ca), 0), nC = V3(-Math.sin(ca), Math.cos(ca), 0);
+const B0 = V3(CANAL.x0, CANAL.y0, 0);
+addPiece('canalfons', root, dC, Z, nC, B0.clone(), V3(-20, 85, 0));
+for (const [zo, s] of [[27, 1], [-24, -1]]) {
+  const O = B0.clone().addScaledVector(nC, T); O.z = zo;
+  addPiece('canalparet', root, dC, nC, V3(0, 0, -1), O, V3(-20, 85, s * 40).addScaledVector(nC, 26));
+}
+addPiece('pota', root, X, Y, Z, V3(0, 0, -1.5), V3(-15, 32, 0));
+
+// brick d'1 L (safata) i got mesurador: no es tallen
+const extras = new THREE.Group(); scene.add(extras);
+const bw = 195, bd = 65, bh = 62;
+const brick = new THREE.Group(); extras.add(brick);
+const wall = (w, h, d, x, y, z) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), brickMat); m.position.set(x, y, z); brick.add(m); };
+wall(bw, 1, bd, 0, 0.5, 0); wall(bw, bh, 1, 0, bh / 2, bd / 2); wall(bw, bh, 1, 0, bh / 2, -bd / 2); wall(1, bh, bd, bw / 2, bh / 2, 0); wall(1, bh, bd, -bw / 2, bh / 2, 0);
+const pond = new THREE.Mesh(new THREE.BoxGeometry(bw - 2, 40, bd - 2), waterMat); pond.position.y = 21; brick.add(pond);
+const GX = -242;
+const glass = new THREE.Mesh(new THREE.LatheGeometry([new THREE.Vector2(0, 0), new THREE.Vector2(26, 0), new THREE.Vector2(30, 95)], 36), cupMat);
+glass.position.set(GX, -3, 0); extras.add(glass);
+const gWater = new THREE.Mesh(new THREE.CylinderGeometry(27, 26, 1, 32), waterMat);
+gWater.position.set(GX, -3, 0); gWater.visible = false; extras.add(gWater);
+
+/* gotes */
+const dropGeo = new THREE.SphereGeometry(2.3, 10, 8);
+const drops = [];
+const free = [];
+function spawnDrop(p0) {
+  const m = free.pop() || new THREE.Mesh(dropGeo, waterMat);
+  scene.add(m);
+  const zr = (Math.random() - 0.5) * 30;
+  const p1 = V3(...canalPoint(8), 0).addScaledVector(nC, T + 3); p1.z = zr;
+  const cp = V3((p0.x + p1.x) / 2 - 10, Math.max(p0.y, p1.y) + 6, (p0.z + zr) / 2);
+  drops.push({ m, ph: 0, t: 0, p0: p0.clone(), cp, p1, z: zr });
+}
+const canalEnd = V3(...canalPoint(CANAL.len), 0).addScaledVector(nC, T + 3);
+let ml = 0;
+function setGlass() {
+  const h = Math.min(86, ml * 0.11);
+  gWater.visible = h > 0.5; gWater.scale.y = Math.max(0.01, h); gWater.position.y = -3 + h / 2;
+}
+function stepDrops(dt) {
+  for (let i = drops.length - 1; i >= 0; i--) {
+    const d = drops[i];
+    d.t += dt;
+    if (d.ph === 0) {
+      const u = Math.min(1, d.t / 0.45), a = 1 - u;
+      d.m.position.set(a * a * d.p0.x + 2 * a * u * d.cp.x + u * u * d.p1.x, a * a * d.p0.y + 2 * a * u * d.cp.y + u * u * d.p1.y, a * a * d.p0.z + 2 * a * u * d.cp.z + u * u * d.p1.z);
+      if (u >= 1) { d.ph = 1; d.t = 0; }
+    } else if (d.ph === 1) {
+      const u = Math.min(1, d.t / 0.75);
+      d.m.position.lerpVectors(d.p1, canalEnd, u); d.m.position.z = d.z * (1 - u * 0.6);
+      if (u >= 1) { d.ph = 2; d.t = 0; d.s = d.m.position.clone(); }
+    } else {
+      const u = Math.min(1, d.t / 0.35);
+      const top = -3 + Math.min(86, ml * 0.11);
+      d.m.position.set(d.s.x + (GX + 6 - d.s.x) * u, d.s.y + (top - d.s.y) * u * u, d.s.z * (1 - u));
+      if (u >= 1) { scene.remove(d.m); free.push(d.m); drops.splice(i, 1); ml += 1; setGlass(); }
+    }
+  }
+}
+
+/* estat */
+let visible = true, running = false, last = 0, idle = 0;
+let nCups = 8, theta = 0, spinning = false, turns0 = 0, explode = 0, exTarget = 0;
+const btnSpin = document.getElementById('sn-spin'), turnsEl = document.getElementById('sn-turns');
+const exr = document.getElementById('sn-exr'), btnEx = document.getElementById('sn-explode');
+function applyCups() {
+  const act = new Set(slotsFor(nCups));
+  for (const k of slotUnion) { cups[k].group.visible = act.has(k); if (!act.has(k)) { cups[k].full = false; cups[k].water.visible = false; } }
+  document.querySelectorAll('#sn-3dn button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.n === nCups)));
+}
+document.getElementById('sn-3dn').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; nCups = +b.dataset.n; applyCups(); wake(); });
+applyCups();
+const turnsNow = () => Math.floor((theta - turns0) / (2 * Math.PI));
+function showTurns() { const n = turnsNow(); turnsEl.textContent = n === 1 ? '1 volta' : `${n} voltes`; }
+function setSpin(on) {
+  spinning = on; btnSpin.setAttribute('aria-pressed', String(on));
+  btnSpin.querySelector('span').textContent = on ? 'Atura-la' : 'Fes-la girar';
+  if (on) { exTarget = 0; syncEx(); if (reduce) explode = 0; }
+  wake();
+}
+btnSpin.addEventListener('click', () => { if (!spinning && turnsNow() >= 10) emptyGlass(); setSpin(!spinning); });
+function emptyGlass() { ml = 0; setGlass(); turns0 = theta; showTurns(); for (const k in cups) { cups[k].full = false; cups[k].water.visible = false; } }
+document.getElementById('sn-empty').addEventListener('click', () => { emptyGlass(); wake(); });
+function syncEx() { exr.value = exTarget; btnEx.setAttribute('aria-pressed', String(exTarget > 0.5)); btnEx.lastChild.textContent = exTarget > 0.5 ? 'Munta' : 'Desmunta'; }
+btnEx.addEventListener('click', () => { exTarget = exTarget > 0.5 ? 0 : 1; if (exTarget) setSpin(false); syncEx(); if (reduce) explode = exTarget; wake(); });
+exr.addEventListener('input', () => { exTarget = explode = +exr.value; if (exTarget > 0.02) setSpin(false); btnEx.setAttribute('aria-pressed', String(exTarget > 0.5)); btnEx.lastChild.textContent = exTarget > 0.5 ? 'Munta' : 'Desmunta'; wake(); });
+
+/* ressaltat de peces */
+window.__sn3dHighlight = (id) => {
+  for (const k in mats) for (const m of mats[k]) { m.emissive.setHex(k === id ? 0x0e7782 : 0x000000); m.emissiveIntensity = k === id ? 0.55 : 0; }
+  wake();
+};
+const ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
+let down = null;
+renderer.domElement.addEventListener('pointerdown', (e) => { down = [e.clientX, e.clientY]; wake(); });
+renderer.domElement.addEventListener('pointerup', (e) => {
+  if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 6) return;
+  const r = renderer.domElement.getBoundingClientRect();
+  ptr.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+  ray.setFromCamera(ptr, camera);
+  const hit = ray.intersectObjects(pickable.filter((m) => m.visible && m.parent.visible), false)[0];
+  if (hit) window.__snSelect(hit.object.userData.id);
+});
+controls.addEventListener('change', wake);
+
+/* mida */
+function resize() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  if (!w || !h) return;
+  renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); wake();
+}
+const k0 = stage.clientWidth / Math.max(1, stage.clientHeight) < 1.15 ? 1.08 : 0.92;
+camera.position.set(-55 + 330 * k0, 85 + 210 * k0, 560 * k0);
+controls.update();
+new ResizeObserver(resize).observe(stage);
+resize();
+
+/* bucle: només quan es veu i quan hi ha alguna cosa que es mou */
+new IntersectionObserver(([en]) => { visible = en.isIntersecting; if (visible) wake(); }, { threshold: 0.05 }).observe(stage);
+function wake() { idle = 0; if (!running && visible) { running = true; last = performance.now(); requestAnimationFrame(frame); } }
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  // muntat ↔ desmuntat
+  if (Math.abs(explode - exTarget) > 0.001) { explode += (exTarget - explode) * Math.min(1, dt * 5); if (Math.abs(explode - exTarget) < 0.002) explode = exTarget; exr.value = explode.toFixed(2); }
+  const e = explode * explode * (3 - 2 * explode);
+  for (const p of parts) p.obj.position.copy(p.base).addScaledVector(p.off, e);
+  root.scale.setScalar(1 - 0.2 * e);
+  extras.visible = e < 0.6;
+  brickMat.opacity = 0.4 * (1 - e); waterMat.opacity = 0.6 * (1 - e * 0.7);
+  // girar
+  if (spinning) {
+    const prev = theta;
+    theta += dt * 2 * Math.PI * (reduce ? 0.18 : 0.32);
+    if (turnsNow() >= 10) { theta = turns0 + 20 * Math.PI; setSpin(false); turnsEl.textContent = '10 voltes: mira el got!'; }
+    else showTurns();
+    if (theta !== prev) for (const k of slotsFor(nCups)) {
+      const c = cups[k];
+      const phi = (((k * 15 * D2R + theta) / D2R) % 360 + 360) % 360;
+      if (phi > 255 && phi < 300 && !c.full) { c.full = true; c.water.visible = true; c.left = 14; }
+      if (c.full && phi > 98 && phi < 168 && explode < 0.02) {
+        if (Math.random() < dt * 60 * 0.55 && c.left > 0) {
+          const W = V3(-Math.sin(phi * D2R), Math.cos(phi * D2R), 0), V = V3(Math.cos(phi * D2R), Math.sin(phi * D2R), 0);
+          const mouth = V3(0, AXLE_Y, (Math.random() - 0.5) * 22).addScaledVector(V, CUP_R).addScaledVector(W, 26);
+          spawnDrop(mouth); c.left--;
+        }
+      }
+      if (c.full && phi >= 168 && phi < 250) { c.full = false; c.water.visible = false; }
+    }
+  }
+  wheel.rotation.z = theta;
+  stepDrops(dt);
+  controls.update();
+  renderer.render(scene, camera);
+  const moving = spinning || drops.length || Math.abs(explode - exTarget) > 0.001;
+  idle = moving ? 0 : idle + 1;
+  if (visible && idle < 90) requestAnimationFrame(frame); else running = false;
+}
+wake();
+document.getElementById('sn-load').remove();
+window.__sn3dReady = true;
+</script>
+</body></html>

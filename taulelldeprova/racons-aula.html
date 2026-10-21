@@ -1,0 +1,909 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Racons de 2n A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<style>
+/* ===== Racons de 2n A · prefix ra- ===== */
+.ra-sec-h{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 20px;margin-bottom:14px}
+.ra-sec-h p{color:var(--tinta-suau);max-width:62ch;margin-top:6px}
+.ra-box{padding:22px 24px}
+@media (max-width:640px){.ra-box{padding:18px 16px}}
+
+/* --- capçalera --- */
+.ra-chip-m i{background:var(--k)!important}
+
+/* --- exploració --- */
+.ra-explora{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(330px,1fr);gap:18px;align-items:start}
+.ra-mapcol{padding:16px}
+.ra-tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.ra-tools .tv-btn[disabled]{opacity:.45;cursor:default;transform:none}
+.ra-tools .ra-daylbl{font:600 .95rem/1 var(--font-text);color:var(--tinta-suau);margin-right:6px}
+.ra-dayseg{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.ra-dayseg .tv-seg button{padding:8px 12px}
+.ra-mapbox{position:relative;aspect-ratio:905/640;border-radius:22px;overflow:hidden;
+  background:radial-gradient(80% 70% at 20% 10%,rgba(255,255,255,.9),rgba(255,255,255,0) 70%),linear-gradient(160deg,#EAF3FF,#F6EEFA 55%,#FFF2E6);
+  border:1px solid var(--vidre-vora);box-shadow:var(--brill-vora),inset 0 0 0 1px var(--vidre-trac)}
+.ra-mapbox svg{position:absolute;inset:0;width:100%;height:100%}
+.ra-z{cursor:pointer;transition:opacity .35s}
+.ra-z:hover .ra-plate{filter:brightness(1.04) saturate(1.15)}
+svg.is-zoom .ra-z:not(.is-on){opacity:.38}
+.ra-ovl{position:absolute;inset:0;pointer-events:none}
+.ra-tag{pointer-events:auto;position:absolute;transform:translate(-50%,-100%);display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;
+  background:var(--vidre-3);border:1px solid #fff;box-shadow:var(--brill-vora),var(--ombra-8);font:600 16px/1 var(--font-text);color:var(--tinta);white-space:nowrap;transition:opacity .25s,background .2s}
+.ra-tag i{width:11px;height:11px;border-radius:50%;background:var(--k);flex:none;box-shadow:0 0 0 2px #fff}
+.ra-tag:hover{box-shadow:var(--brill-vora),var(--ombra-16)}
+.ra-tag[aria-pressed="true"]{background:var(--vidre-fosc);color:var(--sobre-fosc);border-color:transparent}
+.ra-tag.is-off{opacity:0;pointer-events:none}
+.ra-pin{position:absolute;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:5px;padding:5px 9px 5px 6px;border-radius:999px;font:600 14px/1 var(--font-text);
+  background:#fff;color:var(--tinta);box-shadow:var(--ombra-8);border:2px solid var(--mitjans);white-space:nowrap;transition:left .45s,top .45s,opacity .25s}
+.ra-pin b{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--mitjans);color:#fff;font-size:14px}
+.ra-pin.sup{border-style:dashed;border-color:var(--grans)}
+.ra-pin.sup b{background:var(--grans)}
+.ra-pin.is-off{opacity:0}
+.ra-maphint{margin-top:10px;font-size:1rem;color:var(--tinta-suau);display:flex;gap:8px;align-items:flex-start}
+.ra-legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:8px;font-size:.98rem;color:var(--tinta-suau)}
+.ra-legend span{display:inline-flex;align-items:center;gap:6px}
+.ra-legend i{width:12px;height:12px;border-radius:4px;background:var(--k)}
+@media (max-width:640px){.ra-mapcol{padding:10px}.ra-tag{font-size:14px;padding:5px 8px;gap:5px}.ra-tag i{width:9px;height:9px}
+  .ra-pin span{display:none}.ra-pin{padding:3px}}
+
+/* panell */
+.ra-panel{position:sticky;top:84px;max-height:calc(100vh - 100px);overflow:auto;padding:22px;scroll-margin-top:84px;border-radius:26px;overscroll-behavior:contain}
+@media (max-width:960px){.ra-explora{grid-template-columns:minmax(0,1fr)}.ra-panel{position:static;max-height:none;overflow:visible}}
+@media (max-width:640px){.ra-panel{padding:18px 16px}.ra-tools h2{width:100%}}
+.ra-panel h2{font-size:1.65rem;margin:6px 0 4px}
+.ra-panel h2:focus{outline:none}
+.ra-phead{border-left:6px solid var(--k);padding:2px 0 2px 14px;margin-bottom:14px}
+.ra-phead .ra-day{font:600 .98rem/1.2 var(--font-text);color:var(--tinta-suau)}
+.ra-aporta{display:flex;gap:10px;align-items:flex-start;background:var(--kp);border-radius:16px;padding:12px 14px;margin:0 0 16px;border:1px solid #fff;box-shadow:var(--brill-vora)}
+.ra-aporta .ico{color:var(--k);margin-top:2px}
+.ra-pblock{margin:0 0 16px}
+.ra-pblock>p,.ra-pblock li{font-size:1.06rem}
+.ra-pblock ul{margin:0;padding-left:20px}
+.ra-pblock li{margin:2px 0}
+.ra-consigna{font-size:1.12rem;background:#fff;border-radius:14px;padding:12px 14px;box-shadow:var(--ombra-2)}
+.ra-list{display:grid;gap:8px;margin-top:12px}
+.ra-list button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--vidre-vora);background:var(--vidre-2);border-radius:16px;padding:11px 14px;box-shadow:var(--brill-vora),var(--ombra-2);font:600 1.06rem/1.2 var(--font-text)}
+.ra-list button:hover{box-shadow:var(--brill-vora),var(--ombra-8)}
+.ra-list button i{width:12px;height:12px;border-radius:50%;background:var(--k);flex:none}
+.ra-list button small{margin-left:auto;font:500 .95rem/1 var(--font-text);color:var(--tinta-suau)}
+.ra-pnav{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.ra-pnav .tv-btn{padding:9px 14px;font-size:1rem}
+
+/* DUA */
+.ra-duah{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.ra-dua{background:#fff;border-radius:18px;padding:14px 16px;box-shadow:var(--ombra-2);border-top:5px solid var(--k);margin-bottom:10px}
+.ra-dua h4{font:700 1.02rem/1.2 var(--font-display);display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ra-dua h4 b{display:inline-grid;place-items:center;min-width:30px;height:30px;padding:0 6px;border-radius:9px;background:var(--kp);font:700 .95rem/1 var(--font-display)}
+.ra-dua p{font-size:1.06rem}
+.ra-steps{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.ra-steps li{display:flex;gap:10px;align-items:center;font-size:1.06rem}
+.ra-steps .pic{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--kp);flex:none}
+.ra-steps .pic .ico{width:24px;height:24px;color:var(--tinta)}
+.ra-lf li{font-size:1.2rem;line-height:1.35}
+.ra-lf .num{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--kp);font:700 1.05rem/1 var(--font-display);flex:none}
+.ra-duaall{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:520px){.ra-duaall{grid-template-columns:1fr}}
+
+/* graella */
+.ra-gr{width:100%;border-collapse:separate;border-spacing:0;font-size:.98rem;background:#fff;border-radius:14px;overflow:hidden;box-shadow:var(--ombra-2)}
+.ra-gr th,.ra-gr td{padding:7px 8px;text-align:center;border-bottom:1px solid #EEE8F3}
+.ra-gr th{font:600 .92rem/1.15 var(--font-text);color:var(--tinta-suau);background:#FBF8FD;vertical-align:bottom}
+.ra-gr th:first-child,.ra-gr td:first-child{text-align:left}
+.ra-gr tr:last-child td{border-bottom:0}
+.ra-st{display:inline-block;width:16px;height:16px;border-radius:50%;border:2px solid var(--tinta-suau);vertical-align:middle}
+.ra-st.s2{background:var(--tinta-suau)}
+.ra-st.s1{background:linear-gradient(90deg,var(--tinta-suau) 50%,transparent 50%)}
+.ra-stkey{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.95rem;color:var(--tinta-suau);margin-top:8px}
+.ra-stkey span{display:inline-flex;gap:6px;align-items:center}
+
+/* fil conductor */
+.ra-hub{position:relative;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,auto);gap:22px 26px;padding:6px 0}
+.ra-hub svg.ra-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.ra-node{position:relative;z-index:1;background:var(--vidre-3);border:1px solid #fff;border-radius:20px;padding:14px 16px;box-shadow:var(--brill-vora),var(--ombra-8);border-top:5px solid var(--k)}
+.ra-node h3{font-size:1.05rem;display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ra-node p{font-size:1.02rem;color:var(--tinta-suau)}
+.ra-node.c{background:var(--vidre-fosc);color:var(--sobre-fosc);border-top-color:var(--albercoc);align-self:center;text-align:center;padding:20px}
+.ra-node.c h3{justify-content:center;font-size:1.3rem}
+.ra-node.c p{color:#EDE6F5}
+.ra-node.note{background:transparent;box-shadow:none;border:1.5px dashed var(--linia-buida);border-top:1.5px dashed var(--linia-buida);align-self:center}
+.ra-node.note p{font-size:.98rem}
+@media (max-width:860px){.ra-hub{grid-template-columns:1fr;gap:10px}.ra-hub svg.ra-lines{display:none}.ra-node{grid-area:auto!important}.ra-node.c{order:-1}}
+
+/* botiga */
+.ra-shop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:18px;align-items:start}
+@media (max-width:900px){.ra-shop{grid-template-columns:1fr}}
+.ra-prods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:420px){.ra-prods{grid-template-columns:repeat(2,1fr)}}
+.ra-prod{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px 12px;border-radius:18px;border:1px solid #fff;background:var(--vidre-2);box-shadow:var(--brill-vora),var(--ombra-2);text-align:center;transition:transform .15s,box-shadow .15s}
+.ra-prod svg{width:60px;height:60px}
+.ra-prod b{font:700 1rem/1.15 var(--font-display)}
+.ra-prod small{font:500 .95rem/1.1 var(--font-text);color:var(--tinta-suau)}
+.ra-prod .preu{margin-top:3px;font:700 1.05rem/1 var(--font-display);background:#fff;border-radius:999px;padding:5px 10px;box-shadow:inset 0 0 0 2px var(--mat-pastel)}
+.ra-prod:hover{transform:translateY(-2px);box-shadow:var(--brill-vora),var(--ombra-8)}
+.ra-prod[aria-pressed="true"]{background:var(--mat-pastel);box-shadow:inset 0 0 0 2px var(--mat),var(--ombra-8)}
+.ra-desk{background:var(--vidre-3);border:1px solid #fff;border-radius:22px;padding:16px 18px;box-shadow:var(--brill-vora),var(--ombra-8)}
+.ra-order{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin-bottom:12px}
+.ra-order .txt{flex:1 1 220px;font-size:1.1rem}
+.ra-order .paid{display:flex;align-items:center;gap:8px;font-size:1rem;color:var(--tinta-suau)}
+.ra-order .paid svg{width:96px;height:52px}
+.ra-trayh{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:6px 0}
+.ra-tray{min-height:76px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:8px;border-radius:16px;background:#fff;box-shadow:inset 0 0 0 2px #EEE8F3}
+.ra-tray:empty::before{content:"Toca les monedes de la caixa per posar-les aquí.";color:var(--tinta-tenue);font-size:1rem;padding:0 6px}
+.ra-money{border:0;background:none;padding:2px;border-radius:12px;line-height:0}
+.ra-money svg{height:56px;width:auto}
+.ra-money:hover{transform:translateY(-2px)}
+.ra-tray .ra-money svg{height:46px}
+.ra-till{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:10px;border-radius:18px;background:linear-gradient(180deg,#F1F5FF,#E6EEFF);box-shadow:inset 0 1px 0 #fff,inset 0 0 0 1px #D6E2FB;margin-top:6px}
+.ra-sum{font:700 1.05rem/1 var(--font-display)}
+.ra-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.ra-fb{margin-top:12px;border-radius:16px;padding:12px 14px;font-size:1.08rem;display:none}
+.ra-fb.ok{display:block;background:var(--fet-fons);box-shadow:inset 4px 0 0 var(--estat-aplicat)}
+.ra-fb.no{display:block;background:var(--avis-fons);box-shadow:inset 4px 0 0 var(--estat-pendent)}
+.ra-help{margin:10px 0 4px}
+.ra-bar{position:relative;height:34px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 2px #E3DCEB;overflow:hidden}
+.ra-bar .seg{position:absolute;top:0;bottom:0}
+.ra-bar .pr{background:repeating-linear-gradient(135deg,#FFE4B8 0 8px,#FFD69A 8px 16px)}
+.ra-bar .ch{background:var(--mat-pastel);box-shadow:inset 0 0 0 2px var(--mat)}
+.ra-bar .tick{position:absolute;top:0;bottom:0;width:1px;background:#D9D1E3}
+.ra-barnums{position:relative;height:20px;margin-top:3px;font:600 14px/1 var(--font-text);color:var(--tinta-suau)}
+.ra-barnums span{position:absolute;transform:translateX(-50%)}
+.ra-barkey{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.95rem;color:var(--tinta-suau);margin-top:6px}
+.ra-barkey i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:5px}
+.ra-lfsteps{list-style:none;margin:6px 0;padding:0;display:grid;gap:6px}
+.ra-lfsteps li{display:flex;gap:10px;align-items:center;font-size:1.2rem;padding:6px 10px;border-radius:12px;color:var(--tinta-suau)}
+.ra-lfsteps li .num{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 2px var(--mat-pastel);font:700 1rem/1 var(--font-display);flex:none}
+.ra-lfsteps li.now{background:var(--mat-pastel);color:var(--tinta)}
+.ra-lfsteps li.done .num{background:var(--mat);color:#fff;box-shadow:none}
+.ra-shopdua{margin-bottom:14px}
+
+/* rotació */
+.ra-rot{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:960px){.ra-rot{grid-template-columns:1fr}}
+.ra-tab{width:100%;border-collapse:separate;border-spacing:5px;font-size:1rem}
+.ra-tab th{font:600 .95rem/1.1 var(--font-text);color:var(--tinta-suau);padding:4px 6px;text-align:left}
+.ra-tab td{background:var(--kp);border-radius:12px;padding:9px 10px;font-weight:600;position:relative;border:1px solid #fff;transition:opacity .2s}
+.ra-tab td::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:4px;border-radius:4px;background:var(--k)}
+.ra-tab td small{display:block;font:600 .85rem/1.1 var(--font-text);color:var(--tinta-suau);margin-top:3px}
+.ra-tab.has-day td:not(.on){opacity:.42}
+.ra-tab th.on{color:var(--tinta)}
+.ra-team{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.ra-team i{width:12px;height:12px;border-radius:50%;background:var(--t)}
+.ra-daylist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.ra-daylist li{display:flex;align-items:center;gap:10px;background:#fff;border-radius:14px;padding:9px 12px;box-shadow:var(--ombra-2);border-left:5px solid var(--k);font-size:1.02rem}
+.ra-daylist li .r{margin-left:auto;font-weight:600;text-align:right}
+.ra-badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;font:600 .85rem/1 var(--font-text);background:var(--mitjans-tint);color:var(--tinta);margin-left:6px}
+.ra-badge.sup{background:var(--grans-tint)}
+.ra-roles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+@media (max-width:1000px){.ra-roles{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.ra-roles{grid-template-columns:1fr}}
+.ra-role h3{display:flex;align-items:center;gap:8px;font-size:1.08rem;margin-bottom:6px}
+.ra-role p{font-size:1.02rem;color:var(--tinta-suau)}
+@media (max-width:640px){.ra-tabwrap{display:none}}
+
+/* normes */
+.ra-normes{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+@media (max-width:1000px){.ra-normes{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:480px){.ra-normes{grid-template-columns:repeat(2,1fr)}}
+.ra-norma{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:14px 10px;border-radius:20px;background:#fff;box-shadow:var(--brill-vora),var(--ombra-2)}
+.ra-norma svg{width:72px;height:72px}
+.ra-norma b{font:700 1rem/1.2 var(--font-display)}
+
+/* fitxa */
+.ra-fitxa{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.ra-fitxa{grid-template-columns:1fr}}
+.ra-fitxa ul{margin:0;padding-left:20px}
+.ra-fitxa li{margin:3px 0}
+.ra-fitxa .wide{grid-column:1/-1}
+.ra-duaexp{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
+@media (max-width:760px){.ra-duaexp{grid-template-columns:1fr 1fr}}
+.ra-duaexp div{background:#fff;border-radius:14px;padding:10px 12px;box-shadow:var(--ombra-2)}
+.ra-duaexp b{font:700 1rem/1 var(--font-display);display:block;margin-bottom:4px}
+.ra-photo{margin:0;border-radius:22px;overflow:hidden;box-shadow:var(--ombra-16)}
+.ra-photo img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.ra-photo figcaption{padding:8px 14px;font-size:.95rem;color:var(--tinta-suau);background:var(--vidre-2)}
+
+/* com ho veus */
+.ra-veus{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center}
+.ra-veus .row{display:flex;flex-wrap:wrap;gap:8px}
+.ra-veus .msg{font:700 1.1rem/1.3 var(--font-display)}
+
+/* impressió: només la fitxa del racó */
+@media print{
+  body.ra-print main>*:not(#explora),body.ra-print .tv-foot,body.ra-print .ra-mapcol,body.ra-print .ra-noprint{display:none!important}
+  body.ra-print .ra-explora{display:block}
+  .ra-panel{position:static!important;max-height:none!important;overflow:visible!important}
+  .ra-dua,.ra-aporta,.ra-consigna,.ra-gr{box-shadow:none!important;border:1px solid #bbb;background:#fff!important}
+  .ra-mapbox{background:#fff!important}
+}
+@media (prefers-reduced-motion:reduce){.ra-pin{transition:none}}
+</style></head>
+<body style="--cc:var(--mat);--ct:var(--mat-pastel)">
+<div class="tv-top tv-wrap"><div class="tv-glass">
+  <a class="tv-back" href="index.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Taulell</a>
+  <span class="tv-crumb">Mitjans · 2n A · Racons</span><span class="tv-stamp">Mostra</span></div></div>
+
+<main class="tv-wrap">
+  <header class="tv-glass tv-head">
+    <div class="tv-kicker">
+      <span class="tv-chip ra-chip-m" style="--k:var(--mitjans)"><i></i>Mitjans · 2n A</span>
+      <span class="tv-chip ra-chip-m" style="--k:var(--mat)"><i></i>Matemàtiques</span>
+      <span class="tv-chip ra-chip-m" style="--k:var(--llen)"><i></i>Llengua catalana</span>
+      <span class="tv-chip ra-chip-m" style="--k:var(--lec)"><i></i>Lectura</span>
+      <span class="tv-chip">Dilluns a divendres · 9:00</span>
+    </div>
+    <h1>L'aula de 2n A, racó a racó</h1>
+    <p class="tv-lead">Una setmana de racons amb una sola meta: muntar la parada del <strong>mercat de dissabte</strong>. Cada racó fa una peça de veritat (els preus, el canvi, els cartells, els pesos, el pregó) i al final tot cap a la mateixa caixa.</p>
+  </header>
+
+  <!-- 1 · EXPLORA -->
+  <section class="tv-sec" id="explora" aria-labelledby="ra-exp-h">
+    <div class="ra-explora">
+      <div class="tv-glass ra-mapcol">
+        <div class="ra-tools">
+          <h2 id="ra-exp-h" style="font-size:1.35rem">Explora l'aula</h2>
+          <div class="ra-dayseg">
+            <span class="ra-daylbl" id="ra-dlbl">Adults a l'aula:</span>
+            <div class="tv-seg" role="group" aria-labelledby="ra-dlbl" data-dayseg></div>
+          </div>
+        </div>
+        <div class="ra-mapbox" id="ra-mapbox">
+          <svg id="ra-svg" viewBox="-385 -110 905 640" role="img" aria-label="Plànol en perspectiva de l'aula de 2n A amb sis racons: mercat, rimes i sons, escriptor, lectura, mesures, i assemblea i calma."></svg>
+          <div class="ra-ovl" id="ra-ovl"></div>
+        </div>
+        <div class="ra-tools" style="margin:10px 0 0">
+          <button class="tv-btn" id="ra-home" disabled><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg>Tota l'aula</button>
+          <div class="ra-legend" aria-hidden="true">
+            <span style="--k:var(--mat)"><i></i>Matemàtiques</span>
+            <span style="--k:var(--llen)"><i></i>Llengua</span>
+            <span style="--k:var(--lec)"><i></i>Lectura</span>
+            <span style="--k:var(--mitjans)"><i></i>Tutoria</span>
+          </div>
+        </div>
+        <p class="ra-maphint"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Toca un racó del plànol, o recorre'ls amb el tabulador i prem Retorn. Amb Esc tornes a tota l'aula.</p>
+      </div>
+      <aside class="tv-glass ra-panel" id="ra-panel" aria-live="polite"></aside>
+    </div>
+  </section>
+
+  <!-- 2 · FIL CONDUCTOR -->
+  <section class="tv-sec tv-glass ra-box" aria-labelledby="ra-fil-h">
+    <div class="ra-sec-h"><div><p class="tv-lbl">El fil conductor</p><h2 id="ra-fil-h">Tots els racons treballen per a la parada</h2>
+      <p>Cap racó és un exercici solt: el que es fa a cada un es necessita en un altre. Les fletxes discontínues són encàrrecs entre racons.</p></div></div>
+    <div class="ra-hub" id="ra-hub">
+      <svg class="ra-lines" viewBox="0 0 300 300" preserveAspectRatio="none" aria-hidden="true">
+        <g stroke="#9C90AD" stroke-width="2" fill="none" vector-effect="non-scaling-stroke" stroke-linecap="round">
+          <line x1="150" y1="150" x2="50" y2="50" vector-effect="non-scaling-stroke"/><line x1="150" y1="150" x2="150" y2="50" vector-effect="non-scaling-stroke"/>
+          <line x1="150" y1="150" x2="250" y2="50" vector-effect="non-scaling-stroke"/><line x1="150" y1="150" x2="50" y2="150" vector-effect="non-scaling-stroke"/>
+          <line x1="150" y1="150" x2="250" y2="150" vector-effect="non-scaling-stroke"/><line x1="150" y1="150" x2="150" y2="250" vector-effect="non-scaling-stroke"/>
+          <path d="M50 150 Q 20 100 50 50" stroke-dasharray="6 6" vector-effect="non-scaling-stroke"/>
+          <path d="M250 150 Q 160 90 50 50" stroke-dasharray="6 6" vector-effect="non-scaling-stroke"/>
+          <path d="M250 50 Q 280 100 250 150" stroke-dasharray="6 6" vector-effect="non-scaling-stroke"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 3 · BOTIGA -->
+  <section class="tv-sec tv-glass ra-box" id="botiga" aria-labelledby="ra-shop-h">
+    <div class="ra-sec-h"><div><p class="tv-lbl">El material viu · Racó del mercat</p><h2 id="ra-shop-h">La botiga: compra, paga i torna el canvi</h2>
+      <p>Una parella fa de clienta i l'altra de botiguera. Tria el que compra la clienta, mira amb què paga i torna-li el canvi amb les monedes de la caixa.</p></div>
+      <div class="ra-shopdua"><p class="tv-lbl" id="ra-sdl">Versió de la targeta</p><div class="tv-seg" role="group" aria-labelledby="ra-sdl" id="ra-sdua"></div></div>
+    </div>
+    <div class="ra-shop">
+      <div><p class="tv-lbl" id="ra-prodl">La parada</p><div class="ra-prods" id="ra-prods" role="group" aria-labelledby="ra-prodl"></div></div>
+      <div class="ra-desk">
+        <div class="ra-order"><p class="txt" id="ra-order">Tria un producte de la parada.</p><div class="paid" id="ra-paid"></div></div>
+        <div id="ra-help"></div>
+        <div class="ra-trayh"><p class="tv-lbl" style="margin:0">El canvi que tornes</p><span class="ra-sum" id="ra-sum" aria-live="polite">Has posat 0 €</span></div>
+        <div class="ra-tray" id="ra-tray" aria-label="Canvi que tornes"></div>
+        <p class="tv-lbl" style="margin:12px 0 0">La caixa</p>
+        <div class="ra-till" id="ra-till"></div>
+        <div class="ra-acts">
+          <button class="tv-btn main" id="ra-check"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10"/></svg>Torna el canvi</button>
+          <button class="tv-btn" id="ra-clear">Buida la safata</button>
+          <button class="tv-btn" id="ra-new">Nova clienta</button>
+        </div>
+        <div class="ra-fb" id="ra-fb" role="status"></div>
+      </div>
+    </div>
+    <p class="tv-credit">Monedes i bitllets dibuixats per a la mostra: són genèrics i no reprodueixen els dissenys oficials de l'euro.</p>
+  </section>
+
+  <!-- 4 · ROTACIÓ -->
+  <section class="tv-sec tv-glass ra-box" id="rotacio" aria-labelledby="ra-rot-h">
+    <div class="ra-sec-h"><div><p class="tv-lbl">Com roten els equips</p><h2 id="ra-rot-h">Cinc equips, cinc racons, cinc dies</h2>
+      <p>Cada dia cada equip és a un racó, i en una setmana passa per tots. La franja del taulell marca el <strong>racó guiat</strong>: allà hi seu la tutora. Cada equip el té guiat un dia diferent.</p></div>
+      <div class="tv-seg" role="group" aria-label="Tria el dia" data-dayseg></div>
+    </div>
+    <div class="ra-rot">
+      <div class="ra-tabwrap"><table class="ra-tab has-day" id="ra-tab"><caption class="tv-lbl" style="text-align:left">Equip per racó i dia</caption></table></div>
+      <div><p class="tv-lbl" id="ra-dayttl">Dilluns</p><ul class="ra-daylist" id="ra-daylist"></ul></div>
+    </div>
+    <div class="ra-roles">
+      <div class="tv-card ra-role"><h3><span class="ra-pin" style="position:static;transform:none;border-width:2px;padding:3px"><b>T</b></span>La tutora</h3><p>Seu al racó guiat del dia. Presenta la tasca, fa preguntes i omple la graella d'aquell racó mentre observa.</p></div>
+      <div class="tv-card ra-role"><h3><span class="ra-pin sup" style="position:static;transform:none;padding:3px"><b>S</b></span>La mestra de suport</h3><p>Va al racó amb més lectura o escriptura autònoma aquell dia i després fa la volta. Si un dia no hi és, aquell racó fa servir la targeta V o LF.</p></div>
+      <div class="tv-card ra-role"><h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 4"/></svg>Assemblea</h3><p>Les dues adultes a la catifa: 5 minuts per començar (qui va on i què ha de portar) i 10 per tancar (què posem a la caixa del mercat).</p></div>
+      <div class="tv-card ra-role"><h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z"/><path d="M5 19l7-7"/></svg>Racó de la calma</h3><p>No és ni premi ni càstig. Hi va qui ho necessita, amb el rellotge de sorra de 3 minuts, i torna sol al seu equip.</p></div>
+    </div>
+  </section>
+
+  <!-- 5 · NORMES -->
+  <section class="tv-sec tv-glass ra-box" aria-labelledby="ra-nor-h">
+    <div class="ra-sec-h"><div><p class="tv-lbl">Penjades a cada racó</p><h2 id="ra-nor-h">Les normes dels racons</h2>
+      <p>Pictogrames dibuixats per a aquesta aula: el mateix dibuix a tots els racons, a l'alçada dels ulls de l'alumnat.</p></div></div>
+    <div class="ra-normes" id="ra-normes"></div>
+  </section>
+
+  <!-- 6 · FITXA -->
+  <section class="tv-sec tv-glass ra-box" aria-labelledby="ra-fit-h">
+    <div class="ra-sec-h"><div><p class="tv-lbl">Fitxa del material</p><h2 id="ra-fit-h">La setmana de racons, d'un cop d'ull</h2></div></div>
+    <div class="ra-fitxa">
+      <div class="tv-card"><p class="tv-lbl">Objectiu</p><p>Preparar entre tot el grup la parada del mercat de dissabte (productes de temporada de les Terres de l'Ebre). Cada racó hi aporta una peça real i es fa servir de veritat el dissabte.</p></div>
+      <div class="tv-card"><p class="tv-lbl">Durada</p><p>Una setmana: cinc sessions de 60 minuts, de dilluns a divendres a les 9:00. Cada sessió: 5 minuts d'assemblea, 45 de racó i 10 de tancament. Dissabte al matí, la parada al pati amb les famílies.</p></div>
+      <div class="tv-card"><p class="tv-lbl">Criteris d'avaluació</p><ul>
+        <li><strong>Matemàtiques.</strong> Resol situacions de compra i venda amb diners i troba el canvi; mesura i pesa triant la unitat i l'instrument, i compara els resultats.</li>
+        <li><strong>Llengua catalana.</strong> Juga amb rimes i síl·labes i diu un text oral breu amb ritme; escriu llistes i cartells amb una funció real; llegeix instruccions i les segueix en ordre.</li>
+        <li><strong>Competències transversals.</strong> Personal, social i d'aprendre a aprendre (demanar ajuda, regular-se, valorar la feina de l'equip) i ciutadana (decidir en assemblea respectant el torn).</li></ul></div>
+      <div class="tv-card"><p class="tv-lbl">Recursos</p><ul>
+        <li>Parada amb tendal, caixa registradora de joguina, monedes i bitllets de cartró.</li>
+        <li>Balança de dos plats, pesos d'1 kg i mig kg, cinta mètrica, cinta a terra.</li>
+        <li>Targetes de rimes, xilòfon, pandero; fulls de llista i cartolines.</li>
+        <li>Receptes il·lustrades i instruccions de la biblioteca d'aula.</li>
+        <li>Tauleta per a la botiga i per gravar el pregó.</li></ul></div>
+      <div class="tv-card wide"><p class="tv-lbl">Les quatre versions DUA de cada targeta</p>
+        <p>El repte del racó és el mateix per a tothom; canvia l'ajuda. Cada racó té la seva targeta de consigna en quatre versions, i l'equip la pot canviar a mitja sessió.</p>
+        <div class="ra-duaexp">
+          <div><b>B · Base</b>La consigna sencera, en un paràgraf.</div>
+          <div><b>V · Suport visual</b>Els passos amb dibuix i un model per seguir.</div>
+          <div><b>LF · Lectura fàcil</b>Frases curtes, un pas cada vegada, lletra gran.</div>
+          <div><b>A · Ampliació</b>El mateix repte amb una pregunta més exigent.</div>
+        </div></div>
+      <div class="tv-card"><p class="tv-lbl">Com s'avalua</p><p>Avaluació formativa. La tutora observa el racó guiat amb una graella per equips (sense noms) i en tancar, cada equip explica què posa a la caixa del mercat. El dissabte mateix és la prova: la parada funciona?</p></div>
+      <figure class="ra-photo"><img src="img/racons-aula.webp" alt="Aula de 2n de primària organitzada per racons, amb llum natural" onerror="this.closest('figure').remove()"><figcaption>Una aula organitzada per racons.</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 7 · COM HO VEUS -->
+  <section class="tv-sec tv-glass ra-box ra-noprint" aria-labelledby="ra-veus-h">
+    <h2 id="ra-veus-h">Com ho veus?</h2><div data-say></div>
+  </section>
+</main>
+<footer class="tv-foot">Institut Escola El Temple, Tortosa. Mostra amb dades d'exemple. No hi ha cap nom d'alumne; els docents apareixen pel seu rol.</footer>
+
+<script>
+(()=>{
+'use strict';
+const RM=matchMedia('(prefers-reduced-motion: reduce)');
+const $=s=>document.querySelector(s);
+
+/* ---------- icones ---------- */
+const IC={
+ ull:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+ ma:'<path d="M8 13V5a2 2 0 0 1 4 0v6m0-1a2 2 0 0 1 4 0v2m0-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-3l-3-5a2 2 0 0 1 3-2l1 1"/>',
+ moneda:'<circle cx="12" cy="12" r="8"/><path d="M14.5 9a3 3 0 1 0 0 6M8 11h5M8 13h5"/>',
+ llapis:'<path d="M4 20l4-1 11-11-3-3L5 16l-1 4z"/><path d="M14 6l3 3"/>',
+ balanca:'<path d="M12 4v16M7 20h10M5 8h14M5 8l-3 6h6L5 8M19 8l-3 6h6l-3-6"/>',
+ llibre:'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h13"/>',
+ nota:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
+ bomb:'<path d="M4 5h16v10H9l-5 4V5z"/>',
+ fulla:'<path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z"/><path d="M5 19l7-7"/>',
+ check:'<path d="M5 12l4 4 10-10"/>',
+ regle:'<path d="M3 17L17 3l4 4L7 21l-4-4z"/><path d="M7 13l2 2M10 10l2 2M13 7l2 2"/>',
+ llista:'<path d="M9 6h11M9 12h11M9 18h11M4 6h1M4 12h1M4 18h1"/>',
+ caixa:'<path d="M3 9h18v11H3zM3 9l3-5h12l3 5M10 13h4"/>',
+ orella:'<path d="M7 9a5 5 0 0 1 10 0c0 3-3 4-3 7a3 3 0 0 1-6 0"/><path d="M10 9a2 2 0 0 1 4 0"/>',
+ fletxa:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+ imp:'<path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M7 14h10v7H7z"/>',
+ cmp:'<path d="M3 4h8v16H3zM13 4h8v16h-8z"/>'
+};
+const ico=(k,c='ico')=>`<svg class="${c}" viewBox="0 0 24 24" aria-hidden="true">${IC[k]}</svg>`;
+
+/* ---------- dades dels racons ---------- */
+const K={mat:['var(--mat)','var(--mat-pastel)'],llen:['var(--llen)','var(--llen-pastel)'],lec:['var(--lec)','var(--lec-pastel)'],mit:['var(--mitjans)','var(--mitjans-tint)']};
+const RACONS=[
+{id:'mercat',nom:'Racó del mercat',curt:'Mercat',k:'mat',dia:'Racó guiat dilluns 9:00 · Comprem i tornem el canvi',
+ aporta:'Assaja el canvi que farem dissabte i decideix els preus que usarà el racó de l\'escriptor.',
+ obj:'Comptar diners i calcular el canvi comptant endavant des del preu fins al que paga la clienta.',
+ fem:'Fes de botiguer o botiguera. La clienta tria un producte i et paga. Compta quant li has de tornar i torna-li el canvi amb les monedes de la caixa. Després canvieu els papers.',
+ mat:['Parada amb tendal i caixes de fruita amb preu','Caixa registradora de joguina','Monedes i bitllets de cartró (50 cèntims, 1 €, 2 €, 5 €, 10 €, 20 €)','La botiga a la tauleta (la trobaràs més avall)'],
+ crit:'<strong>Matemàtiques.</strong> Resol situacions de compra i venda: fa servir el comptar endavant o la resta per trobar el canvi i comprova que el resultat té sentit. Respon a la competència de resoldre situacions de la vida quotidiana amb estratègies diverses (sentit numèric).',
+ ind:['Reconeix monedes i bitllets','Troba el canvi','Comprova en veu alta'],
+ dua:{B:'Una clienta compra un producte i et paga amb 10 €. Mira el preu. Quant li has de tornar? Torna-li el canvi amb les monedes i els bitllets de la caixa.',
+  V:[['ull','Mira el preu del producte.'],['moneda','La clienta et dóna un bitllet de 10 €.'],['regle','A la recta, pinta el preu i ves posant monedes fins a arribar al 10.'],['ma','Dóna-li les monedes que has posat.']],
+  LF:['Mira el preu.','La clienta et dóna 10 €.','Compta des del preu fins a 10.','Torna-li aquestes monedes.'],
+  A:'Una clienta compra dues coses i et paga amb 20 €. Quant li tornes? Torna el canvi amb el menor nombre de monedes i bitllets que puguis i explica a la teva parella com ho has comprovat.'},
+ zone:[1,0.8,7.2,5.8],lab:[4.3,3.1]},
+{id:'rimes',nom:'Racó de rimes i sons',curt:'Rimes i sons',k:'llen',dia:'Racó guiat dimarts 9:00',
+ aporta:'La cançó de pregó per cridar la gent a la parada.',
+ obj:'Jugar amb els sons de les paraules: trobar rimes, picar síl·labes i inventar el pregó de la parada.',
+ fem:'Busqueu paraules que rimin amb els productes de la parada (clementina, carxofa, tomàquet…). Piqueu les síl·labes amb les mans i amb el xilòfon. Inventeu dos versos per cridar la gent, com ara «Clementines de la plana, les més dolces de la setmana!».',
+ mat:['Targetes amb dibuix dels productes','Caixa de rimes (parelles de targetes)','Xilòfon i pandero','Tauleta per gravar-se i escoltar-se'],
+ crit:'<strong>Llengua catalana.</strong> Comunicació oral i educació literària: identifica paraules que rimen, separa les síl·labes i diu un text breu de memòria amb ritme i entonació.',
+ ind:['Troba parelles que rimen','Pica les síl·labes','Diu el pregó amb ritme'],
+ dua:{B:'Trieu un producte de la parada. Busqueu tres paraules que rimin amb el seu nom i piqueu-ne les síl·labes. Inventeu dos versos per anunciar-lo.',
+  V:[['ull','Posa juntes les targetes que acaben igual.'],['ma','Pica un cop per cada síl·laba: hi ha un punt per cada cop.'],['nota','Completa el vers: «Carxofes de l\'horta, te les portem a la…». Tria el dibuix que rima.']],
+  LF:['Agafa una targeta.','Digues el nom.','Pica les síl·labes: to-mà-quet.','Busca una targeta que acabi igual.'],
+  A:'Inventeu un pregó de quatre versos amb dues rimes diferents i un producte a cada vers. Graveu-lo i escolteu-lo: s\'entén? té ritme? Canvieu una paraula que no soni bé.'},
+ zone:[8.2,0.8,13.8,5.8],lab:[11,3.1]},
+{id:'escriptor',nom:'Racó de l\'escriptor',curt:'Escriptor',k:'llen',dia:'Racó guiat dimecres 9:00 · La llista de la compra',
+ aporta:'La llista de la compra de la parada i els cartells de preus (amb els preus del mercat i els pesos de mesures).',
+ obj:'Escriure textos breus amb una funció real: la llista del que necessita la parada i els cartells de preus.',
+ fem:'Feu la llista del que necessita la parada (bosses, balança, cartells…) i escriviu un cartell per a cada producte amb el nom, el preu i una paraula que convidi a comprar.',
+ mat:['Fulls de llista pautats','Cartolines per als cartells i retoladors','Banc de paraules dels productes, amb dibuix','Preus decidits al racó del mercat'],
+ crit:'<strong>Llengua catalana.</strong> Producció escrita: escriu llistes i textos breus amb una intenció clara, amb lletra entenedora, i revisa amb el model les paraules que ja coneix.',
+ ind:['Escriu la llista en columna','El cartell té nom i preu','Revisa amb el banc de paraules'],
+ dua:{B:'Escriviu la llista de la compra de la parada: com a mínim sis coses. Després feu dos cartells de preu amb el nom del producte, el preu i una paraula per vendre.',
+  V:[['llista','Fes servir el full amb caselles i dibuixos.'],['llapis','Escriu el nom al costat de cada dibuix.'],['moneda','Al cartell, copia el nom del banc de paraules i posa el preu al requadre de l\'euro.']],
+  LF:['Mira els dibuixos.','Escriu el nom de cada cosa.','Una paraula a cada ratlla.','Ensenya-ho a la teva parella.'],
+  A:'Feu la llista ordenada per seccions (fruita, verdura, coses per a la parada). Escriviu un cartell amb una frase que convidi a comprar, sense repetir cap paraula del pregó.'},
+ zone:[15,0.8,21.2,5.8],lab:[18.1,3.2]},
+{id:'lectura',nom:'Racó de lectura',curt:'Lectura',k:'lec',dia:'Racó guiat dijous 9:00 · Llegim instruccions',
+ aporta:'Les instruccions per muntar les caixes de la parada i la recepta per al tast.',
+ obj:'Llegir i seguir instruccions i receptes senzilles per preparar coses de la parada.',
+ fem:'Llegiu en parella la recepta del suc de clementina o les instruccions per plegar la caixa de cartró. Seguiu els passos en ordre i marqueu cada pas quan l\'hàgiu fet.',
+ mat:['Biblioteca d\'aula','Receptes il·lustrades (suc de clementina, amanida de tomàquet)','Instruccions per plegar una caixa de cartró','Coixins i catifa'],
+ crit:'<strong>Llengua catalana.</strong> Comprensió lectora: llegeix textos instructius breus, en reconeix l\'ordre dels passos i els segueix per fer una tasca.',
+ ind:['Llegeix els passos en veu alta','Segueix l\'ordre','Diu per a què serveix el text'],
+ dua:{B:'Llegiu la recepta del suc de clementina. Numereu els passos i expliqueu a l\'altra parella com es fa, sense mirar el full.',
+  V:[['llibre','Cada pas té un dibuix.'],['ull','Llegeix el pas i busca el seu dibuix.'],['ma','Posa el dibuix al seu lloc. Al final tens la recepta en ordre.']],
+  LF:['La recepta té 4 passos curts.','Llegeix un pas.','Fes-lo.','Marca\'l amb una creu i llegeix el següent.'],
+  A:'Llegiu dues receptes i trieu la millor per al tast de dissabte. Escriviu dues raons que surtin del text.'},
+ zone:[15,7.2,21.2,15.2],lab:[18.1,11.3]},
+{id:'mesures',nom:'Racó de mesures',curt:'Mesures',k:'mat',dia:'Racó guiat divendres 9:00 · Quant fa la classe?',
+ aporta:'Les bosses d\'1 kg i la mida de la parada; els pesos van als cartells de l\'escriptor.',
+ obj:'Mesurar i pesar amb unitats del cos i amb unitats convencionals per preparar la parada.',
+ fem:'Pesa les bosses de fruita amb la balança fins que facin 1 kg. Mesura la taula de la parada amb passes, amb pams i amb la cinta mètrica. Apunta-ho a la taula de resultats.',
+ mat:['Balança de dos plats','Pesos d\'1 kg i de mig kg','Cinta mètrica i regles','Cinta a terra de 5 metres','Full de resultats'],
+ crit:'<strong>Matemàtiques.</strong> Sentit de la mesura: tria la unitat i l\'instrument adequats, compara mesures i explica per què amb passes surten resultats diferents.',
+ ind:['Equilibra la balança','Mesura des del 0','Compara dues mesures'],
+ dua:{B:'Prepareu tres bosses d\'1 kg de clementines. Mesureu la taula de la parada amb pams i amb la cinta mètrica. Apunteu els resultats.',
+  V:[['balanca','Posa el pes d\'1 kg en un plat i clementines a l\'altre fins que els plats quedin rectes.'],['regle','Per mesurar, comença sempre al 0 de la cinta: té un punt verd.'],['llapis','Apunta el número a la casella del dibuix.']],
+  LF:['Posa el pes en un plat.','Posa fruita a l\'altre plat.','Els plats estan rectes? Ja fa 1 kg.','Apunta-ho.'],
+  A:'Quantes clementines fan 1 kg? I mig kg? Feu una previsió abans de pesar i compareu-la. Mesureu la classe en passes i en metres i expliqueu per què les passes no donen igual a tothom.'},
+ zone:[0.8,7.5,7.2,15.2],lab:[3.6,10.6]},
+{id:'assemblea',nom:'Racó de l\'assemblea i la calma',curt:'Assemblea',k:'mit',dia:'Cada dia: per començar i per tancar',
+ aporta:'Aquí es decideix, es reparteix i es revisa: és on es munta la caixa del mercat.',
+ obj:'Començar i tancar els racons junts, i tenir un lloc per calmar-se quan cal.',
+ fem:'A l\'inici, cada equip diu a quin racó va i què ha de portar al mercat. Al final, ensenyeu el que heu fet i poseu-lo a la caixa del mercat. Si et sents nerviós o enfadat, pots venir al racó de la calma: respira amb la targeta i torna quan estiguis a punt.',
+ mat:['Catifa rodona amb la roda de la rotació','Coixins','Caixa del mercat','Targetes de respiració i rellotge de sorra de 3 minuts'],
+ crit:'<strong>Competències transversals.</strong> Personal, social i d\'aprendre a aprendre: expressa com se sent, demana ajuda quan la necessita i valora la feina de l\'equip. Ciutadana: participa en les decisions del grup respectant el torn de paraula.',
+ ind:['Explica què ha fet l\'equip','Respecta el torn','Fa servir la calma i torna'],
+ dua:{B:'Explica en una frase què ha fet el teu equip avui i què posa a la caixa del mercat.',
+  V:[['ull','Assenyala a la roda el racó on has estat.'],['bomb','Tria la targeta de la cara que diu com t\'ha anat: content, normal o difícil.'],['caixa','Posa la feina a la caixa del mercat.']],
+  LF:['Digues: «Avui he estat a…».','Digues: «He fet…».','Posa-ho a la caixa.'],
+  A:'Proposa una millora per a demà per al teu equip i explica a qui ajudaria i per què.'},
+ zone:[8.2,7,13.8,13],lab:[11.8,11]}
+];
+const RI=Object.fromEntries(RACONS.map((r,i)=>[r.id,i]));
+const DAYS=['Dilluns','Dimarts','Dimecres','Dijous','Divendres'],DAB=['Dl','Dt','Dc','Dj','Dv'];
+const ROT=['mercat','rimes','escriptor','lectura','mesures'];
+const SUP=['escriptor','lectura','mesures','mercat','lectura'];
+const TEAMS=[['Clementines','#F59A3C'],['Carxofes','#7FA650'],['Tomàquets','#E2574C'],['Arròs','#C9A46A'],['Mel','#E9B820']];
+const teamAt=(t,d)=>ROT[(t+2*d)%5];
+
+/* ---------- plànol isomètric ---------- */
+const S=26,C=S*Math.cos(Math.PI/6),H=S*.5,R2=Math.SQRT2;
+const P=(x,y,z=0)=>[(x-y)*C,(x+y)*H-z*S];
+const f=n=>n.toFixed(1);
+const pts=a=>a.map(p=>{const q=P(...p);return f(q[0])+','+f(q[1])}).join(' ');
+const poly=(a,at)=>`<polygon points="${pts(a)}" ${at}/>`;
+function mix(a,b,t){const A=parseInt(a.slice(1),16),B=parseInt(b.slice(1),16);const ch=(v,s)=>(v>>s)&255;
+  return '#'+[16,8,0].map(s=>Math.round(ch(A,s)+(ch(B,s)-ch(A,s))*t).toString(16).padStart(2,'0')).join('')}
+const DK='#5B4D73';
+function box(x,y,w,d,h,col,z=0,sh=true){
+  let s='';
+  if(sh&&z<.05)s+=poly([[x+.15,y+.15,0],[x+w+.35,y+.15,0],[x+w+.35,y+d+.35,0],[x+.15,y+d+.35,0]],'fill="rgba(42,36,51,.08)"');
+  const top=[[x,y,z+h],[x+w,y,z+h],[x+w,y+d,z+h],[x,y+d,z+h]];
+  const fr=[[x+w,y,z],[x+w,y+d,z],[x+w,y+d,z+h],[x+w,y,z+h]];
+  const fl=[[x,y+d,z],[x+w,y+d,z],[x+w,y+d,z+h],[x,y+d,z+h]];
+  const ln=mix(col,DK,.32);
+  s+=poly(fl,`fill="${mix(col,DK,.1)}" stroke="${ln}" stroke-width=".7" stroke-linejoin="round"`);
+  s+=poly(fr,`fill="${mix(col,DK,.22)}" stroke="${ln}" stroke-width=".7" stroke-linejoin="round"`);
+  s+=poly(top,`fill="${col}" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"`);
+  return s;
+}
+function ell(x,y,z,r,col,at=''){const q=P(x,y,z);return `<ellipse cx="${f(q[0])}" cy="${f(q[1])}" rx="${f(r*R2*C)}" ry="${f(r*R2*H)}" fill="${col}" ${at}/>`}
+function cyl(x,y,r,h,col,z=0){
+  const b=P(x,y,z),t=P(x,y,z+h),rx=r*R2*C,ry=r*R2*H;let s='';
+  if(z<.05)s+=ell(x+.18,y+.18,0,r*1.05,'rgba(42,36,51,.08)');
+  s+=`<path d="M${f(b[0]-rx)},${f(b[1])} A${f(rx)},${f(ry)} 0 0 0 ${f(b[0]+rx)},${f(b[1])} L${f(t[0]+rx)},${f(t[1])} L${f(t[0]-rx)},${f(t[1])}Z" fill="${mix(col,DK,.16)}" stroke="${mix(col,DK,.32)}" stroke-width=".7"/>`;
+  s+=`<ellipse cx="${f(t[0])}" cy="${f(t[1])}" rx="${f(rx)}" ry="${f(ry)}" fill="${col}" stroke="#fff" stroke-width="1.2"/>`;
+  return s;
+}
+const line=(a,b,at)=>{const p=P(...a),q=P(...b);return `<line x1="${f(p[0])}" y1="${f(p[1])}" x2="${f(q[0])}" y2="${f(q[1])}" ${at}/>`};
+function circ(cx,cy,r,z,a0=0,a1=360,n=36){const o=[];if(a1-a0<360)o.push([cx,cy,z]);for(let i=0;i<=n;i++){const a=(a0+(a1-a0)*i/n)*Math.PI/180;o.push([cx+r*Math.cos(a),cy+r*Math.sin(a),z])}return o}
+function table(x,y,w,d,col,h=.95){let s=box(x+.12,y+.12,w-.24,d-.24,.01,'#ffffff');
+  [[x+.1,y+.1],[x+w-.3,y+.1],[x+.1,y+d-.3],[x+w-.3,y+d-.3]].forEach(([a,b])=>s+=box(a,b,.2,.2,h-.1,mix(col,DK,.12),0,false));
+  return s+box(x,y,w,d,.12,col,h-.1,false)}
+
+const ROOM_W=22,ROOM_D=16,WH=3.2;
+function drawRoom(){
+  let s='';
+  // sòl
+  s+=poly([[0,ROOM_D,0],[ROOM_W,ROOM_D,0],[ROOM_W,ROOM_D,-.4],[0,ROOM_D,-.4]],'fill="#E7DFF0" stroke="#fff"');
+  s+=poly([[ROOM_W,0,0],[ROOM_W,ROOM_D,0],[ROOM_W,ROOM_D,-.4],[ROOM_W,0,-.4]],'fill="#D8CEE5" stroke="#fff"');
+  s+=poly([[0,0,0],[ROOM_W,0,0],[ROOM_W,ROOM_D,0],[0,ROOM_D,0]],'fill="#FCFAFD" stroke="#fff" stroke-width="2"');
+  let g='';for(let i=2;i<ROOM_W;i+=2)g+=line([i,0,0],[i,ROOM_D,0],'');for(let j=2;j<ROOM_D;j+=2)g+=line([0,j,0],[ROOM_W,j,0],'');
+  s+=`<g stroke="rgba(90,70,120,.07)" stroke-width="1">${g}</g>`;
+  // llum de les finestres
+  s+=poly([[0,2,0],[0,5.6,0],[4.2,8.2,0],[4.2,4.6,0]],'fill="#FFF3CF" opacity=".55"');
+  s+=poly([[0,8.8,0],[0,12,0],[4.2,14.6,0],[4.2,11.4,0]],'fill="#FFF3CF" opacity=".55"');
+  // parets
+  s+=poly([[0,0,0],[ROOM_W,0,0],[ROOM_W,0,WH],[0,0,WH]],'fill="rgba(255,255,255,.62)" stroke="#fff" stroke-width="1.5"');
+  s+=poly([[0,0,0],[0,ROOM_D,0],[0,ROOM_D,WH],[0,0,WH]],'fill="rgba(255,255,255,.46)" stroke="#fff" stroke-width="1.5"');
+  s+=poly([[0,-.35,WH],[ROOM_W,-.35,WH],[ROOM_W,0,WH],[0,0,WH]],'fill="#EFE8F5" stroke="#fff"');
+  s+=poly([[-.35,-.35,WH],[0,-.35,WH],[0,ROOM_D,WH],[-.35,ROOM_D,WH]],'fill="#E6DDF0" stroke="#fff"');
+  s+=line([0,0,0],[0,0,WH],'stroke="#fff" stroke-width="2"');
+  // finestres (paret esquerra)
+  [[2,5.6],[8.8,12]].forEach(([a,b])=>{
+    s+=poly([[0,a,1],[0,b,1],[0,b,2.75],[0,a,2.75]],'fill="#D6ECFF" stroke="#fff" stroke-width="2"');
+    s+=line([0,(a+b)/2,1],[0,(a+b)/2,2.75],'stroke="#fff" stroke-width="2"');
+    s+=poly([[0,a+.3,1.2],[0,a+1.1,1.2],[0,a+.5,2.55],[0,a+.2,2.55]],'fill="#fff" opacity=".6"');});
+  // porta
+  s+=poly([[0,14.3,0],[0,15.7,0],[0,15.7,2.45],[0,14.3,2.45]],'fill="#F2E3D2" stroke="#fff" stroke-width="2"');
+  s+=ell(0.02,15.45,1.2,.06,'#B59B7E');
+  return s;
+}
+function plate(r){const [x1,y1,x2,y2]=r.zone;const k={mat:['#CFE0FF','#3466CC'],llen:['#FFD2E1','#BF355E'],lec:['#FFE4B8','#9E6400'],mit:['#CBEEEF','#126C73']}[r.k];
+  return poly([[x1,y1,.01],[x2,y1,.01],[x2,y2,.01],[x1,y2,.01]],`class="ra-plate" fill="${k[0]}" fill-opacity=".8" stroke="${k[1]}" stroke-width="2" stroke-linejoin="round" stroke-dasharray="7 5"`)}
+
+const ITEMS={
+ mercat(){let s='';
+  s+=poly([[2,0,1.7],[5.6,0,1.7],[5.6,0,2.75],[2,0,2.75]],'fill="#6E8C7E" stroke="#fff" stroke-width="2"');
+  for(let i=0;i<3;i++)s+=line([2.3+i*1.15,0,2.45],[3.1+i*1.15,0,2.45],'stroke="#fff" stroke-width="1.5" stroke-linecap="round"')+line([2.3+i*1.15,0,2.1],[2.8+i*1.15,0,2.1],'stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".7"');
+  s+=box(1.4,1.1,5.4,1.1,1.25,'#F4E5D3');
+  const fr=['#F59A3C','#E2574C','#86B05A'];
+  for(let c=0;c<3;c++){const x0=1.55+c*1.78;s+=box(x0,1.2,1.6,.9,.35,'#E5CBA8',1.25,false);
+    for(let i=0;i<3;i++)for(let j=0;j<2;j++)s+=ell(x0+.3+i*.5,1.42+j*.45,1.62,.2,fr[c],'stroke="#fff" stroke-width=".8"');}
+  s+=box(1.6,3.6,4.2,1.0,1.05,'#FFFFFF');
+  s+=poly([[1.6,4.6,.35],[5.8,4.6,.35],[5.8,4.6,.7],[1.6,4.6,.7]],'fill="#9DBBF2" opacity=".7"');
+  s+=box(2.1,3.75,1.3,.65,.1,'#FFF0C2',1.05,false);
+  [[2.4,3.95],[2.8,4.1],[3.1,3.92],[2.55,4.25]].forEach(([a,b],i)=>s+=ell(a,b,1.16,.13,i%2?'#F2C960':'#D8DBE2','stroke="#B89A5A" stroke-width=".6"'));
+  s+=box(4.35,3.72,.95,.75,.45,'#DCE7FF',1.05,false)+box(4.45,3.76,.75,.22,.4,'#B4CAF6',1.5,false);
+  s+=box(1.65,4.45,.14,.14,2.25,'#ffffff',0,false)+box(5.62,4.45,.14,.14,2.25,'#ffffff',0,false);
+  for(let i=0;i<6;i++){const xa=1.3+i*.8,xb=xa+.8;s+=poly([[xa,3.2,2.55],[xb,3.2,2.55],[xb,5.0,2.2],[xa,5.0,2.2]],`fill="${i%2?'#FFFFFF':'#BCD2FB'}" fill-opacity=".72" stroke="#fff" stroke-width=".8"`);}
+  for(let i=0;i<6;i++){const xa=1.3+i*.8;s+=`<path d="M${pts([[xa,5,2.2]])} Q${pts([[xa+.4,5,1.9]])} ${pts([[xa+.8,5,2.2]])}" fill="${i%2?'#FFFFFF':'#BCD2FB'}" fill-opacity=".85" stroke="#fff" stroke-width=".8"/>`;}
+  return s;},
+ rimes(){let s='';
+  s+=poly([[8.8,0,1],[13.2,0,1],[13.2,0,2.65],[8.8,0,2.65]],'fill="#FFE3EC" stroke="#fff" stroke-width="2"');
+  for(let i=0;i<4;i++)for(let j=0;j<2;j++){const x=9.1+i*1.05,z=1.25+j*.72;s+=poly([[x,0,z],[x+.8,0,z],[x+.8,0,z+.55],[x,0,z+.55]],'fill="#fff" stroke="#F3B6CB" stroke-width="1"');
+    s+=`<circle cx="${f(P(x+.4,0,z+.3)[0])}" cy="${f(P(x+.4,0,z+.3)[1])}" r="3.5" fill="${['#F59A3C','#86B05A','#E2574C','#BF8FE0'][(i+j)%4]}"/>`;}
+  s+=poly([[8.9,1.6,.02],[13.1,1.6,.02],[13.1,5.3,.02],[8.9,5.3,.02]],'fill="#FFC6D9" fill-opacity=".55" stroke="#fff" stroke-width="2" stroke-linejoin="round"');
+  s+=box(9.5,2.1,2.3,1.0,.32,'#FFFFFF');
+  const bc=['#F7A1A1','#FFC98A','#FFE58A','#A9DEA0','#9FCBF5','#C7B2F2'];
+  for(let i=0;i<6;i++){const x=9.65+i*.36,m=.12*i;s+=poly([[x,2.2+m*.4,.33],[x+.26,2.2+m*.4,.33],[x+.26,3.0-m*.4,.33],[x,3.0-m*.4,.33]],`fill="${bc[i]}" stroke="#fff" stroke-width=".7"`);}
+  s+=cyl(12.5,2.7,.48,.22,'#FFF1D2');
+  s+=cyl(9.6,4.4,.42,.3,'#FFD2E1')+cyl(11.05,4.6,.42,.3,'#E5D8FF')+cyl(12.5,4.4,.42,.3,'#FFD2E1');
+  return s;},
+ escriptor(){let s='';
+  s+=poly([[18.3,0,1],[21,0,1],[21,0,2.55],[18.3,0,2.55]],'fill="#FFF0F5" stroke="#fff" stroke-width="2"');
+  for(let i=0;i<4;i++)s+=line([18.6,0,2.25-i*.33],[20.5-(i%2)*.6,0,2.25-i*.33],'stroke="#E7A7BE" stroke-width="2" stroke-linecap="round"');
+  s+=box(15.4,1.0,2.6,.6,1.45,'#F4E5D3');
+  for(let i=0;i<3;i++)s+=box(15.55+i*.82,1.08,.7,.46,.08,'#FFFFFF',1.45+i*0,false);
+  s+=cyl(17.1,1.95,.36,.62,'#FFD2E1')+cyl(19.2,1.95,.36,.62,'#FFD2E1');
+  s+=table(16.2,2.5,4.0,2.1,'#F4E5D3');
+  [[16.6,2.8,0],[17.9,3.2,1],[19.0,2.75,0]].forEach(([x,y,o])=>{s+=poly([[x,y,.97],[x+.9,y,.97],[x+.9,y+1.1,.97],[x,y+1.1,.97]],'fill="#FFFEFA" stroke="#E2D6EA" stroke-width="1"');
+    for(let k=0;k<3;k++)s+=line([x+.15,y+.3+k*.25,.98],[x+.7-o*.2,y+.3+k*.25,.98],'stroke="#C9BDD6" stroke-width="1"');});
+  s+=cyl(19.75,4.2,.2,.4,'#FFD2E1',.97);
+  s+=line([19.7,4.15,1.37],[19.6,4.1,1.75],'stroke="#3466CC" stroke-width="2.4" stroke-linecap="round"')+line([19.82,4.2,1.37],[19.95,4.25,1.7],'stroke="#BF355E" stroke-width="2.4" stroke-linecap="round"');
+  s+=cyl(15.7,3.6,.36,.62,'#FFD2E1')+cyl(20.7,3.5,.36,.62,'#FFD2E1');
+  s+=cyl(17.2,5.15,.36,.62,'#FFD2E1')+cyl(19.2,5.15,.36,.62,'#FFD2E1');
+  return s;},
+ mesures(){let s='';
+  s+=poly([[0,8.2,0],[0,9.1,0],[0,9.1,3],[0,8.2,3]],'fill="#FFF6D6" stroke="#fff" stroke-width="2"');
+  for(let i=1;i<12;i++)s+=line([0,8.2,i*.25],[0,i%2?8.5:8.75,i*.25],'stroke="#9E6400" stroke-width="1"');
+  s+=table(1.8,8.9,4.0,2.1,'#F4E5D3');
+  const t=.95;
+  s+=box(3.35,9.65,.9,.55,.15,'#DCE7FF',t,false);
+  s+=box(3.74,9.86,.12,.12,1.05,'#B4CAF6',t+.15,false);
+  s+=line([2.6,9.92,t+1.2],[5.0,9.92,t+1.2],'stroke="#7C8DB5" stroke-width="3" stroke-linecap="round"');
+  s+=line([2.6,9.92,t+1.2],[2.6,9.92,t+.62],'stroke="#9AA6C4" stroke-width="1"')+line([5,9.92,t+1.2],[5,9.92,t+.62],'stroke="#9AA6C4" stroke-width="1"');
+  s+=ell(2.6,9.92,t+.6,.5,'#E9EEFA','stroke="#9AA6C4" stroke-width="1"')+ell(5,9.92,t+.6,.5,'#E9EEFA','stroke="#9AA6C4" stroke-width="1"');
+  s+=box(2.42,9.75,.36,.36,.3,'#A9B3CC',t+.6,false);
+  [[4.85,9.8],[5.15,9.95],[4.95,10.1],[5.05,9.7]].forEach(([a,b])=>s+=ell(a,b,t+.72,.17,'#F59A3C','stroke="#fff" stroke-width=".7"'));
+  s+=box(2.0,10.35,.45,.4,.3,'#A9B3CC',t,false)+box(2.6,10.4,.35,.32,.22,'#C3CADC',t,false);
+  s+=cyl(5.25,10.5,.28,.35,'#FFE4B8',t);
+  s+=cyl(2.7,11.75,.36,.62,'#CFE0FF')+cyl(4.9,11.75,.36,.62,'#CFE0FF');
+  s+=poly([[1.2,13.7,.02],[7.0,13.7,.02],[7.0,14.15,.02],[1.2,14.15,.02]],'fill="#FFE08A" stroke="#fff" stroke-width="1"');
+  for(let i=0;i<=11;i++){const x=1.25+i*.5;s+=line([x,13.7,.03],[x,i%2?13.85:14.0,.03],'stroke="#9E6400" stroke-width="1"');}
+  s+=ell(1.25,13.92,.04,.14,'#28A35A','stroke="#fff" stroke-width="1"');
+  return s;},
+ assemblea(){let s='';
+  const cols=['#CFE0FF','#FFD2E1','#FFD2E1','#FFE4B8','#CFE0FF'];
+  for(let k=0;k<5;k++)s+=poly(circ(11,10,2.55,.02,-90+k*72,-90+(k+1)*72,14),`fill="${cols[k]}" stroke="#fff" stroke-width="2" stroke-linejoin="round"`);
+  s+=poly(circ(11,10,.75,.03),'fill="#FFFFFF" stroke="#CBEEEF" stroke-width="2"');
+  for(let i=0;i<6;i++){const a=(i*60+30)*Math.PI/180;s+=cyl(11+1.65*Math.cos(a),10+1.65*Math.sin(a),.3,.24,'#CBEEEF');}
+  s+=box(8.6,7.3,1.1,.85,.6,'#FFE4B8')+poly([[8.6,7.3,.6],[9.7,7.3,.6],[9.7,7.6,.75],[8.6,7.6,.75]],'fill="#F4D29C" stroke="#fff" stroke-width="1"');
+  s+=cyl(13.0,12.25,.6,.42,'#E5D8FF');
+  s+=box(12.5,7.4,.6,.45,.28,'#FFFFFF');
+  return s;},
+ lectura(){let s='';
+  s+=box(15.4,7.5,5.4,.8,1.6,'#F4E5D3');
+  const bc=['#F7B9CF','#BFD3FB','#FFD59A','#BDE6D0','#D9CBFF','#FFC6A8'];
+  for(let row=0;row<2;row++){let x=15.55;let i=row*3;while(x<20.55){const w=.17+((i*7)%3)*.04,h=.45+((i*5)%4)*.06,z0=.12+row*.75;
+    s+=poly([[x,8.3,z0],[x+w,8.3,z0],[x+w,8.3,z0+h],[x,8.3,z0+h]],`fill="${bc[i%6]}" stroke="#fff" stroke-width=".5"`);x+=w+.05;i++;}}
+  s+=line([15.4,8.3,.8],[20.8,8.3,.8],'stroke="#C8AE8E" stroke-width="1.5"');
+  s+=poly([[15.6,9.2,.02],[20.8,9.2,.02],[20.8,14.7,.02],[15.6,14.7,.02]],'fill="#FFD9A0" fill-opacity=".5" stroke="#fff" stroke-width="2"');
+  s+=cyl(16.7,10.5,.52,.35,'#FFE4B8')+cyl(19.8,10.3,.52,.35,'#CFE0FF');
+  s+=box(17.6,11.3,1.4,.75,.45,'#FFFFFF');
+  s+=poly([[17.75,11.4,.46],[18.28,11.36,.5],[18.28,11.98,.5],[17.75,12.0,.46]],'fill="#FFFEF5" stroke="#D9CBB4" stroke-width=".8"')+poly([[18.28,11.36,.5],[18.85,11.4,.46],[18.85,12.0,.46],[18.28,11.98,.5]],'fill="#FFFAEA" stroke="#D9CBB4" stroke-width=".8"');
+  s+=cyl(17.1,13.4,.72,.45,'#FFD2E1')+cyl(19.7,13.3,.62,.4,'#E5D8FF');
+  return s;}
+};
+
+const svg=$('#ra-svg');
+const VB0={x:-385,y:-110,w:905,h:640},ASP=VB0.w/VB0.h;
+let vb={...VB0};
+(function build(){
+  let s=`<g id="ra-room">${drawRoom()}</g><g>`;
+  RACONS.forEach(r=>s+=`<g class="ra-z" data-zone="${r.id}">${plate(r)}</g>`);
+  s+='</g>';
+  const order=[...RACONS].sort((a,b)=>(a.zone[0]+a.zone[1])-(b.zone[0]+b.zone[1]));
+  order.forEach(r=>s+=`<g class="ra-z" data-zone="${r.id}">${ITEMS[r.id]()}</g>`);
+  svg.innerHTML=s;
+})();
+
+/* overlay: etiquetes i adults */
+const ovl=$('#ra-ovl');
+const anchors={};
+RACONS.forEach(r=>{anchors[r.id]=P(r.lab[0],r.lab[1],2.35);
+  const b=document.createElement('button');b.className='ra-tag';b.type='button';b.dataset.go=r.id;
+  b.style.setProperty('--k',K[r.k][0]);b.setAttribute('aria-pressed','false');
+  b.setAttribute('aria-label',r.nom+': mostra la proposta');
+  b.innerHTML=`<i aria-hidden="true"></i>${r.curt}`;ovl.appendChild(b);});
+const pinT=document.createElement('span'),pinS=document.createElement('span');
+pinT.className='ra-pin';pinS.className='ra-pin sup';
+pinT.innerHTML='<b aria-hidden="true">T</b><span>Tutora</span>';pinS.innerHTML='<b aria-hidden="true">S</b><span>Suport</span>';
+pinT.setAttribute('role','img');pinS.setAttribute('role','img');
+ovl.append(pinT,pinS);
+const pinPt=id=>{const r=RACONS[RI[id]];return P(r.lab[0]+1.3,r.lab[1]+1.3,0)};
+const pinPt2=pinPt;
+
+function place(){
+  ovl.querySelectorAll('.ra-tag').forEach(b=>{const a=anchors[b.dataset.go];
+    const l=(a[0]-vb.x)/vb.w*100,t=(a[1]-vb.y)/vb.h*100;
+    b.style.left=l+'%';b.style.top=t+'%';
+    b.classList.toggle('is-off',l<4||l>96||t<8||t>100);});
+  const pt=pinPt(ROT[day]),ps=pinPt2(SUP[day]);
+  [[pinT,pt],[pinS,ps]].forEach(([el,a])=>{const l=(a[0]-vb.x)/vb.w*100,t=(a[1]-vb.y)/vb.h*100;el.style.left=l+'%';el.style.top=t+'%';el.classList.toggle('is-off',l<2||l>98||t<2||t>98)});
+}
+function setVB(v){vb=v;svg.setAttribute('viewBox',`${f(v.x)} ${f(v.y)} ${f(v.w)} ${f(v.h)}`);place();}
+let anim=0;
+function zoomTo(t){
+  cancelAnimationFrame(anim);
+  if(RM.matches){setVB(t);return;}
+  const s={...vb},t0=performance.now(),D=650,e=k=>k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;
+  const step=now=>{const k=Math.min(1,(now-t0)/D),q=e(k);
+    setVB({x:s.x+(t.x-s.x)*q,y:s.y+(t.y-s.y)*q,w:s.w+(t.w-s.w)*q,h:s.h+(t.h-s.h)*q});
+    if(k<1)anim=requestAnimationFrame(step);};
+  anim=requestAnimationFrame(step);
+}
+function zoneVB(r){const [x1,y1,x2,y2]=r.zone;const c=[];
+  [[x1,y1],[x2,y1],[x2,y2],[x1,y2]].forEach(([x,y])=>{c.push(P(x,y,0),P(x,y,2.8))});
+  const xs=c.map(p=>p[0]),ys=c.map(p=>p[1]);
+  let x0=Math.min(...xs),x9=Math.max(...xs),y0=Math.min(...ys)-30,y9=Math.max(...ys);
+  let w=(x9-x0)*1.3,h=(y9-y0)*1.3;if(w/h<ASP)w=h*ASP;else h=w/ASP;
+  w=Math.max(w,380);h=w/ASP;
+  return {x:(x0+x9)/2-w/2,y:(y0+y9)/2-h/2,w,h};
+}
+
+/* ---------- panell ---------- */
+const panel=$('#ra-panel');
+let cur=null,duaV='B',duaAll=false,day=0;
+function graella(r){
+  const st=(t,i)=>((t*2+i*3+RI[r.id])%5===0)?0:((t+i+RI[r.id])%3===0?1:2);
+  const lbl=['Encara no','Amb ajuda','Ho fa sol'];
+  let h=`<table class="ra-gr"><thead><tr><th scope="col">Equip</th>${r.ind.map(x=>`<th scope="col">${x}</th>`).join('')}</tr></thead><tbody>`;
+  TEAMS.forEach((tm,t)=>{h+=`<tr><td><span class="ra-team" style="--t:${tm[1]}"><i aria-hidden="true"></i>${tm[0]}</span></td>`+
+    r.ind.map((_,i)=>{const v=st(t,i);return `<td><span class="ra-st s${v}" role="img" aria-label="${lbl[v]}"></span></td>`}).join('')+'</tr>'});
+  return h+`</tbody></table><div class="ra-stkey"><span><i class="ra-st s2"></i>Ho fa sol</span><span><i class="ra-st s1"></i>Amb ajuda</span><span><i class="ra-st s0"></i>Encara no</span></div>`;
+}
+function duaCard(r,v){
+  const name={B:'Base',V:'Suport visual',LF:'Lectura fàcil',A:'Ampliació'}[v],d=r.dua[v];let body='';
+  if(v==='V')body=`<ul class="ra-steps">${d.map(([i,t])=>`<li><span class="pic">${ico(i)}</span>${t}</li>`).join('')}</ul>`;
+  else if(v==='LF')body=`<ol class="ra-steps ra-lf">${d.map((t,i)=>`<li><span class="num" aria-hidden="true">${i+1}</span>${t}</li>`).join('')}</ol>`;
+  else body=`<p>${d}</p>`;
+  return `<div class="ra-dua"><h4><b>${v}</b>${name}</h4>${body}</div>`;
+}
+function renderDua(){
+  const r=RACONS[RI[cur]],box=panel.querySelector('#ra-duabox');if(!box)return;
+  box.innerHTML=duaAll?`<div class="ra-duaall">${['B','V','LF','A'].map(v=>duaCard(r,v)).join('')}</div>`:duaCard(r,duaV);
+  panel.querySelectorAll('[data-dua]').forEach(b=>b.setAttribute('aria-pressed',String(!duaAll&&b.dataset.dua===duaV)));
+  const ab=panel.querySelector('#ra-duaall');if(ab)ab.setAttribute('aria-pressed',String(duaAll));
+}
+function renderIntro(){
+  panel.style.removeProperty('--k');panel.style.removeProperty('--kp');
+  panel.innerHTML=`<p class="tv-lbl">2n A · setmana del mercat</p><h2 tabindex="-1" id="ra-ptitle">Sis racons, una parada</h2>
+  <p class="tv-muted" style="margin-top:6px">Tria un racó per veure'n la proposta: què hi fa l'alumnat, amb quin material, com s'avalua i les quatre versions de la targeta.</p>
+  <div class="ra-list">${RACONS.map(r=>`<button type="button" data-go="${r.id}" style="--k:${K[r.k][0]}"><i aria-hidden="true"></i>${r.nom}<small>${r.id==='assemblea'?'cada dia':DAYS[ROT.indexOf(r.id)].toLowerCase()}</small></button>`).join('')}</div>`;
+}
+function renderPanel(r){
+  panel.style.setProperty('--k',K[r.k][0]);panel.style.setProperty('--kp',K[r.k][1]);
+  const i=RI[r.id],prev=RACONS[(i+5)%6],next=RACONS[(i+1)%6];
+  panel.innerHTML=`<div class="ra-phead"><p class="ra-day">${r.dia}</p><h2 tabindex="-1" id="ra-ptitle">${r.nom}</h2></div>
+  <div class="ra-aporta">${ico('caixa')}<p><strong>Per al mercat:</strong> ${r.aporta}</p></div>
+  <div class="ra-pblock"><p class="tv-lbl">Objectiu</p><p>${r.obj}</p></div>
+  <div class="ra-pblock"><p class="tv-lbl">Què fem (per a l'alumne)</p><p class="ra-consigna">${r.fem}</p></div>
+  <div class="ra-pblock"><div class="ra-duah"><p class="tv-lbl" style="margin:0" id="ra-dual">Targeta de consigna</p>
+    <div class="tv-seg ra-noprint" role="group" aria-labelledby="ra-dual">${['B','V','LF','A'].map(v=>`<button type="button" data-dua="${v}" aria-pressed="false">${v}</button>`).join('')}<button type="button" id="ra-duaall" aria-pressed="false" title="Mostra les quatre versions alhora">${ico('cmp')}<span class="ra-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Compara-les totes</span></button></div></div>
+    <div id="ra-duabox"></div></div>
+  <div class="ra-pblock"><p class="tv-lbl">Material del racó</p><ul>${r.mat.map(m=>`<li>${m}</li>`).join('')}</ul></div>
+  <div class="ra-pblock"><p class="tv-lbl">Criteri d'avaluació</p><p>${r.crit}</p></div>
+  <div class="ra-pblock"><p class="tv-lbl">Com es registra</p><p style="margin-bottom:8px">Graella d'observació de la tutora, per equips i sense noms. Si cal una nota individual, s'escriu «una parella» o «un infant».</p>${graella(r)}</div>
+  <div class="ra-pnav ra-noprint">
+    ${r.id==='mercat'?`<a class="tv-btn main" href="#botiga">${ico('moneda')}Obre la botiga</a>`:''}
+    <button class="tv-btn" type="button" id="ra-print">${ico('imp')}Imprimeix la fitxa</button>
+    <button class="tv-btn" type="button" data-go="${prev.id}" aria-label="Racó anterior: ${prev.nom}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>${prev.curt}</button>
+    <button class="tv-btn" type="button" data-go="${next.id}" aria-label="Racó següent: ${next.nom}">${next.curt}<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+    <button class="tv-btn" type="button" data-home>Tota l'aula</button>
+  </div>`;
+  renderDua();
+}
+function select(id){
+  const r=RACONS[RI[id]];cur=id;
+  svg.classList.add('is-zoom');
+  svg.querySelectorAll('.ra-z').forEach(g=>g.classList.toggle('is-on',g.dataset.zone===id));
+  ovl.querySelectorAll('.ra-tag').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.go===id)));
+  $('#ra-home').disabled=false;
+  renderPanel(r);panel.scrollTop=0;
+  zoomTo(zoneVB(r));
+  const h=$('#ra-ptitle');h&&h.focus({preventScroll:true});
+  if(innerWidth<=960)setTimeout(()=>panel.scrollIntoView({behavior:RM.matches?'auto':'smooth',block:'start'}),RM.matches?0:700);
+}
+function home(){
+  const was=cur;cur=null;svg.classList.remove('is-zoom');
+  svg.querySelectorAll('.ra-z').forEach(g=>g.classList.remove('is-on'));
+  ovl.querySelectorAll('.ra-tag').forEach(b=>b.setAttribute('aria-pressed','false'));
+  $('#ra-home').disabled=true;renderIntro();zoomTo({...VB0});
+  return was;
+}
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]');if(g){e.preventDefault();select(g.dataset.go);return;}
+  if(e.target.closest('[data-home]')||e.target.closest('#ra-home')){const w=home();const t=ovl.querySelector(`[data-go="${w}"]`);t&&t.focus({preventScroll:true});return;}
+  const d=e.target.closest('[data-dua]');if(d){duaV=d.dataset.dua;duaAll=false;renderDua();return;}
+  if(e.target.closest('#ra-duaall')){duaAll=!duaAll;renderDua();return;}
+  if(e.target.closest('#ra-print')){document.body.classList.add('ra-print');window.print();setTimeout(()=>document.body.classList.remove('ra-print'),500);return;}
+});
+addEventListener('afterprint',()=>document.body.classList.remove('ra-print'));
+svg.addEventListener('click',e=>{const z=e.target.closest('[data-zone]');if(z)select(z.dataset.zone);else if(cur)home();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&cur){const w=home();const t=ovl.querySelector(`[data-go="${w}"]`);t&&t.focus({preventScroll:true});}});
+
+/* ---------- dia (adults i rotació) ---------- */
+document.querySelectorAll('[data-dayseg]').forEach(seg=>{
+  seg.innerHTML=DAB.map((d,i)=>`<button type="button" data-day="${i}" aria-pressed="${i===0}" aria-label="${DAYS[i]}">${d}</button>`).join('');});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-day]');if(!b)return;setDay(+b.dataset.day);});
+function setDay(d){day=d;
+  document.querySelectorAll('[data-day]').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.day===d)));
+  pinT.setAttribute('aria-label',`${DAYS[d]}: la tutora és al ${RACONS[RI[ROT[d]]].nom}`);
+  pinS.setAttribute('aria-label',`${DAYS[d]}: la mestra de suport és al ${RACONS[RI[SUP[d]]].nom}`);
+  place();renderRot();}
+function renderRot(){
+  const tab=$('#ra-tab');
+  let h='<caption class="tv-lbl" style="text-align:left">Equip per racó i dia</caption><thead><tr><th scope="col">Equip</th>'+DAYS.map((n,i)=>`<th scope="col" class="${i===day?'on':''}">${n}</th>`).join('')+'</tr></thead><tbody>';
+  TEAMS.forEach((tm,t)=>{h+=`<tr><th scope="row"><span class="ra-team" style="--t:${tm[1]}"><i aria-hidden="true"></i>${tm[0]}</span></th>`;
+    DAYS.forEach((_,d)=>{const id=teamAt(t,d),r=RACONS[RI[id]];const tut=ROT[d]===id,sup=SUP[d]===id;
+      h+=`<td class="${d===day?'on':''}" style="--k:${K[r.k][0]};--kp:${K[r.k][1]}">${r.curt}${tut?'<small>amb la tutora</small>':sup?'<small>amb suport</small>':''}</td>`;});
+    h+='</tr>';});
+  tab.innerHTML=h+'</tbody>';
+  $('#ra-dayttl').textContent=DAYS[day]+' · racó guiat: '+RACONS[RI[ROT[day]]].nom.replace('Racó ','').replace(/^de l'|^del |^de /,'');
+  $('#ra-daylist').innerHTML=TEAMS.map((tm,t)=>{const id=teamAt(t,day),r=RACONS[RI[id]];
+    return `<li style="--k:${K[r.k][0]}"><span class="ra-team" style="--t:${tm[1]}"><i aria-hidden="true"></i>${tm[0]}</span><span class="r">${r.curt}${ROT[day]===id?'<span class="ra-badge">Tutora</span>':''}${SUP[day]===id?'<span class="ra-badge sup">Suport</span>':''}</span></li>`}).join('');
+}
+
+/* ---------- fil conductor ---------- */
+(function hub(){
+  const N=[['escriptor','1/1/2/2','Llista de la compra i cartells de preus.'],['rimes','1/2/2/3','La cançó de pregó per cridar la gent.'],['lectura','1/3/2/4','Instruccions de les caixes i recepta per al tast.'],
+    ['mesures','2/1/3/2','Bosses d\'1 kg i mida de la parada.'],['mercat','2/3/3/4','Preus i canvi assajats amb monedes.'],['assemblea','3/2/4/3','Decideix, reparteix i revisa el que hi ha a la caixa.']];
+  let h='';
+  N.forEach(([id,a,t])=>{const r=RACONS[RI[id]];h+=`<div class="ra-node" style="grid-area:${a};--k:${K[r.k][0]}"><h3>${r.nom}</h3><p>${t}</p></div>`});
+  h+=`<div class="ra-node c" style="grid-area:2/2/3/3"><h3>${ico('caixa')}El mercat de dissabte</h3><p>Parada de clementines, carxofes, tomàquets, arròs del Delta i mel, al pati amb les famílies.</p></div>`;
+  h+=`<div class="ra-node note" style="grid-area:3/1/4/2"><p><strong>Mesures → Escriptor:</strong> el pes de cada bossa va al cartell.</p></div>`;
+  h+=`<div class="ra-node note" style="grid-area:3/3/4/4"><p><strong>Mercat → Escriptor:</strong> els preus que es decideixen a la botiga. <strong>Lectura → Mercat:</strong> les caixes plegades.</p></div>`;
+  $('#ra-hub').insertAdjacentHTML('beforeend',h);
+})();
+
+/* ---------- normes ---------- */
+(function normes(){
+  const st='fill="none" stroke="#2A2433" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"';
+  const N=[
+   ['Parlem fluixet',`<circle cx="32" cy="32" r="29" fill="#FFD2E1"/><path d="M12 16h40v26H30l-10 9v-9h-8z" fill="#fff" ${st}/><path d="M22 30v-2M30 32v-6M38 34v-10M46 36v-14" ${st} stroke-dasharray="0"/><path d="M30 32v-6M38 34v-10M46 36v-14" stroke="#fff" stroke-width="1.5"/><path d="M30 26v6M38 24v10M46 22v14" stroke="#C9BDD6" stroke-width="3" stroke-linecap="round"/>`],
+   ['Compartim el material',`<circle cx="32" cy="32" r="29" fill="#CFE0FF"/><rect x="9" y="22" width="16" height="22" rx="4" fill="#fff" ${st}/><rect x="39" y="22" width="16" height="22" rx="4" fill="#fff" ${st}/><path d="M27 28h10M33 24l4 4-4 4M37 38H27M31 34l-4 4 4 4" ${st}/>`],
+   ['Primer pregunto a l\'equip',`<circle cx="32" cy="32" r="29" fill="#FFE4B8"/><circle cx="18" cy="44" r="6" fill="#fff" ${st}/><circle cx="32" cy="48" r="6" fill="#fff" ${st}/><circle cx="46" cy="44" r="6" fill="#fff" ${st}/><path d="M26 15a6 6 0 1 1 8 6c-2 1-2 2-2 5" ${st}/><circle cx="32" cy="32" r="1.8" fill="#2A2433"/>`],
+   ['Sona la campaneta: canviem',`<circle cx="32" cy="32" r="29" fill="#CBEEEF"/><path d="M20 42V30a12 12 0 0 1 24 0v12l4 4H16z" fill="#fff" ${st}/><path d="M28 50a4 4 0 0 0 8 0M32 14v4M10 26l4 2M54 26l-4 2" ${st}/>`],
+   ['Deixem el racó endreçat',`<circle cx="32" cy="32" r="29" fill="#E1F1C0"/><path d="M12 32h40v20H12z" fill="#fff" ${st}/><path d="M12 32l6-9h28l6 9" fill="#fff" ${st}/><path d="M24 42l5 5 11-11" ${st}/>`],
+   ['Si em cal, vaig a la calma i torno',`<circle cx="32" cy="32" r="29" fill="#E5D8FF"/><path d="M47 20a18 18 0 1 0 4 15" ${st}/><path d="M52 13v8h-8" ${st}/><path d="M22 42c0-10 7-17 17-17 0 10-7 17-17 17z" fill="#fff" ${st}/><path d="M22 42l8-8" ${st}/>`]
+  ];
+  $('#ra-normes').innerHTML=N.map(([t,s])=>`<div class="ra-norma"><svg viewBox="0 0 64 64" aria-hidden="true">${s}</svg><b>${t}</b></div>`).join('');
+})();
+
+/* ---------- botiga ---------- */
+const PRODS=[
+ {id:'enciam',nom:'Enciam',u:'1 unitat',p:100,s:'<circle cx="32" cy="36" r="19" fill="#C9E8B0"/><path d="M15 34c5-9 29-9 34 0M18 42c5-7 23-7 28 0M32 18v36" fill="none" stroke="#6FA65A" stroke-width="2.5" stroke-linecap="round"/>'},
+ {id:'clem',nom:'Clementines',u:'1 kg',p:200,s:'<circle cx="30" cy="38" r="17" fill="#FFB35C"/><circle cx="24" cy="32" r="3" fill="#FFD29A"/><path d="M31 21c3-7 10-8 14-5-3 6-9 7-14 5z" fill="#7DBB6A"/><path d="M30 21v3" stroke="#6B8E4E" stroke-width="2.5" stroke-linecap="round"/>'},
+ {id:'carx',nom:'Carxofes',u:'un manat',p:300,s:'<path d="M32 12c10 8 16 18 14 28-2 8-8 12-14 12s-12-4-14-12c-2-10 4-20 14-28z" fill="#A9CF8E"/><path d="M20 30l12 8 12-8M19 40l13 7 13-7M26 21l6 6 6-6" fill="none" stroke="#5E8F4A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 52v6" stroke="#5E8F4A" stroke-width="3" stroke-linecap="round"/>'},
+ {id:'tom',nom:'Tomàquets',u:'1 kg',p:400,s:'<circle cx="32" cy="38" r="17" fill="#F2796B"/><circle cx="25" cy="33" r="3" fill="#F9B0A6"/><path d="M32 22l3 4 5-2-2 5 4 2-5 1 0 4-5-3-5 3 0-4-5-1 4-2-2-5 5 2z" fill="#7DBB6A"/>'},
+ {id:'arros',nom:'Arròs del Delta',u:'paquet de 2 kg',p:500,s:'<path d="M19 22h26l4 32H15z" fill="#FFF1D6" stroke="#D8BE8E" stroke-width="2" stroke-linejoin="round"/><path d="M22 22l3-8h14l3 8" fill="#F4E0BA" stroke="#D8BE8E" stroke-width="2" stroke-linejoin="round"/><g fill="#D8BE8E"><ellipse cx="26" cy="36" rx="2" ry="3.5"/><ellipse cx="33" cy="40" rx="2" ry="3.5" transform="rotate(30 33 40)"/><ellipse cx="39" cy="34" rx="2" ry="3.5" transform="rotate(-25 39 34)"/><ellipse cx="30" cy="46" rx="2" ry="3.5" transform="rotate(-10 30 46)"/></g>'},
+ {id:'mel',nom:'Mel',u:'pot',p:600,s:'<rect x="18" y="22" width="28" height="32" rx="7" fill="#FFCF6B"/><rect x="20" y="14" width="24" height="9" rx="3" fill="#E5CBA8"/><path d="M18 32c6 4 10-2 14 2s10-2 14 0" fill="none" stroke="#E9A93A" stroke-width="2.5" stroke-linecap="round"/><circle cx="25" cy="42" r="3" fill="#FFE3A3"/>'}
+];
+const DEN=[2000,1000,500,200,100,50];
+const fmt=c=>{const e=Math.floor(c/100),r=c%100;return r?`${e},${String(r).padStart(2,'0')} €`:`${e} €`};
+function money(c,big){
+  if(c>=500){const col={500:['#D3DCCB','#8FA484'],1000:['#F6C4BF','#C77E77'],2000:['#C6D5F2','#7A93C4']}[c];
+    return `<svg viewBox="0 0 96 52" aria-hidden="true"><rect x="1" y="1" width="94" height="50" rx="7" fill="${col[0]}" stroke="${col[1]}" stroke-width="2"/><rect x="7" y="7" width="82" height="38" rx="4" fill="none" stroke="#fff" stroke-width="1.5" opacity=".8"/><circle cx="72" cy="26" r="13" fill="#fff" opacity=".45"/><text x="12" y="34" font-family="Quicksand,sans-serif" font-weight="700" font-size="22" fill="#2A2433">${c/100} €</text></svg>`;}
+  const t=c===50?'50 c':(c/100)+' €';
+  const [o,i]=c===50?['#E2A85E','#E9B66B']:c===100?['#D8DBE2','#F2C960']:['#F2C960','#D8DBE2'];
+  return `<svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="26" fill="${o}" stroke="#A8864F" stroke-width="1.5"/><circle cx="28" cy="28" r="${c===50?22:18}" fill="${i}" stroke="#fff" stroke-width="1.2" opacity=".95"/><text x="28" y="34" text-anchor="middle" font-family="Quicksand,sans-serif" font-weight="700" font-size="${c===50?15:16}" fill="#2A2433">${t}</text></svg>`;
+}
+const sh={v:'B',sel:[],tray:[]};
+const paidOf=()=>sh.v==='A'?2000:1000;
+const priceOf=()=>sh.sel.reduce((a,id)=>a+PRODS.find(p=>p.id===id).p,0);
+const trayOf=()=>sh.tray.reduce((a,b)=>a+b,0);
+function shopInit(){
+  $('#ra-sdua').innerHTML=['B','V','LF','A'].map(v=>`<button type="button" data-sv="${v}" aria-pressed="${v==='B'}">${v}<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"> · ${{B:'Base',V:'Suport visual',LF:'Lectura fàcil',A:'Ampliació'}[v]}</span></button>`).join('');
+  $('#ra-prods').innerHTML=PRODS.map(p=>`<button type="button" class="ra-prod" data-p="${p.id}" aria-pressed="false" aria-label="${p.nom}, ${p.u}, ${fmt(p.p)}"><svg viewBox="0 0 64 64" aria-hidden="true">${p.s}</svg><b>${p.nom}</b><small>${p.u}</small><span class="preu">${fmt(p.p)}</span></button>`).join('');
+  $('#ra-till').innerHTML=[50,100,200,500,1000].map(c=>`<button type="button" class="ra-money" data-add="${c}" aria-label="Afegeix ${fmt(c)} al canvi">${money(c)}</button>`).join('');
+  shopRender();
+}
+function shopRender(){
+  document.querySelectorAll('[data-sv]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.sv===sh.v)));
+  document.querySelectorAll('[data-p]').forEach(b=>b.setAttribute('aria-pressed',String(sh.sel.includes(b.dataset.p))));
+  const pr=priceOf(),pd=paidOf(),tr=trayOf(),need=sh.v==='A'?2:1;
+  const names=sh.sel.map(id=>{const p=PRODS.find(q=>q.id===id);return `${p.nom.toLowerCase()} (${fmt(p.p)})`});
+  let o;
+  if(sh.v==='LF')o=sh.sel.length?`La clienta compra <strong>${names[0]}</strong>.`:'Toca un producte.';
+  else if(sh.v==='A')o=sh.sel.length===0?'La clienta compra <strong>dues coses</strong>. Tria-les a la parada.':sh.sel.length===1?`La clienta compra ${names[0]} i… tria una altra cosa.`:`La clienta compra ${names[0]} i ${names[1]}.`;
+  else o=sh.sel.length?`La clienta compra <strong>${names[0]}</strong>.`:'Tria què compra la clienta a la parada.';
+  $('#ra-order').innerHTML=o;
+  $('#ra-paid').innerHTML=`<span>Et paga amb</span>${money(pd)}`;
+  $('#ra-paid').setAttribute('aria-label',`La clienta et paga amb ${fmt(pd)}`);
+  $('#ra-tray').innerHTML=sh.tray.map((c,i)=>`<button type="button" class="ra-money" data-rm="${i}" aria-label="Treu ${fmt(c)} del canvi">${money(c)}</button>`).join('');
+  $('#ra-sum').textContent='Has posat '+fmt(tr);
+  // ajuda segons la versió
+  let h='';
+  if(sh.v==='V'){const u=pd/100,W=v=>Math.min(100,v/pd*100);
+    h=`<div class="ra-help"><p class="tv-lbl" style="margin-bottom:6px">Recta de comptar endavant</p><div class="ra-bar" aria-hidden="true">`;
+    for(let i=1;i<u;i++)h+=`<span class="tick" style="left:${i/u*100}%"></span>`;
+    if(sh.sel.length)h+=`<span class="seg pr" style="left:0;width:${W(pr)}%"></span>`;
+    let x=pr;sh.tray.forEach(c=>{h+=`<span class="seg ch" style="left:${W(x)}%;width:${Math.max(0,W(x+c)-W(x))}%"></span>`;x+=c;});
+    h+=`</div><div class="ra-barnums" aria-hidden="true">${Array.from({length:u+1},(_,i)=>`<span style="left:${Math.min(97,Math.max(3,i/u*100))}%">${i}</span>`).join('')}</div>
+    <div class="ra-barkey"><span><i style="background:#FFD69A"></i>el preu</span><span><i style="background:var(--mat-pastel);box-shadow:inset 0 0 0 2px var(--mat)"></i>el canvi que poses</span><span>Has d'arribar al ${u}.</span></div></div>`;}
+  if(sh.v==='LF'){const st=!sh.sel.length?0:tr===0?2:3;
+    const L=['Mira el preu.','La clienta et dóna 10 €.','Compta des del preu fins a 10.','Torna-li aquestes monedes.'];
+    h=`<ol class="ra-lfsteps">${L.map((t,i)=>`<li class="${i<st?'done':i===st?'now':''}"><span class="num" aria-hidden="true">${i+1}</span>${t}</li>`).join('')}</ol>`;}
+  if(sh.v==='A')h=`<p class="ra-help tv-muted">Repte: torna el canvi amb el <strong>menor nombre</strong> de monedes i bitllets.</p>`;
+  $('#ra-help').innerHTML=h;
+  $('#ra-check').disabled=sh.sel.length<need;
+}
+function feedback(cls,txt){const fb=$('#ra-fb');fb.className='ra-fb '+cls;fb.innerHTML=txt;}
+function minPieces(c){let n=0;for(const d of DEN){while(c>=d){c-=d;n++;}}return n;}
+document.addEventListener('click',e=>{
+  let b;
+  if(b=e.target.closest('[data-sv]')){sh.v=b.dataset.sv;sh.sel=[];sh.tray=[];feedback('','');shopRender();return;}
+  if(b=e.target.closest('[data-p]')){const id=b.dataset.p;
+    if(sh.v==='A'){if(sh.sel.includes(id))sh.sel=sh.sel.filter(x=>x!==id);else{sh.sel.push(id);if(sh.sel.length>2)sh.sel.shift();}}
+    else sh.sel=[id];
+    feedback('','');shopRender();return;}
+  if(b=e.target.closest('[data-add]')){sh.tray.push(+b.dataset.add);feedback('','');shopRender();return;}
+  if(b=e.target.closest('[data-rm]')){sh.tray.splice(+b.dataset.rm,1);feedback('','');shopRender();const t=$('#ra-tray .ra-money');(t||$('#ra-till .ra-money')).focus();return;}
+  if(e.target.closest('#ra-clear')){sh.tray=[];feedback('','');shopRender();return;}
+  if(e.target.closest('#ra-new')){sh.sel=[];sh.tray=[];feedback('','');shopRender();$('#ra-prods .ra-prod').focus();return;}
+  if(e.target.closest('#ra-check')){
+    const pr=priceOf(),pd=paidOf(),tr=trayOf(),ch=pd-pr;
+    if(tr===ch){let m=`<strong>Molt bé!</strong> Comptant des de ${fmt(pr)} fins a ${fmt(pd)} hi ha ${fmt(ch)}: ${fmt(pr)} + ${fmt(ch)} = ${fmt(pd)}.`;
+      if(sh.v==='A'){const mp=minPieces(ch);m+=sh.tray.length===mp?` I ho has fet amb el mínim de peces (${mp}).`:` Ho podries fer amb menys peces? Es pot fer amb ${mp}.`;}
+      feedback('ok',m);}
+    else if(tr<ch)feedback('no',sh.v==='LF'?'Encara en falta. Compta un altre cop des del preu.':`Encara en falta. Compta des de ${fmt(pr)}: quant falta per arribar a ${fmt(pd)}?`);
+    else feedback('no',sh.v==='LF'?'Has posat massa. Treu una moneda.':`Has tornat massa: la clienta et donaria les gràcies! Treu-ne ${fmt(tr-ch)}.`);
+  }
+});
+shopInit();
+
+
+renderIntro();setDay(0);
+addEventListener('resize',place);
+})();
+</script>
+<script src="tv-say.js"></script>
+</body></html>

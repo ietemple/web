@@ -1,0 +1,226 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Llengües i menjador</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<style>
+.lm-sec{margin:0 0 26px;scroll-margin-top:84px}
+.lm-sec>h2{margin:0 0 6px;display:flex;align-items:center;gap:10px}
+.lm-intro{color:var(--tinta-suau);max-width:72ch;margin:0 0 16px}
+.lm-card{padding:22px 24px}
+@media (max-width:640px){.lm-card{padding:18px 16px}}
+.lm-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.lm-mat{display:flex;flex-direction:column;gap:12px;border-top:6px solid var(--cc)}
+.lm-mat header{display:flex;gap:14px;align-items:center}
+.lm-mat header img{width:96px;height:72px;object-fit:cover;border-radius:12px;flex:none}
+.lm-mat h3{font-size:1.4rem}
+.lm-mat .repte{font-size:1.08rem;line-height:1.35}
+.lm-links{display:flex;flex-wrap:wrap;gap:8px}
+.lm-links .tv-btn{padding:9px 14px;font-size:1rem}
+.lm-links .lv{display:inline-grid;place-items:center;min-width:26px;height:26px;padding:0 6px;border-radius:99px;background:var(--cc);color:#fff;font:700 .85rem/1 var(--font-display)}
+.lm-ses{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:1.02rem}
+.lm-ses th{font:600 .85rem/1.1 var(--font-text);letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-suau);text-align:left;padding:4px 10px}
+.lm-ses td{padding:10px 12px;background:rgba(255,255,255,.75);vertical-align:top}
+.lm-ses td:first-child{border-radius:12px 0 0 12px;white-space:nowrap;font-weight:600}
+.lm-ses td:last-child{border-radius:0 12px 12px 0}
+.lm-ses .m{display:inline-flex;align-items:center;gap:6px;font-weight:600;white-space:nowrap}
+.lm-ses .m i{width:10px;height:10px;border-radius:50%;background:var(--cc)}
+.lm-scroll{overflow-x:auto}
+.lm-lv{display:grid;gap:12px}
+.lm-lv .tv-seg{align-self:flex-start;width:max-content;max-width:100%}
+.lm-lvp{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.lm-lvp h3{font-size:1.1rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.lm-lvp h3 i{width:10px;height:10px;border-radius:50%;background:var(--cc)}
+.lm-lvp ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:1rem;line-height:1.32}
+.lm-lvp .tv-btn{margin-top:12px;padding:8px 14px;font-size:.98rem}
+.lm-aco{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.lm-aco .tv-pastel h3{font-size:1.08rem;margin-bottom:6px}
+.lm-aco .tv-pastel p{font-size:1rem;line-height:1.35;color:var(--tinta-suau)}
+.lm-dict{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lm-dict span{display:flex;align-items:center;gap:6px;padding:4px 10px 4px 4px;border-radius:99px;background:rgba(255,255,255,.85);font-size:.95rem}
+.lm-dict img{width:28px;height:28px;object-fit:contain}
+.lm-dict b{font-weight:600}
+.lm-crit{display:grid;gap:14px}
+.lm-crit details{border-radius:var(--radi-lg);background:var(--vidre-2);border:1px solid var(--vidre-vora);box-shadow:var(--brill-vora),var(--ombra-2);padding:4px 18px}
+.lm-crit summary{cursor:pointer;padding:12px 0;font:700 1.1rem/1.2 var(--font-display);display:flex;gap:10px;align-items:center}
+.lm-crit summary i{width:12px;height:12px;border-radius:50%;background:var(--cc);flex:none}
+.lm-crit .ce{margin:0 0 12px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.85)}
+.lm-crit .ce b{display:block;font:700 .82rem/1 var(--font-text);letter-spacing:.1em;text-transform:uppercase;color:var(--cc);margin-bottom:6px}
+.lm-crit .ce q{quotes:"«" "»";display:block;font-size:1.02rem;line-height:1.38}
+.lm-crit ol{margin:8px 0 0;padding-left:0;list-style:none;display:grid;gap:6px}
+.lm-crit li{display:grid;grid-template-columns:42px 1fr;gap:6px;font-size:.98rem;line-height:1.35}
+.lm-crit li span{font-weight:700;color:var(--cc)}
+.lm-crit li em{font-style:normal;display:block;font-size:.88rem;color:var(--tinta-tenue);margin-top:2px}
+.lm-src{font-size:.92rem;color:var(--tinta-suau);margin:0 0 10px}
+.lm-help{display:grid;gap:14px}
+.lm-ex{display:grid;gap:10px}
+.lm-ex div{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}
+@media (max-width:640px){.lm-ex div{grid-template-columns:1fr}}
+.lm-ex q,.lm-ex span{display:block;padding:10px 12px;border-radius:14px;font-size:1rem;line-height:1.3}
+.lm-ex q{background:rgba(255,255,255,.9);quotes:"«" "»"}
+.lm-ex span{background:var(--vidre-fosc);color:#fff}
+.lm-ex small{display:block;font:600 .75rem/1 var(--font-text);letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+.lm-cred{columns:2 300px;column-gap:24px;font-size:.92rem;line-height:1.4;color:var(--tinta-suau);margin:0;padding-left:18px}
+.lm-cred a{color:var(--tinta-suau)}
+</style></head><body>
+<div class="tv-top"><div class="tv-wrap"><div class="tv-glass">
+  <a class="tv-back" href="index.html"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Taulell</a>
+  <span class="tv-crumb">Joves · 3r ESO · Català i Anglès · El menjador</span><span class="tv-stamp">Mostra</span></div></div></div>
+
+<main class="tv-wrap">
+  <header class="tv-glass tv-head">
+    <div class="tv-kicker"><span class="tv-chip" style="--cc:var(--joves)"><i></i>Joves · 3r ESO</span><span class="tv-chip" style="--cc:var(--llen)"><i></i>Català</span><span class="tv-chip" style="--cc:var(--ang)"><i></i>Anglès</span><span class="tv-chip dark">4 nivells · inclou acollida</span></div>
+    <h1>El menjador, en dues llengües</h1>
+    <p class="tv-lead">Un mateix tema, el menjador de l'escola, a dues matèries la mateixa setmana. A Català, l'alumnat escriu una carta argumentada a la direcció per millorar-lo. A Anglès, planifica el menú de la setmana i el justifica. Cada matèria té presentació per a la pantalla i fitxa A4 en quatre versions. L'alumnat d'acollida treballa les mateixes paraules i fotos que la resta del grup, i també vota.</p>
+  </header>
+
+  <section class="lm-sec" id="aula">
+    <h2>Per a l'aula</h2>
+    <p class="lm-intro">L'alumnat veu només dues coses: la presentació a la pantalla tàctil i la fitxa que té damunt la taula. Aquesta pàgina és per a vosaltres.</p>
+    <div class="lm-two">
+      <article class="tv-glass lm-card lm-mat" style="--cc:var(--llen)">
+        <header><img src="img/menjador/japo.webp" alt="Safata d'un dinar escolar al Japó"><div><p class="tv-lbl" style="margin:0 0 4px">Català · 3 sessions</p><h3>El menjador ideal</h3></div></header>
+        <p class="repte"><b>Repte:</b> escriure una carta a la direcció que proposi un canvi al menjador i el defensi amb arguments, no amb opinions soltes.</p>
+        <div class="lm-links"><a class="tv-btn main" href="menjador-presentacio.html">Presentació</a></div>
+        <div class="lm-links"><a class="tv-btn" href="menjador-fitxa.html#C"><span class="lv">C</span>Fitxa</a><a class="tv-btn" href="menjador-fitxa.html#B"><span class="lv">B</span>Fitxa</a><a class="tv-btn" href="menjador-fitxa.html#A"><span class="lv">A</span>Fitxa</a><a class="tv-btn" href="menjador-fitxa.html#AC"><span class="lv">AC</span>Acollida</a></div>
+      </article>
+      <article class="tv-glass lm-card lm-mat" id="en" style="--cc:var(--ang)">
+        <header><img src="img/menjador/corea.webp" alt="Safata d'un dinar escolar a Corea del Sud"><div><p class="tv-lbl" style="margin:0 0 4px">Anglès · 2 sessions</p><h3>My weekly menu</h3></div></header>
+        <p class="repte"><b>Repte:</b> planificar el menú escolar d'una setmana i explicar per què, amb <i>a / an / some</i> i <i>I'd like… because…</i>. El nivell A escriu, a més, un correu a la cuinera.</p>
+        <div class="lm-links"><a class="tv-btn main" href="menu-presentacio.html">Presentation</a></div>
+        <div class="lm-links"><a class="tv-btn" href="menu-fitxa.html#C"><span class="lv">C</span>Worksheet</a><a class="tv-btn" href="menu-fitxa.html#B"><span class="lv">B</span>Worksheet</a><a class="tv-btn" href="menu-fitxa.html#A"><span class="lv">A</span>Worksheet</a><a class="tv-btn" href="menu-fitxa.html#AC"><span class="lv">AC</span>Acollida</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="sessions">
+    <h2>Les cinc sessions</h2>
+    <p class="lm-intro">Les dues matèries comparteixen fotos, pictogrames i vocabulari. Català va al davant: quan arriba l'anglès, el grup ja ha parlat del menjador.</p>
+    <div class="tv-glass lm-card lm-scroll">
+      <table class="lm-ses">
+        <thead><tr><th>Quan</th><th>Matèria</th><th>Què es fa</th><th>Fitxa</th></tr></thead>
+        <tbody>
+          <tr><td>Dilluns 11:00</td><td><span class="m" style="--cc:var(--llen)"><i></i>Català</span></td><td>Safates del món a la pantalla: què hi veiem i què en pensem. Paraules del menjador. Fet o opinió?</td><td>pàg. 1</td></tr>
+          <tr><td>Dilluns 12:00</td><td><span class="m" style="--cc:var(--ang)"><i></i>Anglès</span></td><td>Food words amb àudio, <i>a / an / some</i> al contenidor tàctil, i un listening: Amira demana el dinar a la cuina.</td><td>page 1</td></tr>
+          <tr><td>Dimecres 12:00</td><td><span class="m" style="--cc:var(--llen)"><i></i>Català</span></td><td>L'hamburguesa argumentativa i els connectors. Cada grup tria què canviaria primer.</td><td>pàg. 2</td></tr>
+          <tr><td>Dijous 11:00</td><td><span class="m" style="--cc:var(--ang)"><i></i>Anglès</span></td><td>El menú de la setmana i les raons, amb <i>I'd like… because…</i>. Per acabar, es diu en veu alta.</td><td>page 2 (A: 2–3)</td></tr>
+          <tr><td>Divendres 9:30</td><td><span class="m" style="--cc:var(--llen)"><i></i>Català</span></td><td>Escriure la carta a la direcció, revisar-la amb la llista de control i llegir-ne alguna en veu alta.</td><td>pàg. 3 (A: 3–4)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="nivells">
+    <h2>Quatre versions de la fitxa</h2>
+    <p class="lm-intro">Totes les versions tenen el mateix tema, les mateixes fotos i el mateix producte final. El que canvia és quanta ajuda escrita hi ha. La versió A no és més llarga que la B: l'exigència és a la pregunta, i els criteris són escrits a la fitxa.</p>
+    <div class="lm-lv">
+      <div class="tv-seg" role="tablist" aria-label="Versió de la fitxa">
+        <button role="tab" aria-selected="false" data-lv="C">C · amb suport</button><button role="tab" aria-selected="true" data-lv="B">B · estàndard</button><button role="tab" aria-selected="false" data-lv="A">A · més exigent</button><button role="tab" aria-selected="false" data-lv="AC">Acollida</button>
+      </div>
+      <div class="lm-lvp" id="lv-panel"></div>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="acollida">
+    <h2>Acollida, connectada amb el grup</h2>
+    <p class="lm-intro">Els alumnes nouvinguts encara no saben català, però fan el mateix tema, al mateix moment i sobre les mateixes fotos que la resta. No fan una fitxa paral·lela.</p>
+    <div class="lm-aco">
+      <div class="tv-pastel" style="--ct:var(--llen-pastel)"><h3>Mateixes imatges</h3><p>Els pictogrames i les fotos de la presentació són els de la seva fitxa. Quan el grup parla de la safata del Japó, ells la tenen al davant.</p></div>
+      <div class="tv-pastel" style="--ct:var(--ang-pastel)"><h3>La seva llengua compta</h3><p>A la presentació, cada paraula es pot escoltar, i es pot llegir en àrab, romanès, urdú, xinès o castellà. Al diccionari de la fitxa hi ha una columna per a la llengua de cada alumne.</p>
+        <div class="lm-dict" id="lm-dict"></div></div>
+      <div class="tv-pastel" style="--ct:var(--joves-tint)"><h3>També vota</h3><p>A Català, el grup vota què canviaria primer i l'alumne d'acollida vota amb els mateixos pictogrames. La seva frase «Jo proposo… perquè…» entra a la carta de la classe.</p></div>
+      <div class="tv-pastel" style="--ct:var(--lec-pastel)"><h3>Anglès, com tothom</h3><p>A Anglès tothom parteix de zero amb les paraules noves. La fitxa d'acollida hi afegeix la columna en català, i així les dues llengües s'aprenen alhora.</p></div>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="criteris">
+    <h2>Criteris d'avaluació</h2>
+    <p class="lm-src">Text literal del Decret 175/2022, annex 3. Competències específiques i criteris de 3r i 4t d'ESO. <a href="https://documents.espai.educacio.gencat.cat/documents_publics/Centres/20220119-Annex3MateriesSecundariaObligatoria.pdf">Obre el document oficial</a></p>
+    <div class="lm-crit" id="lm-crit"><details open style="--cc:var(--llen)"><summary><i></i>Llengua catalana i literatura · 3r d'ESO</summary>
+      <div class="ce"><b>Competència específica 5</b><q>Produir textos escrits i multimodals amb adequació, coherència, cohesió, aplicant estratègies elementals de planificació, redacció, revisió, correcció i edició, amb regulació dels iguals i autoregulació progressivament autònoma, i atenent les convencions pròpies del gènere discursiu triat, per construir coneixement i donar resposta de manera informada, eficaç i creativa a demandes comunicatives concretes.</q>
+        <ol>
+          <li><span>5.1</span><div>Planificar la redacció d'escrits i multimodals, de certa extensió, atenent a la situació comunicativa, destinatari, propòsit i canal; redactar esborranys i revisar-los amb ajuda de el diàleg entre iguals i instruments de consulta, i presentar un text final coherent, cohesionat i amb el registre adequat.<em>A la fitxa: el planificador de la pàgina 2 i la revisió en parella de dimecres.</em></div></li>
+          <li><span>5.2</span><div>Incorporar procediments per enriquir els textos tenint en compte aspectes discursius, lingüístics i d'estil, amb precisió lèxica i correcció ortogràfica i gramatical.<em>A la fitxa: els connectors i el text final de la pàgina 3.</em></div></li>
+        </ol></div>
+      <div class="ce"><b>Competència específica 3</b><q>Produir textos orals i multimodals amb coherència, claredat i registre adequats, atenent les convencions pròpies dels diferents gèneres discursius i participar en interaccions orals variades, amb autonomia, per expressar idees, sentiments i conceptes, construir coneixement i establir vincles personals.</q>
+        <ol>
+          <li><span>3.1</span><div>Realitzar exposicions i argumentacions orals d'una certa extensió i complexitat amb diferent grau de planificació sobre temes d'interès personal, social, educatiu i professional ajustant-se a les convencions pròpies dels diversos gèneres discursius, amb fluïdesa, coherència i el registre adequat en diferents suports, utilitzant de manera eficaç recursos verbals i no verbals.<em>A l'aula: la lectura en veu alta del text de divendres.</em></div></li>
+        </ol></div>
+      <div class="ce"><b>Competència específica 1</b><q>Descriure i valorar la diversitat lingüística i cultural a partir del reconeixement de les llengües de l'alumnat i la realitat plurilingüe i pluricultural, per afavorir la transferència lingüística, identificar i rebutjar estereotips i prejudicis lingüístics, i valorar aquesta diversitat com a font de riquesa cultural.</q>
+        <ol>
+          <li><span>1.2</span><div>Identificar i qüestionar prejudicis i estereotips lingüístics adoptant una actitud de respecte i valoració de la riquesa cultural, lingüística i dialectal, a partir de la indagació i la reflexió sobre els drets lingüístics individuals i col·lectius, així com la reflexió sobre fenòmens de contacte entre llengües<em>A l'aula: el diccionari d'acollida amb la llengua de cada alumne, posat en comú amb tot el grup.</em></div></li>
+        </ol></div>
+    </details>
+    <details style="--cc:var(--ang)"><summary><i></i>Llengua estrangera (anglès) · 3r d'ESO</summary>
+      <div class="ce"><b>Competència específica 2</b><q>Comprendre i interpretar textos orals i multimodals, en la llengua estàndard, recollint el sentit general i la informació més rellevant, la seva forma i el seu contingut, per construir coneixement, formar-se opinió i eixamplar les possibilitats de gaudi i lleure.</q>
+        <ol>
+          <li><span>2.1</span><div>Extreure i analitzar el sentit global i les idees principals, i seleccionar informació pertinent de textos orals i multimodals sobre temes quotidians, de rellevància personal o d'interès públic propers a la seva experiència expressats de manera clara i en la llengua estàndard a través de diversos suports.<em>A la fitxa: el listening de la cantina (vertader/fals a la B, encerclar a la C, preguntes obertes a la A).</em></div></li>
+        </ol></div>
+      <div class="ce"><b>Competència específica 5</b><q>Produir textos escrits i multimodals amb adequació, coherència i cohesió, aplicant estratègies elementals de planificació, redacció, revisió, correcció i edició, amb regulació dels iguals i autoregulació progressivament autònoma, i atenent les convencions pròpies del gènere discursiu triat, per construir coneixement i donar resposta de manera informada, eficaç i creativa a demandes comunicatives concretes.</q>
+        <ol>
+          <li><span>5.2</span><div>Redactar i difondre textos d'extensió mitjana amb acceptable claredat, coherència, cohesió, correcció i adequació a la situació comunicativa proposada, a la tipologia textual i a les eines analògiques i digitals utilitzades, sobre assumptes quotidians, de rellevància personal o d'interès públic pròxims a la seva experiència, respectant la propietat intel·lectual i evitant el plagi.<em>A la fitxa: el menú setmanal i les frases amb <i>because</i>; a la A, el correu a la cuinera.</em></div></li>
+        </ol></div>
+      <div class="ce"><b>Competència específica 3</b><q>Produir textos orals i multimodals amb coherència, claredat i registre adequats, atenent les convencions pròpies dels diferents gèneres discursius, i participar en interaccions orals variades, amb autonomia, per expressar idees, sentiments i conceptes, construir coneixement i establir vincles personals.</q>
+        <ol>
+          <li><span>3.3</span><div>Participar i col·laborar activament, a través de diversos suports, en situacions interactives sobre temes quotidians, de rellevància personal o d'interès públic propers a la seva experiència, mostrant iniciativa, empatia i respecte per la cortesia lingüística i l'etiqueta digital, així com per les diferents necessitats, idees, inquietuds, iniciatives i motivacions dels interlocutors.<em>A l'aula: el joc de rol a la barra del menjador (<i>I'd like…, please</i>), també a la fitxa d'acollida.</em></div></li>
+        </ol></div>
+      <div class="ce"><b>Competència específica 1</b><q>Descriure i valorar la diversitat lingüística i cultural a partir del reconeixement de les llengües de l'alumnat i la realitat plurilingüe, pluricultural i intercultural, per afavorir la transferència lingüística, identificar i rebutjar estereotips i prejudicis lingüístics i valorar aquesta diversitat com a font de riquesa cultural.</q>
+        <ol>
+          <li><span>1.2</span><div>Participar de manera adequada, empàtica i respectuosa en situacions interculturals, construint vincles entre les diferents llengües i cultures, rebutjant qualsevol tipus de discriminació, prejudici i estereotip en contextos comunicatius quotidians, i proposant vies de solució a aquells factors socioculturals que dificulten la comunicació.<em>A la fitxa d'acollida: el diccionari English · Català · la meva llengua.</em></div></li>
+        </ol></div>
+    </details>
+</div>
+  </section>
+
+  <section class="lm-sec" id="claude">
+    <h2>Com hi ajuda Claude</h2>
+    <p class="lm-intro">A l'esquerra, el que li podeu demanar; també funciona amb una nota de veu. A la dreta, el que us torna.</p>
+    <div class="lm-help">
+      <div class="tv-pastel" style="--ct:#FFE3EC"><h3 style="margin-bottom:10px">Ajustar abans de la sessió</h3>
+        <div class="lm-ex">
+          <div><q>Tinc dos alumnes nous que parlen tigrinya.</q><span><small>Claude torna</small>El diccionari de la fitxa d'acollida amb la columna en tigrinya, i l'àudio de la presentació en aquesta llengua si hi ha veu disponible.</span></div>
+          <div><q>La B se'm queda curta per a 3r C.</q><span><small>Claude torna</small>Una B+ amb un contraargument guiat a la pàgina 2. No allarga la fitxa: substitueix un exercici.</span></div>
+        </div></div>
+      <div class="tv-pastel" style="--ct:#E5D8FF"><h3 style="margin-bottom:10px">Després de la sessió</h3>
+        <div class="lm-ex">
+          <div><q>T'envio fotos de 25 cartes.</q><span><small>Claude torna</small>Una graella amb els criteris de dalt: què ha assolit cada carta i un comentari curt per a cada alumne. La nota la poseu vosaltres.</span></div>
+          <div><q>Fes la carta definitiva de la classe.</q><span><small>Claude torna</small>Una carta única amb les propostes més votades, incloses les de l'alumnat d'acollida, a punt per portar a direcció.</span></div>
+        </div></div>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="credits">
+    <h2>Crèdits de les imatges</h2>
+    <div class="tv-glass lm-card">
+      <p class="tv-muted" style="margin-bottom:10px">Pictogrames: Sergio Palao, ARASAAC (Govern d'Aragó), CC BY-NC-SA. Fotos de Wikimedia Commons:</p>
+      <ul class="lm-cred" id="lm-cred"></ul>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="opina">
+    <h2>Com ho veus?</h2>
+    <div class="tv-say" data-say="Aquest material és per a la setmana que ve. Si alguna cosa no encaixa amb el teu grup, digues-ho i s'ajusta a temps."></div>
+  </section>
+</main>
+<footer class="tv-foot">Temple Vidre · Mostra de materials · Joves · Català i Anglès</footer>
+
+<script src="menjador-data.js"></script>
+<script src="tv-say.js"></script>
+<script>
+(function(){
+"use strict";
+var LV={
+ C:{ca:["Banc de paraules amb pictogrames","Inicis de frase per a cada part de l'hamburguesa","Carta amb el marc ja començat"],en:["Banc de paraules i primera lletra de cada paraula","La regla <i>a / an / some</i> escrita","Listening: encerclar la imatge","Frases per completar amb banc de raons"]},
+ B:{ca:["Comparar Finlàndia i el Japó","Planificador hamburguesa amb connectors per triar","Carta a la direcció i llista de control"],en:["Etiquetar amb banc de paraules","Listening: vertader o fals","Menú setmanal i tres frases amb <i>because</i>"]},
+ A:{ca:["Comparar Finlàndia i el Brasil sense ajuda","Passar d'opinió a fet; planificador amb contraargument","Criteris de refutació escrits i carta pròpia"],en:["Etiquetar sense banc de paraules","Trobar i corregir errors amb <i>a / an / some</i>","Correu a la cuinera, de 60 a 80 paraules, amb criteris escrits"]},
+ AC:{ca:["Diccionari de 16 paraules amb pictograma i la seva llengua","M'agrada / no m'agrada","Dibuixar el dinar del seu país","Votar amb pictogrames i escriure «Jo proposo… perquè…»"],en:["Diccionari: anglès, català i la seva llengua","I like / I don't like","Dibuixar el dinar preferit i escriure-hi tres paraules","<i>I'd like…, please.</i>"]}};
+var panel=document.getElementById("lv-panel"),tabs=[].slice.call(document.querySelectorAll("[data-lv]"));
+function lv(k){tabs.forEach(function(t){t.setAttribute("aria-selected",t.dataset.lv===k)});var d=LV[k];
+  panel.innerHTML='<div class="tv-pastel" style="--ct:var(--llen-pastel);--cc:var(--llen)"><h3><i></i>Català</h3><ul>'+d.ca.map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul><a class="tv-btn" href="menjador-fitxa.html#'+k+'">Obre la fitxa '+k+'</a></div>'+
+   '<div class="tv-pastel" style="--ct:var(--ang-pastel);--cc:var(--ang)"><h3><i></i>Anglès</h3><ul>'+d.en.map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul><a class="tv-btn" href="menu-fitxa.html#'+k+'">Open worksheet '+k+'</a></div>'}
+tabs.forEach(function(t){t.addEventListener("click",function(){lv(t.dataset.lv)})});lv("B");
+var W=MJ.byId;document.getElementById("lm-dict").innerHTML=["pa","aigua","poma"].map(function(id){var w=W[id];return '<span><img src="'+MJ.pic(id)+'" alt=""><b>'+w.ca+'</b>· '+w.en+' · '+w.ar+' · '+w.zh+'</span>'}).join("");
+var C={"japo": {"t": "Japanese school lunch.jpg", "art": "Douglas P Perkins", "lic": "CC BY 3.0", "url": "https://commons.wikimedia.org/wiki/File:Japanese_school_lunch.jpg"}, "corea": {"t": "A South Korean school lunch.jpg", "art": "570cjk", "lic": "CC BY-SA 3.0", "url": "https://commons.wikimedia.org/wiki/File:A_South_Korean_school_lunch.jpg"}, "finlandia": {"t": "School lunch in ylästö school.jpg", "art": "Jukajuha", "lic": "CC0", "url": "https://commons.wikimedia.org/wiki/File:School_lunch_in_yl%C3%A4st%C3%B6_school.jpg"}, "eua": {"t": "School lunch tray MyPlate 20210810-FNS-UNC-0015.jpg", "art": "U.S. Department of Agriculture", "lic": "Public domain", "url": "https://commons.wikimedia.org/wiki/File:School_lunch_tray_MyPlate_20210810-FNS-UNC-0015.jpg"}, "brasil": {"t": "Merenda Escolar (6120503213).jpg", "art": "Fotos GOVBA from Bahia/Brasil", "lic": "CC BY 2.0", "url": "https://commons.wikimedia.org/wiki/File:Merenda_Escolar_(6120503213).jpg"}, "india": {"t": "Mid-day meal at government school.jpg", "art": "Archies2804", "lic": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Mid-day_meal_at_government_school.jpg"}, "kenya": {"t": "Meals in primary school.jpg", "art": "Vincent25 Oduor", "lic": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Meals_in_primary_school.jpg"}, "xina": {"t": "School lunch in Yangshuo, Guangxi, 2012.jpg", "art": "Frontierofficial", "lic": "CC BY 2.0", "url": "https://commons.wikimedia.org/wiki/File:School_lunch_in_Yangshuo,_Guangxi,_2012.jpg"}, "buit": {"t": "Comedor escolar.jpg", "art": "Agostina", "lic": "Public domain", "url": "https://commons.wikimedia.org/wiki/File:Comedor_escolar.jpg"}};document.getElementById("lm-cred").innerHTML=Object.keys(C).map(function(k){var c=C[k];return '<li><a href="'+c.url+'">'+c.t.replace(/\.jpg$/i,"")+'</a> · '+c.art+' · '+c.lic+'</li>'}).join("");
+})();
+</script>
+</body></html>
