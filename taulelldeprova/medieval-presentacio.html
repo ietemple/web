@@ -1,5 +1,5 @@
 <!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Qui manava al castell?</title>
+<title>Qui té veu?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,500;0,700;0,800;1,500&family=Alegreya+SC:wght@500;700&family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -58,22 +58,6 @@ h1::first-letter,h2::first-letter{color:var(--ver);font-size:1.18em}
 .pyr button[aria-expanded=true] span{display:block}
 .pyr button:nth-child(1){width:34%}.pyr button:nth-child(2){width:56%}.pyr button:nth-child(3){width:78%}.pyr button:nth-child(4){width:100%;background:#EED9B8}
 @media (max-width:820px){.pyr button{width:100%!important}}
-/* any del pagès */
-.year{grid-template-columns:repeat(4,1fr)}
-@media (max-width:820px){.year{grid-template-columns:repeat(2,1fr)}}
-.mo{display:grid;gap:8px;align-content:start}
-.mo .frame{aspect-ratio:4/5}
-.mo b{font:700 1.15em/1 var(--fd);color:var(--ver)}
-/* sacs */
-.sacks{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-content:center}
-.sacks button{width:88px;height:100px;border:none;background:none;cursor:pointer;padding:0}
-.sacks svg{width:100%;height:100%;stroke:var(--ink);stroke-width:1.2;stroke-linejoin:round;fill:#F6EBD3;transition:fill .25s}
-.sacks [data-c=delme] svg{fill:#E7B04A}.sacks [data-c=senyor] svg{fill:#C2533D}.sacks [data-c=llavor] svg{fill:#7FA068}
-.key{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-.key button{border:2px solid var(--ink);border-radius:999px;background:var(--card);padding:8px 16px;min-height:48px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
-.key button[aria-pressed=true]{background:var(--ink);color:#fff}
-.key i{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--ink);display:inline-block}
-.count{text-align:center;font:700 1.25em/1.2 var(--fd)}
 /* mals usos */
 .cards{grid-template-columns:repeat(3,1fr);align-content:start}
 @media (max-width:820px){.cards{grid-template-columns:1fr 1fr}}
@@ -124,126 +108,278 @@ h1::first-letter,h2::first-letter{color:var(--ver);font-size:1.18em}
 .nav .dots button{min-width:0;width:14px;height:14px;min-height:0;padding:0;border-radius:50%;background:rgba(255,255,255,.3);border:none}
 .nav .dots button[aria-current=true]{background:#F2A283}
 @media (max-width:600px){.nav .dots{display:none}.nav{justify-content:space-between}}
+/* escala: qui decideix */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:8px;border:2px dashed #D9C7A8;border-radius:12px}
+.scale{grid-template-columns:repeat(3,1fr);align-content:stretch}
+@media (max-width:820px){.scale{grid-template-columns:1fr}}
+.scale>div{background:var(--card);border:1px solid #E2D2B6;border-top:8px solid var(--c);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;min-height:140px}
+.scale h3{font:700 1.05em/1.1 var(--fsc);letter-spacing:.03em;color:var(--c)}
+.dec{border:2px solid var(--ink);border-radius:10px;background:#fff;padding:8px 12px;min-height:48px;cursor:pointer;text-align:left}
+/* cronòmetre */
+.timer{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 20px;border-radius:999px;border:2px solid var(--ink);background:var(--card);cursor:pointer;font:700 1.05em/1 var(--ft)}
+.timer output{font:800 1.3em/1 var(--fd);color:var(--ver);min-width:3.2em;text-align:right}
+.timer.run{background:var(--ink);color:#fff}.timer.run output{color:#F2A283}
+.timer.end output{color:var(--ver)}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+/* repte */
+.prod{grid-template-columns:repeat(2,1fr);align-content:start}
+@media (max-width:820px){.prod{grid-template-columns:1fr}}
+.prod div{background:var(--card);border:1px solid #E2D2B6;border-radius:12px;padding:16px;display:grid;gap:6px;align-content:start}
+.prod b{font:700 1.2em/1.15 var(--fd)}
+.prod small{font:700 .8em/1 var(--fsc);letter-spacing:.06em;color:var(--ver)}
+.big{font:800 clamp(24px,2.6vw,42px)/1.15 var(--fd);color:var(--lap);max-width:30ch}
+/* font escrita */
+.src{background:#fff;border:3px double var(--gold);border-radius:12px;padding:16px 20px;font:500 1.12em/1.5 var(--fd)}
+.src cite{display:block;margin-top:8px;font:400 .72em/1.3 var(--ft);color:var(--ink2);font-style:normal}
+.src [hidden]{display:none}
+.tog{align-self:start;min-height:48px;padding:0 18px;border-radius:999px;border:2px solid var(--ink);background:var(--card);cursor:pointer;font-weight:600}
+.tog[aria-pressed=true]{background:var(--ink);color:#fff}
+/* mals usos: les dones */
+.cards.hl .card:not([data-w]) .in{opacity:.35}
+.cards.hl .card[data-w] .f{background:var(--lap)}
+.card .b small{display:block;margin-top:6px;font-weight:700;color:var(--ver)}
+/* rols */
+.roles{grid-template-columns:repeat(3,1fr);align-content:start}
+@media (max-width:820px){.roles{grid-template-columns:1fr 1fr}}
+.role{border:2px solid #E2D2B6;border-radius:12px;background:var(--card);padding:0;cursor:pointer;text-align:left;overflow:hidden;display:grid;align-content:start}
+.role img{height:clamp(70px,9vw,120px);width:100%;object-fit:cover}
+.role div{padding:10px 12px;display:grid;gap:4px}
+.role b{font:700 1.1em/1.1 var(--fd)}
+.role i{font-style:normal;font:700 .78em/1 var(--fsc);letter-spacing:.05em}
+.role i.si{color:#2F6B3A}.role i.no{color:var(--ver)}
+.role span{display:none;font-size:.88em;line-height:1.25}
+.role[aria-expanded=true]{border-color:var(--ver)}.role[aria-expanded=true] span{display:block}
+/* Corts de l'aula */
+.corts{grid-template-columns:1.3fr 1fr;align-content:start}
+@media (max-width:820px){.corts{grid-template-columns:1fr}}
+.props{display:flex;flex-wrap:wrap;gap:8px}
+.props button{border:2px solid var(--ink);border-radius:10px;background:var(--card);padding:8px 14px;min-height:52px;cursor:pointer;text-align:left;flex:1 1 200px}
+.props button[aria-pressed=true]{background:var(--lap);border-color:var(--lap);color:#fff}
+.seats{display:grid;gap:8px}
+.seat{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid #E2D2B6;border-radius:12px;padding:8px 12px}
+.seat b{flex:1;font:700 1.05em/1.1 var(--fd)}
+.seat button{min-height:48px;min-width:64px;border-radius:999px;border:2px solid var(--ink);background:#fff;cursor:pointer;font-weight:700}
+.seat button[data-v=si][aria-pressed=true]{background:#2F6B3A;border-color:#2F6B3A;color:#fff}
+.seat button[data-v=no][aria-pressed=true]{background:var(--ver);border-color:var(--ver);color:#fff}
+.seat.out{background:repeating-linear-gradient(135deg,#F3E9D6 0 10px,#EADBC0 10px 20px);border-style:dashed}
+.seat.out em{font-style:normal;font:700 .85em/1 var(--fsc);color:var(--ver)}
+.res{border-radius:12px;padding:12px 16px;font:700 1.15em/1.25 var(--fd);background:#fff;border:3px double var(--gold)}
+.res.ok{border-color:#2F6B3A;color:#2F6B3A}.res.ko{border-color:var(--ver);color:var(--ver)}
+.agenda{display:grid;gap:6px;counter-reset:a;list-style:none}
+.agenda li{counter-increment:a;display:flex;gap:10px;align-items:baseline;font-size:.95em}
+.agenda li::before{content:counter(a);flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;font:700 .85em/1 var(--ft)}
+.flag{font-size:.8em;color:var(--ink2);font-style:italic}
+/* línia del temps de 7 fets */
+.tl.t7{grid-template-columns:repeat(7,1fr)}
+@media (max-width:820px){.tl.t7{grid-template-columns:repeat(2,1fr)}}
+/* qui guanya */
+.who{grid-template-columns:repeat(5,1fr);align-content:start}
+@media (max-width:820px){.who{grid-template-columns:1fr 1fr}}
+.who button{border:2px solid var(--ink);border-radius:12px;background:var(--card);padding:12px;cursor:pointer;text-align:left;display:grid;gap:6px;align-content:start;min-height:96px}
+.who b{font:700 1.1em/1.1 var(--fd)}
+.who span{display:none;font-size:.88em;line-height:1.25}
+.who button[aria-expanded=true]{background:#fff;border-color:var(--ver)}.who button[aria-expanded=true] span{display:block}
+/* greuges d'avui */
+.add{display:flex;gap:8px;flex-wrap:wrap}
+.add input{flex:1 1 280px;min-height:52px;border-radius:12px;border:2px solid var(--ink);padding:0 14px;font:inherit;background:#fff}
+.add button{min-height:52px;padding:0 20px;border-radius:999px;border:none;background:var(--ver);color:#fff;font-weight:700;cursor:pointer}
+.gl{display:grid;gap:8px;align-content:start;list-style:none}
+.gl li{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--card);border:1px solid #E2D2B6;border-radius:12px;padding:8px 12px}
+.gl li b{flex:1 1 220px;font:700 1.05em/1.2 var(--fd)}
+.gl li button{min-height:44px;padding:0 12px;border-radius:999px;border:2px solid var(--ink2);background:#fff;cursor:pointer;font-size:.85em}
+.gl li button[aria-pressed=true]{background:#2F6B3A;border-color:#2F6B3A;color:#fff}
+.gl li output{font:800 1.1em/1 var(--fd);color:var(--lap);min-width:2.2em;text-align:right}
+/* memorial */
+.mem{grid-template-columns:repeat(4,1fr);align-content:start}
+@media (max-width:1000px){.mem{grid-template-columns:1fr 1fr}}
+.col:nth-child(1) h3{color:#8A4B14}
+.out .g{color:#8A4B14}.out .pr{color:var(--ver)}.out .pe{color:var(--lap)}.out .al{color:#2F6B3A}
 </style>
 </head>
 <body>
 <main class="deck" id="deck">
 
 <section class="sl" style="padding:0" aria-label="Portada">
-  <div class="cover"><img src="img/med/cardona.webp" alt="Castell de Cardona dalt d'un turó, amb la vila als seus peus">
-    <div class="t"><div class="k">Geografia i Història · 2n ESO · La societat feudal</div><h1>Qui manava al castell?</h1><p class="lead">Per què els pagesos obeïen el senyor feudal? Avui ho investigarem amb fonts de l'època, com fan els historiadors.</p></div></div>
+  <div class="cover"><img src="img/med/corts.webp" alt="Gravat de les Corts catalanes: el rei al tron i els representants asseguts a sota" style="object-position:50% 30%">
+    <div class="t"><div class="k">Geografia i Història · 2n ESO · Poder i societat a l'edat mitjana</div><h1>Qui té veu?</h1><p class="lead">Els remences, les Corts i nosaltres. Com es guanya una veu quan no tens seient on es decideix?</p></div></div>
 </section>
 
-<section class="sl" aria-label="El feu">
-  <div class="k">1 · Observo → dedueixo</div><h2>Llegeix el feu</h2>
+<section class="sl" aria-label="Qui decideix aquí?">
+  <div class="k">Sessió 1 · Partim d'aquí</div><h2>Qui decideix aquí?</h2>
+  <p class="lead">Toca cada decisió per moure-la de columna. No hi ha resposta correcta: digueu el que viviu.</p>
+  <div class="pool" id="pool">
+    <button class="dec">L'horari de les classes</button><button class="dec">Les normes del mòbil</button><button class="dec">Què es fa al pati</button><button class="dec">La festa de final de curs</button><button class="dec">Els deures i els exàmens</button><button class="dec">Com es decora la classe</button>
+  </div>
+  <div class="grow scale" id="scale">
+    <div style="--c:#2F6B3A"><h3>Decidim nosaltres</h3></div>
+    <div style="--c:var(--gold)"><h3>Ens pregunten</h3></div>
+    <div style="--c:var(--ver)"><h3>Decideixen per nosaltres</h3></div>
+  </div>
+  <div class="ask">Hi ha alguna decisió de la columna vermella que us afecti molt? Qui la pren?</div>
+</section>
+
+<section class="sl" aria-label="Les Corts">
+  <div class="k">Sessió 1 · Observo → dedueixo</div><h2>Qui hi ha a la sala?</h2>
   <div class="grow c2">
-    <div><div class="frame" style="aspect-ratio:5/6;max-height:62vh"><img src="img/med/octubre-escena.webp" alt="Pagesos sembrant davant d'un gran castell blanc">
-      <button class="hs" style="left:50%;top:14%" data-t="El castell|Viu el senyor. És alt, fort i es veu des de tot arreu: mostra poder.">1</button>
-      <button class="hs" style="left:12%;top:31%" data-t="La muralla|Protegeix el castell i la gent. En cas de guerra, els pagesos s'hi refugien.">2</button>
-      <button class="hs" style="left:22%;top:61%" data-t="Un pagès a cavall|Arrossega la grada per tapar la llavor. El cavall potser no és seu.">3</button>
-      <button class="hs" style="left:80%;top:70%" data-t="El sembrador|Escampa el blat a mà. La collita de l'estiu depèn d'aquesta feina.">4</button>
-      <button class="hs" style="left:52%;top:54%" data-t="Un espantaocells|Un arquer de mentida perquè els ocells no es mengin la llavor.">5</button>
-      <button class="hs" style="left:30%;top:46%" data-t="Gent a la vora del riu|Mentre uns treballen, altres passegen: la societat no és igual per a tothom.">6</button>
-    </div><p class="cap">Germans Limbourg, <i>Les Très Riches Heures du duc de Berry</i>, octubre (c. 1412–1416). Domini públic.</p></div>
-    <div class="notes" id="n1"><div class="note empty">Toca els números. Primer digues què hi veus; després, què en dedueixes.</div></div>
+    <div><div class="frame" style="aspect-ratio:1000/1334;max-height:62vh;max-width:47vh"><img src="img/med/corts.webp" alt="Gravat de les Corts: el rei al tron, dos escuts i tres files de representants">
+      <button class="hs" style="left:52%;top:21%" data-t="El rei|Convoca les Corts i presideix. Necessita diners per a les guerres i els els demana. A canvi, accepta lleis noves.">1</button>
+      <button class="hs" style="left:27%;top:16%" data-t="Els escuts|Els quatre pals: el senyal del rei i del país. Ens diu qui mana a la sala.">2</button>
+      <button class="hs" style="left:80%;top:31%" data-t="Un oficial dret|És més amunt que els altres i a prop del rei. Pot ser el qui parla en nom del rei o qui escriu el que es decideix.">3</button>
+      <button class="hs" style="left:49%;top:52%" data-t="Els braços|Els representants s'asseuen per grups, els braços: l'Església (bisbes i abats), els nobles i cavallers i les ciutats del rei.">4</button>
+      <button class="hs" style="left:16%;top:70%" data-t="Als costats|Més representants. Tots porten roba cara i barret: són gent rica i important.">5</button>
+      <button class="hs" style="left:50%;top:82%" data-t="D'esquena|Una altra fila, d'esquena a nosaltres. Mira la roba: hi veus algú vestit de pagès?">6</button>
+      <button class="hs" style="left:50%;top:67%" data-t="El terra buit|Aquí es parla i es negocia. Qui no és a la sala no pot dir res.">7</button>
+    </div><p class="cap">Cort general del Principat de Catalunya. Gravat acolorit de les <i>Constitucions de Catalunya</i> (1495). Domini públic.</p></div>
+    <div class="notes" id="n2"><div class="note empty">Toca els números. Primer digues què hi veus; després, què en dedueixes.</div>
+      <div class="ask">Compta: quants pagesos hi ha? Quantes dones? Què vol dir això per a les lleis que s'hi fan?</div></div>
   </div>
 </section>
 
-<section class="sl" aria-label="Piràmide">
-  <div class="k">2 · Connecto</div><h2>Qui dona i qui rep?</h2>
+<section class="sl" aria-label="El repte">
+  <div class="k">Sessió 1 · El repte</div><h2>El nostre repte</h2>
+  <p class="big">Com es guanya una veu quan no tens seient on es decideix?</p>
+  <div class="grow prod">
+    <div><small>Abans de començar · sol</small><b>Text inicial</b><span>Quan algú no té veu on es decideix el que l'afecta, què pot fer? És just desobeir? Escriu el que pensis ara. No es puntua.</span>
+      <div class="row"><button class="timer" data-m="10">Cronòmetre <output>10:00</output></button></div></div>
+    <div><small>Sessió 3 · en grup</small><b>Les Corts de l'aula</b><span>Cada grup és un braç, el rei o els remences. Els remences no tenen vot. Haureu de negociar.</span></div>
+    <div><small>Sessió 4 · sol</small><b>Memorial de greuges remença</b><span>Com a pagès de remença del 1450: greuge, prova, petició i aliat.</span></div>
+    <div><small>Sessions 5–7 · en grup</small><b>Memorial de greuges 2026</b><span>Una decisió que us afecta i en què no teniu veu. El presentareu al consell de delegats.</span></div>
+  </div>
+</section>
+
+<section class="sl" aria-label="La Catalunya Vella">
+  <div class="k">Sessió 2 · Llegeixo una font</div><h2>Lligats al mas</h2>
   <div class="grow c2">
-    <div class="pyr">
-      <button aria-expanded="false"><b>El rei</b><span>Dona terres (feus) als nobles. Rep fidelitat i ajuda militar.</span></button>
-      <button aria-expanded="false"><b>Nobles i Església</b><span>Reben feus i delmes. Donen protecció, ajuda militar i pregàries.</span></button>
-      <button aria-expanded="false"><b>Cavallers</b><span>Reben un feu petit. Donen ajuda militar i fidelitat al seu senyor.</span></button>
-      <button aria-expanded="false"><b>Pagesos · la gran majoria</b><span>Donen treball, part de la collita i el delme. Reben protecció i una terra per viure.</span></button>
+    <div><div class="frame" style="aspect-ratio:784/597"><img src="img/med/catvella.webp" alt="Mapa de la Catalunya Vella, la terra dels remences, al nord-est del país"></div><p class="cap">Mapa «Catalunya Vella, la terra dels remences (s. XII–1486)». Wikimedia Commons, CC0.</p></div>
+    <div class="notes">
+      <div class="src"><span id="pa-a">A la Catalunya Vella (el bisbat de Girona, el de Barcelona a l'est del Llobregat i gran part del de Vic), els pagesos que no són cavallers estan tan lligats als seus senyors que els seus fills també són homes del senyor. No es poden casar ni marxar del mas lliurement.</span><span id="pa-o" hidden>«…homes solius qui no son cavalers son si estrets a lurs senyors que lurs fils son homes de lurs senyors, e que no poden fer matrimonis ni dels mases partir.»</span>
+        <cite>Pere Albert, jurista de Barcelona, <i>Commemoracions</i>, segle XIII. Adaptació per a l'aula.</cite></div>
+      <button class="tog" id="pa" aria-pressed="false">Mostra el text original</button>
+      <div class="ask">Qui va escriure aquest text: un pagès o un jurista? Per què creus que ho explica?</div>
     </div>
-    <div class="notes"><div class="ask">Si el pagès dona tant, per què no marxa? Què li faltaria si ho fes?</div><div class="note"><b>Paraula clau: feu</b>Terra que un senyor dona a un vassall a canvi de fidelitat.</div></div>
   </div>
-</section>
-
-<section class="sl" aria-label="Homenatge">
-  <div class="k">3 · Observo → dedueixo</div><h2>Mans dins de mans</h2>
-  <div class="grow c2">
-    <div><div class="frame" style="aspect-ratio:724/1066;max-height:62vh;max-width:44vh"><img src="img/med/homenatge-lfm.webp" alt="Un vassall agenollat posa les mans entre les mans del senyor">
-      <button class="hs" style="left:38%;top:62%" data-t="El vassall|Està agenollat: mostra que és inferior i que es posa al servei de l'altre.">1</button>
-      <button class="hs" style="left:55%;top:57%" data-t="Les mans juntes|Posar les mans dins les del senyor és el gest de l'homenatge: promet fidelitat.">2</button>
-      <button class="hs" style="left:70%;top:42%" data-t="El senyor|Porta corona i està assegut: és qui rep la promesa i dona el feu.">3</button>
-    </div><p class="cap"><i>Liber feudorum maior</i> (c. 1192), Arxiu de la Corona d'Aragó. CC BY-SA 4.0.</p></div>
-    <div class="notes" id="n3"><div class="note empty">Toca els números. Qui és més important? Com ho saps sense llegir res?</div></div>
-  </div>
-</section>
-
-<section class="sl" aria-label="L'any del pagès">
-  <div class="k">4 · Canvi i continuïtat</div><h2>L'any del pagès</h2>
-  <div class="grow year">
-    <div class="mo"><div class="frame"><img src="img/med/febrer-escena.webp" alt="Família pagesa escalfant-se al foc a l'hivern"></div><b>Febrer</b><span>Fred. A casa, vora el foc.</span></div>
-    <div class="mo"><div class="frame"><img src="img/med/marc-escena.webp" alt="Pagès llaurant amb bous"></div><b>Març</b><span>Llaurar la terra amb bous.</span></div>
-    <div class="mo"><div class="frame"><img src="img/med/collita.webp" alt="Dues persones collint a l'hort"></div><b>Estiu</b><span>Collir. Arriba el moment de pagar.</span></div>
-    <div class="mo"><div class="frame"><img src="img/med/octubre-escena.webp" alt="Pagès sembrant" style="object-position:80% 70%"></div><b>Octubre</b><span>Sembrar el blat per a l'any vinent.</span></div>
-  </div>
-  <div class="ask">Què passa amb tota la feina d'un any si plou massa o si hi ha guerra?</div>
-</section>
-
-<section class="sl" aria-label="Collita">
-  <div class="k">5 · Dedueixo</div><h2>On va la collita?</h2>
-  <p class="lead">Tria un color i toca els sacs: 1 de delme, 3 per al senyor, 2 de llavor. <i>Xifres d'exemple per pensar.</i></p>
-  <div class="key" id="key"><button data-c="delme" aria-pressed="true"><i style="background:#E7B04A"></i>Delme (Església)</button><button data-c="senyor" aria-pressed="false"><i style="background:#C2533D"></i>Senyor</button><button data-c="llavor" aria-pressed="false"><i style="background:#7FA068"></i>Llavor</button><button data-c="" aria-pressed="false"><i></i>Esborra</button></div>
-  <div class="grow" style="align-content:center"><div class="sacks" id="sacks"></div><p class="count" id="count">Queden 10 sacs per menjar tot l'any.</p></div>
 </section>
 
 <section class="sl" aria-label="Mals usos">
-  <div class="k">6 · Argumento</div><h2>Els mals usos: és just?</h2>
-  <div class="grow cards">
-    <button class="card" aria-pressed="false"><div class="in"><div class="f">Remença<small>toca per girar</small></div><div class="b">Pagar el senyor per poder marxar del mas.</div></div></button>
-    <button class="card" aria-pressed="false"><div class="in"><div class="f">Intestia<small>toca per girar</small></div><div class="b">Si el pagès moria sense testament, el senyor es quedava part dels béns.</div></div></button>
-    <button class="card" aria-pressed="false"><div class="in"><div class="f">Eixorquia<small>toca per girar</small></div><div class="b">Si moria sense fills, el senyor es quedava part dels béns.</div></div></button>
-    <button class="card" aria-pressed="false"><div class="in"><div class="f">Cugucia<small>toca per girar</small></div><div class="b">En cas d'adulteri de l'esposa, el senyor es quedava part dels seus béns.</div></div></button>
-    <button class="card" aria-pressed="false"><div class="in"><div class="f">Arsina<small>toca per girar</small></div><div class="b">Si el mas es cremava, el pagès havia de pagar el senyor.</div></div></button>
-    <button class="card" aria-pressed="false"><div class="in"><div class="f">Ferma d'espoli<small>toca per girar</small></div><div class="b">Pagar el senyor en casar-se, per garantir el dot de l'esposa.</div></div></button>
+  <div class="k">Sessió 2 · A qui afecta?</div><h2>Els sis mals usos</h2>
+  <div class="grow cards" id="cards">
+    <button class="card" aria-pressed="false"><div class="in"><div class="f">Remença<small>toca per girar</small></div><div class="b">Pagar el senyor per poder marxar del mas.<small>Afecta tota la família</small></div></div></button>
+    <button class="card" aria-pressed="false"><div class="in"><div class="f">Intestia<small>toca per girar</small></div><div class="b">Si el pagès moria sense testament, el senyor es quedava part dels béns.<small>Afecta els fills</small></div></div></button>
+    <button class="card" aria-pressed="false"><div class="in"><div class="f">Eixorquia<small>toca per girar</small></div><div class="b">Si moria sense fills, el senyor es quedava part dels béns.<small>Afecta la vídua i els germans</small></div></div></button>
+    <button class="card" aria-pressed="false" data-w><div class="in"><div class="f">Cugucia<small>toca per girar</small></div><div class="b">Si l'esposa cometia adulteri, el senyor es quedava part dels seus béns.<small>Afecta sobretot les dones</small></div></div></button>
+    <button class="card" aria-pressed="false"><div class="in"><div class="f">Arsina<small>toca per girar</small></div><div class="b">Si el mas es cremava, el pagès havia de pagar el senyor.<small>Afecta tota la família</small></div></div></button>
+    <button class="card" aria-pressed="false" data-w><div class="in"><div class="f">Ferma d'espoli<small>toca per girar</small></div><div class="b">Pagar el senyor quan la pagesa es casava, perquè ell garantís el seu dot.<small>Afecta sobretot les dones</small></div></div></button>
   </div>
-  <div class="vote"><span><b>Votem:</b> eren justos?</span><button data-v="0">Sí</button><button data-v="1">No</button><button data-v="2">Depèn</button><output id="vo">Sí 0 · No 0 · Depèn 0</output></div>
+  <div class="row"><button class="tog" id="dones" aria-pressed="false">Quins afecten sobretot les dones?</button><div class="vote"><span><b>Votem:</b> eren justos?</span><button data-v="0">Sí</button><button data-v="1">No</button><button data-v="2">Depèn</button><output id="vo">Sí 0 · No 0 · Depèn 0</output></div></div>
+</section>
+
+<section class="sl" aria-label="Els rols">
+  <div class="k">Sessió 2 · Grups d'experts</div><h2>Sis veus, quatre vots</h2>
+  <p class="lead">Toca cada rol per veure què vol. Cada grup llegeix el seu dossier i prepara tres arguments, una demanda i què estaria disposat a acceptar.</p>
+  <div class="grow roles">
+    <button class="role" aria-expanded="false"><img src="img/med/poblet.webp" alt="Claustre del monestir de Poblet"><div><i class="si">Té vot</i><b>Braç eclesiàstic</b><span>Bisbes i abats. Monestirs com Poblet també són senyors de pagesos. Volen cobrar les rendes, però parlen de justícia cristiana.</span></div></button>
+    <button class="role" aria-expanded="false"><img src="img/med/cardona2.webp" alt="Castell de Cardona"><div><i class="si">Té vot</i><b>Braç militar</b><span>Nobles i cavallers. Volen mantenir els mals usos: després de la Pesta hi ha pocs pagesos i no volen que marxin.</span></div></button>
+    <button class="role" aria-expanded="false"><img src="img/med/montblanc.webp" alt="Muralles de Montblanc"><div><i class="si">Té vot</i><b>Braç reial</b><span>Les ciutats del rei. A Barcelona hi ha dues faccions: la Biga, de rics propietaris de terres, i la Busca, de mercaders i artesans.</span></div></button>
+    <button class="role" aria-expanded="false"><img src="img/med/corts.webp" alt="El rei al tron" style="object-position:52% 18%"><div><i class="si">Sanciona</i><b>El rei</b><span>Necessita diners i aliats contra els nobles. Pot fer de jutge entre senyors i pagesos.</span></div></button>
+    <button class="role" aria-expanded="false"><img src="img/med/placa-amer.webp" alt="Placa d'Amer amb un pagès encadenat" style="object-position:50% 35%"><div><i class="no">Sense seient</i><b>Remences moderats</b><span>El sindicat remença. Volen comprar la llibertat pagant, pel camí de la llei i amb el suport del rei.</span></div></button>
+    <button class="role" aria-expanded="false"><img src="img/med/verntallat.webp" alt="Monument a Francesc de Verntallat" style="object-position:50% 25%"><div><i class="no">Sense seient</i><b>Remences radicals</b><span>Com Verntallat o Sala. No volen pagar res per una llibertat que creuen que és seva. Estan disposats a revoltar-se.</span></div></button>
+  </div>
+</section>
+
+<section class="sl" aria-label="Corts de l'aula">
+  <div class="k">Sessió 3 · Simulació</div><h2>Les Corts de l'aula</h2>
+  <p class="flag">Sessió imaginada a mitjan segle XV. A les Corts catalanes una llei necessitava l'acord dels braços i del rei.</p>
+  <div class="grow corts">
+    <div style="display:grid;gap:12px;align-content:start">
+      <div class="props" id="props">
+        <button aria-pressed="true">A · Abolir els mals usos sense pagar res</button>
+        <button aria-pressed="false">B · Abolir-los si cada mas paga una redempció</button>
+        <button aria-pressed="false">C · Mantenir els mals usos com ara</button>
+      </div>
+      <div class="seats" id="seats">
+        <div class="seat"><b>Braç eclesiàstic</b><button data-v="si" aria-pressed="false">Sí</button><button data-v="no" aria-pressed="false">No</button></div>
+        <div class="seat"><b>Braç militar</b><button data-v="si" aria-pressed="false">Sí</button><button data-v="no" aria-pressed="false">No</button></div>
+        <div class="seat"><b>Braç reial</b><button data-v="si" aria-pressed="false">Sí</button><button data-v="no" aria-pressed="false">No</button></div>
+        <div class="seat"><b>El rei</b><button data-v="si" aria-pressed="false">Sí</button><button data-v="no" aria-pressed="false">No</button></div>
+        <div class="seat out"><b>Remences</b><em>Sense seient ni vot</em></div>
+      </div>
+      <div class="res" id="res" aria-live="polite">Cal el sí dels tres braços i del rei.</div>
+    </div>
+    <div style="display:grid;gap:12px;align-content:start">
+      <ol class="agenda">
+        <li>El rei obre les Corts i presenta la proposta.</li>
+        <li>Cada braç parla 2 minuts. Els remences només poden parlar si un braç o el rei els cedeix el torn.</li>
+        <li>Pausa de negociació: els remences busquen aliats.</li>
+        <li>Votació i sanció del rei.</li>
+        <li>Fora del rol: com us heu sentit?</li>
+      </ol>
+      <div class="row"><button class="timer" data-m="2">Torn <output>2:00</output></button><button class="timer" data-m="5">Pausa <output>5:00</output></button></div>
+      <div class="ask">Qui no tenia vot, què ha pogut fer? Ha servit de res?</div>
+    </div>
+  </div>
 </section>
 
 <section class="sl" aria-label="Línia del temps">
-  <div class="k">7 · Situo en el temps</div><h2>Del romànic a la llibertat dels remences</h2>
-  <div class="grow tl">
-    <button class="ev" aria-expanded="false"><img src="img/med/taull.webp" alt="Sant Climent de Taüll"><b>1123</b><span>Sant Climent de Taüll</span><em>L'Església té terres, rep el delme i pinta el poder de Déu: el Pantocràtor.</em></button>
-    <button class="ev" aria-expanded="false"><img src="img/med/poblet.webp" alt="Claustre de Poblet"><b>1151</b><span>Monestir de Poblet</span><em>Els monestirs eren també senyors feudals amb pagesos al seu servei.</em></button>
-    <button class="ev" aria-expanded="false"><img src="img/med/homenatge-lfm.webp" alt="Escena d'homenatge" style="object-position:50% 60%"><b>c. 1192</b><span><i>Liber feudorum maior</i></span><em>Alfons el Cast fa copiar els pactes amb els seus vassalls per guardar els seus drets.</em></button>
-    <button class="ev" aria-expanded="false"><img src="img/med/pesta.webp" alt="Enterrament de morts per la pesta"><b>1348</b><span>Pesta Negra</span><em>Mor molta gent. Amb menys pagesos, els senyors els volen lligar més a la terra.</em></button>
-    <button class="ev" aria-expanded="false"><img src="img/med/montblanc.webp" alt="Muralles de Montblanc"><b>1462</b><span>Guerra dels remences</span><em>Els pagesos s'aixequen contra els mals usos. No sempre van obeir.</em></button>
-    <button class="ev" aria-expanded="false"><img src="img/med/cardona2.webp" alt="Castell de Cardona"><b>1486</b><span>Sentència de Guadalupe</span><em>Ferran II aboleix els mals usos. Els pagesos poden marxar, però pagant.</em></button>
+  <div class="k">Sessió 4 · Què va passar de debò?</div><h2>Cent quaranta anys de lluita</h2>
+  <div class="grow tl t7">
+    <button class="ev" aria-expanded="false"><img src="img/med/pesta.webp" alt="Enterrament de morts per la pesta"><b>1348</b><span>Pesta Negra</span><em>Mor molta gent. Amb menys pagesos, els senyors els volen lligar més al mas.</em></button>
+    <button class="ev" aria-expanded="false"><img src="img/med/catvella.webp" alt="Mapa de la Catalunya Vella" style="object-position:70% 40%"><b>1448</b><span>Neix el sindicat</span><em>Alfons el Magnànim deixa els remences reunir-se i recollir diners per redimir-se.</em></button>
+    <button class="ev" aria-expanded="false"><img src="img/med/corts.webp" alt="El rei al tron" style="object-position:52% 18%"><b>1455</b><span>Sentència Interlocutòria</span><em>El rei suspèn els mals usos. Els senyors, que són a les Corts, s'hi oposen.</em></button>
+    <button class="ev" aria-expanded="false"><img src="img/med/verntallat.webp" alt="Monument a Verntallat" style="object-position:50% 25%"><b>1462</b><span>Primera guerra</span><em>Guerra civil. Els remences, amb Francesc de Verntallat, lluiten al costat del rei Joan II.</em></button>
+    <button class="ev" aria-expanded="false"><img src="img/med/corts.webp" alt="Els representants a les Corts" style="object-position:50% 60%"><b>1481</b><span>Les Corts tornen enrere</span><em>Sense cap pagès a la sala, les Corts tornen a fer obligatoris els mals usos.</em></button>
+    <button class="ev" aria-expanded="false"><img src="img/med/placa-amer.webp" alt="Placa remença d'Amer" style="object-position:50% 35%"><b>1485</b><span>Segona guerra i Amer</span><em>Pere Joan Sala és executat. A Amer, els síndics remences accepten que el rei faci d'àrbitre.</em></button>
+    <button class="ev" aria-expanded="false"><img src="img/med/guadalupe.webp" alt="Pàgina de la Sentència de Guadalupe"><b>1486</b><span>Sentència de Guadalupe</span><em>S'aboleixen els sis mals usos pagant 60 sous per mas. Els senyors conserven la terra i les rendes.</em></button>
   </div>
-  <div class="ask">Quina relació hi ha entre la Pesta Negra (1348) i la revolta dels remences (1462)?</div>
+  <div class="ask">A les nostres Corts, ha guanyat la proposta dels remences? I a la història, ho van aconseguir dins o fora de les Corts?</div>
 </section>
 
-<section class="sl" aria-label="Construeix l'explicació">
-  <div class="k">8 · Explico</div><h2>Construïm l'explicació</h2>
-  <div class="grow build">
-    <div class="col" data-p="a"><h3>1 · Afirmació</h3>
-      <button class="chip">Els pagesos obeïen perquè la terra era del senyor.</button>
-      <button class="chip">Els pagesos obeïen perquè el senyor els protegia.</button>
-      <button class="chip">Els pagesos obeïen perquè hi estaven obligats i no podien marxar.</button></div>
-    <div class="col" data-p="p"><h3 style="color:var(--ver)">2 · Prova</h3>
-      <button class="chip">A la font 1 treballen als peus del castell emmurallat.</button>
-      <button class="chip">A la font 2 el vassall promet fidelitat amb les mans.</button>
-      <button class="chip">A la font 3 cal pagar per deixar el mas fins al 1486.</button></div>
-    <div class="col" data-p="r" style="grid-column:1/-1"><h3 style="color:var(--lap)">3 · Raonament</h3>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px">
-      <button class="chip">Això demostra que vivien sota el poder i la protecció del senyor.</button>
-      <button class="chip">Per tant, obeir era un pacte que lligava les dues parts.</button>
-      <button class="chip">Per tant, no eren lliures: la llei els lligava a la terra.</button></div></div>
+<section class="sl" aria-label="Llibertat comprada?">
+  <div class="k">Sessió 4 · Debat</div><h2>Llibertat comprada?</h2>
+  <p class="lead">Toca cada grup: què va guanyar i què va perdre amb la Sentència de Guadalupe?</p>
+  <div class="grow who">
+    <button aria-expanded="false"><b>Pagesos de mas</b><span>Ja poden marxar i casar-se sense pagar el senyor. Però han de pagar la redempció i continuen pagant rendes.</span></button>
+    <button aria-expanded="false"><b>Senyors</b><span>Perden els mals usos, però cobren la redempció i conserven la terra i les rendes.</span></button>
+    <button aria-expanded="false"><b>El rei</b><span>Fa de jutge, guanya autoritat davant els nobles i cobra diners. El país es pacifica.</span></button>
+    <button aria-expanded="false"><b>Jornalers sense terra</b><span>No tenien mas. La sentència gairebé no els canvia la vida.</span></button>
+    <button aria-expanded="false"><b>Dones remences</b><span>Desapareixen la cugucia i la ferma d'espoli. Però no hi ha cap dona a les Corts ni entre els qui signen.</span></button>
   </div>
-  <div class="out" id="out" aria-live="polite">Tria una peça de cada columna. Quina combinació s'aguanta millor?</div>
+  <div class="vote"><span><b>Votem:</b> va ser una victòria?</span><button data-v="0">Sí</button><button data-v="1">No</button><button data-v="2">A mitges</button><output id="vo2">Sí 0 · No 0 · A mitges 0</output></div>
+</section>
+
+<section class="sl" aria-label="Qui no té veu avui?">
+  <div class="k">Sessió 5 · Aplicació</div><h2>Qui no té veu avui?</h2>
+  <p class="lead">Escriviu greuges reals de l'escola o del barri. Marqueu els criteris que compleix cadascun. Trieu-ne un per grup.</p>
+  <div class="add"><input id="gi" type="text" maxlength="90" placeholder="Per exemple: no podem opinar sobre les normes del pati" aria-label="Greuge nou"><button id="ga">Afegeix</button></div>
+  <ul class="grow gl" id="gl"></ul>
+  <div class="ask">Un bon greuge afecta molta gent, és concret i algú el pot canviar. Qui és aquest algú?</div>
+</section>
+
+<section class="sl" aria-label="Memorial de greuges 2026">
+  <div class="k">Sessió 6 · Escrivim</div><h2>Memorial de greuges 2026</h2>
+  <p class="flag">Són exemples per veure com s'enganxen les peces. El vostre memorial parla del vostre greuge.</p>
+  <div class="grow build mem">
+    <div class="col" data-p="g"><h3>1 · Greuge</h3>
+      <button class="chip">No podem opinar sobre les normes del mòbil.</button>
+      <button class="chip">El pati no té ombra a l'estiu.</button></div>
+    <div class="col" data-p="pr"><h3 style="color:var(--ver)">2 · Prova</h3>
+      <button class="chip">Hem fet una enquesta al curs i us mostrem els resultats.</button>
+      <button class="chip">Hem fet fotos del pati a les 11 h al juny.</button></div>
+    <div class="col" data-p="pe"><h3 style="color:var(--lap)">3 · Petició</h3>
+      <button class="chip">Demanem dos alumnes a la comissió que fa les normes.</button>
+      <button class="chip">Demanem un tendal o arbres en una zona del pati.</button></div>
+    <div class="col" data-p="al"><h3 style="color:#2F6B3A">4 · Aliat</h3>
+      <button class="chip">Ens hi dona suport el consell de delegats.</button>
+      <button class="chip">Ens hi dona suport l'AFA.</button></div>
+  </div>
+  <div class="out" id="out" aria-live="polite">Tria una peça de cada columna. Com els remences: queixa, prova, demanda i qui t'ajuda.</div>
 </section>
 
 <section class="sl" aria-label="Metacognició">
-  <div class="k">9 · Com he après?</div><h2>Mirem enrere</h2>
+  <div class="k">Sessió 7 · Com he après?</div><h2>Mirem enrere</h2>
   <div class="grow meta">
-    <div><b>Abans pensava… ara penso…</b><span>Comenta-ho amb la persona del costat.</span></div>
-    <div><b>Quina font m'ha ajudat més?</b><span>La miniatura, l'homenatge o la sentència. Per què?</span></div>
-    <div><b>Quin pas de la guia m'ha costat?</b><span>Observo · dedueixo · connecto · explico · dubto</span></div>
+    <div><b>Abans pensava… ara penso…</b><span>Rellegeix el text inicial. Escriu el final. Què ha canviat?</span></div>
+    <div><b>Quina estratègia dels remences faries servir avui?</b><span>Organitzar-se, buscar aliats, pagar, revoltar-se o demanar un àrbitre. Per què?</span></div>
+    <div><b>Què he aportat al meu grup?</b><span>Pensa en una cosa que has fet bé i una que milloraries.</span></div>
   </div>
   <div class="sem"><span><i style="background:#BFE3C8"></i>Ho sé explicar</span><span><i style="background:#F6E3A1"></i>Amb ajuda</span><span><i style="background:#F3C2B8"></i>Encara no</span></div>
 </section>
@@ -258,28 +394,52 @@ S.forEach(function(s,k){var b=document.createElement("button");b.setAttribute("a
 function go(k){i=Math.max(0,Math.min(S.length-1,k));S.forEach(function(s,j){s.classList.toggle("on",j===i)});
   [].forEach.call(dots.children,function(d,j){d.setAttribute("aria-current",j===i)});history.replaceState(null,"","#"+(i+1))}
 document.getElementById("prev").onclick=function(){go(i-1)};document.getElementById("next").onclick=function(){go(i+1)};
-document.addEventListener("keydown",function(e){if(e.key==="ArrowRight"||e.key==="PageDown")go(i+1);if(e.key==="ArrowLeft"||e.key==="PageUp")go(i-1)});
+document.addEventListener("keydown",function(e){if(e.target.tagName==="INPUT")return;if(e.key==="ArrowRight"||e.key==="PageDown")go(i+1);if(e.key==="ArrowLeft"||e.key==="PageUp")go(i-1)});
 var x0=null;document.getElementById("deck").addEventListener("touchstart",function(e){x0=e.touches[0].clientX},{passive:true});
 document.getElementById("deck").addEventListener("touchend",function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>70)go(i+(d<0?1:-1));x0=null});
 /* punts: cada toc afegeix la nota */
 document.querySelectorAll(".sl").forEach(function(s){var n=s.querySelector(".notes[id]");if(!n)return;
   s.querySelectorAll(".hs").forEach(function(h){h.setAttribute("aria-pressed","false");h.onclick=function(){
     var e=n.querySelector(".empty");if(e)e.remove();if(h.getAttribute("aria-pressed")==="true")return;h.setAttribute("aria-pressed","true");
-    var t=h.dataset.t.split("|"),d=document.createElement("div");d.className="note";d.innerHTML="<b>"+h.textContent+" · "+t[0]+"</b>"+t[1];n.appendChild(d)}})});
-document.querySelectorAll(".pyr button,.ev").forEach(function(b){b.onclick=function(){b.setAttribute("aria-expanded",b.getAttribute("aria-expanded")!=="true")}});
+    var t=h.dataset.t.split("|"),d=document.createElement("div");d.className="note";d.innerHTML="<b>"+h.textContent+" · "+t[0]+"</b>"+t[1];n.insertBefore(d,n.querySelector(".ask"))}})});
+document.querySelectorAll(".ev,.role,.who button").forEach(function(b){b.onclick=function(){b.setAttribute("aria-expanded",b.getAttribute("aria-expanded")!=="true")}});
 document.querySelectorAll(".card").forEach(function(b){b.onclick=function(){b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true")}});
-/* sacs */
-var SACK='<svg viewBox="0 0 24 28" aria-hidden="true"><path d="M8.5 2.5h7l-2 4.2c4.2 1.8 7.5 6 7.5 11.3 0 5-4.2 8-9 8s-9-3-9-8c0-5.3 3.3-9.5 7.5-11.3z"/><path d="M9.5 6.7h5"/></svg>',col="delme",sk=document.getElementById("sacks");
-for(var k=0;k<10;k++){var b=document.createElement("button");b.innerHTML=SACK;b.setAttribute("aria-label","Sac "+(k+1));b.dataset.c="";b.onclick=function(){this.dataset.c=this.dataset.c===col?"":col;cnt()};sk.appendChild(b)}
-document.querySelectorAll("#key button").forEach(function(b){b.onclick=function(){col=b.dataset.c;document.querySelectorAll("#key button").forEach(function(o){o.setAttribute("aria-pressed",o===b)})}});
-function cnt(){var f=sk.querySelectorAll('[data-c=""]').length;document.getElementById("count").textContent="Queden "+f+(f===1?" sac":" sacs")+" per menjar tot l'any."+(f===4?" Què passa si l'any és dolent?":"")}
-/* vot */
-var V=[0,0,0];document.querySelectorAll(".vote button").forEach(function(b){b.onclick=function(){V[+b.dataset.v]++;document.getElementById("vo").textContent="Sí "+V[0]+" · No "+V[1]+" · Depèn "+V[2]}});
-/* explicació */
-var P={a:"",p:"",r:""},out=document.getElementById("out");
-document.querySelectorAll(".build .col").forEach(function(c){c.querySelectorAll(".chip").forEach(function(b){b.onclick=function(){
+function tog(id,f){var b=document.getElementById(id);b.onclick=function(){var on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",on);f(on,b)}}
+tog("dones",function(on){document.getElementById("cards").classList.toggle("hl",on)});
+tog("pa",function(on,b){document.getElementById("pa-a").hidden=on;document.getElementById("pa-o").hidden=!on;b.textContent=on?"Mostra l'adaptació":"Mostra el text original"});
+/* escala: cada toc mou la decisió a la columna següent */
+var cols=[].slice.call(document.querySelectorAll("#scale>div"));
+document.querySelectorAll(".dec").forEach(function(b){b.dataset.s="-1";b.onclick=function(){var s=(+b.dataset.s+1)%3;b.dataset.s=s;cols[s].appendChild(b)}});
+/* cronòmetres */
+document.querySelectorAll(".timer").forEach(function(b){var o=b.querySelector("output"),tot=+b.dataset.m*60,left=tot,id=null;
+  function show(){o.textContent=Math.floor(left/60)+":"+("0"+left%60).slice(-2)}
+  b.onclick=function(){if(id){clearInterval(id);id=null;b.classList.remove("run");return}
+    if(left<=0){left=tot;b.classList.remove("end");show();return}
+    b.classList.add("run");id=setInterval(function(){left--;show();if(left<=0){clearInterval(id);id=null;b.classList.remove("run");b.classList.add("end");o.textContent="Temps!"}},1000)}});
+/* vots */
+function vote(sel,out,lab){var V=[0,0,0];document.querySelectorAll(sel).forEach(function(b){b.onclick=function(){V[+b.dataset.v]++;document.getElementById(out).textContent=lab.map(function(l,k){return l+" "+V[k]}).join(" · ")}})}
+vote(".sl[aria-label='Mals usos'] .vote button","vo",["Sí","No","Depèn"]);
+vote(".sl[aria-label='Llibertat comprada?'] .vote button","vo2",["Sí","No","A mitges"]);
+/* Corts: cal el sí dels tres braços i del rei */
+var res=document.getElementById("res");
+function count(){var v=[].map.call(document.querySelectorAll("#seats .seat:not(.out)"),function(s){var p=s.querySelector("[aria-pressed=true]");return p?p.dataset.v:""});
+  if(v.indexOf("")>-1){res.className="res";res.textContent="Falten vots. Cal el sí dels tres braços i del rei.";return}
+  var ok=v.every(function(x){return x==="si"});res.className="res "+(ok?"ok":"ko");
+  res.textContent=ok?"Aprovada: les Corts la fan llei.":"Rebutjada: "+v.filter(function(x){return x==="no"}).length+" no. Els remences no hi han pogut votar."}
+document.querySelectorAll("#seats .seat:not(.out)").forEach(function(s){s.querySelectorAll("button").forEach(function(b){b.onclick=function(){s.querySelectorAll("button").forEach(function(o){o.setAttribute("aria-pressed",o===b)});count()}})});
+document.querySelectorAll("#props button").forEach(function(b){b.onclick=function(){document.querySelectorAll("#props button").forEach(function(o){o.setAttribute("aria-pressed",o===b)});
+  document.querySelectorAll("#seats button").forEach(function(o){o.setAttribute("aria-pressed","false")});res.className="res";res.textContent="Nova proposta. Cal el sí dels tres braços i del rei."}});
+/* greuges d'avui */
+var gl=document.getElementById("gl"),gi=document.getElementById("gi"),CR=["Afecta molta gent","És concret","Algú ho pot canviar"];
+function addG(t){t=t.trim();if(!t)return;var li=document.createElement("li"),b=document.createElement("b"),o=document.createElement("output");b.textContent=t;li.appendChild(b);
+  CR.forEach(function(c){var k=document.createElement("button");k.textContent=c;k.setAttribute("aria-pressed","false");k.onclick=function(){k.setAttribute("aria-pressed",k.getAttribute("aria-pressed")!=="true");o.textContent=li.querySelectorAll("[aria-pressed=true]").length+"/3"};li.appendChild(k)});
+  o.textContent="0/3";li.appendChild(o);gl.appendChild(li);gi.value=""}
+document.getElementById("ga").onclick=function(){addG(gi.value)};gi.addEventListener("keydown",function(e){if(e.key==="Enter")addG(gi.value)});
+/* memorial */
+var P={},out=document.getElementById("out"),ORD=["g","pr","pe","al"];
+document.querySelectorAll(".mem .col").forEach(function(c){c.querySelectorAll(".chip").forEach(function(b){b.onclick=function(){
   c.querySelectorAll(".chip").forEach(function(o){o.setAttribute("aria-pressed",o===b)});P[c.dataset.p]=b.textContent;
-  out.innerHTML=["a","p","r"].map(function(x){return P[x]?'<span class="'+x+'">'+P[x]+"</span>":""}).join(" ")||out.innerHTML}})});
+  out.innerHTML=ORD.map(function(x){return P[x]?'<span class="'+x+'">'+P[x]+"</span>":""}).join(" ")}})});
 var h=parseInt(location.hash.slice(1),10);go(h>0?h-1:0);
 })();
 </script>

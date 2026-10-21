@@ -1,0 +1,393 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>El destierro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,500;0,700;0,800;1,500&family=Alegreya+SC:wght@500;700&family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Presentación para la pantalla táctil: pergamino, tinta, carmín, azul de Castilla y oro */
+:root{--parch:#F4EBDD;--parch2:#E9DAC3;--ink:#261A16;--ink2:#6A5547;--ver:#9B2335;--lap:#284B73;--gold:#B4892F;--card:#FCF6EC;
+  --fd:"Alegreya",Georgia,serif;--fsc:"Alegreya SC",Georgia,serif;--ft:"Fira Sans Extra Condensed",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--parch);color:var(--ink);font:400 clamp(17px,1.5vw,24px)/1.4 var(--ft)}
+body{background:radial-gradient(120% 90% at 50% 0%,#F9F2E6 0%,var(--parch) 55%,var(--parch2) 100%);overflow:hidden}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+a{color:var(--lap)}
+.deck{position:fixed;inset:0 0 72px 0}
+.sl{position:absolute;inset:0;padding:clamp(18px,3vw,48px) clamp(16px,4vw,64px);display:none;flex-direction:column;gap:clamp(10px,1.6vw,22px);overflow:auto}
+.sl.on{display:flex;animation:in .45s cubic-bezier(.2,.7,.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.sl.on{animation:none}}
+.k{font:700 clamp(13px,1.05vw,17px)/1 var(--fsc);letter-spacing:.08em;color:var(--ver)}
+h1,h2{font:800 clamp(30px,3.6vw,60px)/1.02 var(--fd);letter-spacing:-.015em}
+h2{font-size:clamp(26px,2.8vw,46px)}
+h1::first-letter,h2::first-letter{color:var(--ver);font-size:1.18em}
+.lead{font-size:clamp(18px,1.6vw,26px);color:var(--ink2);max-width:52ch}
+.grow{flex:1;min-height:0;display:grid;gap:clamp(12px,2vw,28px)}
+.c2{grid-template-columns:1.1fr 1fr}
+.c2r{grid-template-columns:1fr 1.2fr}
+@media (max-width:820px){.c2,.c2r{grid-template-columns:1fr}}
+.frame{position:relative;border-radius:14px;overflow:hidden;border:3px solid var(--gold);box-shadow:0 0 0 4px var(--card),0 10px 30px rgba(60,35,10,.18);background:#fff;align-self:start;margin-inline:auto;width:100%}
+.frame img{width:100%;height:100%;object-fit:cover}
+.cap{font-size:13px;color:var(--ink2);margin-top:6px}
+.hs{position:absolute;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;border:3px solid #fff;background:var(--ver);color:#fff;font:700 20px/1 var(--ft);display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.hs[aria-pressed=true]{background:var(--lap)}
+.hs::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(255,255,255,.8);animation:pulse 2.4s infinite}
+.hs[aria-pressed=true]::after{display:none}
+@keyframes pulse{0%{transform:scale(.85);opacity:1}100%{transform:scale(1.35);opacity:0}}
+@media (prefers-reduced-motion:reduce){.hs::after{animation:none}}
+.notes{display:grid;gap:10px;align-content:start}
+.note{background:var(--card);border:1px solid #E4D3BC;border-left:6px solid var(--lap);border-radius:10px;padding:12px 16px}
+.note b{font:700 1.05em/1.2 var(--fd);display:block}
+.note.old{padding:7px 16px;opacity:.8;cursor:pointer}.note.old span{display:none}
+.note.empty{border-left-color:#DBC9AE;color:var(--ink2);font-style:italic}
+.ask{display:flex;gap:12px;align-items:flex-start;background:var(--ink);color:#F8EEDC;border-radius:12px;padding:14px 18px}
+.ask::before{content:"?";flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--ver);font:800 22px/1 var(--fd)}
+.warn{background:#FFF4E5;border:2px solid #D9A24A;border-radius:12px;padding:10px 16px;font-size:.92em}
+/* portada */
+.cover{position:absolute;inset:0;display:grid;align-items:end}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(38,26,22,0) 25%,rgba(38,26,22,.86) 100%);z-index:1}
+.cover .t{position:relative;z-index:2;padding:clamp(20px,4vw,64px);color:#FBF3E4;display:grid;gap:12px}
+.cover .t .k{color:#F2C9A0}
+.cover .t h1::first-letter{color:#F2A283}
+.cover .t .lead{color:#F1E5D1}
+/* fuente escrita */
+.src{background:#fff;border:3px double var(--gold);border-radius:12px;padding:16px 20px;font:500 1.12em/1.5 var(--fd)}
+.src cite{display:block;margin-top:8px;font:400 .72em/1.3 var(--ft);color:var(--ink2);font-style:normal}
+.src [hidden]{display:none}
+.src b{color:var(--ver)}
+.tog{align-self:start;min-height:48px;padding:0 18px;border-radius:999px;border:2px solid var(--ink);background:var(--card);cursor:pointer;font-weight:600}
+.tog[aria-pressed=true]{background:var(--ink);color:#fff}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+/* cronómetro */
+.timer{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 20px;border-radius:999px;border:2px solid var(--ink);background:var(--card);cursor:pointer;font:700 1.05em/1 var(--ft)}
+.timer output{font:800 1.3em/1 var(--fd);color:var(--ver);min-width:3.2em;text-align:right}
+.timer.run{background:var(--ink);color:#fff}.timer.run output{color:#F2A283}
+.vote{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.vote button{min-height:52px;padding:0 22px;border-radius:999px;border:2px solid var(--ink);background:var(--card);cursor:pointer;font-weight:700}
+.vote output{font:700 1.1em/1 var(--fd);color:var(--lap)}
+/* reto */
+.prod{grid-template-columns:repeat(2,1fr);align-content:start}
+@media (max-width:820px){.prod{grid-template-columns:1fr}}
+.prod div{background:var(--card);border:1px solid #E4D3BC;border-radius:12px;padding:16px;display:grid;gap:6px;align-content:start}
+.prod b{font:700 1.2em/1.15 var(--fd)}
+.prod small{font:700 .8em/1 var(--fsc);letter-spacing:.06em;color:var(--ver)}
+.big{font:800 clamp(24px,2.6vw,42px)/1.15 var(--fd);color:var(--lap);max-width:34ch}
+/* versos */
+.verses{display:grid;gap:4px;background:#fff;border:3px double var(--gold);border-radius:12px;padding:14px 18px;align-content:start}
+.verse{display:grid;grid-template-columns:2.2em 1fr 1fr;gap:10px;align-items:baseline;font:500 1.12em/1.35 var(--fd);padding:3px 6px;border-radius:8px}
+.verse i{font:400 .7em/1 var(--ft);color:var(--ink2);font-style:normal}
+.verse span{padding:2px 6px;border-radius:6px;transition:background .2s}
+.verse span:last-child{border-left:2px dashed #CDB79A;padding-left:12px}
+.verse .on{background:#FBE2C9}
+.verse u{text-decoration:none}
+.verses.vow u{background:var(--ver);color:#fff;border-radius:4px;padding:0 2px}
+/* constructor */
+.build{grid-template-columns:repeat(3,1fr);align-content:start}
+@media (max-width:820px){.build{grid-template-columns:1fr}}
+.col{display:grid;gap:8px;align-content:start}
+.col h3{font:700 1.05em/1.1 var(--fsc);letter-spacing:.04em;color:var(--ver)}
+.chip{border:2px solid var(--ink);border-radius:10px;background:var(--card);padding:10px 14px;text-align:left;cursor:pointer;min-height:48px}
+.chip[aria-pressed=true]{background:var(--ink);color:#fff}
+.out{border-radius:12px;border:3px double var(--gold);background:#fff;padding:16px 20px;font:500 1.25em/1.45 var(--fd);min-height:90px}
+.out .a{color:var(--ver)}.out .b{color:var(--lap)}.out .c{color:#2F6B3A}
+/* tarjetas desplegables */
+.who{grid-template-columns:repeat(3,1fr);align-content:start}
+@media (max-width:820px){.who{grid-template-columns:1fr}}
+.who button{border:2px solid #E4D3BC;border-radius:12px;background:var(--card);padding:0;cursor:pointer;text-align:left;display:grid;align-content:start;overflow:hidden}
+.who img{height:clamp(90px,14vh,170px);width:100%;object-fit:cover}
+.who button>div{padding:12px 14px;display:grid;gap:6px}
+.who small{font:700 .78em/1 var(--fsc);letter-spacing:.06em;color:var(--ver)}
+.who b{font:700 1.15em/1.1 var(--fd)}
+.who span{display:none;font-size:.9em;line-height:1.3}
+.who button[aria-expanded=true]{border-color:var(--ver);background:#fff}.who button[aria-expanded=true] span{display:block}
+.who.w2{grid-template-columns:repeat(2,1fr)}
+.who.w4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:820px){.who.w2,.who.w4{grid-template-columns:1fr 1fr}}
+/* metacognición */
+.meta{grid-template-columns:repeat(3,1fr);align-content:start}
+@media (max-width:820px){.meta{grid-template-columns:1fr}}
+.meta div{background:var(--card);border:1px solid #E4D3BC;border-radius:12px;padding:16px;display:grid;gap:8px;align-content:start}
+.meta b{font:700 1.15em/1.15 var(--fd)}
+.sem{display:flex;gap:16px;justify-content:center}
+.sem span{display:grid;justify-items:center;gap:6px;font-size:.9em}
+.sem i{width:56px;height:56px;border-radius:50%;border:2px solid var(--ink)}
+/* navegación */
+.nav{position:fixed;left:0;right:0;bottom:0;height:72px;display:flex;align-items:center;gap:12px;padding:0 16px;background:rgba(38,26,22,.95);color:#F6ECDA}
+.nav button,.nav a{min-height:52px;min-width:52px;padding:0 18px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:transparent;color:inherit;cursor:pointer;font-weight:600;text-decoration:none;display:inline-flex;align-items:center}
+.nav .dots{flex:1;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.nav .dots button{min-width:0;width:14px;height:14px;min-height:0;padding:0;border-radius:50%;background:rgba(255,255,255,.3);border:none}
+.nav .dots button[aria-current=true]{background:#F2A283}
+@media (max-width:600px){.nav .dots{display:none}.nav{justify-content:space-between}}
+.flag{font-size:.8em;color:var(--ink2);font-style:italic}
+</style>
+</head>
+<body>
+<main class="deck" id="deck">
+
+<section class="sl" style="padding:0" aria-label="Portada">
+  <div class="cover"><img src="img/cid/estatua.webp" alt="Estatua ecuestre del Cid en Burgos: el caballero con la espada levantada y la capa al viento" style="object-position:50% 30%">
+    <div class="t"><div class="k">Lengua castellana y literatura · 3.º ESO · Cantar de mio Cid</div><h1>El destierro</h1><p class="lead">Un hombre sale de su casa sin poder volver. Novecientos años después, sus versos todavía se recitan. Esta vez, el cantar lo escribes tú.</p></div></div>
+</section>
+
+<section class="sl" aria-label="Los juglares">
+  <div class="k">Sesión 1 · Observo y comparo</div><h2>Los influencers del siglo XII</h2>
+  <div class="grow c2">
+    <div><div class="frame" style="aspect-ratio:1100/1000;max-width:62vh"><img src="img/cid/juglares.webp" alt="Miniatura medieval: dos juglares con túnica tocan instrumentos de cuerda">
+      <button class="hs" style="left:42%;top:32%" data-t="Vihuela de arco|Se toca frotando las cuerdas con un arco, como un violín. Acompaña la voz y marca el ritmo del verso.">1</button>
+      <button class="hs" style="left:76%;top:38%" data-t="Cítola|Se puntea con los dedos o con una púa. Sirve para dar el tono antes de empezar a cantar.">2</button>
+      <button class="hs" style="left:50%;top:80%" data-t="La ropa|Túnicas de colores vivos: el juglar tenía que llamar la atención en la plaza, como un artista hoy.">3</button>
+    </div><p class="cap">Juglares en las <i>Cantigas de Santa María</i>, corte de Alfonso X (hacia 1280). Dominio público.</p></div>
+    <div class="notes" id="n-jug"><div class="note empty">Toca los números. Hace ochocientos años casi nadie sabía leer: las historias viajaban en la voz de los juglares, de plaza en plaza.</div>
+      <div class="ask">¿Quién cuenta hoy historias a mucha gente a la vez? ¿Qué trucos usa para que no te vayas a mitad?</div></div>
+  </div>
+</section>
+
+<section class="sl" aria-label="El manuscrito">
+  <div class="k">Sesión 1 · La fuente</div><h2>Lo que queda: un solo manuscrito</h2>
+  <div class="grow c2">
+    <div><div class="frame" style="aspect-ratio:913/1200;max-width:50vh"><img src="img/cid/f1r.webp" alt="Primera página conservada del manuscrito del Cantar de mio Cid, en letra gótica">
+      <button class="hs" style="left:8%;top:3%" data-t="El principio que falta|El manuscrito ha perdido su primera hoja. El poema empieza para nosotros con el Cid llorando al salir de Vivar.">1</button>
+      <button class="hs" style="left:8%;top:19%" data-t="«Sospiró mio Çid»|El héroe no grita ni se queja al rey: suspira. Fíjate en la grafía ç: así se escribía entonces.">2</button>
+      <button class="hs" style="left:8%;top:41.6%" data-t="La corneja|Al salir de Vivar ven una corneja a la derecha, y al entrar en Burgos, a la izquierda. Era señal de mal agüero.">3</button>
+      <button class="hs" style="left:8%;top:54%" data-t="«Mio Çid Roy Díaz por Burgos entrava»|Empieza la escena de Burgos: la ciudad entera mira, llora y no se atreve a abrirle la puerta.">4</button>
+      <button class="hs" style="left:8%;top:73%" data-t="«¡Dios, qué buen vassallo…!»|El verso más famoso: «¡Dios, qué buen vasallo, si tuviese buen señor!». Un buen hombre al servicio de un rey injusto.">5</button>
+    </div><p class="cap">Folio 1r del <i>Cantar de mio Cid</i>, copia del siglo XIV. Biblioteca Nacional de España. Dominio público.</p></div>
+    <div class="notes" id="n-ms"><div class="note empty">Unos 3.730 versos. Autor anónimo. Una copia del siglo XIV que guarda la Biblioteca Nacional de España. Toca los números.</div>
+      <div class="ask">Si el poema se recitaba de memoria, ¿por qué alguien decidió escribirlo? ¿Qué se pierde al pasar de la voz al pergamino?</div></div>
+  </div>
+</section>
+
+<section class="sl" aria-label="El final del manuscrito">
+  <div class="k">Sesión 1 · ¿Quién lo escribió?</div><h2>«Per Abbat le escrivió…»</h2>
+  <div class="grow c2">
+    <div><div class="frame" style="aspect-ratio:817/1200;max-width:46vh"><img src="img/cid/f74r.webp" alt="Último folio del manuscrito del Cantar de mio Cid, con el final del poema">
+      <button class="hs" style="left:6%;top:42%" data-t="«Oy los reyes d'España sos parientes son»|Final feliz: el desterrado acaba siendo familia de reyes.">1</button>
+      <button class="hs" style="left:6%;top:61%" data-t="«Estas son las nuevas de mio Çid el Campeador»|El juglar cierra la historia: «estas son las noticias del Cid». Se acaba el cantar.">2</button>
+      <button class="hs" style="left:6%;top:72%" data-t="«Per Abbat le escrivió»|Per Abbat lo escribió en mayo. ¿Lo inventó o lo copió? Hoy se piensa que fue el copista o quien lo puso por escrito, no el autor.">3</button>
+      <button class="hs" style="left:6%;top:75.7%" data-t="«en era de mill e .CC. xL.v. años»|Era de 1245. La era hispánica iba 38 años por delante: 1245 − 38 = 1207.">4</button>
+    </div><p class="cap">Folio 74r. Biblioteca Nacional de España. Dominio público.</p></div>
+    <div class="notes" id="n-exp"><div class="note empty">Toca los números de abajo arriba: es el final del poema.</div>
+      <div class="ask">Un autor anónimo, un copista con nombre y cientos de juglares que lo cambiaban al recitar. ¿De quién es el Cantar?</div></div>
+  </div>
+</section>
+
+<section class="sl" aria-label="Texto inicial">
+  <div class="k">Sesión 1 · Antes de empezar · solo</div><h2>Texto inicial</h2>
+  <p class="big">¿Qué se lleva una persona cuando tiene que dejarlo todo atrás? ¿Qué hace que la llamemos héroe?</p>
+  <p class="lead">A mano, en la ficha. No cuenta para nota: el último día lo vas a releer y responderás otra vez.</p>
+  <div class="row"><button class="timer" data-m="10">Cronómetro <output>10:00</output></button></div>
+</section>
+
+<section class="sl" aria-label="El reto">
+  <div class="k">Sesión 1 · El reto</div><h2>Nuestro reto</h2>
+  <p class="big">Escribir y recitar como juglares un cantar breve sobre una despedida real o cercana.</p>
+  <div class="grow prod">
+    <div><small>Sesiones 2–5 · leer</small><b>El taller del juglar</b><span>Leemos el Cantar y robamos sus trucos: epítetos, fórmulas, asonancia, hemistiquios y llamadas al público.</span></div>
+    <div><small>Sesión 3 · mapa</small><b>Mi camino</b><span>Seguimos la ruta del destierro y pensamos en los caminos de nuestras familias y nuestro barrio.</span></div>
+    <div><small>Sesiones 6–7 · escribir a mano</small><b>Mi cantar del destierro</b><span>Plan, borrador fechado en clase, revisión de un compañero con otro bolígrafo y copia final.</span></div>
+    <div><small>Sesión 8 · en compañía</small><b>La juglaría</b><span>Cada compañía de cuatro juglares recita sus cantares ante la clase. Tú decides qué contar y cuánto.</span></div>
+  </div>
+</section>
+
+<section class="sl" aria-label="Salida de Vivar">
+  <div class="k">Sesión 2 · Leo despacio</div><h2>Lo que deja atrás</h2>
+  <div class="grow c2r">
+    <div><div class="frame" style="aspect-ratio:864/1200;max-width:46vh"><img src="img/cid/vivar-monumento.webp" alt="Monumento en Vivar del Cid: una corneja de metal sobre una piedra con versos del Cantar"></div>
+      <p class="cap">Monumento al Cantar de mio Cid en Vivar: la corneja. Foto: Zarateman, CC0.</p></div>
+    <div style="display:grid;gap:12px;align-content:start">
+      <div class="src"><span id="v-o">De los sos ojos tan fuertemientre llorando,<br>tornava la cabeça e estávalos catando.<br>Vio puertas abiertas e uços sin cañados,<br>alcándaras vazías, sin pielles e sin mantos<br>e sin falcones e sin adtores mudados.</span><span id="v-m" hidden>Llorando a lágrima viva, volvía la cabeza y se quedaba mirándolos. Vio las puertas abiertas y los postigos sin candados, las perchas vacías, sin pieles y sin mantos, sin halcones y sin azores de caza.</span>
+        <cite>Cantar de mio Cid, vv. 1-5. Ortografía según la edición; puede variar.</cite></div>
+      <button class="tog" id="t-v" aria-pressed="false">Ver en castellano actual</button>
+      <div class="ask">El poeta no dice «estaba triste». ¿Qué nos enseña en lugar de eso? Si fuera una película, ¿qué plano sería?</div>
+    </div>
+  </div>
+</section>
+
+<section class="sl" aria-label="Burgos">
+  <div class="k">Sesión 2 · Burgos cierra las puertas</div><h2>Una niña de nueve años</h2>
+  <div class="grow c2">
+    <div style="display:grid;gap:12px;align-content:start">
+      <div class="src">exien lo veer mugieres e varones,<br>burgeses e burgesas por las finiestras son,<br>plorando de los ojos, tanto avién el dolore.<br>De las sus bocas todos dizían una razóne:<br><b>«¡Dios, qué buen vassallo, si oviesse buen señore!»</b><cite>Cantar de mio Cid, vv. 16-20.</cite></div>
+      <div class="ask">¿A quién critica este verso sin nombrarlo?</div>
+    </div>
+    <div style="display:grid;gap:12px;align-content:start">
+      <div class="note"><b>La carta del rey</b>Quien dé posada al Cid perderá sus bienes «y los ojos de la cara». Nadie abre. El Cid golpea la puerta con el pie.</div>
+      <div class="note"><b>Habla la niña</b>«¡Campeador, que en buena hora ceñiste espada! El rey lo ha prohibido. Con nuestro mal, vos no ganáis nada.»</div>
+      <div class="note"><b>El Cid se va</b>No la amenaza ni insiste. Acampa fuera, junto al río Arlanzón.</div>
+      <div class="vote"><span><b>Votamos:</b> ¿quién es más valiente en esta escena?</span><button data-v="0">La niña</button><button data-v="1">El Cid</button><button data-v="2">Los dos</button><output id="vo1">La niña 0 · El Cid 0 · Los dos 0</output></div>
+    </div>
+  </div>
+</section>
+
+<section class="sl" aria-label="Cardeña">
+  <div class="k">Sesión 3 · La despedida</div><h2>Como la uña de la carne</h2>
+  <div class="grow c2">
+    <div><div class="frame" style="aspect-ratio:1200/804"><img src="img/cid/cardena.webp" alt="Monasterio de San Pedro de Cardeña, con su torre y su fachada de piedra"></div>
+      <p class="cap">Monasterio de San Pedro de Cardeña (Burgos). Foto: B25es, CC BY-SA 4.0.</p></div>
+    <div style="display:grid;gap:12px;align-content:start">
+      <div class="src">llorando de los ojos, que non viestes atal,<br><b>así·s parten unos d’otros commo la uña de la carne.</b><cite>Cantar de mio Cid, vv. 374-375. El Cid se despide de doña Jimena y de sus hijas.</cite></div>
+      <div class="note"><b>Minaya Álvar Fáñez</b>«¿Dónde está vuestro esfuerzo? ¡En buena hora nacisteis! Las penas de hoy se volverán alegría.»</div>
+      <div class="ask">¿Por qué la comparación duele en el cuerpo? Inventad una comparación de hoy para una despedida: «se separaron como…».</div>
+    </div>
+  </div>
+</section>
+
+<section class="sl" aria-label="El camino del destierro">
+  <div class="k">Sesión 3 · Mapa</div><h2>El camino del destierro</h2>
+  <div class="grow c2">
+    <div><div class="frame" style="aspect-ratio:1200/1147;max-width:64vh"><img src="img/cid/mapa.webp" alt="Mapa de relieve del centro y el este de la península ibérica">
+      <button class="hs" style="left:27.9%;top:25.2%" data-t="Vivar, Burgos y Cardeña|Sale de Vivar, Burgos le cierra las puertas y se despide de su familia en el monasterio de San Pedro de Cardeña.">1</button>
+      <button class="hs" style="left:35.3%;top:40.4%" data-t="San Esteban de Gormaz|Cruza el Duero. Aquí empezaba la frontera.">2</button>
+      <button class="hs" style="left:40.1%;top:48%" data-t="Atienza|Final de la ruta a pie «El destierro» del Camino del Cid: 15 etapas, 286 km desde Vivar.">3</button>
+      <button class="hs" style="left:56%;top:45.4%" data-t="Alcocer|Cerca de Ateca, en el valle del Jalón. Primera gran batalla: el Cid ya no huye, gana.">4</button>
+      <button class="hs" style="left:76.8%;top:82.6%" data-t="Valencia|La gran conquista del Cantar II. Desde aquí el Cid manda regalos al rey para recuperar su gracia.">5</button>
+    </div><p class="cap">Mapa de relieve: NordNordWest, Wikimedia Commons, CC BY-SA 3.0 de (recorte).</p></div>
+    <div class="notes" id="n-map">
+      <div class="frame pre" style="aspect-ratio:1200/900"><img src="img/cid/vivar-mapa.webp" alt="Mapa en relieve de piedra del camino del destierro, en Vivar del Cid"></div>
+      <p class="cap pre">Mapa en relieve del camino del destierro en Vivar del Cid. Foto: Zarateman, CC0.</p>
+      <div class="note empty">Toca los números del mapa grande. Si caminas 20 km al día, ¿cuántos días tardas de Vivar a Atienza?</div>
+      <div class="ask">¿Qué caminos han hecho vuestras familias? No hace falta contarlo todo: un lugar de salida y uno de llegada.</div>
+      <p class="flag">Visor y rutas: <a href="https://www.caminodelcid.org/camino-cid/visor-cartografico" target="_blank" rel="noopener">caminodelcid.org</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="sl" aria-label="Epítetos">
+  <div class="k">Sesión 4 · Taller de estilo</div><h2>El epíteto: un nombre que es un elogio</h2>
+  <p class="lead">Toca una pieza de cada columna. Después, inventa el tuyo: que diga algo verdadero de ti.</p>
+  <div class="grow build" id="epi">
+    <div class="col" data-p="a"><h3>Quién</h3><button class="chip">Mio Çid,</button><button class="chip">Martín Antolínez,</button><button class="chip">Minaya Álvar Fáñez,</button><button class="chip">Yo, Laura,</button></div>
+    <div class="col" data-p="b"><h3 style="color:var(--lap)">Epíteto</h3><button class="chip">el que en buen ora nasco,</button><button class="chip">el burgalés complido,</button><button class="chip">el que en buen ora çinxo espada,</button><button class="chip">la que nunca llega tarde al entreno,</button></div>
+    <div class="col" data-p="c"><h3 style="color:#2F6B3A">Fórmula</h3><button class="chip">metió mano a la espada.</button><button class="chip">fabló bien e tan mesurado.</button><button class="chip">llorava de los ojos.</button><button class="chip">cogió la mochila y salió.</button></div>
+  </div>
+  <div class="out" id="out-epi" aria-live="polite">Elige una pieza de cada columna.</div>
+</section>
+
+<section class="sl" aria-label="Asonancia y hemistiquios">
+  <div class="k">Sesión 4 · Taller de estilo</div><h2>Cómo suena un cantar</h2>
+  <div class="row"><button class="tog" id="t-vow" aria-pressed="false">Marcar las vocales que riman</button><button class="tog" id="t-pal" aria-pressed="false">Recitar con palmas</button><span class="flag">Cada verso tiene dos mitades: hemistiquios. En medio, una pausa: la cesura.</span></div>
+  <div class="verses" id="verses">
+    <div class="verse"><i>1</i><span>De los sos ojos</span><span>tan fuertemientre llor<u>a</u>nd<u>o</u>,</span></div>
+    <div class="verse"><i>2</i><span>tornava la cabeça</span><span>e estávalos cat<u>a</u>nd<u>o</u>.</span></div>
+    <div class="verse"><i>3</i><span>Vio puertas abiertas</span><span>e uços sin cañ<u>a</u>d<u>o</u>s,</span></div>
+    <div class="verse"><i>4</i><span>alcándaras vazías,</span><span>sin pielles e sin m<u>a</u>nt<u>o</u>s</span></div>
+    <div class="verse"><i>5</i><span>e sin falcones</span><span>e sin adtores mud<u>a</u>d<u>o</u>s.</span></div>
+    <div class="verse"><i>7</i><span>Fabló mio Çid</span><span>bien e tan mesur<u>a</u>d<u>o</u>:</span></div>
+  </div>
+  <div class="ask">¿Qué vocales se repiten? ¿Por qué una rima así ayuda a recordar 3.730 versos? Buscad palabras vuestras en á-o: barrio, abrazo, verano…</div>
+</section>
+
+<section class="sl" aria-label="Apelación al público">
+  <div class="k">Sesión 4 · El juglar habla al público</div><h2>¡Veriedes!</h2>
+  <div class="grow c2">
+    <div class="src"><b>¡Veriedes</b> tantas lanças premer e alçar,<br><b>tanta</b> adágara foradar e passar,<br><b>tanta</b> loriga falsar e desmanchar,<br><b>tantos</b> pendones blancos salir vermejos en sangre,<br><b>tantos</b> buenos cavallos sin sos dueños andar!<cite>Cantar de mio Cid, vv. 726-730. veriedes = veríais · adágara = escudo · loriga = cota de malla.</cite></div>
+    <div style="display:grid;gap:12px;align-content:start">
+      <div class="note"><b>Babieca</b>El Cid lucha montado en su caballo. Rompe la lanza y saca la espada: «por el cobdo ayuso la sangre destellando» (v. 501).</div>
+      <div class="row"><button class="tog" id="t-ana" aria-pressed="false">Leer en voz alta en coro</button></div>
+      <div class="ask">«Veriedes» habla a quien escucha. ¿Qué consigue el juglar? ¿Qué palabra se repite al principio y qué efecto tiene?</div>
+    </div>
+  </div>
+</section>
+
+<section class="sl" aria-label="Los tres cantares">
+  <div class="k">Sesión 5 · El poema entero</div><h2>Tres cantares, una honra</h2>
+  <div class="grow who">
+    <button aria-expanded="false"><img src="img/cid/vivar-mapa.webp" alt="Mapa en relieve del camino del destierro" style="object-position:30% 75%"><div><small>Cantar I</small><b>El destierro</b><span>El rey Alfonso expulsa al Cid. Deja Vivar, Burgos y su familia. Gana sus primeras batallas lejos de Castilla.</span></div></button>
+    <button aria-expanded="false"><img src="img/cid/tizona.webp" alt="Espada Tizona en una vitrina"><div><small>Cantar II</small><b>Las bodas</b><span>Conquista Valencia y recupera el favor del rey, que casa a sus hijas con los infantes de Carrión. Al Cid no le gusta la idea.</span></div></button>
+    <button aria-expanded="false"><img src="img/cid/estatua.webp" alt="Estatua del Cid a caballo" style="object-position:50% 25%"><div><small>Cantar III</small><b>La afrenta de Corpes</b><span>Los infantes humillan a las hijas del Cid. El Cid no se venga por su cuenta: pide justicia en las Cortes del rey, y la consigue.</span></div></button>
+  </div>
+  <div class="ask">Al principio el Cid lo pierde todo. Al final sus hijas se casan con los príncipes de Navarra y de Aragón. ¿Qué tipo de héroe es: el que gana o el que espera y pide justicia?</div>
+</section>
+
+<section class="sl" aria-label="León y Corpes">
+  <div class="k">Sesión 5 · La afrenta</div><h2>Un león suelto y un bosque</h2>
+  <p class="warn">Aviso: el episodio de Corpes habla de violencia contra dos mujeres. Lo leemos para entender el poema y para poder hablar de ello.</p>
+  <div class="grow who w2">
+    <button aria-expanded="false"><div><small>Cantar III · vv. 2278 y siguientes</small><b>El león</b><span>En Valencia se escapa un león. Fernando se esconde bajo el banco del Cid; Diego, detrás de una viga de lagar. El Cid se despierta y devuelve al león a la jaula. La corte se ríe de los infantes, que juran venganza.</span></div></button>
+    <button aria-expanded="false"><div><small>Cantar III · robledal de Corpes</small><b>La venganza</b><span>«Los montes son altos, las ramas pujan con las núes.» Los infantes desnudan y golpean a doña Elvira y doña Sol con cinchas y espuelas y las abandonan. Las salva Félez Muñoz, sobrino del Cid.</span></div></button>
+  </div>
+  <div class="ask">En el Cantar, doña Elvira y doña Sol casi no hablan. Si pudieran hablar ante la corte, ¿qué dirían? ¿De quién es la honra: de ellas o de su padre?</div>
+</section>
+
+<section class="sl" aria-label="Mi cantar">
+  <div class="k">Sesiones 6–7 · Escribo a mano</div><h2>Mi cantar del destierro</h2>
+  <p class="lead">Toca una pieza de cada columna para ver cómo se monta un verso. Tu cantar habla de tu camino, con tus palabras.</p>
+  <div class="grow build" id="ver">
+    <div class="col" data-p="a"><h3>Llamada al público</h3><button class="chip">Oíd, los que aquí estáis:</button><button class="chip">¡Veríais</button><button class="chip">Sabed que</button></div>
+    <div class="col" data-p="b"><h3 style="color:var(--lap)">Héroe y epíteto</h3><button class="chip">mi abuela, la que cruzó el mar,</button><button class="chip">Ahmed, el que nunca se rinde,</button><button class="chip">yo, la que llegó en verano,</button></div>
+    <div class="col" data-p="c"><h3 style="color:#2F6B3A">Lo que deja (á-o)</h3><button class="chip">dejó su casa y su barrio.</button><button class="chip">salió llorando del campo.</button><button class="chip">con la maleta en la mano.</button></div>
+  </div>
+  <div class="out" id="out-ver" aria-live="polite">Elige una pieza de cada columna.</div>
+  <p class="flag">Puedes contar tu historia o la de alguien cercano, con su permiso. Borrador fechado en clase, revisión con otro bolígrafo y copia final.</p>
+</section>
+
+<section class="sl" aria-label="La juglaría">
+  <div class="k">Sesión 8 · La juglaría</div><h2>Compañías de juglares</h2>
+  <div class="grow who w4">
+    <button aria-expanded="false"><div><small>Rol 1</small><b>Cronista</b><span>Presenta la compañía y cada cantar: de dónde sale y adónde va el camino.</span></div></button>
+    <button aria-expanded="false"><div><small>Rol 2</small><b>Voz</b><span>Recita su cantar. Cada miembro de la compañía es voz de su propio cantar.</span></div></button>
+    <button aria-expanded="false"><div><small>Rol 3</small><b>Ritmo</b><span>Marca con palmas o con la mesa las dos mitades de cada verso.</span></div></button>
+    <button aria-expanded="false"><div><small>Rol 4</small><b>Coro</b><span>Repite una fórmula común de la compañía al final de cada tirada, como «¡en buena hora!».</span></div></button>
+  </div>
+  <div class="row"><button class="timer" data-m="3">Cantar <output>3:00</output></button><button class="timer" data-m="5">Ensayo <output>5:00</output></button></div>
+  <div class="vote"><span><b>Aplauso del público:</b> ¿qué recurso ha funcionado mejor?</span><button data-v="0">Epíteto</button><button data-v="1">Llamada al público</button><button data-v="2">Comparación</button><output id="vo2">Epíteto 0 · Llamada al público 0 · Comparación 0</output></div>
+</section>
+
+<section class="sl" aria-label="Metacognición">
+  <div class="k">Sesión 8 · ¿Cómo he aprendido?</div><h2>Miramos atrás</h2>
+  <div class="grow meta">
+    <div><b>Antes pensaba… ahora pienso…</b><span>Relee tu texto inicial. Escribe el final. ¿Qué ha cambiado en tu idea de héroe?</span></div>
+    <div><b>¿Qué truco de juglar me llevo?</b><span>Epíteto, asonancia, cesura, llamada al público o comparación. ¿Dónde lo usarías fuera de clase?</span></div>
+    <div><b>¿Qué cambio de mi borrador ha mejorado más el cantar?</b><span>Piensa en la revisión de tu compañero o compañera.</span></div>
+  </div>
+  <div class="sem"><span><i style="background:#BFE3C8"></i>Lo sé hacer solo/a</span><span><i style="background:#F6E3A1"></i>Con ayuda</span><span><i style="background:#F3C2B8"></i>Todavía no</span></div>
+</section>
+
+</main>
+<nav class="nav" aria-label="Diapositivas"><a href="lcl-cid.html">← Propuesta</a><button id="prev" aria-label="Anterior">‹</button><div class="dots" id="dots"></div><button id="next" aria-label="Siguiente">›</button></nav>
+<script>
+(function(){
+"use strict";
+var S=[].slice.call(document.querySelectorAll(".sl")),i=0,dots=document.getElementById("dots");
+S.forEach(function(s,k){var b=document.createElement("button");b.setAttribute("aria-label","Diapositiva "+(k+1));b.onclick=function(){go(k)};dots.appendChild(b)});
+function go(k){i=Math.max(0,Math.min(S.length-1,k));S.forEach(function(s,j){s.classList.toggle("on",j===i)});
+  [].forEach.call(dots.children,function(d,j){d.setAttribute("aria-current",j===i)});history.replaceState(null,"","#"+(i+1))}
+document.getElementById("prev").onclick=function(){go(i-1)};document.getElementById("next").onclick=function(){go(i+1)};
+document.addEventListener("keydown",function(e){if(e.key==="ArrowRight"||e.key==="PageDown")go(i+1);if(e.key==="ArrowLeft"||e.key==="PageUp")go(i-1)});
+var x0=null;document.getElementById("deck").addEventListener("touchstart",function(e){x0=e.touches[0].clientX},{passive:true});
+document.getElementById("deck").addEventListener("touchend",function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>70)go(i+(d<0?1:-1));x0=null});
+/* puntos: cada toque añade la nota */
+document.querySelectorAll(".sl").forEach(function(s){var n=s.querySelector(".notes[id]");if(!n)return;
+  s.querySelectorAll(".hs").forEach(function(h){h.setAttribute("aria-pressed","false");h.onclick=function(){
+    var e=n.querySelector(".note.empty");if(e)e.remove();n.querySelectorAll(".pre").forEach(function(x){x.remove()});if(h.getAttribute("aria-pressed")==="true")return;h.setAttribute("aria-pressed","true");
+    var t=h.dataset.t.split("|"),d=document.createElement("div");n.querySelectorAll(".note").forEach(function(o){o.classList.add("old")});d.className="note";d.innerHTML="<b>"+h.textContent+" · "+t[0]+"</b><span>"+t[1]+"</span>";d.onclick=function(){n.querySelectorAll(".note").forEach(function(o){o.classList.toggle("old",o!==d)})};n.insertBefore(d,n.querySelector(".ask"))}})});
+document.querySelectorAll(".who button").forEach(function(b){b.onclick=function(){b.setAttribute("aria-expanded",b.getAttribute("aria-expanded")!=="true")}});
+function tog(id,f){var b=document.getElementById(id);b.onclick=function(){var on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",on);f(on,b)}}
+tog("t-v",function(on,b){document.getElementById("v-o").hidden=on;document.getElementById("v-m").hidden=!on;b.textContent=on?"Ver el original":"Ver en castellano actual"});
+tog("t-vow",function(on){document.getElementById("verses").classList.toggle("vow",on)});
+/* palmas: se ilumina cada hemistiquio al ritmo */
+var halves=[].slice.call(document.querySelectorAll("#verses .verse span")),pid=null,pk=0;
+tog("t-pal",function(on){halves.forEach(function(h){h.classList.remove("on")});if(pid){clearInterval(pid);pid=null}
+  if(on){pk=0;var step=function(){halves.forEach(function(h){h.classList.remove("on")});if(pk>=halves.length)pk=0;halves[pk++].classList.add("on")};step();pid=setInterval(step,1500)}});
+tog("t-ana",function(on){document.querySelectorAll(".sl[aria-label='Apelación al público'] .src b").forEach(function(b){b.style.background=on?"#FBE2C9":"";b.style.fontSize=on?"1.15em":""})});
+/* cronómetros */
+document.querySelectorAll(".timer").forEach(function(b){var o=b.querySelector("output"),tot=+b.dataset.m*60,left=tot,id=null;
+  function show(){o.textContent=Math.floor(left/60)+":"+("0"+left%60).slice(-2)}
+  b.onclick=function(){if(id){clearInterval(id);id=null;b.classList.remove("run");return}
+    if(left<=0){left=tot;show();return}
+    b.classList.add("run");id=setInterval(function(){left--;show();if(left<=0){clearInterval(id);id=null;b.classList.remove("run");o.textContent="¡Tiempo!"}},1000)}});
+/* votos */
+function vote(sel,out,lab){var V=[0,0,0];document.querySelectorAll(sel).forEach(function(b){b.onclick=function(){V[+b.dataset.v]++;document.getElementById(out).textContent=lab.map(function(l,k){return l+" "+V[k]}).join(" · ")}})}
+vote(".sl[aria-label='Burgos'] .vote button","vo1",["La niña","El Cid","Los dos"]);
+vote(".sl[aria-label='La juglaría'] .vote button","vo2",["Epíteto","Llamada al público","Comparación"]);
+/* constructores */
+function builder(id,out){var P={},o=document.getElementById(out);
+  document.querySelectorAll("#"+id+" .col").forEach(function(c){c.querySelectorAll(".chip").forEach(function(b){b.setAttribute("aria-pressed","false");b.onclick=function(){
+    c.querySelectorAll(".chip").forEach(function(x){x.setAttribute("aria-pressed",x===b)});P[c.dataset.p]=b.textContent;
+    o.innerHTML=["a","b","c"].map(function(x){return P[x]?'<span class="'+x+'">'+P[x]+"</span>":""}).join(" ")}})})}
+builder("epi","out-epi");builder("ver","out-ver");
+var h=parseInt(location.hash.slice(1),10);go(h>0?h-1:0);
+})();
+</script>
+</body></html>

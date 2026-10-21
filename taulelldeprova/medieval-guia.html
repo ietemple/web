@@ -1,108 +1,62 @@
 <!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Guia de raonament històric</title>
+<title>Qui té veu? · rols i normes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700&family=Alegreya+SC:wght@500;700&family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="gih-fitxa.css">
 <style>
-.fx-v{display:block}
-.steps{display:grid;gap:2.2mm}
-.step{display:grid;grid-template-columns:30mm 1fr 1fr;gap:3mm;align-items:stretch;border:1.5px solid var(--line);border-radius:3mm;overflow:hidden}
-.step .h{display:grid;align-content:center;gap:.6mm;padding:2mm 2.6mm;color:#fff;background:var(--k)}
-.step .h b{font:700 13pt/1.05 var(--font-display)}
-.step .h small{font-size:8.6pt;opacity:.92;line-height:1.15}
-.step:nth-child(2) .h{background:#9A5A1E}.step:nth-child(3) .h{background:var(--r)}.step:nth-child(4) .h{background:#5B3A1E}.step:nth-child(5) .h{background:#3B4F7A}
-.step .qq{padding:2mm 0;font-size:10pt;line-height:1.3;display:grid;gap:.6mm;align-content:center}
-.step .qq i{font-style:normal;color:var(--ts)}
-.step .ej{padding:2mm 2.6mm 2mm 0;font-size:9.6pt;line-height:1.3;color:var(--t);align-self:center}
-.step .ej::before{content:"Exemple · ";font:700 8pt/1 var(--font-sc);color:var(--k);letter-spacing:.04em}
-.mini{display:grid;grid-template-columns:42mm 1fr;gap:4mm;align-items:start}
-.cx{display:grid;grid-template-columns:repeat(3,1fr);gap:2mm;font-size:9.8pt}
-.cx div{border:1px solid var(--line);border-radius:2mm;padding:1.6mm 2.2mm}
-.cx b{display:block;font:700 9pt/1.2 var(--font-sc);color:var(--k);margin-bottom:.6mm}
-.model{padding:2.6mm 3.5mm;border-radius:2.5mm;background:#FBF6EE;border:1px solid #E9DDCD;font-size:10.5pt;line-height:1.45}
-.model mark{background:none;padding:0 .4mm;border-bottom:2px solid}
-.model .a{border-color:var(--k)}.model .p{border-color:var(--r)}.model .r{border-color:#5B3A1E}
-.legend{display:flex;gap:4mm;font-size:9pt;color:var(--ts)}
-.legend span::before{content:"";display:inline-block;width:6mm;height:0;border-bottom:2px solid;margin-right:1.4mm;vertical-align:middle}
-.legend .a::before{border-color:var(--k)}.legend .p::before{border-color:var(--r)}.legend .r::before{border-color:#5B3A1E}
+.cut{font:600 9pt/1 var(--font-text);color:var(--ts);margin:0 0 2mm}
+.cutline{border-top:1.5px dashed var(--tt);margin:4mm -14mm}
+.rc{border:1.5px solid var(--line);border-radius:3mm;overflow:hidden;height:124mm;display:grid;grid-template-rows:auto 1fr}
+.rc-hd{display:grid;grid-template-columns:34mm 1fr;gap:4mm;background:#FBF7F0;border-bottom:1px solid var(--line)}
+.rc-hd img{width:34mm;height:30mm;object-fit:cover;display:block}
+.rc-hd>div{padding:2.5mm 4mm 2mm 0}
+.rc-hd h2{font:700 17pt/1.05 var(--font-display);color:var(--k);margin:.6mm 0 1mm}
+.rc-hd p{font-size:9.8pt;line-height:1.25;margin:0}
+.seat{display:inline-block;font:700 8pt/1 var(--font-sc);letter-spacing:.06em;padding:1mm 2mm;border-radius:99px;background:#2F6B3A;color:#fff}
+.rc.out .seat{background:var(--r)}
+.rc-b{display:grid;grid-template-columns:1fr 1fr;gap:5mm;padding:3mm 4mm;font-size:10.2pt;line-height:1.3}
+.rc-b h3{font:700 8.6pt/1 var(--font-sc);letter-spacing:.05em;color:var(--r);margin:1.6mm 0 .8mm}
+.rc-b h3:first-child{margin-top:0}
+.rc-b p{margin:0}
+.rc-b ol{margin:0;padding-left:4.5mm;display:grid;gap:1mm}
+.sec{margin-top:3mm;border:1.5px dashed var(--r);border-radius:2mm;padding:2mm 2.6mm;background:#FFF9F6}
+.nr{margin:0;padding-left:5mm;display:grid;gap:1.6mm;font-size:10.4pt;line-height:1.3}
+.tbl.od td,.tbl.act td{font-size:10pt}
+.tbl.act td{height:9mm;text-align:center}.tbl.act td:first-child{text-align:left}
 </style>
 </head>
 <body>
 <nav class="fx-bar" aria-label="Navegació">
   <a class="back" href="gih-medieval.html">← Proposta</a>
-  <a href="medieval-fitxa.html">Full de treball</a>
+  <a href="medieval-fitxa.html#B">Full de l'alumne</a>
   <button class="print" onclick="window.print()">Imprimeix</button>
 </nav>
-
-<section class="fx-v on">
-<div class="pg">
-  <header class="hd"><div class="kick">Geografia i Història · 2n ESO · Eina per a totes les sessions</div><span class="lv" style="font-size:9pt">Guia</span><h1>Pensa com un historiador</h1></header>
-  <div class="who"><span>Nom:</span><span>Grup:</span><span>Data:</span></div>
-  <div class="obj"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></svg><div><b>Objectiu d'aprenentatge</b>Faré servir cinc passos per passar del que veig en una font a una explicació que demostra el que dic.<br><span style="color:var(--ts)">Ho sabré fer si cada idea de la meva explicació surt d'una font i dic per què la font ho demostra.</span></div></div>
-
-  <div class="ex"><h2><b>1</b>Els cinc passos <small>Cada pas té preguntes per començar i un exemple amb la miniatura d'octubre</small></h2>
-    <div class="steps">
-      <div class="step"><div class="h"><b>Observo</b><small>Què hi ha? Només el que es veu</small></div>
-        <div class="qq"><span>Hi veig…</span><span>A dalt / a baix / al fons hi ha…</span><i>No expliquis encara. Descriu.</i></div>
-        <div class="ej">Hi veig un castell blanc molt gran, una muralla i pagesos treballant un camp.</div></div>
-      <div class="step"><div class="h"><b>Dedueixo</b><small>Què vol dir el que veig?</small></div>
-        <div class="qq"><span>Això em fa pensar que…</span><span>Probablement… perquè…</span><i>Cada deducció ha de tenir un perquè.</i></div>
-        <div class="ej">El castell és el lloc més alt i més fort: qui hi viu té poder i protegeix el territori.</div></div>
-      <div class="step"><div class="h"><b>Connecto</b><small>Amb què ho relaciono?</small></div>
-        <div class="qq"><span>Això s'assembla a…</span><span>A la font … també…</span><span>Avui encara / ja no…</span></div>
-        <div class="ej">Com a la font 2, qui té el castell rep la fidelitat i el treball d'altres.</div></div>
-      <div class="step"><div class="h"><b>Explico</b><small>Afirmació + prova + raonament</small></div>
-        <div class="qq"><span>Penso que… perquè a la font … es veu que… Això demostra que…</span></div>
-        <div class="ej">Els pagesos obeïen perquè la terra era del senyor: a la font 1 treballen als peus del seu castell.</div></div>
-      <div class="step"><div class="h"><b>Dubto</b><small>Fins on em puc fiar de la font?</small></div>
-        <div class="qq"><span>Qui la va fer? Per a qui?</span><span>Què no hi surt?</span><span>Què hi diria un pagès?</span></div>
-        <div class="ej">Ho va pintar un artista per a un duc: els pagesos semblen tranquils, però no sabem què en pensaven.</div></div>
-    </div>
-  </div>
-
-  <div class="ex"><h2><b>2</b>Prova-ho tu amb una font nova</h2>
-    <div class="mini">
-      <div><div class="mk"><img src="img/med/cardona.webp" alt="Castell de Cardona dalt d'un turó amb la vila al peu" style="height:30mm"></div><p class="cap">Castell de Cardona (Bages), segles X–XIV.</p></div>
-      <div class="lns tight"><div class="ln pre">Observo:</div><div class="ln pre">Dedueixo:</div><div class="ln pre">Connecto:</div><div class="ln pre">Dubto:</div></div>
-    </div>
-  </div>
-  <div class="pg-foot"><span>Guia de raonament · Qui manava al castell?</span><span>1 / 2</span></div>
-</div>
-
-<div class="pg">
-  <div class="ex"><h2><b>3</b>Connectors per lligar les idees</h2>
-    <div class="cx">
-      <div><b>Causa</b>perquè · ja que · a causa de · com que</div>
-      <div><b>Conseqüència</b>per tant · per això · així doncs · de manera que</div>
-      <div><b>Prova</b>a la font … es veu que · segons · això demostra que</div>
-      <div><b>Contrast</b>en canvi · però · tot i que · no obstant això</div>
-      <div><b>Temps</b>abans · després · al mateix temps · segles més tard</div>
-      <div><b>Límit</b>la font no diu · cal tenir en compte que · potser</div>
-    </div>
-  </div>
-
-  <div class="ex"><h2><b>4</b>Una explicació model</h2>
-    <div class="legend"><span class="a">Afirmació</span><span class="p">Prova</span><span class="r">Raonament</span></div>
-    <div class="model"><mark class="a">Els pagesos obeïen el senyor feudal perquè la terra que treballaven era seva i, a canvi, ell els protegia.</mark> <mark class="p">A la font 1 es veu que els pagesos llauren i sembren just als peus del castell, envoltat de muralles,</mark> <mark class="r">i això demostra que vivien sota el poder i la protecció del senyor. Per tant, obeir era la manera de poder treballar la terra i viure-hi segurs.</mark> Tot i això, la font la va encarregar un duc, i potser mostra els pagesos més contents del que estaven.</div>
-  </div>
-
-  <div class="ex"><h2><b>5</b>Revisa la teva explicació</h2>
-    <table class="rub">
-      <tr><th></th><th>Ho estic aprenent</th><th>Ho faig</th><th>Ho faig molt bé</th></tr>
-      <tr><td>Afirmació</td><td>Dic una idea, però no respon la pregunta.</td><td>Responc la pregunta amb una idea clara.</td><td>Responc la pregunta i en matiso el límit.</td></tr>
-      <tr><td>Prova</td><td>No faig servir cap font.</td><td>Cito una font i què s'hi veu.</td><td>Cito dues fonts diferents i les comparo.</td></tr>
-      <tr><td>Raonament</td><td>No dic per què la prova demostra la idea.</td><td>Dic per què la prova demostra la idea.</td><td>Ho relaciono amb una causa o una conseqüència.</td></tr>
-      <tr><td>Vocabulari</td><td>Faig servir poques paraules de la història.</td><td>Faig servir senyor, vassall, feu, pagès.</td><td>Faig servir també homenatge, remença, mals usos.</td></tr>
-      <tr><td>Dubte</td><td>No penso en qui va fer la font.</td><td>Dic qui va fer la font.</td><td>Dic com això pot canviar el que mostra.</td></tr>
-    </table>
-    <p class="note">Marca amb una creu on et trobes ara. Pinta de color on vols arribar a la propera explicació.</p>
-  </div>
-
-  <div class="meta"><h2><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>Metacognició · Com penso?</h2>
-    <div class="sem"><b style="font-weight:600">Faig servir els cinc passos:</b><span><i class="g"></i>Sol/a</span><span><i class="y"></i>Amb la guia</span><span><i class="rr"></i>Encara no</span></div>
-    <div class="q"><span>El pas que em surt més fàcil:</span><div class="ln"></div><span>El pas que em costa més i per què:</span><div class="ln"></div><span>La propera vegada, abans d'escriure faré…</span><div class="ln"></div></div>
-  </div>
-  <div class="pg-foot"><span>Imatge: Alvesgaspar, CC BY-SA 4.0, Wikimedia Commons.</span><span>2 / 2</span></div>
-</div>
-</section>
+<section class="fx-v on"><div class="pg"><p class="cut">✂ Retalla per la línia. Cada grup rep només el seu dossier.</p><article class="rc"><div class="rc-hd"><img src="img/med/poblet.webp" alt="" style="object-position:50% 50%"><div><span class="seat">Té vot</span><h2>Braç eclesiàstic</h2><p>Bisbes i abats. Monestirs com Poblet són senyors de molts masos de remença.</p></div></div><div class="rc-b"><div><h3>Què voleu</h3><p>Cobrar les rendes dels masos i mantenir l'ordre de sempre. Però sou l'Església: heu de parlar de justícia i caritat.</p><h3>Tres arguments</h3><ol><li>Els mals usos són costums antics: canviar-los és trencar la llei.</li><li>Les rendes paguen hospitals, almoines i pregàries per a tothom.</li><li>Una revolta és un pecat contra l'ordre que Déu ha volgut.</li></ol></div><div><h3>La vostra demanda</h3><p>Que no s'aboleixi res sense una compensació per als monestirs.</p><h3>Què acceptaríeu</h3><p>La proposta B, si la redempció és prou alta.</p><div class="sec"><h3>Carta secreta</h3><p>Molts masos dels vostres monestirs estan buits des de la Pesta. Un mas buit no paga res. Si els pagesos queden lliures però es queden, potser hi guanyeu.</p></div></div></div></article><div class="cutline"></div><article class="rc"><div class="rc-hd"><img src="img/med/cardona2.webp" alt="" style="object-position:50% 45%"><div><span class="seat">Té vot</span><h2>Braç militar</h2><p>Nobles i cavallers, com els Cardona. Viviu de les rendes dels vostres pagesos.</p></div></div><div class="rc-b"><div><h3>Què voleu</h3><p>Mantenir els mals usos. Després de la Pesta queden pocs pagesos i no voleu que marxin dels masos.</p><h3>Tres arguments</h3><ol><li>La terra és nostra: qui hi viu ens ho deu, des de fa segles.</li><li>Si els pagesos poden marxar, els masos quedaran buits i ens arruïnarem.</li><li>Si cedim avui, demà demanaran no pagar res.</li></ol></div><div><h3>La vostra demanda</h3><p>Proposta C: mantenir els mals usos tal com són.</p><h3>Què acceptaríeu</h3><p>Només una redempció molt alta, pagada abans de ser lliures.</p><div class="sec"><h3>Carta secreta</h3><p>Teniu por d'una guerra: els pagesos són molts i coneixen les muntanyes. I el rei està més a prop dels remences que de vosaltres.</p></div></div></div></article><div class="pg-foot"><span>Qui té veu? · Rols i normes de les Corts</span><span>1 / 4</span></div></div><div class="pg"><p class="cut">✂ Retalla per la línia. Cada grup rep només el seu dossier.</p><article class="rc"><div class="rc-hd"><img src="img/med/montblanc.webp" alt="" style="object-position:50% 50%"><div><span class="seat">Té vot</span><h2>Braç reial</h2><p>Les ciutats del rei: Barcelona, Girona, Montblanc… Hi ha rics propietaris i també mercaders i artesans.</p></div></div><div class="rc-b"><div><h3>Què voleu</h3><p>Pau i comerç. Una guerra al camp atura els mercats i puja el preu del blat.</p><h3>Tres arguments</h3><ol><li>Sense pau al camp, a la ciutat no arriba menjar.</li><li>Les ciutats som lliures: sabem que la llibertat fa créixer la riquesa.</li><li>Una solució pactada és millor que una guerra que no guanya ningú.</li></ol></div><div><h3>La vostra demanda</h3><p>Un acord que acabi el conflicte.</p><h3>Què acceptaríeu</h3><p>La proposta B, o qualsevol acord que porti pau.</p><div class="sec"><h3>Carta secreta</h3><p>Esteu dividits. Alguns ciutadans rics de Barcelona (la Biga) també tenen masos amb remences i volen la C. Els mercaders i artesans (la Busca) prefereixen la B. Decidiu en grup què vota el braç.</p></div></div></div></article><div class="cutline"></div><article class="rc"><div class="rc-hd"><img src="img/med/corts.webp" alt="" style="object-position:52% 18%"><div><span class="seat">Sanciona</span><h2>El rei</h2><p>Presideix les Corts. Cap llei és vàlida sense la vostra sanció, però els impostos us els voten els braços.</p></div></div><div class="rc-b"><div><h3>Què voleu</h3><p>Diners per a la Corona i menys poder per als nobles, sense perdre el suport de les Corts.</p><h3>Tres arguments</h3><ol><li>El rei ha de fer justícia a tots els seus súbdits, també als pagesos.</li><li>Els nobles abusen: si els pagesos són meus, no seran seus.</li><li>Necessito pau per governar.</li></ol></div><div><h3>La vostra demanda</h3><p>Que les Corts aprovin un acord que porti diners i pau.</p><h3>Què acceptaríeu</h3><p>Qualsevol proposta que no comenci una guerra.</p><div class="sec"><h3>Carta secreta</h3><p>Els remences moderats us han ofert una gran quantitat de diners si els feu lliures. Però si aneu contra els braços, no us votaran impostos. Podeu cedir el torn de paraula a qui vulgueu.</p></div></div></div></article><div class="pg-foot"><span>Qui té veu? · Rols i normes de les Corts</span><span>2 / 4</span></div></div><div class="pg"><p class="cut">✂ Retalla per la línia. Cada grup rep només el seu dossier.</p><article class="rc out"><div class="rc-hd"><img src="img/med/placa-amer.webp" alt="" style="object-position:50% 35%"><div><span class="seat">Sense seient</span><h2>Remences moderats</h2><p>El sindicat remença. Sou molts pagesos organitzats, mas a mas, amb síndics que recullen diners.</p></div></div><div class="rc-b"><div><h3>Què voleu</h3><p>Ser lliures pel camí de la llei, amb el suport del rei. Esteu disposats a pagar.</p><h3>Tres arguments</h3><ol><li>Des de la Pesta treballem més terra per menys: els mals usos són injustos.</li><li>Som cristians i súbdits del rei, no esclaus.</li><li>Paguem rendes i continuarem pagant-les: només demanem no pagar per casar-nos o per marxar.</li></ol></div><div><h3>La vostra demanda</h3><p>Proposta B: abolir els mals usos pagant una redempció per mas.</p><h3>Què acceptaríeu</h3><p>Pagar per mas, a terminis, i continuar pagant les rendes.</p><div class="sec"><h3>Carta secreta</h3><p>No podeu votar ni parlar si ningú us cedeix el torn. Teniu una cosa que el rei vol: diners. Busqueu-lo a la pausa de negociació.</p></div></div></div></article><div class="cutline"></div><article class="rc out"><div class="rc-hd"><img src="img/med/verntallat.webp" alt="" style="object-position:50% 25%"><div><span class="seat">Sense seient</span><h2>Remences radicals</h2><p>Pagesos com Francesc de Verntallat o Pere Joan Sala. Molts ja han deixat de pagar.</p></div></div><div class="rc-b"><div><h3>Què voleu</h3><p>Ser lliures sense pagar res. Creieu que la llibertat ja és vostra.</p><h3>Tres arguments</h3><ol><li>Ningú no ha de pagar per ser lliure.</li><li>Els senyors ja han cobrat prou durant segles.</li><li>Si no ens escolten, ens farem escoltar: som molts i tenim armes.</li></ol></div><div><h3>La vostra demanda</h3><p>Proposta A: abolir els mals usos sense pagar res.</p><h3>Què acceptaríeu</h3><p>Gairebé res. Desconfieu de qualsevol pacte amb els senyors.</p><div class="sec"><h3>Carta secreta</h3><p>La vostra amenaça fa por. Aquesta por pot empènyer els braços a acceptar la B dels moderats. Però a la història, Sala va ser executat el 1485. Decidiu: pressionar o pactar?</p></div></div></div></article><div class="pg-foot"><span>Qui té veu? · Rols i normes de les Corts</span><span>3 / 4</span></div></div><div class="pg">
+<header class="hd"><div class="kick">Geografia i Història · 2n ESO · Sessió 3</div><span class="lv">Docent</span><h1>Les Corts de l'aula</h1></header>
+<div class="ex"><h2><b>1</b>Normes</h2><ul class="nr">
+<li><b>Proposta del dia.</b> A · Abolir els mals usos sense pagar res. B · Abolir-los si cada mas paga una redempció. C · Mantenir els mals usos com ara.</li>
+<li><b>Vot per braç.</b> Cada braç vota en bloc (sí o no) després de decidir-ho en grup. Una proposta s'aprova si els tres braços hi voten sí i el rei la sanciona.</li>
+<li><b>Sense seient.</b> Els dos grups de remences no voten. Només poden parlar si un braç o el rei els cedeix el torn. Poden negociar a la pausa.</li>
+<li><b>Torns.</b> Dos minuts per grup, amb cronòmetre. Es parla dret/a i adreçant-se al rei: «Senyor…».</li>
+<li><b>En rol, però amb respecte.</b> Es critiquen les idees del personatge, no les persones. La docent pot aturar el joc.</li>
+</ul></div>
+<div class="ex"><h2><b>2</b>Ordre del dia <small>50 minuts</small></h2><table class="tbl od">
+<tr><th style="width:18mm">Temps</th><th>Què passa</th><th style="width:44mm">Qui</th></tr>
+<tr><td>5 min</td><td>Els grups rellegeixen el dossier i preparen els arguments.</td><td>Tots</td></tr>
+<tr><td>3 min</td><td>El rei obre les Corts i presenta les tres propostes.</td><td>El rei</td></tr>
+<tr><td>8 min</td><td>Primer torn: cada braç parla dos minuts.</td><td>Els tres braços</td></tr>
+<tr><td>5 min</td><td>Pausa de negociació: es poden moure i pactar.</td><td>Tots</td></tr>
+<tr><td>6 min</td><td>Segon torn: els braços poden cedir el torn als remences.</td><td>Braços, remences, rei</td></tr>
+<tr><td>5 min</td><td>Votació per braços i sanció del rei.</td><td>Braços i rei</td></tr>
+<tr><td>10 min</td><td>Fora del rol: com us heu sentit? Qui no tenia vot, què ha pogut fer?</td><td>Tots</td></tr>
+<tr><td>8 min</td><td>Cadascú omple l'acta del seu rol al full (exercici 6).</td><td>Individual</td></tr>
+</table></div>
+<div class="ex"><h2><b>3</b>Acta de les Corts <small>la omple el secretari o la secretària</small></h2>
+<table class="tbl act"><tr><th>Proposta</th><th>Braç eclesiàstic</th><th>Braç militar</th><th>Braç reial</th><th>El rei</th><th>Resultat</th></tr>
+<tr><td><b>A</b> sense pagar</td><td>Sí · No</td><td>Sí · No</td><td>Sí · No</td><td>Sanciona · Veta</td><td></td></tr>
+<tr><td><b>B</b> amb redempció</td><td>Sí · No</td><td>Sí · No</td><td>Sí · No</td><td>Sanciona · Veta</td><td></td></tr>
+<tr><td><b>C</b> com ara</td><td>Sí · No</td><td>Sí · No</td><td>Sí · No</td><td>Sanciona · Veta</td><td></td></tr></table>
+<div class="lns tight"><div class="ln pre">Qui ha cedit el torn als remences?</div><div class="ln pre">Pactes fets a la pausa:</div><div class="ln"></div></div></div>
+<div class="ex"><h2><b>4</b>Per a la docent</h2><p class="note">Què va passar de debò: el 1455 el rei va suspendre els mals usos (Sentència Interlocutòria), el 1481 les Corts els van restablir, i el 1486 la Sentència de Guadalupe els va abolir a canvi de 60 sous per mas. Els remences van guanyar fora de les Corts: amb organització, diners, el suport del rei i dues guerres. Si a l'aula guanya la C, no ho corregiu: és el que van fer les Corts el 1481. Feu servir aquest resultat per obrir la sessió 4.</p></div>
+<div class="pg-foot"><span>Qui té veu? · Rols i normes de les Corts</span><span>4 / 4</span></div></div></section>
 </body></html>

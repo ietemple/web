@@ -1,0 +1,362 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>El destierro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<style>
+.lm-sec{margin:0 0 26px;scroll-margin-top:84px}
+.lm-sec>h2{margin:0 0 6px;display:flex;align-items:center;gap:10px}
+.lm-intro{color:var(--tinta-suau);max-width:72ch;margin:0 0 16px}
+.lm-card{padding:22px 24px}
+@media (max-width:640px){.lm-card{padding:18px 16px}}
+.gh-hero{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:center}
+@media (max-width:760px){.gh-hero{grid-template-columns:1fr}}
+.gh-hero img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:var(--radi-lg);box-shadow:var(--ombra-16)}
+.gh-q{font:700 1.3rem/1.3 var(--font-display);padding:14px 16px;border-radius:var(--radi-md);background:var(--vidre-fosc);color:#fff;margin:12px 0 0}
+.gh-three{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.gh-tool{display:flex;flex-direction:column;gap:10px;border-top:6px solid var(--llen)}
+.gh-tool img{width:100%;height:150px;object-fit:cover;border-radius:12px}
+.gh-tool h3{font-size:1.25rem}
+.gh-tool p{color:var(--tinta-suau);font-size:1rem;line-height:1.35;flex:1}
+.lm-links{display:flex;flex-wrap:wrap;gap:8px}
+.lm-links .tv-btn{padding:9px 14px;font-size:1rem}
+.lm-links .lv{display:inline-grid;place-items:center;min-width:26px;height:26px;padding:0 6px;border-radius:99px;background:var(--llen);color:#fff;font:700 .85rem/1 var(--font-display)}
+.lm-ses{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:1.02rem}
+.lm-ses th{font:600 .85rem/1.1 var(--font-text);letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-suau);text-align:left;padding:4px 10px}
+.lm-ses td{padding:10px 12px;background:rgba(255,255,255,.75);vertical-align:top}
+.lm-ses td:first-child{border-radius:12px 0 0 12px;white-space:nowrap;font-weight:600}
+.lm-ses td:last-child{border-radius:0 12px 12px 0}
+.lm-scroll{overflow-x:auto}
+.lm-lv{display:grid;gap:12px}
+.lm-lv .tv-seg{align-self:flex-start;width:max-content;max-width:100%}
+.lm-lv>*{min-width:0}
+@media (max-width:640px){.lm-lv .tv-seg{width:auto;flex-wrap:wrap;border-radius:18px}}
+.lm-lvp ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:1rem;line-height:1.32}
+.lm-lvp .tv-btn{margin-top:12px;padding:8px 14px;font-size:.98rem}
+.lm-lvp .ob{margin:0 0 10px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.8);font-size:1rem;line-height:1.35}
+.lm-lvp .ob b{display:block;font:700 .78rem/1 var(--font-text);letter-spacing:.1em;text-transform:uppercase;color:var(--llen);margin-bottom:4px}
+.lm-aco{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.lm-aco .tv-pastel h3{font-size:1.08rem;margin-bottom:6px}
+.lm-aco .tv-pastel p{font-size:1rem;line-height:1.35;color:var(--tinta-suau)}
+.gh-pic{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.gh-pic span{display:flex;align-items:center;gap:6px;padding:3px 10px 3px 3px;border-radius:99px;background:rgba(255,255,255,.85);font-size:.95rem}
+.gh-pic img{width:34px;height:28px;object-fit:cover;border-radius:99px}
+.lm-crit{display:grid;gap:14px}
+.lm-crit details{border-radius:var(--radi-lg);background:var(--vidre-2);border:1px solid var(--vidre-vora);box-shadow:var(--brill-vora),var(--ombra-2);padding:4px 18px}
+.lm-crit summary{cursor:pointer;padding:12px 0;font:700 1.1rem/1.2 var(--font-display);display:flex;gap:10px;align-items:center}
+.lm-crit summary i{width:12px;height:12px;border-radius:50%;background:var(--llen);flex:none}
+.lm-crit .ce{margin:0 0 12px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.85)}
+.lm-crit .ce b{display:block;font:700 .82rem/1 var(--font-text);letter-spacing:.1em;text-transform:uppercase;color:var(--llen);margin-bottom:6px}
+.lm-crit .ce q{quotes:"«" "»";display:block;font-size:1.02rem;line-height:1.38}
+.lm-crit ol,.lm-crit ul.sab{margin:8px 0 0;padding-left:0;list-style:none;display:grid;gap:6px}
+.lm-crit li{display:grid;grid-template-columns:42px 1fr;gap:6px;font-size:.98rem;line-height:1.35}
+.lm-crit li span{font-weight:700;color:var(--llen)}
+.lm-crit li em{font-style:normal;display:block;font-size:.88rem;color:var(--tinta-tenue);margin-top:2px}
+.lm-crit ul.sab li{grid-template-columns:1fr}
+.lm-crit ul.sab li b{font-weight:600;color:var(--llen);display:block;font-size:.88rem}
+.lm-src{font-size:.92rem;color:var(--tinta-suau);margin:0 0 10px}
+.lm-cred{columns:2 300px;column-gap:24px;font-size:.92rem;line-height:1.4;color:var(--tinta-suau);margin:0;padding-left:18px}
+.lm-cred a{color:var(--tinta-suau)}
+.gh-repte{display:grid;gap:10px;margin-top:12px}
+.gh-repte p{margin:0}
+.gh-repte .r{padding:14px 16px;border-radius:var(--radi-md);background:rgba(255,255,255,.8);border-left:6px solid var(--llen);font-size:1.02rem;line-height:1.4}
+.gh-repte .r b{display:block;font:700 .8rem/1 var(--font-text);letter-spacing:.1em;text-transform:uppercase;color:var(--llen);margin-bottom:6px}
+.gh-fases{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0 0 14px}
+.gh-fases div{padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.75);font-size:.98rem;line-height:1.35}
+.gh-fases b{display:block;font:700 1.02rem/1.2 var(--font-display);color:var(--llen);margin-bottom:4px}
+.gh-fase{display:inline-block;padding:2px 8px;border-radius:99px;background:var(--llen-pastel);font:600 .8rem/1.3 var(--font-text);margin-bottom:4px}
+.gh-obj{width:100%;border-collapse:separate;border-spacing:0 8px;font-size:1rem;line-height:1.38}
+.gh-obj th{font:600 .82rem/1.1 var(--font-text);letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-suau);text-align:left;padding:4px 12px}
+.gh-obj td{background:rgba(255,255,255,.78);padding:12px 14px;vertical-align:top}
+.gh-obj td:first-child{border-radius:12px 0 0 12px;width:46%;font-weight:600}
+.gh-obj td:last-child{border-radius:0 12px 12px 0}
+.gh-obj ol{margin:0;padding-left:20px;display:grid;gap:4px}
+@media (max-width:700px){.gh-obj td{display:block;width:auto!important;border-radius:12px!important}.gh-obj tr{display:block;margin-bottom:8px}.gh-obj thead{display:none}}
+.gh-ct{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.gh-ct div{padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.8);font-size:.97rem;line-height:1.38}
+.gh-ct b{display:block;font:700 .8rem/1.1 var(--font-text);letter-spacing:.1em;text-transform:uppercase;color:var(--llen);margin-bottom:6px}
+.gh-ct q{quotes:"«" "»";display:block;margin-top:6px}
+.gh-ct q span{font-weight:700;color:var(--llen)}
+.gh-vec{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.gh-vec li{padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.75);font-size:.98rem;line-height:1.38}
+.gh-vec li b{color:var(--llen)}
+.gh-warn{font-size:.95rem;line-height:1.4;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.7);border:1px dashed var(--llen);margin-top:12px}
+/* propios de esta propuesta */
+.cd-rub{width:100%;border-collapse:separate;border-spacing:4px;font-size:.95rem;line-height:1.32;min-width:760px}
+.cd-rub th{font:600 .8rem/1.1 var(--font-text);letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-suau);text-align:left;padding:6px 8px}
+.cd-rub td{background:rgba(255,255,255,.8);padding:9px 10px;vertical-align:top;border-radius:10px}
+.cd-rub td:first-child{font-weight:700;color:var(--llen);width:15%}
+.cd-grp{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:12px}
+.cd-grp div{padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.8);font-size:.97rem;line-height:1.35}
+.cd-grp b{display:block;font:700 1.02rem/1.2 var(--font-display);color:var(--llen);margin-bottom:4px}
+.cd-res{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.cd-res li{padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.75);font-size:.98rem;line-height:1.38}
+.cd-res li b{color:var(--llen)}
+</style></head><body>
+<div class="tv-top"><div class="tv-wrap"><div class="tv-glass">
+  <a class="tv-back" href="index.html"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Taulell</a>
+  <span class="tv-crumb">Joves · 3r ESO · Lengua castellana y literatura · Cantar de mio Cid</span><span class="tv-stamp">Mostra</span></div></div></div>
+
+<main class="tv-wrap">
+  <header class="tv-glass tv-head">
+    <div class="gh-hero">
+      <div>
+        <div class="tv-kicker"><span class="tv-chip" style="--cc:var(--joves)"><i></i>Joves · 3r ESO</span><span class="tv-chip" style="--cc:var(--llen)"><i></i>Lengua castellana y literatura</span><span class="tv-chip dark">8 sesiones · 4 niveles</span></div>
+        <h1>El destierro</h1>
+        <p class="tv-lead">Leer el <i>Cantar de mio Cid</i> como lo escuchaba su público: en voz alta, verso a verso, con un juglar delante. El alumnado lee de cerca los grandes pasajes del Cantar I y del Cantar III en su texto original y aprende los trucos del oficio: el epíteto, la fórmula, la asonancia, el hemistiquio y la llamada al público. Después los usa para escribir a mano su propio cantar sobre una despedida real o cercana y lo recita como juglar ante la clase.</p>
+        <p class="gh-q">¿Qué se lleva una persona cuando tiene que dejarlo todo atrás? ¿Qué hace que la llamemos héroe?</p>
+      </div>
+      <img src="img/cid/f1r.webp" alt="Primera página conservada del manuscrito del Cantar de mio Cid, en letra gótica" style="object-position:50% 12%">
+    </div>
+  </header>
+
+  <section class="lm-sec" id="context">
+    <h2>Contexto y reto</h2>
+    <div class="tv-glass lm-card gh-repte">
+      <p class="r"><b>Contexto</b>Muchos adolescentes del grupo han vivido una mudanza, un cambio de escuela, la marcha de alguien querido o la llegada desde otro país. Casi nunca se les pide que lo cuenten, y menos en verso. El <i>Cantar de mio Cid</i> empieza justamente así: un hombre mira atrás y ve las puertas abiertas y las perchas vacías de la casa que tiene que dejar. Hace ochocientos años esa historia no se leía: se escuchaba en las plazas, y los juglares la recitaban de memoria gracias a unos recursos que todavía funcionan en el rap, en las canciones y en los vídeos que el alumnado consume a diario.</p>
+      <p class="r"><b>Reto</b>Cada alumno escribe a mano, en el aula, un cantar breve del destierro (una tirada con una sola asonancia, epítetos, una fórmula de llamada al público y versos partidos en dos hemistiquios) sobre una despedida o un desarraigo propio o de alguien cercano. Lo planifica, lo escribe en borrador, lo revisa con un compañero, lo pasa a limpio y lo recita en la <i>juglaría</i> final con su compañía de juglares. Con los lugares de salida y de llegada de todos los cantares la clase dibuja el «mapa de nuestros destierros», que se cuelga junto a la ruta del Cid.</p>
+      <p class="r"><b>Pregunta del texto inicial y del texto final</b>«¿Qué se lleva una persona cuando tiene que dejarlo todo atrás? ¿Qué hace que la llamemos héroe?» Cada alumno la responde el primer día, a mano y sin ayuda. El último día la responde otra vez citando al menos un verso del Cantar y compara los dos textos.</p>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="aula">
+    <h2>Para el aula</h2>
+    <p class="lm-intro">El alumnado solo ve la presentación en la pantalla táctil y sus fichas impresas. La propuesta y la guía son para la docente.</p>
+    <div class="gh-three">
+      <article class="tv-glass lm-card gh-tool"><img src="img/cid/juglares.webp" alt="Miniatura medieval de dos juglares tocando instrumentos de cuerda" style="object-position:50% 35%"><h3>Presentación</h3><p>18 pantallas para tocar: los juglares, el manuscrito con puntos, los versos de Vivar con el castellano actual, la votación de la niña de Burgos, el mapa del destierro, el constructor de epítetos, la asonancia marcada y con palmas, los tres cantares, el constructor de versos y los cronómetros de la juglaría.</p><div class="lm-links"><a class="tv-btn main" href="cid-presentacio.html">Abre la presentación</a></div></article>
+      <article class="tv-glass lm-card gh-tool"><img src="img/cid/vivar-mapa.webp" alt="Mapa en relieve de piedra del camino del destierro, en Vivar del Cid" style="object-position:30% 70%"><h3>Fichas del alumno</h3><p>Nueve páginas A4 en la versión B (diez en la A y cuatro en acogida) que siguen las ocho sesiones: texto inicial, lectura de los fragmentos, mapa, taller de estilo, plan, borrador fechado, revisión entre iguales, copia final, coevaluación, texto final y metacognición.</p>
+        <div class="lm-links"><a class="tv-btn" href="cid-fitxa.html#C"><span class="lv">C</span>Fichas</a><a class="tv-btn" href="cid-fitxa.html#B"><span class="lv">B</span>Fichas</a><a class="tv-btn" href="cid-fitxa.html#A"><span class="lv">A</span>Fichas</a><a class="tv-btn" href="cid-fitxa.html#AC"><span class="lv">AC</span>Acogida</a></div></article>
+      <article class="tv-glass lm-card gh-tool"><img src="img/cid/vivar-monumento.webp" alt="Monumento al Cantar de mio Cid en Vivar: una corneja sobre una piedra" style="object-position:50% 40%"><h3>Guía y rúbricas</h3><p>Solucionario de los ejercicios 2 a 13, rúbrica imprimible de la escritura y de la recitación, protocolo de escritura en el aula, notas de rigor sobre el texto y aviso de contenido para Corpes.</p><div class="lm-links"><a class="tv-btn main" href="cid-guia.html">Abre la guía</a></div></article>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="sessions">
+    <h2>Las ocho sesiones</h2>
+    <div class="gh-fases">
+      <div><b>Inicial</b>Juglares, manuscrito y texto inicial individual. Se presenta el reto y los criterios.</div>
+      <div><b>Desarrollo</b>Lectura atenta de los grandes pasajes en el original, con la versión actual al lado y las preguntas de la antología.</div>
+      <div><b>Estructuración</b>Taller de estilo: epíteto, fórmula, asonancia, hemistiquio, anáfora y llamada al público. La honra y la voz de las hijas.</div>
+      <div><b>Aplicación</b>Plan, borrador, revisión, copia final y juglaría. Texto final y metacognición.</div>
+    </div>
+    <div class="tv-glass lm-card lm-scroll">
+      <table class="lm-ses">
+        <thead><tr><th>Sesión</th><th>Qué se hace</th><th>Presentación</th><th>Fichas (B)</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><span class="gh-fase">Inicial</span><br><b>Los influencers del siglo XII.</b> Quién contaba historias cuando casi nadie sabía leer. Miniatura de juglares y primer y último folio del manuscrito: un solo códice, una hoja perdida, Per Abbat y la era hispánica. Texto inicial individual (10 min). Presentación del reto, de las compañías y de la rúbrica.</td><td>1–6</td><td>Ej. 1–3 · texto inicial</td></tr>
+          <tr><td>2</td><td><span class="gh-fase">Desarrollo</span><br><b>Lo que deja atrás.</b> Lectura en voz alta de los vv. 1–9 en el original y en castellano actual: qué ve el Cid, en qué orden y a quién culpa. Burgos cierra las puertas: «¡Dios, qué buen vassallo, si oviesse buen señore!» y la niña de nueve años. Votación: ¿quién es más valiente?</td><td>7–8</td><td>Ej. 4–5</td></tr>
+          <tr><td>3</td><td><span class="gh-fase">Desarrollo</span><br><b>Como la uña de la carne.</b> Despedida de doña Jimena y de sus hijas en San Pedro de Cardeña; Minaya da ánimo. El camino del destierro en el mapa y la ruta del Camino del Cid (Vivar–Atienza, 286 km). «Mi camino»: un lugar de salida y uno de llegada, sin obligación de contar más.</td><td>9–10</td><td>Ej. 6–7</td></tr>
+          <tr><td>4</td><td><span class="gh-fase">Estructuración</span><br><b>Taller del juglar.</b> El epíteto («el que en buen ora nasco») y el constructor de epítetos; cada alumno escribe el suyo. Asonancia y hemistiquios marcados en la tirada inicial y recitados con palmas. «¡Veriedes!»: anáfora y llamada al público en la batalla; Babieca.</td><td>11–13</td><td>Ej. 8–10</td></tr>
+          <tr><td>5</td><td><span class="gh-fase">Estructuración</span><br><b>Tres cantares, una honra.</b> Estructura del poema. El león suelto y la burla de la corte. Corpes, con aviso previo de contenido. ¿De quién es la honra ofendida? La voz de las hijas: 3 o 4 versos de doña Elvira o doña Sol ante la corte.</td><td>14–15</td><td>Ej. 11–13</td></tr>
+          <tr><td>6</td><td><span class="gh-fase">Aplicación</span><br><b>Escribo mi cantar (1).</b> Plan en el marco de seis filas (héroe y epíteto, lo que deja, quién le da ánimo, el camino, la despedida, la asonancia). Borrador 1 a mano en el aula, fechado y firmado por la docente al final de la hora. Las fichas se quedan en la carpeta de aula.</td><td>16</td><td>Ej. 14–15</td></tr>
+          <tr><td>7</td><td><span class="gh-fase">Aplicación</span><br><b>Escribo mi cantar (2).</b> Revisión entre iguales con bolígrafo de otro color y la lista de criterios. Reescritura de tres versos con el porqué. Copia final en limpio. Ensayo con marcas de voz y pausa dentro de la compañía.</td><td>16–17</td><td>Ej. 16–18 · copia final</td></tr>
+          <tr><td>8</td><td><span class="gh-fase">Aplicación</span><br><b>La juglaría.</b> Cada compañía recita sus cantares (3 min por cantar). Coevaluación con cuatro casillas. Texto final, comparación con el inicial y metacognición. Montaje del «mapa de nuestros destierros».</td><td>17–18</td><td>Ej. 19–20 · metacognición</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="gh-warn"><b>Antes de la sesión 3:</b> el reto pide hablar de despedidas. Nadie está obligado a contar su historia: se puede escribir la de un personaje inventado, la de alguien cercano con permiso o un viaje feliz. Conviene avisar a la tutoría si hay en el grupo alguna pérdida reciente.</p>
+  </section>
+
+  <section class="lm-sec" id="objectius">
+    <h2>Objetivos de aprendizaje y criterios</h2>
+    <p class="lm-intro">Concreción de los criterios del currículum para esta situación. Capacidad + saber + finalidad, y cómo sabremos que se ha aprendido.</p>
+    <div class="tv-glass lm-card lm-scroll">
+      <table class="gh-obj">
+        <thead><tr><th>Objetivo de aprendizaje</th><th>Lo sabremos si el alumno…</th></tr></thead>
+        <tbody>
+          <tr><td>1. Interpretar fragmentos del <i>Cantar de mio Cid</i> en su texto original, relacionando sus recursos formales (epíteto, fórmula, asonancia, hemistiquio, llamada al público) con su transmisión oral, para explicar cómo construye el poema a su héroe.</td><td><ol><li>Identifica tres recursos en versos concretos, los cita entre comillas y explica su efecto en quien escucha.</li><li>Explica por qué un poema recitado de memoria necesita esos recursos, con una prueba del manuscrito o de la miniatura.</li></ol></td></tr>
+          <tr><td>2. Analizar los valores del Cantar (lealtad, mesura, honra) y el lugar de las mujeres en el poema, relacionándolos con su contexto y con la experiencia propia, para formarse una opinión argumentada sobre qué es un héroe.</td><td><ol><li>Argumenta con el texto quién es más valiente en Burgos y de quién es la honra ofendida en Corpes.</li><li>Da voz a doña Elvira o doña Sol con versos coherentes con el episodio.</li></ol></td></tr>
+          <tr><td>3. Escribir a mano un cantar del destierro propio, planificándolo, redactando un borrador, revisándolo con un igual y reescribiéndolo, para crear un texto con intención literaria que use las convenciones de la épica.</td><td><ol><li>Entrega plan, borrador fechado en el aula, revisión de un compañero y copia final.</li><li>Su cantar cumple los criterios de la rúbrica y justifica por escrito al menos tres cambios.</li></ol></td></tr>
+          <tr><td>4. Recitar el cantar como juglar ante un público y valorar los recitales de los compañeros, para compartir la experiencia literaria y reflexionar sobre el propio aprendizaje.</td><td><ol><li>Recita con voz audible, marcando la cesura y mirando al público.</li><li>Coevalúa a su compañía y compara su texto final con el inicial.</li></ol></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="nivells">
+    <h2>Cuatro versiones de las fichas</h2>
+    <p class="lm-intro">Todas las versiones leen los mismos fragmentos, responden la misma pregunta inicial y final y escriben el mismo cantar. Cambia cuánta ayuda escrita hay. La versión A tiene una página más que la B solo porque el borrador es más largo: la exigencia está en las preguntas y en los siete criterios escritos en la ficha.</p>
+    <div class="lm-lv">
+      <div class="tv-seg" role="tablist" aria-label="Versión de las fichas">
+        <button role="tab" aria-selected="false" data-lv="C">C · con apoyo</button><button role="tab" aria-selected="true" data-lv="B">B · estándar</button><button role="tab" aria-selected="false" data-lv="A">A · más exigente</button><button role="tab" aria-selected="false" data-lv="AC">Acogida</button>
+      </div>
+      <div class="lm-lvp tv-pastel" style="--ct:var(--llen-pastel)" id="lv-panel"></div>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="grups">
+    <h2>Agrupamientos: compañías de juglares</h2>
+    <p class="lm-intro">Grupos heterogéneos de cuatro que se mantienen las ocho sesiones. Se leen los fragmentos en voz alta por turnos y se ensaya juntos, pero cada alumno escribe su propio cantar. Los roles rotan en la lectura y son fijos en la juglaría.</p>
+    <div class="tv-glass lm-card">
+      <div class="cd-grp">
+        <div><b>Cronista</b>Presenta la compañía y cada cantar: de dónde sale y adónde va el camino. Recoge los lugares para el mapa de la clase.</div>
+        <div><b>Voz</b>Lee en voz alta el fragmento del día. En la juglaría, cada miembro es voz de su propio cantar.</div>
+        <div><b>Ritmo</b>Marca con palmas o con la mesa los dos hemistiquios. Vigila que se respete la pausa.</div>
+        <div><b>Coro</b>Propone la fórmula común de la compañía («¡en buen hora!», «¡oíd!») y la repite al final de cada tirada.</div>
+      </div>
+      <p class="gh-warn">La revisión del borrador (sesión 7) se hace entre compañías: cada cantar lo revisa alguien de otro grupo, que firma la revisión con un bolígrafo de otro color.</p>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="diversitat">
+    <h2>Medidas y apoyos</h2>
+    <p class="lm-intro">Las medidas universales llegan a todo el grupo. Las adicionales se usan cuando hacen falta, sin sacar a nadie de la tarea común: todo el mundo escribe un cantar y todo el mundo lo recita.</p>
+    <div class="lm-aco">
+      <div class="tv-pastel" style="--ct:var(--llen-pastel)"><h3>Para todos (DUA)</h3><p>El texto original siempre va con la versión actual al lado. Los fragmentos se leen en voz alta antes de responder. Los recursos se ven, se oyen y se tocan: color en la asonancia, palmas en la cesura, constructores en la pantalla. Escritura por fases con marco de planificación, modelo, conectores y lista de criterios. El objetivo está escrito al principio de las fichas y se revisa al final.</p></div>
+      <div class="tv-pastel" style="--ct:var(--joves-t)"><h3>Versión C</h3><p>Opciones para marcar, frases empezadas y bancos de palabras. El plan tiene inicios de frase y un banco de rimas en á-o y á-a. El borrador es de 8 versos con el primero hecho como modelo. Criterios de revisión más cortos.</p></div>
+      <div class="tv-pastel" style="--ct:var(--grans-t)"><h3>Versión A y altas capacidades</h3><p>Preguntas de interpretación (la «cámara» de los vv. 1–9, por qué culpa a los enemigos y no al rey, qué es la honra), epíteto irónico para un infante, siete criterios escritos, cantar de 12 a 26 versos y segunda tirada con otra asonancia. Defiende ante la clase una decisión de estilo.</p></div>
+      <div class="tv-pastel" style="--ct:var(--mitjans-t)"><h3>Acogida</h3><p>Glosario de 10 palabras con imagen en castellano, catalán, inglés, árabe, urdu, chino y su lengua. La historia en cuatro imágenes. Su camino dibujado y contado con frases hechas. Cantar de 4 versos copiando y cambiando el modelo. Puede recitar un verso en su lengua.</p>
+        <div class="gh-pic"><span><img src="img/cid/estatua.webp" alt="">caballero</span><span><img src="img/cid/tizona.webp" alt="">espada</span><span><img src="img/cid/cardena.webp" alt="">monasterio</span></div></div>
+      <div class="tv-pastel" style="--ct:var(--petits-t)"><h3>TEA</h3><p>Agenda de las ocho sesiones escrita en la primera ficha. Aviso previo del episodio de Corpes y de la juglaría. En la compañía puede tener el rol de cronista o de ritmo, con guion. Puede recitar sentado o grabar la voz si la exposición le bloquea.</p></div>
+      <div class="tv-pastel" style="--ct:var(--amb-pastel)"><h3>TDAH y dislexia</h3><p>Una ficha cada vez. Tiempos marcados en la pantalla. Rol de ritmo, con movimiento. Las fichas se imprimen con interlineado amplio; se puede escuchar el fragmento antes de leerlo y la ortografía puntúa solo en la copia final.</p></div>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="avaluacio">
+    <h2>Evaluación</h2>
+    <p class="lm-intro">Evaluación formativa durante toda la situación: preguntas de lectura (sesiones 2–5), plan y borrador fechado (sesión 6) y revisión entre iguales (sesión 7). La evaluación final es la copia final del cantar, la recitación y la comparación del texto inicial con el final. La metacognición no puntúa. Los instrumentos son la rúbrica de escritura (abajo), la de recitación y la tabla de coevaluación (en la guía).</p>
+    <div class="tv-glass lm-card lm-scroll" style="margin-bottom:14px">
+      <table class="cd-rub">
+        <thead><tr><th>Criterio</th><th>Logro excelente</th><th>Logro notable</th><th>Logro satisfactorio</th><th>No logrado</th></tr></thead>
+        <tbody>
+          <tr><td>Recursos épicos</td><td>Dos epítetos propios y significativos, una fórmula de llamada al público bien situada y una comparación original.</td><td>Un epíteto propio, una llamada al público y una comparación.</td><td>Un epíteto o una llamada al público, aunque copiados del modelo.</td><td>No hay recursos de la épica.</td></tr>
+          <tr><td>Asonancia y cesura</td><td>Toda la tirada mantiene la asonancia y cada verso tiene dos hemistiquios con pausa clara.</td><td>La asonancia falla en uno o dos versos; la cesura se nota casi siempre.</td><td>La asonancia se mantiene en la mitad de los versos; la cesura es irregular.</td><td>No hay asonancia reconocible ni división en hemistiquios.</td></tr>
+          <tr><td>Contenido</td><td>Tres imágenes concretas de lo que se deja, camino de salida y llegada y un cierre que transforma la pérdida.</td><td>Imágenes concretas y camino; el cierre es poco claro.</td><td>Cuenta la despedida con ideas generales («estaba triste»).</td><td>No se entiende qué se deja ni adónde se va.</td></tr>
+          <tr><td>Proceso</td><td>Plan completo, borrador fechado, revisión firmada y tres cambios justificados con vocabulario de la épica.</td><td>Todas las fases con cambios justificados de forma sencilla.</td><td>Falta una fase o los cambios no se justifican.</td><td>Solo hay copia final.</td></tr>
+          <tr><td>Corrección</td><td>Sin errores de tildes, signos de apertura ni coma del vocativo; letra legible.</td><td>Uno o dos errores que no dificultan la lectura.</td><td>Varios errores; la lectura se resiente.</td><td>Los errores impiden leer el cantar.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="lm-crit">
+      <p class="lm-src">Texto literal del currículum (en catalán): Decret 175/2022, Llengües (Llengua castellana i literatura). Competències específiques i criteris d'avaluació de 3r i 4t d'ESO. Fuente: <a href="https://projectes.xtec.cat/nou-curriculum/wp-content/uploads/usu2072/2024/05/Aranes-i-literatura-a-lAran-llengua-Castellana-i-Literatura-Llengua-Catalana-i-Literatura_Competencies-ESPECIFIQUES-CA.pdf">PDF de competencias específicas (XTEC)</a>.</p>
+      <details open><summary><i></i>Competencia específica 8 · leer e interpretar obras del patrimonio y crear textos literarios</summary>
+        <div class="ce"><b>CE8</b><q>Llegir, interpretar i valorar obres o fragments literaris del patrimoni propi i universal, utilitzant un metallenguatge específic i mobilitzant l’experiència biogràfica i els coneixements literaris i culturals, per establir vincles entre textos diversos que permetin conformar un mapa cultural, eixamplar les possibilitats de gaudir de la literatura i crear textos d’intenció literària</q></div>
+        <ol>
+          <li><span>8.1</span><div>Explicar i argumentar la interpretació de les obres llegides a partir de l’anàlisi de les relacions internes dels seus elements constitutius amb el sentit de l’obra, i de les relacions externes del text amb el seu context sociohistòric, atesa la configuració i evolució dels gèneres i subgèneres literaris.<em>Ej. 3–6 y 8–12 · oralidad, juglares y manuscrito</em></div></li>
+          <li><span>8.2</span><div>Establir, de manera progressivament autònoma, vincles argumentats entre els textos llegits i altres textos escrits, orals o multimodals i altres manifestacions artístiques en funció de temes, tòpics, estructures, llenguatge i valors ètics i estètics, mostrant la implicació i la resposta personal del lector en la lectura.<em>Juglares e influencers · el destierro y los caminos de hoy</em></div></li>
+          <li><span>8.3</span><div>Crear textos personals o col·lectius amb intenció literària i consciència d’estil, en diferents suports i amb ajuda d’altres llenguatges artístics i audiovisuals, a partir de la lectura d’obres o fragments significatius en els quals s’utilitzin les convencions formals dels diversos gèneres i estils literaris.<em>Mi cantar del destierro · la voz de las hijas</em></div></li>
+        </ol></details>
+      <details><summary><i></i>Competencia específica 5 · escribir con planificación y revisión</summary>
+        <div class="ce"><b>CE5</b><q>Produir textos escrits i multimodals amb adequació, coherència, cohesió, aplicant estratègies elementals de planificació, redacció, revisió, correcció i edició, amb regulació dels iguals i autoregulació progressivament autònoma i atenent les convencions pròpies del gènere discursiu triat, per construir coneixement i donar resposta de manera informada, eficaç i creativa a demandes comunicatives concretes</q></div>
+        <ol>
+          <li><span>5.1</span><div>Planificar la redacció d’escrits i multimodals, de certa extensió i complexitat, atesa la situació comunicativa, destinatari, propòsit i canal; redactar esborranys i revisar-los amb l'ajuda del diàleg entre iguals i instruments de consulta, i presentar un text final coherent, cohesionat i amb el registre adequat.<em>Ej. 14–17 y copia final</em></div></li>
+          <li><span>5.2</span><div>Incorporar procediments per enriquir els textos tenint en compte aspectes discursius, lingüístics i d’estil, amb precisió lèxica i correcció ortogràfica i gramatical.<em>Epítetos, comparación, anáfora · corrección de la copia final</em></div></li>
+        </ol></details>
+      <details><summary><i></i>Competencia específica 4 · comprender e interpretar textos escritos</summary>
+        <div class="ce"><b>CE4</b><q>Comprendre, interpretar i analitzar, amb sentit crític i diferents propòsits de lectura, textos escrits i multimodals reconeixent el sentit global i les idees principals i secundàries, identificant-ne la intenció de l’emissor, reflexionant-ne sobre el contingut i la forma i avaluar-ne la qualitat i fiabilitat, per tal de construir coneixement i donar resposta a necessitats i interessos comunicatius diversos</q></div>
+        <ol>
+          <li><span>4.1</span><div>Comprendre i interpretar el sentit global, l’estructura, la informació més rellevant i la intenció de l’emissor de textos escrits i multimodals de certa complexitat, que responguin a diferents propòsits de lectura, realitzant-ne les inferències necessàries.<em>Preguntas de la antología (ej. 4–6 y 10–12)</em></div></li>
+        </ol></details>
+      <details><summary><i></i>Competencia específica 3 · producir textos orales e interactuar</summary>
+        <div class="ce"><b>CE3</b><q>Produir textos orals i multimodals amb coherència, claredat i registre adequats, atenent les convencions pròpies dels diferents gèneres discursius i participar en interaccions orals variades, amb autonomia, per expressar idees, sentiments i conceptes, construir coneixement i establir vincles personals</q></div>
+        <ol>
+          <li><span>3.1</span><div>Realitzar exposicions i argumentacions orals d’una certa extensió i complexitat amb diferents graus de planificació sobre temes d’interès personal, social, educatiu i professional ajustant-se a les convencions pròpies dels diversos gèneres discursius, amb fluïdesa, coherència i el registre adequat en diferents suports, utilitzant de manera eficaç recursos verbals i no verbals.<em>La juglaría · defensa de una decisión de estilo</em></div></li>
+          <li><span>3.2</span><div>Participar de manera activa i adequada en interaccions orals informals, en el treball en equip i en situacions orals formals de caràcter dialogat, amb actituds d’escolta activa i estratègies de cooperació conversacional i cortesia lingüística.<em>Compañías de juglares · revisión entre iguales</em></div></li>
+        </ol></details>
+      <details><summary><i></i>Competencias específicas 7 y 9 · experiencia lectora y reflexión sobre la lengua</summary>
+        <div class="ce"><b>CE7</b><q>Seleccionar i llegir de manera autònoma obres diverses com a font de plaer i coneixement, configurant un itinerari lector que s’enriqueixi progressivament pel que fa a diversitat, complexitat i qualitat de les obres, i compartir experiències de lectura, per construir la pròpia identitat lectora i gaudir de la dimensió social de la lectura</q></div>
+        <ol><li><span>7.2</span><div>Compartir l’experiència de lectura en suports diversos, tot relacionant el sentit de l’obra amb la pròpia experiència biogràfica, lectora i cultural.<em>Mi camino · texto final</em></div></li></ol>
+        <div class="ce" style="margin-top:12px"><b>CE9</b><q>Mobilitzar el coneixement sobre l’estructura de la llengua i els seus usos i reflexionar de manera progressivament autònoma sobre les eleccions lingüístiques i discursives, amb la terminologia adequada, per desenvolupar la consciència lingüística, augmentar el repertori comunicatiu i millorar les destreses tant de producció oral i escrita com de recepció crítica</q></div>
+        <ol><li><span>9.1</span><div>Revisar els textos propis de manera progressivament autònoma i fer propostes de millora argumentant els canvis a partir de la reflexió metalingüística amb el metallenguatge específic, i identificar i esmenar alguns problemes de comprensió i producció de textos utilitzant els coneixements explícits sobre la llengua i el seu ús.<em>Ej. 17 · reescribo con el porqué</em></div></li></ol></details>
+      <details><summary><i></i>Saberes · Propuesta de 3.º de ESO</summary>
+        <p class="lm-src" style="margin-top:4px">Texto literal de las <a href="https://xtec.gencat.cat/web/.content/curriculum/eso/concrecions-curriculars/Orientacions-curriculars_ESO_llenguees_per-cursos.pdf">Orientacions curriculars de les llengües de l'ESO, proposta per cursos</a>, columna de 3r. [ESS] = saber esencial; (…) = se omiten los ejemplos de obras que acompañan el saber. La propuesta de 3.º no nombra el <i>Cantar de mio Cid</i>; la situación lo trabaja desde los saberes generales de lectura guiada y escritura creativa.</p>
+        <ul class="sab">
+          <li><div><b>Educació literària · Lectura guiada</b>Utilització d’informació sociohistòrica, cultural i artística bàsica per construir la interpretació de les obres literàries. (…) [ESS]</div></li>
+          <li><div><b>Educació literària · Lectura guiada</b>Relació i comparació dels textos llegits amb altres textos orals, escrits o multimodals parant atenció a temes, tòpics, estructures i llenguatge utilitzats (…) [ESS]</div></li>
+          <li><div><b>Educació literària · Lectura guiada</b>Estratègies per interpretar obres i fragments literaris a partir de la integració dels aspectes analitzats i atenent valors culturals, ètics i estètics. (…)</div></li>
+          <li><div><b>Educació literària · Lectura guiada</b>Lectura amb perspectiva de gènere, donant prioritat a textos que els facin reflexionar sobre la feminitat. (…)</div></li>
+          <li><div><b>Educació literària · Lectura guiada</b>Lectura expressiva i dramatitzada de les obres: lectura interpretativa de poemes acompanyats d’imatges.</div></li>
+          <li><div><b>Educació literària · Escriptura creativa</b>Creació de textos a partir de l’apropiació de convencions del llenguatge literari. (…) [ESS]</div></li>
+          <li><div><b>Comunicació · Processos comunicatius</b>Planificació, producció i revisió de textos de manera autònoma. [ESS]</div></li>
+          <li><div><b>Comunicació · Context</b>Reflexió i ús dels elements no verbals en els textos orals i multimodals: aspectes cinèsics com ara la postura corporal, gestos, expressió facial, mirada o somriure; i els paralingüístics: to de veu, volum, ritme, velocitat, modulació, èmfasi i pauses.</div></li>
+          <li><div><b>Comunicació · Elements lingüístics</b>Correcció lingüística progressivament autònoma i ús de diferents tipus de diccionaris, amb una atenció especial al DIEC2 i al DLE de la RAE, i correctors ortogràfics en tota mena de suports. [ESS]</div></li>
+          <li><div><b>La llengua i els seus parlants</b>Desenvolupament sociohistòric de les llengües de l’Estat espanyol, especialment l’aranès, la llengua catalana i castellana. [ESS]</div></li>
+          <li><div><b>Reflexió sobre la llengua</b>Identificació i observació de les diferències contextuals i formals rellevants i interseccions entre llengua oral i llengua escrita, atenent aspectes sintàctics, lèxics i pragmàtics. [ESS]</div></li>
+          <li><div><b>Reflexió sobre la llengua</b>Les frases fetes i el llenguatge figurat. [ESS]</div></li>
+        </ul></details>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="transversals">
+    <h2>Competencias transversales y vectores</h2>
+    <p class="lm-intro">Criterios de 3.º y 4.º de ESO de las competencias transversales (Decret 175/2022), en texto literal catalán.</p>
+    <div class="gh-ct">
+      <div><b>Competència personal, social i d'aprendre a aprendre</b><q><span>1.2</span> Validar i emprar de forma proactiva estratègies de regulació emocional anticipant-se a situacions d’incertesa i de canvi que suposin un repte.</q><q><span>3.1</span> Emprendre accions, de forma proactiva, que mostrin comprensió i respecte per les emocions, perspectives i experiències dels altres valorant la diversitat mitjançant estratègies de comunicació efectiva, activa i empàtica.</q><q><span>3.2</span> Emprar de forma proactiva estratègies cooperatives dirigides a l’autogestió del grup vetllant per la distribució equitativa de les tasques i els rols i assumint l’èxit col·lectiu com una millora personal.</q><q><span>4.1</span> Argumentar de forma constructiva i amb autonomia, sobre les fortaleses i les debilitats pròpies mitjançant l’ús d’estratègies d’autoavaluació i coavaluació.</q><q><span>5.2</span> Anticipar i planificar, de manera autònoma, les accions més pertinents per aprendre mitjançant processos de metacognició i identificant l’error com una font d’aprenentatge.</q></div>
+      <div><b>Competència ciutadana</b><q><span>1.2</span> Avaluar els processos de construcció de la identitat individual i col·lectiva, a través de la implementació de pràctiques i estratègies que promouen la reflexió crítica sobre els reptes i conflictes socials, des d’una comprensió sistèmica i global.</q><q><span>1.3</span> Proposar accions que promoguin relacions de convivència amb totes les persones i grups socials, tant de l’entorn proper com de l’àmbit global.</q></div>
+    </div>
+    <ul class="gh-vec" style="margin-top:14px">
+      <li><b>Aprendizajes competenciales.</b> El cantar es un producto real: se recita ante un público y se cuelga en el mapa de la clase. El alumnado usa lo que ha leído para decir algo propio.</li>
+      <li><b>Perspectiva de género.</b> Doña Jimena, doña Elvira y doña Sol casi no hablan en el poema y la honra parece cosa de hombres. El alumnado lo nota, lo discute y les da voz.</li>
+      <li><b>Universalidad del currículum.</b> Las cuatro versiones llevan al mismo cantar y a la misma juglaría. Acogida trabaja con imágenes y puede escribir y recitar en su lengua.</li>
+      <li><b>Calidad de la educación lingüística.</b> Se escribe a mano con un proceso visible y se revisa con metalenguaje (asonancia, cesura, epíteto, anáfora). Se compara la lengua medieval con la actual.</li>
+      <li><b>Ciudadanía democrática y conciencia global.</b> El destierro del Cid se pone al lado de las migraciones, las mudanzas y los barrios que cambian. El mapa de la clase muestra caminos de muchos lugares.</li>
+      <li><b>Bienestar emocional.</b> Se escribe sobre una pérdida con libertad de elegir qué contar. El cierre del cantar busca transformar la pena, como Minaya: «las penas de hoy se volverán alegría».</li>
+    </ul>
+  </section>
+
+  <section class="lm-sec" id="recursos">
+    <h2>Recursos</h2>
+    <div class="tv-glass lm-card">
+      <ul class="cd-res">
+        <li><b>Antología «Descubriendo el Cantar de mio Cid».</b> Fragmentos y preguntas de la docente. Las preguntas de los ejercicios 5, 6, 10, 11 y 12 salen de ahí.</li>
+        <li><b>Camino del Cid.</b> <a href="https://www.caminodelcid.org/camino-cid/visor-cartografico">Visor cartográfico</a> y <a href="https://www.caminodelcid.org/rutas/el-destierro-senderismo-511618">ruta a pie «El destierro»</a> (Vivar–Atienza, 15 etapas, 286 km). Para la sesión 3 en la pantalla.</li>
+        <li><b>Vídeo «La increíble historia de El Cid Campeador» (Memorias de Pez).</b> <a href="https://www.youtube.com/watch?v=qRLynezJynY">YouTube</a>. El Cid histórico: para casa antes de la sesión 2 o un fragmento al principio. Sirve para separar la historia del poema. Conviene verlo antes y elegir el fragmento.</li>
+        <li><b>Texto completo del Cantar.</b> Edición de referencia del departamento para cotejar los versos citados: la grafía cambia según la edición.</li>
+        <li><b>Material impreso.</b> Fichas en A4 y blanco y negro (también funcionan en gris). Carpeta de aula por alumno para borradores y revisión. Bolígrafos de dos colores. Mural grande del mapa de la península para el mapa de la clase.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="docent">
+    <h2>Para la docente: rigor del texto</h2>
+    <div class="tv-glass lm-card">
+      <ul class="gh-vec">
+        <li><b>El manuscrito.</b> Se conserva una única copia del siglo XIV en la Biblioteca Nacional de España. Le falta la primera hoja y dos más en el interior; el poema conservado empieza en «De los sos ojos…».</li>
+        <li><b>Per Abbat.</b> El explicit dice que «le escrivió» en mayo de la era de 1245 (año 1207). Hoy se interpreta mayoritariamente como el copista o quien fijó el texto por escrito, no como el autor. El autor es anónimo y se discute si fue uno o varios.</li>
+        <li><b>Historia y poema.</b> Rodrigo Díaz de Vivar (c. 1048–1099) fue desterrado por Alfonso VI en 1081 y conquistó Valencia en 1094. Sus hijas históricas se llamaban Cristina y María; en el poema son doña Elvira y doña Sol. Los infantes de Carrión y la afrenta de Corpes son invención literaria.</li>
+        <li><b>Leyenda.</b> La jura de Santa Gadea no aparece en el Cantar: es una leyenda posterior. La atribución de la Tizona del Museo de Burgos al Cid es tradicional.</li>
+        <li><b>Versos citados.</b> Los fragmentos en el original siguen la grafía de las ediciones habituales y pueden variar ligeramente según la edición. Las versiones en castellano actual son adaptaciones para el aula.</li>
+        <li><b>Corpes.</b> El episodio describe violencia contra dos mujeres. Se lee el fragmento breve de la ficha, con aviso previo, y se habla de él desde la pregunta por la voz y la honra de las hijas.</li>
+      </ul>
+      <p class="gh-warn" style="margin-top:12px">El protocolo de escritura en el aula (borrador fechado, carpeta de aula, revisión con otro color, minuto de defensa oral) está en la guía, con el solucionario y las rúbricas imprimibles.</p>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="credits">
+    <h2>Imágenes</h2>
+    <div class="tv-glass lm-card">
+      <p class="tv-muted" style="margin-bottom:10px">Todas de Wikimedia Commons, reducidas a 1200 px como máximo. El mapa de la península es un recorte del original.</p>
+      <ul class="lm-cred" id="lm-cred"></ul>
+    </div>
+  </section>
+
+  <div class="tv-say" data-say="Aquesta proposta és una mostra. Si les vuit sessions no hi caben o la juglaria s'ha de fer en un altre moment, digueu-ho i ajustem el repte."></div>
+</main>
+<footer class="tv-foot">Temple Vidre · Mostra de materials · Joves · Lengua castellana y literatura</footer>
+<script src="tv-say.js"></script>
+<script>
+(function(){
+"use strict";
+var L={
+  C:{o:"Leeré partes del Cantar de mio Cid y usaré tres trucos de los juglares (epíteto, rima asonante y pausa en medio del verso) para escribir y recitar mi cantar.",l:["Juglares y manuscrito con opciones para marcar","Fragmentos con la versión actual al lado, frases empezadas y bancos de palabras","Mapa con dos lugares ya escritos y banco con el resto","Plan con inicios de frase y banco de rimas en á-o y á-a","Borrador de 8 versos con el primero como modelo","Revisión con seis criterios cortos"]},
+  B:{o:"Reconoceré los recursos del Cantar de mio Cid (epíteto, asonancia, hemistiquio, apelación al público) para escribir y recitar mi cantar del destierro.",l:["Juglares, manuscrito y cálculo de la era","Preguntas de la antología sobre Vivar, Burgos, Cardeña, la batalla, el león y Corpes","Mapa del destierro con banco de lugares","Taller de epítetos, asonancia y llamada al público","Plan, borrador de 10 versos, revisión con siete criterios y reescritura","Copia final, coevaluación, texto final y metacognición"]},
+  A:{o:"Relacionaré la forma oral del Cantar de mio Cid con su sentido para escribir, revisar y defender un cantar propio.",l:["La «cámara» de los vv. 1–9 y por qué culpa a los enemigos y no al rey","Mapa sin banco y pregunta por la frontera de 1081","Epíteto irónico para un infante de Carrión","¿De quién es la honra ofendida en Corpes?","Siete criterios escritos, cantar de 12 a 26 versos y segunda tirada","Defensa de una decisión de estilo con vocabulario de la épica"]},
+  AC:{o:"Conoceré la historia del Cid con imágenes y palabras clave, y contaré mi camino en un cantar corto.",l:["Glosario de 10 palabras en siete lenguas y la suya","La estatua del Cid con números y la historia en cuatro imágenes","Mi camino dibujado y con frases hechas","Mi cantar de 4 versos a partir de un modelo","Copia final, juglaría, texto final y metacognición con casillas"]}};
+var tabs=[].slice.call(document.querySelectorAll(".tv-seg [data-lv]")),p=document.getElementById("lv-panel");
+function lv(k){tabs.forEach(function(t){t.setAttribute("aria-selected",t.dataset.lv===k)});var d=L[k];
+  p.innerHTML='<p class="ob"><b>Objetivo de aprendizaje</b>'+d.o+'</p><ul>'+d.l.map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul><a class="tv-btn" href="cid-fitxa.html#'+k+'">Abre las fichas '+(k==="AC"?"de acogida":k)+'</a>'}
+tabs.forEach(function(t){t.addEventListener("click",function(){lv(t.dataset.lv)})});lv("B");
+var C=[
+ {t:"Cantar de mio Cid f. 1r (rep)",a:"Per Abbat (copista), Biblioteca Nacional de España",l:"Dominio público",u:"https://commons.wikimedia.org/wiki/File:Cantar_de_mio_Cid_f._1r_(rep).jpg"},
+ {t:"Cantar de mio Cid f74r",a:"Anónimo, siglo XIV, Biblioteca Nacional de España",l:"Dominio público",u:"https://commons.wikimedia.org/wiki/File:Cantar_de_mio_Cid_f74r.jpg"},
+ {t:"Cantigas de Santa Maria, Musician's Codex, page Bl-2 039V",a:"Corte de Alfonso X (hacia 1280)",l:"Dominio público",u:"https://commons.wikimedia.org/wiki/File:Cantigas_de_Santa_Maria,_Musician%27s_Codex,_page_Bl-2_039V.jpg"},
+ {t:"Burgos - Estatua del Cid 01",a:"Zarateman",l:"CC0",u:"https://commons.wikimedia.org/wiki/File:Burgos_-_Estatua_del_Cid_01.jpg"},
+ {t:"Vivar del Cid - Mapa en relieve del Camino del destierro del Cid 1",a:"Zarateman",l:"CC0",u:"https://commons.wikimedia.org/wiki/File:Vivar_del_Cid_-_Mapa_en_relieve_del_Camino_del_destierro_del_Cid_1.jpg"},
+ {t:"Vivar del Cid - Monumento al Cantar de mío Cid 1",a:"Zarateman",l:"CC0",u:"https://commons.wikimedia.org/wiki/File:Vivar_del_Cid_-_Monumento_al_Cantar_de_m%C3%ADo_Cid_1.jpg"},
+ {t:"San Pedro de Cardeña abril 1990",a:"B25es",l:"CC BY-SA 4.0",u:"https://commons.wikimedia.org/wiki/File:San_Pedro_de_Carde%C3%B1a_abril_1990.jpg"},
+ {t:"Tizona, espada de Rodrigo Díaz de Vivar",a:"Jl FilpoC",l:"CC BY-SA 4.0",u:"https://commons.wikimedia.org/wiki/File:Tizona,_espada_de_Rodrigo_D%C3%ADaz_de_Vivar.jpg"},
+ {t:"Jura de Santa Gadea",a:"Marcos Hiráldez Acosta (1864)",l:"Dominio público",u:"https://commons.wikimedia.org/wiki/File:Jura_de_Santa_Gadea.jpg"},
+ {t:"Spain rel location map (recorte)",a:"NordNordWest",l:"CC BY-SA 3.0 de",u:"https://commons.wikimedia.org/wiki/File:Spain_rel_location_map.svg"}];
+document.getElementById("lm-cred").innerHTML=C.map(function(c){return '<li><a href="'+c.u+'">'+c.t+'</a> · '+c.a+' · '+c.l+'</li>'}).join("");
+})();
+</script>
+</body></html>
