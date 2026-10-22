@@ -1,0 +1,158 @@
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La balança no menteix</title>
+<meta name="description" content="Mostra de Temple OS: seqüència de matemàtiques de 2n ESO sobre llenguatge algebraic on convivim alumnat que aïlla la x i alumnat que encara no multiplica amb fluïdesa.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tv.css">
+<style>
+.mt-aula{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:18px 20px}
+.mt-aula .tv-lbl{width:100%;margin:0}
+.mt-aula .tv-btn{padding:14px 22px;font-size:1.15rem}
+.mt-info{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.mt-info .tv-card h3{font-size:1.08rem;margin-bottom:8px}
+.mt-info .tv-card p,.mt-info .tv-card li{font-size:1.02rem;color:var(--tinta-suau)}
+.mt-info ul{margin:0;padding-left:18px}.mt-info li{margin-bottom:4px}
+.mt-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.mt-two h3{font-size:1.1rem;margin-bottom:6px}
+.mt-two p,.mt-two li{font-size:1.02rem;color:var(--tinta-suau)}
+.mt-two ul{margin:6px 0 0;padding-left:18px}
+.mt-cur li{margin-bottom:6px}
+.mt-cur em{font-style:normal;font-family:var(--font-display);font-weight:700;color:var(--tinta)}
+.mt-tl{display:grid;gap:10px}
+.mt-tl .row{display:grid;grid-template-columns:110px minmax(0,1fr) minmax(0,.9fr);gap:14px;align-items:start;padding:14px 16px;border-radius:var(--radi-lg);background:var(--vidre-2);border:1px solid var(--vidre-vora);box-shadow:var(--ombra-2)}
+.mt-tl .row.on{border-color:var(--mat);box-shadow:0 0 0 1px var(--mat),var(--ombra-8)}
+.mt-tl .min{font:700 1.05rem var(--font-display);display:flex;flex-direction:column;gap:6px}
+.mt-tl .min i{font-style:normal;display:inline-block;align-self:flex-start;font:600 14px var(--font-text);letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:var(--radi-pill);background:var(--mat-pastel)}
+.mt-tl h3{font-size:1.1rem;margin-bottom:4px}
+.mt-tl p{font-size:1.02rem;color:var(--tinta-suau)}
+.mt-tl .doc{font-size:1rem;color:var(--tinta-suau);border-left:3px solid var(--mat);padding-left:12px}
+.mt-tl .doc b{color:var(--tinta)}
+.mt-eq{font:700 1.15rem var(--font-display);color:var(--tinta)}
+.mt-eq i{font-style:italic;color:#B5561A}
+.mt-ev{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.mt-ev .tv-card h3{font-size:1.08rem;margin-bottom:8px}
+.mt-ev ol,.mt-ev ul{margin:0;padding-left:20px;color:var(--tinta-suau);font-size:1.02rem}
+.mt-ev li{margin-bottom:5px}
+.mt-chk{list-style:none;padding:0!important}
+.mt-chk li{display:flex;gap:10px;align-items:flex-start}
+.mt-chk li::before{content:"";flex:none;width:18px;height:18px;margin-top:3px;border:2px solid var(--mat);border-radius:5px}
+.mt-ver{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.mt-ver .tv-pastel h3{font-size:1.1rem;margin-bottom:6px}
+.mt-ver .tv-pastel p{font-size:1rem;color:var(--tinta-suau)}
+@media (max-width:1000px){.mt-info{grid-template-columns:repeat(2,minmax(0,1fr))}.mt-ver{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.mt-info,.mt-two,.mt-ev,.mt-ver{grid-template-columns:1fr}.mt-tl .row{grid-template-columns:1fr;gap:8px}.mt-tl .min{flex-direction:row;align-items:center}}
+@media print{.mt-aula{display:none!important}}
+</style></head>
+<body style="--cc:var(--mat);--ct:var(--mat-pastel)">
+<div class="tv-top tv-wrap"><div class="tv-glass">
+  <a class="tv-back" href="index.html"><svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Taulell</a>
+  <span class="tv-crumb">Joves · 2n ESO · Matemàtiques</span><span class="tv-stamp">Mostra</span></div></div>
+<main class="tv-wrap">
+  <header class="tv-glass tv-head">
+    <div class="tv-kicker"><span class="tv-chip" style="--cc:var(--joves)"><i></i>Joves · 2n ESO</span><span class="tv-chip"><i></i>Matemàtiques</span><span class="tv-chip">4 sessions</span><span class="tv-chip">Sessió 2 desenvolupada</span></div>
+    <h1>La balança no menteix</h1>
+    <p class="tv-lead">Al mercat de Tortosa, el paradista pesa a cegues: un sac, tres quilos i una balança que s'equilibra. Dos camins per al mateix problema: la balança amb les mans i la caixa de multiplicar, o l'equació amb operacions inverses. La classe sencera resol les mateixes pesades; canvia el camí, no la pregunta.</p>
+  </header>
+
+  <section class="tv-glass mt-aula tv-sec" aria-label="Per a l'aula">
+    <p class="tv-lbl">Per a l'aula · sessió 2</p>
+    <a class="tv-btn main" href="mates-2n-presentacio.html"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Presentació a l'aula</a>
+    <a class="tv-btn" href="mates-2n-fitxa.html#B"><svg class="ico" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg>Fitxa per imprimir</a>
+    <a class="tv-btn" href="cami-mates-2n.html"><svg class="ico" viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/></svg>Camí de la seqüència</a>
+  </section>
+
+  <section class="tv-sec">
+    <p class="tv-lbl">La idea: dos idiomes, una sola classe</p>
+    <div class="mt-info">
+      <div class="tv-card"><h3>El problema d'aula</h3><p>A 2n hi ha qui aïlla la <i>x</i> sense pensar-hi i qui encara dubta amb la taula del 7. Si la sessió és només equacions, els segons es queden fora; si és només manipular, els primers s'avorreixen.</p></div>
+      <div class="tv-card"><h3>La resposta</h3><p>Cada pesada té dues formes de resoldre's. <b>Camí balança</b>: treure pes dels dos plats, repartir-lo en grups, i una <b>caixa de multiplicar</b> per no dependre de la memòria. <b>Camí equació</b>: les mateixes operacions inverses, escrites.</p></div>
+      <div class="tv-card"><h3>El que ho fa funcionar</h3><p>Parelles mixtes: cadascú omple un camí i s'explica el mateix pas a l'altre "en l'altre idioma". Qui domina l'equació veu per què funciona; qui toca la balança aprèn a escriure el que fa.</p></div>
+    </div>
+    <div class="tv-card" style="margin-top:12px">
+      <h3 style="font-size:1.08rem;margin-bottom:6px">Repte de la seqüència</h3>
+      <p class="tv-muted" style="font-size:1.02rem">Montar la parada del mercat: inventar una pesada amb solució, comprovar-la i passar-la a una altra parella perquè la resolgui pel camí que triï.</p>
+    </div>
+  </section>
+
+  <section class="tv-sec">
+    <p class="tv-lbl">La seqüència en quatre sessions</p>
+    <div class="mt-tl">
+      <div class="row"><div class="min">Sessió 1<i>Activació</i></div><div><h3>Pesem a cegues</h3><p>Tempteig amb pesos i sacs tancats: "un sac i 3 kg pesen com 8 kg". Estimen, proven valors, anoten què descarten. L'incògnita apareix com a "el pes del sac".</p></div><div class="doc"><b>Tu:</b> no donis el mètode. Recull les estratègies de tempteig (és el que fa l'alumnat que no multiplica amb fluïdesa) i també les d'"aïllar".</div></div>
+      <div class="row on"><div class="min">Sessió 2<i>Construcció</i></div><div><h3>La balança no menteix <small class="tv-muted">(desenvolupada)</small></h3><p>El que fas en un plat, ho fas a l'altre. Cinc pesades de <span class="mt-eq"><i>x</i> + 3 = 8</span> a <span class="mt-eq">4<i>x</i> + 6 = 30</span>, pels dos camins, amb la caixa de multiplicar.</p></div><div class="doc"><b>Parelles mixtes</b> i explicació creuada. Presentació interactiva i fitxa C/B/A/AC més avall.</div></div>
+      <div class="row"><div class="min">Sessió 3<i>Síntesi</i></div><div><h3>Sacs a banda i banda</h3><p>Hi ha <i>x</i> als dos plats: <span class="mt-eq">2<i>x</i> + 1 = <i>x</i> + 6</span>. Cal treure sacs, no només pes. Surt la idea de l'operació inversa als dos membres i es distingeix incògnita de variable.</p></div><div class="doc"><b>Pregunta clau:</b> "Què pots treure als dos plats que no sigui pes?" Aquí es connecten de debò els dos camins.</div></div>
+      <div class="row"><div class="min">Sessió 4<i>Aplicació</i></div><div><h3>La parada del mercat</h3><p>Cada parella crea una pesada contextualitzada amb solució comprovada, la intercanvia amb una altra parella i s'autoavalua.</p></div><div class="doc"><b>Mira:</b> qui tria quin camí. L'objectiu és que cadascú tingui accés als dos, no que tothom acabi a l'equació.</div></div>
+    </div>
+  </section>
+
+  <section class="tv-sec">
+    <p class="tv-lbl">Sessió 2 · com es desenvolupa</p>
+    <div class="mt-tl">
+      <div class="row"><div class="min">Obertura<i>Activació</i></div><div><h3>Un sac i 3 kg pesen com 8 kg</h3><p>La balança de la pantalla mostra la pesada. Cada parella prediu el pes del sac abans de tocar res.</p></div><div class="doc"><b>Tu:</b> no confirmis. La balança ho farà.</div></div>
+      <div class="row"><div class="min">Balança<i>Concret</i></div><div><h3>Tot el que fas en un plat, ho fas a l'altre</h3><p>L'alumnat treu pes i reparteix en grups a la balança interactiva, que registra el que es fa en dos idiomes alhora: "La balança diu" i "L'equació diu".</p></div><div class="doc"><b>Mira:</b> si algú treu pes d'un sol plat, deixa que la balança es desequilibri i pregunta què ha passat.</div></div>
+      <div class="row"><div class="min">Caixa<i>Representat</i></div><div><h3>Quantes columnes necessites?</h3><p>Per repartir 30 en 4 grups: 4 files, i s'afegeixen columnes fins arribar al total. La caixa de multiplicar substitueix la taula memoritzada, sense fer-ho evident.</p></div><div class="doc"><b>Aquí</b> és on els qui no multipliquen bé no es queden enrere ni se senten assenyalats.</div></div>
+      <div class="row"><div class="min">Parelles<i>Aplicació</i></div><div><h3>Uneix cada frase amb la seva equació · 3<i>x</i> + 4 = 19</h3><p>Amb la fitxa, una persona omple el camí balança i l'altra el camí equació; després s'expliquen el mateix pas.</p></div><div class="doc"><b>Tria la versió</b> de la fitxa per a cada parella. Les pesades són les mateixes.</div></div>
+      <div class="row"><div class="min">Sortida<i>Metacognició</i></div><div><h3>Com ho has fet?</h3><p>Cadascú escriu un pas igual en els dos camins i una cosa que un camí li fa veure i l'altre no.</p></div><div class="doc"><b>Llegeix els tiquets</b> abans de la sessió 3: agrupa per camí preferit i per error.</div></div>
+    </div>
+  </section>
+
+  <section class="tv-sec">
+    <p class="tv-lbl">Quatre versions de la fitxa · les mateixes cinc pesades</p>
+    <div class="mt-ver">
+      <div class="tv-pastel"><h3>C · Suport</h3><p>El camí balança i el camí equació, tots dos guiats, amb la caixa de multiplicar dibuixada i la taula d'ajuda del 2, 3 i 4.</p></div>
+      <div class="tv-pastel"><h3>B · Base</h3><p>Els dos camins amb espai per resoldre: què faig als plats, pas 1, pas 2, comprovació.</p></div>
+      <div class="tv-pastel"><h3>A · Ampliació</h3><p>No és més llarga: porta les eines i els criteris escrits, i un repte (<span class="mt-eq">2<i>x</i> + 1 = <i>x</i> + 6</span>) i crear una pesada.</p></div>
+      <div class="tv-pastel"><h3>AC · Acollida</h3><p>Banc de paraules en català, castellà i anglès, la balança dibuixada i frases curtes per dir el que s'ha fet.</p></div>
+    </div>
+  </section>
+
+  <section class="tv-sec">
+    <p class="tv-lbl">Al currículum (Decret 175/2022) · Matemàtiques, 2n ESO</p>
+    <div class="tv-card mt-cur">
+      <h3 style="font-size:1.08rem;margin-bottom:8px">Criteris d'avaluació</h3>
+      <ul>
+        <li><em>1.2</em> Elaborar representacions matemàtiques eficaces, amb recursos manipulables, gràfics i digitals, que condueixin a la comprensió i resolució de problemes i situacions de la vida quotidiana.</li>
+        <li><em>1.4</em> Obtenir solucions matemàtiques d’un problema mobilitzant els coneixements necessaris i discriminant l’existència o no d’una o més solucions d’un problema.</li>
+        <li><em>2.1</em> Construir i expressar amb coherència idees i raonaments que permetin justificar la validesa de les solucions, processos i conclusions des de diferents perspectives (de gènere, de sostenibilitat, de consum responsable...).</li>
+        <li><em>5.1</em> Identificar i usar les connexions entre diferents representacions d’un mateix concepte matemàtic quan s’extreu informació d’una d’aquestes per aplicar-la a l’altra.</li>
+        <li><em>7.1</em> Comunicar informació de manera organitzada, utilitzant el llenguatge matemàtic adequat, oralment i per escrit, per a descriure, explicar justificar raonaments, procediments i conclusions.</li>
+        <li><em>7.3</em> Dialogar entre iguals i debatre idees matemàtiques per descriure, explicar i justificar raonaments, processos i conclusions.</li>
+        <li><em>8.2</em> Tenir consciència que s’està aprenent i de com s’està aprenent en qualsevol situació d’aprenentatge proposada</li>
+        <li><em>8.3</em> Identificar els errors propis i expressar de manera raonada quin és el motiu que els provoquen (conceptuals, de procediment, d’estratègia...), en la resolució de reptes o problemes, perseverant en la seva resolució.</li>
+        <li><em>9.1</em> Cooperar en el treball en equip tant en entorns presencials com virtuals, escoltant els altres i valorant les seves aportacions, respectant la perspectiva de gènere, en situacions en què es comparteixi i construeixi coneixement de manera conjunta.</li>
+        <li><em>9.2</em> Col·laborar activament amb els altres, arribant a acords i complint-los, per assolir els objectius del grup relatius a la construcció del coneixement matemàtic, valorant l’èxit col·lectiu com una estratègia de millora personal.</li>
+        <li><em>9.4</em> Ajudar a identificar errors i dificultats d’aprenentatge de les companyes i companys fent aportacions constructives i concretes que puguin ajudar a superar-los i a millorar.</li>
+      </ul>
+    </div>
+    <div class="tv-card mt-cur" style="margin-top:12px">
+      <h3 style="font-size:1.08rem;margin-bottom:8px">Sabers · sentit algebraic (2n) i sentit espacial (1r)</h3>
+      <ul>
+        <li>Ús de les equacions de primer grau com a models matemàtics de situacions contextualitzades. #ALG.ID</li>
+        <li>Distinció entre incògnites en equacions i variables en funcions. #ALG.ID, #ALG.RF</li>
+        <li>Resolució d'equacions senzilles aplicant, amb sentit, les operacions inverses en els dos membres de la igualtat.[ESS] #NUM.SO</li>
+        <li>Resolució de problemes d'equacions de primer grau contextualitzats. [ESS] #ALG.MM</li>
+        <li>Anàlisi de les solucions d'un problema, presa de decisions en conseqüència i formulació de prediccions, si escau. [ESS]</li>
+        <li>Interpretació d'una multiplicació com l'àrea d'un rectangle: ús del model de caixa per a operacions amb nombres. [ESS] #NUM.SO <small class="tv-muted">(sentit espacial, 1r ESO: ho recuperem com a ajuda)</small></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="tv-sec">
+    <p class="tv-lbl">Avaluació de la sessió 2</p>
+    <div class="mt-ev">
+      <div class="tv-card"><h3>Tiquet de sortida (formatiu)</h3><ol>
+        <li>Un sac i 5 kg pesen com 12 kg. Quina és la primera cosa que fas a la balança? I a l'equació?</li>
+        <li>Per què treus el mateix pes dels dos plats?</li>
+        <li>Quin camí t'ha ajudat més avui i què t'ha fet veure?</li></ol></div>
+      <div class="tv-card"><h3>Llista d'observació</h3><ul class="mt-chk">
+        <li>Treu el mateix pes dels dos costats i ho diu en veu alta.</li>
+        <li>Fa servir la caixa de multiplicar sense que se li demani.</li>
+        <li>Explica el mateix pas en els dos idiomes a la seva parella.</li>
+        <li>Comprova el resultat posant-lo al lloc de la <i>x</i>.</li></ul></div>
+    </div>
+  </section>
+
+  <section class="tv-sec"><p class="tv-lbl">Com ho veus?</p><div data-say></div></section>
+</main>
+<footer class="tv-foot">Institut Escola El Temple, Tortosa. Mostra amb dades d'exemple: el mercat i els pesos són inventats però plausibles. No hi ha cap nom d'alumne; els docents apareixen pel seu rol.</footer>
+<script src="tv-say.js"></script>
+</body></html>
