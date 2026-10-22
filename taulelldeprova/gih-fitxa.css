@@ -132,3 +132,7 @@ img{display:block;max-width:100%}
 @media print{html,body{background:#fff}.fx-bar{display:none}.pg{margin:0;box-shadow:none;page-break-after:always;break-after:page}
   .fx-v:not(.on){display:none}}
 @media screen and (max-width:820px){.pg{transform-origin:top left;margin:12px 0}}
+
+/* paraules: sense orfes ni salts lletjos */
+p,li,td,.note,.src,.tip{text-wrap:pretty}
+small,.tl>div,th,h2,h3,.tag{text-wrap:balance}

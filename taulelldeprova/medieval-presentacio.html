@@ -194,6 +194,17 @@ h1::first-letter,h2::first-letter{color:var(--ver);font-size:1.18em}
 @media (max-width:1000px){.mem{grid-template-columns:1fr 1fr}}
 .col:nth-child(1) h3{color:#8A4B14}
 .out .g{color:#8A4B14}.out .pr{color:var(--ver)}.out .pe{color:var(--lap)}.out .al{color:#2F6B3A}
+/* sessió 4: panell de detall gran sota la línia del temps */
+.tl.t7{flex:none;display:grid;gap:clamp(8px,1.2vw,16px)}
+.tl.t7 .ev{align-content:start}
+.tl.t7 .ev em{display:none!important}
+.tl.t7 .ev[aria-expanded=true]{transform:translateY(-2px)}
+.det{display:grid;grid-template-columns:minmax(180px,.8fr) 1.6fr;gap:clamp(14px,2vw,32px);align-items:center;background:var(--glass,#fff);border:1px solid var(--vidre-vora,#E2D2B6);border-left:8px solid var(--ver);border-radius:var(--r-lg,14px);padding:clamp(14px,2vw,28px);box-shadow:var(--ombra-16,none)}
+.det img{width:100%;height:clamp(140px,28vh,320px);object-fit:cover;border-radius:14px}
+.det b{display:block;font:700 clamp(26px,2.8vw,44px)/1.05 var(--fd);color:var(--ver);margin-bottom:8px}
+.det p{font-size:clamp(20px,2vw,32px);line-height:1.35;max-width:40ch}
+.det .det-empty{grid-column:1/-1;color:var(--ink2);font-style:italic;text-align:center;max-width:none}
+@media (max-width:820px){.det{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="sa-deck.css">
 </head>
@@ -239,14 +250,14 @@ h1::first-letter,h2::first-letter{color:var(--ver);font-size:1.18em}
   <div class="grow prod">
     <div><small>Abans de començar · sol</small><b>Text inicial</b><span>Quan algú no té veu on es decideix el que l'afecta, què pot fer? És just desobeir? Escriu el que pensis ara. No es puntua.</span>
       <div class="row"><button class="timer" data-m="10">Cronòmetre <output>10:00</output></button></div></div>
-    <div><small>Sessió 3 · en grup</small><b>Les Corts de l'aula</b><span>Cada grup és un braç, el rei o els remences. Els remences no tenen vot. Haureu de negociar.</span></div>
-    <div><small>Sessió 4 · sol</small><b>Memorial de greuges remença</b><span>Com a pagès de remença del 1450: greuge, prova, petició i aliat.</span></div>
-    <div><small>Sessions 5–7 · en grup</small><b>Memorial de greuges 2026</b><span>Una decisió que us afecta i en què no teniu veu. El presentareu al consell de delegats.</span></div>
+    <div><small>Sessió 2 · en grup</small><b>Les Corts de l'aula</b><span>Cada grup és un braç, el rei o els remences. Els remences no tenen vot. Haureu de negociar.</span></div>
+    <div><small>Sessió 3 · sol</small><b>Memorial de greuges remença</b><span>Com a pagès de remença del 1450: greuge, prova, petició i aliat.</span></div>
+    <div><small>Sessions 3–4 · en grup</small><b>Memorial de greuges 2026</b><span>Una decisió que us afecta i en què no teniu veu. El presentareu al consell de delegats.</span></div>
   </div>
 </section>
 
 <section class="sl" aria-label="La Catalunya Vella">
-  <div class="k">Sessió 2 · Llegeixo una font</div><h2>Lligats al mas</h2>
+  <div class="k">Sessió 1 · Llegeixo una font</div><h2>Lligats al mas</h2>
   <div class="grow c2">
     <div><div class="frame" style="aspect-ratio:784/597"><img src="img/med/catvella.webp" alt="Mapa de la Catalunya Vella, la terra dels remences, al nord-est del país"></div><p class="cap">Mapa «Catalunya Vella, la terra dels remences (s. XII–1486)». Wikimedia Commons, CC0.</p></div>
     <div class="notes">
@@ -285,7 +296,7 @@ h1::first-letter,h2::first-letter{color:var(--ver);font-size:1.18em}
 </section>
 
 <section class="sl" aria-label="Corts de l'aula">
-  <div class="k">Sessió 3 · Simulació</div><h2>Les Corts de l'aula</h2>
+  <div class="k">Sessió 2 · Simulació</div><h2>Les Corts de l'aula</h2>
   <p class="flag">Sessió imaginada a mitjan segle XV. A les Corts catalanes una llei necessitava l'acord dels braços i del rei.</p>
   <div class="grow corts">
     <div style="display:grid;gap:12px;align-content:start">
@@ -318,8 +329,8 @@ h1::first-letter,h2::first-letter{color:var(--ver);font-size:1.18em}
 </section>
 
 <section class="sl" aria-label="Línia del temps">
-  <div class="k">Sessió 4 · Què va passar de debò?</div><h2>Cent quaranta anys de lluita</h2>
-  <div class="grow tl t7">
+  <div class="k">Sessió 3 · Què va passar de debò?</div><h2>Cent quaranta anys de lluita</h2>
+  <div class="tl t7" id="t7">
     <button class="ev" aria-expanded="false"><img src="img/med/pesta.webp" alt="Enterrament de morts per la pesta"><b>1348</b><span>Pesta Negra</span><em>Mor molta gent. Amb menys pagesos, els senyors els volen lligar més al mas.</em></button>
     <button class="ev" aria-expanded="false"><img src="img/med/catvella.webp" alt="Mapa de la Catalunya Vella" style="object-position:70% 40%"><b>1448</b><span>Neix el sindicat</span><em>Alfons el Magnànim deixa els remences reunir-se i recollir diners per redimir-se.</em></button>
     <button class="ev" aria-expanded="false"><img src="img/med/corts.webp" alt="El rei al tron" style="object-position:52% 18%"><b>1455</b><span>Sentència Interlocutòria</span><em>El rei suspèn els mals usos. Els senyors, que són a les Corts, s'hi oposen.</em></button>
@@ -328,11 +339,12 @@ h1::first-letter,h2::first-letter{color:var(--ver);font-size:1.18em}
     <button class="ev" aria-expanded="false"><img src="img/med/placa-amer.webp" alt="Placa remença d'Amer" style="object-position:50% 35%"><b>1485</b><span>Segona guerra i Amer</span><em>Pere Joan Sala és executat. A Amer, els síndics remences accepten que el rei faci d'àrbitre.</em></button>
     <button class="ev" aria-expanded="false"><img src="img/med/guadalupe.webp" alt="Pàgina de la Sentència de Guadalupe"><b>1486</b><span>Sentència de Guadalupe</span><em>S'aboleixen els sis mals usos pagant 60 sous per mas. Els senyors conserven la terra i les rendes.</em></button>
   </div>
+  <div class="det grow" id="det" aria-live="polite"><p class="det-empty">Toca un any de la línia del temps per veure què va passar.</p></div>
   <div class="ask">A les nostres Corts, ha guanyat la proposta dels remences? I a la història, ho van aconseguir dins o fora de les Corts?</div>
 </section>
 
 <section class="sl" aria-label="Llibertat comprada?">
-  <div class="k">Sessió 4 · Debat</div><h2>Llibertat comprada?</h2>
+  <div class="k">Sessió 3 · Debat</div><h2>Llibertat comprada?</h2>
   <p class="lead">Toca cada grup: què va guanyar i què va perdre amb la Sentència de Guadalupe?</p>
   <div class="grow who">
     <button aria-expanded="false"><b>Pagesos de mas</b><span>Ja poden marxar i casar-se sense pagar el senyor. Però han de pagar la redempció i continuen pagant rendes.</span></button>
@@ -345,7 +357,7 @@ h1::first-letter,h2::first-letter{color:var(--ver);font-size:1.18em}
 </section>
 
 <section class="sl" aria-label="Qui no té veu avui?">
-  <div class="k">Sessió 5 · Aplicació</div><h2>Qui no té veu avui?</h2>
+  <div class="k">Sessió 3 · Aplicació</div><h2>Qui no té veu avui?</h2>
   <p class="lead">Escriviu greuges reals de l'escola o del barri. Marqueu els criteris que compleix cadascun. Trieu-ne un per grup.</p>
   <div class="add"><input id="gi" type="text" maxlength="90" placeholder="Per exemple: no podem opinar sobre les normes del pati" aria-label="Greuge nou"><button id="ga">Afegeix</button></div>
   <ul class="grow gl" id="gl"></ul>
@@ -353,7 +365,7 @@ h1::first-letter,h2::first-letter{color:var(--ver);font-size:1.18em}
 </section>
 
 <section class="sl" aria-label="Memorial de greuges 2026">
-  <div class="k">Sessió 6 · Escrivim</div><h2>Memorial de greuges 2026</h2>
+  <div class="k">Sessió 4 · Escrivim</div><h2>Memorial de greuges 2026</h2>
   <p class="flag">Són exemples per veure com s'enganxen les peces. El vostre memorial parla del vostre greuge.</p>
   <div class="grow build mem">
     <div class="col" data-p="g"><h3>1 · Greuge</h3>
@@ -373,7 +385,7 @@ h1::first-letter,h2::first-letter{color:var(--ver);font-size:1.18em}
 </section>
 
 <section class="sl" aria-label="Metacognició">
-  <div class="k">Sessió 7 · Com he après?</div><h2>Mirem enrere</h2>
+  <div class="k">Sessió 4 · Com he après?</div><h2>Mirem enrere</h2>
   <div class="grow meta">
     <div><b>Abans pensava… ara penso…</b><span>Rellegeix el text inicial. Escriu el final. Què ha canviat?</span></div>
     <div><b>Quina estratègia dels remences faries servir avui?</b><span>Organitzar-se, buscar aliats, pagar, revoltar-se o demanar un àrbitre. Per què?</span></div>
@@ -400,7 +412,7 @@ document.querySelectorAll(".sl").forEach(function(s){var n=s.querySelector(".not
   s.querySelectorAll(".hs").forEach(function(h){h.setAttribute("aria-pressed","false");h.onclick=function(){
     var e=n.querySelector(".empty");if(e)e.remove();if(h.getAttribute("aria-pressed")==="true")return;h.setAttribute("aria-pressed","true");
     var t=h.dataset.t.split("|"),d=document.createElement("div");d.className="note";d.innerHTML="<b>"+h.textContent+" · "+t[0]+"</b>"+t[1];n.insertBefore(d,n.querySelector(".ask"))}})});
-document.querySelectorAll(".ev,.role,.who button").forEach(function(b){b.onclick=function(){b.setAttribute("aria-expanded",b.getAttribute("aria-expanded")!=="true")}});
+document.querySelectorAll(".role,.who button").forEach(function(b){b.onclick=function(){b.setAttribute("aria-expanded",b.getAttribute("aria-expanded")!=="true")}});
 document.querySelectorAll(".card").forEach(function(b){b.onclick=function(){b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true")}});
 function tog(id,f){var b=document.getElementById(id);b.onclick=function(){var on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",on);f(on,b)}}
 tog("dones",function(on){document.getElementById("cards").classList.toggle("hl",on)});
@@ -438,6 +450,11 @@ var P={},out=document.getElementById("out"),ORD=["g","pr","pe","al"];
 document.querySelectorAll(".mem .col").forEach(function(c){c.querySelectorAll(".chip").forEach(function(b){b.onclick=function(){
   c.querySelectorAll(".chip").forEach(function(o){o.setAttribute("aria-pressed",o===b)});P[c.dataset.p]=b.textContent;
   out.innerHTML=ORD.map(function(x){return P[x]?'<span class="'+x+'">'+P[x]+"</span>":""}).join(" ")}})});
+/* sessió 4: cada toc mostra el fet al panell gran */
+(function(){var t=document.getElementById("t7"),d=document.getElementById("det");if(!t)return;
+  [].forEach.call(t.querySelectorAll(".ev"),function(b){b.setAttribute("aria-expanded","false");b.onclick=function(){
+    [].forEach.call(t.querySelectorAll(".ev"),function(o){o.setAttribute("aria-expanded",o===b)});
+    var im=b.querySelector("img");d.innerHTML='<img src="'+im.getAttribute("src")+'" alt="'+im.getAttribute("alt")+'" style="'+(im.getAttribute("style")||"")+'"><div><b>'+b.querySelector("b").textContent+" · "+b.querySelector("span").textContent+"</b><p>"+b.querySelector("em").textContent+"</p></div>"}})})();
 var h=parseInt(location.hash.slice(1),10);go(h>0?h-1:0);
 })();
 </script>
