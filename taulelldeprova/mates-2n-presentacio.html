@@ -1,0 +1,278 @@
+<!doctype html><html lang="ca" data-m="mat"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La balança no menteix</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--parch:#F5F1F7;--parch2:#F5F1F7;--ink:#2A2433;--ink2:#564D62;--ver:#2A55B0;--lap:#B5561A;--gold:#3466CC;--card:#fff;
+  --fd:"Quicksand",system-ui,sans-serif;--fsc:"Fira Sans Extra Condensed",system-ui,sans-serif;--ft:"Fira Sans Extra Condensed",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--parch);color:var(--ink);font:400 clamp(17px,1.5vw,24px)/1.4 var(--ft)}
+body{overflow:hidden}
+button{font:inherit;color:inherit}
+.deck{position:fixed;inset:0 0 72px 0}
+.sl{position:absolute;inset:0;padding:clamp(18px,3vw,48px) clamp(16px,4vw,64px);display:none;flex-direction:column;gap:clamp(10px,1.6vw,22px);overflow:auto}
+.sl.on{display:flex;animation:in .45s cubic-bezier(.2,.7,.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.sl.on{animation:none}}
+.k{font:700 clamp(13px,1.05vw,17px)/1 var(--fsc);letter-spacing:.08em}
+h1,h2{font:700 clamp(30px,3.6vw,60px)/1.05 var(--fd)}
+h2{font-size:clamp(26px,2.8vw,46px)}
+.lead{font-size:clamp(18px,1.6vw,26px);color:var(--ink2);max-width:46ch}
+.rule{height:6px;width:72px;border-radius:99px;background:var(--ver)}
+.grow{flex:1;min-height:0;display:grid;gap:clamp(12px,2vw,28px);align-content:start}
+.c2{grid-template-columns:1.3fr 1fr}
+@media (max-width:900px){.c2{grid-template-columns:1fr}}
+.ask{display:flex;gap:12px;align-items:flex-start;background:var(--ink);color:#fff;border-radius:16px;padding:14px 18px}
+.ask::before{content:"?";flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--gold);font:700 22px/1 var(--fd)}
+.glass{background:rgba(255,255,255,.8);border:1px solid #fff;border-radius:20px;box-shadow:0 1px 2px rgba(42,36,51,.1),0 4px 12px rgba(42,36,51,.08);padding:14px 18px}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{min-height:48px;padding:0 18px;border-radius:16px;border:1px solid #fff;background:rgba(255,255,255,.88);box-shadow:0 1px 2px rgba(42,36,51,.12),0 4px 10px rgba(42,36,51,.08);cursor:pointer;font-weight:600}
+.chip[aria-pressed=true]{background:var(--ver);color:#fff}
+.chip.ok{background:#28703F;color:#fff}
+.chip.sel{outline:3px solid var(--lap)}
+.chip.bad{animation:sh .35s}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.eq{font:700 clamp(28px,3.4vw,54px)/1 var(--fd);color:var(--ver);letter-spacing:.01em}
+.eq i,h2 i{font-style:italic;color:var(--lap)}
+/* balança */
+.bal{display:grid;gap:8px}
+.beam{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:end;position:relative;transform-origin:50% 100%;transition:transform .5s}
+.beam.tl{transform:rotate(-3deg)}.beam.tr{transform:rotate(3deg)}
+.plate{min-height:clamp(120px,16vh,190px);border-bottom:8px solid var(--ink);display:flex;flex-wrap:wrap;align-content:flex-end;align-items:flex-end;gap:6px;padding:8px 10px 6px;background:linear-gradient(0deg,rgba(52,102,204,.1),transparent)}
+.sac{width:clamp(46px,5vw,76px);height:clamp(46px,5vw,76px);border-radius:14px 14px 18px 18px;background:var(--lap);color:#fff;display:grid;place-items:center;font:700 clamp(22px,2.4vw,36px)/1 var(--fd);font-style:italic;box-shadow:inset 0 -6px 0 rgba(0,0,0,.18)}
+.u{width:clamp(22px,2.2vw,32px);height:clamp(22px,2.2vw,32px);border-radius:6px;background:var(--gold);box-shadow:inset 0 -4px 0 rgba(0,0,0,.18)}
+.gp{display:flex;flex-wrap:wrap;gap:4px;padding:6px;border:2px dashed var(--ver);border-radius:12px;align-items:flex-end}
+.fulcrum{justify-self:center;width:0;height:0;border-left:34px solid transparent;border-right:34px solid transparent;border-bottom:50px solid var(--ink)}
+.ctl{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ctl label{font-weight:600}
+.ctl select{min-height:48px;border-radius:12px;border:1px solid #cfc8d8;padding:0 10px;font:600 1em var(--ft)}
+.log{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;align-content:start;max-height:30vh;overflow:auto}
+.log h3{font:700 .85em/1 var(--ft);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.log div{padding:6px 10px;border-radius:10px;background:rgba(255,255,255,.7)}
+.log .e{font:700 1.1em/1.2 var(--fd);color:var(--ver)}
+.msg{min-height:2.6em;font-weight:600}
+.msg.ko{color:var(--lap)}.msg.ok{color:#28703F}
+/* caixa de multiplicar */
+.caixa{display:grid;gap:3px;justify-content:start;align-content:start}
+.caixa span{width:clamp(22px,2.4vw,34px);height:clamp(22px,2.4vw,34px);border-radius:6px;background:var(--gold);box-shadow:inset 0 -4px 0 rgba(0,0,0,.18)}
+.caixa span.n{background:var(--lap)}
+.big{font:700 clamp(24px,2.6vw,42px)/1.1 var(--fd);color:var(--ver)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:900px){.two{grid-template-columns:1fr}}
+.two h3{font:700 .85em/1 var(--ft);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.step{display:none;gap:6px;margin-bottom:8px}.step.show{display:block}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;align-content:start}
+.inp{min-height:52px;width:7em;border-radius:14px;border:2px solid var(--ver);padding:0 12px;font:700 1.4em var(--fd);text-align:center}
+.nav{position:fixed;left:0;right:0;bottom:0;height:72px;display:flex;align-items:center;gap:12px;padding:0 16px;background:rgba(42,30,20,.94);color:#fff}
+.nav button,.nav a{min-height:52px;min-width:52px;padding:0 18px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:transparent;color:inherit;cursor:pointer;font-weight:600;text-decoration:none;display:inline-flex;align-items:center}
+.nav .dots{flex:1;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.nav .dots button{min-width:0;width:14px;height:14px;min-height:0;padding:0;border-radius:50%;background:rgba(255,255,255,.3);border:none}
+.nav .dots button[aria-current=true]{background:#9DB8F5}
+@media (max-width:600px){.nav .dots{display:none}.nav{justify-content:space-between}}
+</style>
+<link rel="stylesheet" href="sa-deck.css">
+</head><body>
+<main class="deck" id="deck">
+
+<section class="sl" aria-label="Portada" style="justify-content:center">
+  <span class="k">Matemàtiques · 2n d'ESO</span>
+  <h1>La balança<br>no menteix</h1>
+  <div class="rule"></div>
+  <p class="lead">Un sac de patates, uns pesos i una balança de mercat. Quant pesa el sac sense obrir-lo?</p>
+  <div class="bal" style="max-width:520px;margin-top:8px" aria-hidden="true">
+    <div class="beam"><div class="plate"><div class="sac">x</div><div class="u"></div><div class="u"></div><div class="u"></div></div><div class="plate"><div class="u"></div><div class="u"></div><div class="u"></div><div class="u"></div><div class="u"></div><div class="u"></div><div class="u"></div><div class="u"></div></div></div>
+  </div>
+</section>
+
+<section class="sl" aria-label="Pesem a cegues">
+  <span class="k">Pesem a cegues</span>
+  <h2>Un sac i 3 kg pesen com 8 kg</h2>
+  <div class="grow c2">
+    <div class="bal" id="b1"></div>
+    <div style="display:grid;gap:12px;align-content:start">
+      <p class="lead">Escriu quant creus que pesa el sac i mira si la balança s'equilibra.</p>
+      <div class="ctl"><input class="inp" id="g1" type="number" inputmode="numeric" aria-label="Pes del sac"><button class="chip" id="g1b">Prova-ho</button></div>
+      <div class="glass msg" id="m1" aria-live="polite">Cada provatura que fas és un tempteig.</div>
+    </div>
+  </div>
+  <div class="ask">Quants intents has necessitat? Hi ha una manera de no haver d'endevinar?</div>
+</section>
+
+<section class="sl" aria-label="Balança">
+  <span class="k">La balança</span>
+  <h2>Tot el que fas en un plat, ho fas a l'altre</h2>
+  <div class="chips" id="pre"></div>
+  <div class="grow c2">
+    <div class="bal" id="b2"></div>
+    <div style="display:grid;gap:10px;align-content:start">
+      <div class="ctl"><label for="kq">Treu</label><select id="kq"></select><span>kg dels dos plats</span><button class="chip" id="bt">Treu</button></div>
+      <div class="ctl"><label for="nq">Reparteix en</label><select id="nq"></select><span>grups iguals</span><button class="chip" id="br">Reparteix</button></div>
+      <div class="ctl"><button class="chip" id="bu">Desfés</button><button class="chip" id="bz">Torna a començar</button></div>
+      <div class="glass msg" id="m2" aria-live="polite"></div>
+    </div>
+  </div>
+  <div class="log" id="log"><h3>La balança diu</h3><h3>L'equació diu</h3></div>
+</section>
+
+<section class="sl" aria-label="Dues maneres">
+  <span class="k">Dues maneres, un resultat</span>
+  <h2>2<i>x</i> + 3 = 11</h2>
+  <div class="two">
+    <div class="glass"><h3>Camí balança</h3>
+      <div class="step" data-s="1"><b>Treu 3 kg dels dos plats.</b> Al plat dels sacs queden només els sacs. A l'altre, 8 kg.</div>
+      <div class="step" data-s="2"><b>Reparteix en 2 grups iguals.</b> Cada sac s'emporta una meitat dels 8 kg.</div>
+      <div class="step" data-s="3"><b>Un sac pesa 4 kg.</b></div>
+      <div class="step" data-s="4"><b>Comprova-ho:</b> dos sacs de 4 kg i 3 kg fan 11 kg. La balança queda plana.</div>
+    </div>
+    <div class="glass"><h3>Camí equació</h3>
+      <div class="step eq" data-s="1" style="font-size:1.3em">2<i>x</i> + 3 − 3 = 11 − 3<br>2<i>x</i> = 8</div>
+      <div class="step eq" data-s="2" style="font-size:1.3em">2<i>x</i> ÷ 2 = 8 ÷ 2<br><i>x</i> = 4</div>
+      <div class="step eq" data-s="3" style="font-size:1.3em"><i>x</i> = 4</div>
+      <div class="step eq" data-s="4" style="font-size:1.3em">2 · 4 + 3 = 11 ✓</div>
+    </div>
+  </div>
+  <div class="ctl"><button class="chip" id="sn">Següent pas</button><button class="chip" id="sr">Torna a començar</button></div>
+  <div class="ask">Què té d'igual el pas 1 en els dos camins? I el pas 2?</div>
+</section>
+
+<section class="sl" aria-label="Caixa de multiplicar">
+  <span class="k">La caixa de multiplicar</span>
+  <h2>Quantes columnes necessites?</h2>
+  <div class="chips" id="cpre"></div>
+  <div class="grow c2">
+    <div class="caixa" id="cx" aria-live="polite"></div>
+    <div style="display:grid;gap:12px;align-content:start">
+      <div class="big" id="cq"></div>
+      <div class="ctl"><button class="chip" id="cm">− columna</button><button class="chip" id="cp">+ columna</button></div>
+      <div class="glass msg" id="cm2" aria-live="polite"></div>
+    </div>
+  </div>
+  <div class="ask">Quan reparteixes 15 kg entre 3 sacs, què fas en realitat? Quina operació és?</div>
+</section>
+
+<section class="sl" aria-label="Un pas, dos idiomes">
+  <span class="k">Un pas, dos idiomes</span>
+  <h2>Uneix cada frase amb la seva equació</h2>
+  <div class="match" id="mt"></div>
+  <div class="glass msg" id="mm" aria-live="polite">Toca una frase de l'esquerra i després la seva parella.</div>
+</section>
+
+<section class="sl" aria-label="Ara tu">
+  <span class="k">Ara tu</span>
+  <h2>3<i>x</i> + 4 = 19</h2>
+  <div class="grow c2">
+    <div class="bal" id="b3"></div>
+    <div style="display:grid;gap:12px;align-content:start">
+      <p class="lead">Troba el pes del sac pel camí que vulguis i comprova-ho aquí.</p>
+      <div class="ctl"><input class="inp" id="g3" type="number" inputmode="numeric" aria-label="Pes del sac"><button class="chip" id="g3b">Comprova</button></div>
+      <div class="glass msg" id="m3" aria-live="polite"></div>
+    </div>
+  </div>
+  <div class="ask">Prova-ho amb la balança de la diapositiva 3 i després amb el paper. Surt el mateix?</div>
+</section>
+
+<section class="sl" aria-label="Sortida">
+  <span class="k">Abans de plegar</span>
+  <h2>Com ho has fet?</h2>
+  <p class="lead">Marca el camí que has fet servir avui. Pots marcar-ne més d'un.</p>
+  <div class="chips" id="ex">
+    <button class="chip" aria-pressed="false">Balança</button><button class="chip" aria-pressed="false">Equació</button><button class="chip" aria-pressed="false">Caixa de multiplicar</button><button class="chip" aria-pressed="false">Tempteig</button>
+  </div>
+  <div class="glass"><b>Digues-ho a la teva parella:</b><br>«Primer he fet…, després…, i ho he comprovat…»</div>
+  <div class="ask">Quin pas t'ha costat més? Què t'ha ajudat a entendre'l?</div>
+</section>
+
+</main>
+<nav class="nav" aria-label="Diapositives"><a href="mates-2n.html">← Proposta</a><button id="prev" aria-label="Anterior">‹</button><div class="dots" id="dots"></div><button id="next" aria-label="Següent">›</button></nav>
+<script>
+var S=[].slice.call(document.querySelectorAll(".sl")),i=0,dots=document.getElementById("dots");
+S.forEach(function(s,k){var b=document.createElement("button");b.setAttribute("aria-label","Diapositiva "+(k+1));b.onclick=function(){go(k)};dots.appendChild(b)});
+function go(k){i=Math.max(0,Math.min(S.length-1,k));S.forEach(function(s,j){s.classList.toggle("on",j===i)});
+  [].forEach.call(dots.children,function(d,j){d.setAttribute("aria-current",j===i)});history.replaceState(null,"","#"+(i+1))}
+document.getElementById("prev").onclick=function(){go(i-1)};document.getElementById("next").onclick=function(){go(i+1)};
+document.addEventListener("keydown",function(e){if(e.target.tagName==="INPUT"||e.target.tagName==="SELECT")return;if(e.key==="ArrowRight"||e.key==="PageDown")go(i+1);if(e.key==="ArrowLeft"||e.key==="PageUp")go(i-1)});
+var x0=null,dk=document.getElementById("deck");dk.addEventListener("touchstart",function(e){x0=e.touches[0].clientX},{passive:true});
+dk.addEventListener("touchend",function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>70&&!e.target.closest("input,select"))go(i+(d<0?1:-1));x0=null});
+
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function units(p,n){for(var k=0;k<n;k++)p.appendChild(el("div","u"))}
+function drawBal(root,a,b,c,grouped){
+  root.innerHTML="";var beam=el("div","beam"),L=el("div","plate"),R=el("div","plate");
+  for(var k=0;k<a;k++)L.appendChild(el("div","sac","x"));units(L,b);
+  if(grouped&&a>1&&b===0&&c%a===0){for(var g=0;g<a;g++){var G=el("div","gp");units(G,c/a);R.appendChild(G)}}else units(R,c);
+  beam.appendChild(L);beam.appendChild(R);root.appendChild(beam);root.appendChild(el("div","fulcrum"));return beam}
+function eqTxt(a,b,c){return (a===1?"":a)+"x"+(b?" + "+b:"")+" = "+c}
+function checker(root,a,b,c,inp,btn,msg){
+  var beam=drawBal(root,a,b,c);
+  btn.onclick=function(){var v=parseFloat(inp.value);if(isNaN(v))return;var l=a*v+b;
+    beam.className="beam "+(l>c?"tl":l<c?"tr":"");
+    if(l===c){msg.className="glass msg ok";msg.textContent=(a===1?v:a+" · "+v)+(b?" + "+b:"")+" = "+l+". Equilibrat: x = "+v+" kg."}
+    else{msg.className="glass msg ko";msg.textContent="Plat esquerre: "+l+" kg. Plat dret: "+c+" kg. "+(l>c?"El sac pesa massa.":"El sac pesa massa poc.")}};
+  inp.addEventListener("keydown",function(e){if(e.key==="Enter")btn.onclick()})}
+checker(document.getElementById("b1"),1,3,8,document.getElementById("g1"),document.getElementById("g1b"),document.getElementById("m1"));
+checker(document.getElementById("b3"),3,4,19,document.getElementById("g3"),document.getElementById("g3b"),document.getElementById("m3"));
+
+(function(){
+  var P=[[1,3,8],[2,0,14],[2,3,11],[3,4,19],[4,6,30]],st,hist,cur=2,root=document.getElementById("b2"),log=document.getElementById("log"),msg=document.getElementById("m2");
+  var kq=document.getElementById("kq"),nq=document.getElementById("nq"),pre=document.getElementById("pre");
+  for(var k=1;k<=8;k++)kq.appendChild(new Option(k,k));for(var n=2;n<=6;n++)nq.appendChild(new Option(n,n));
+  P.forEach(function(p,k){var b=el("button","chip",eqTxt(p[0],p[1],p[2]));b.setAttribute("aria-pressed","false");b.onclick=function(){load(k)};pre.appendChild(b)});
+  function say(t,c){msg.className="glass msg "+(c||"");msg.textContent=t}
+  function row(bt,et){log.appendChild(el("div","",bt));log.appendChild(el("div","e",et));log.scrollTop=log.scrollHeight}
+  function draw(){var beam=drawBal(root,st[0],st[1],st[2],true);beam.className="beam"}
+  function load(k){cur=k;[].forEach.call(pre.children,function(b,j){b.setAttribute("aria-pressed",j===k)});st=P[k].slice();hist=[];
+    log.innerHTML="<h3>La balança diu</h3><h3>L'equació diu</h3>";
+    row(st[0]===1?"Un sac i "+st[1]+" kg pesen com "+st[2]+" kg":st[0]+" sacs"+(st[1]?" i "+st[1]+" kg":"")+" pesen com "+st[2]+" kg",eqTxt(st[0],st[1],st[2]));
+    draw();say("Quin és el primer pas?")}
+  document.getElementById("bt").onclick=function(){var k=+kq.value;
+    if(st[1]===0){say("Al plat dels sacs ja no hi ha pesos soltos. Ara toca repartir.","ko");return}
+    if(k>st[1]){say("Només hi ha "+st[1]+" kg de pesos al plat dels sacs. No en pots treure "+k+".","ko");return}
+    hist.push({st:st.slice(),n:log.children.length});st[1]-=k;st[2]-=k;draw();
+    row("Trec "+k+" kg dels dos plats",eqTxt(st[0],st[1],st[2])+"  (− "+k+" a cada banda)");
+    say(st[1]===0?"Ara només hi ha sacs a l'esquerra.":"Encara hi ha pesos amb els sacs.","ok");finish()};
+  document.getElementById("br").onclick=function(){var n=+nq.value;
+    if(st[1]>0){say("Primer buida els "+st[1]+" kg que hi ha amb els sacs. Si no, el repartiment no és just.","ko");return}
+    if(st[0]===1){say("Ja només hi ha un sac. No cal repartir més.","ko");return}
+    if(st[0]%n||st[2]%n){say("Amb "+n+" grups no queda igual per a tots. Prova un altre nombre.","ko");return}
+    hist.push({st:st.slice(),n:log.children.length});st[0]/=n;st[2]/=n;draw();
+    row("Reparteixo en "+n+" grups",eqTxt(st[0],0,st[2])+"  (÷ "+n+" a cada banda)");say("Bon repartiment.","ok");finish()};
+  function finish(){if(st[0]===1&&st[1]===0){var x=st[2],o=P[cur];
+    say("Un sac pesa "+x+" kg. Comprovació: "+o[0]+" · "+x+(o[1]?" + "+o[1]:"")+" = "+(o[0]*x+o[1])+" ✓","ok");row("Un sac pesa "+x+" kg","x = "+x)}}
+  document.getElementById("bu").onclick=function(){if(!hist.length)return;var h=hist.pop();st=h.st;draw();
+    while(log.children.length>h.n)log.removeChild(log.lastChild);say("Pas desfet.")};
+  document.getElementById("bz").onclick=function(){load(cur)};
+  load(2);
+})();
+
+(function(){var n=0,steps=[].slice.call(document.querySelectorAll(".step"));
+  function show(){steps.forEach(function(s){s.classList.toggle("show",+s.dataset.s<=n)})}
+  document.getElementById("sn").onclick=function(){n=Math.min(4,n+1);show()};document.getElementById("sr").onclick=function(){n=0;show()};show()})();
+
+(function(){var Pz=[[3,15],[4,24],[6,42],[7,56]],rows,tar,cols,cx=document.getElementById("cx"),cpre=document.getElementById("cpre"),q=document.getElementById("cq"),m=document.getElementById("cm2");
+  Pz.forEach(function(p,k){var b=el("button","chip",p[0]+" × ? = "+p[1]);b.setAttribute("aria-pressed","false");b.onclick=function(){set(k)};cpre.appendChild(b)});
+  function set(k){[].forEach.call(cpre.children,function(b,j){b.setAttribute("aria-pressed",j===k)});rows=Pz[k][0];tar=Pz[k][1];cols=0;draw()}
+  function draw(){cx.innerHTML="";cx.style.gridTemplateColumns="repeat("+Math.max(cols,1)+",auto)";
+    for(var r=0;r<rows;r++)for(var c=0;c<cols;c++)cx.appendChild(el("span",c===cols-1?"n":""));
+    var tot=rows*cols;q.textContent=rows+" × "+cols+" = "+tot+"  (cal arribar a "+tar+")";
+    if(!cols){m.className="glass msg";m.textContent="Afegeix columnes fins arribar a "+tar+".";return}
+    if(tot===tar){m.className="glass msg ok";m.textContent="Ho tens: "+rows+" × "+cols+" = "+tar+". Per tant x = "+cols+"."}
+    else if(tot>tar){m.className="glass msg ko";m.textContent="Te n'has passat: "+(tot-tar)+" de més. Treu una columna."}
+    else{m.className="glass msg";m.textContent="Encara en falten "+(tar-tot)+"."}}
+  document.getElementById("cp").onclick=function(){if(cols<14){cols++;draw()}};document.getElementById("cm").onclick=function(){if(cols>0){cols--;draw()}};set(0)})();
+
+(function(){var Q=[["Trec 3 kg dels dos plats","2x + 3 − 3 = 11 − 3"],["Reparteixo en 2 grups iguals","2x ÷ 2 = 8 ÷ 2"],["Un sac pesa 4 kg","x = 4"],["Poso 4 kg al lloc del sac i miro si quadra","2 · 4 + 3 = 11 ✓"]],
+  mt=document.getElementById("mt"),mm=document.getElementById("mm"),sel=null,done=0;
+  var Lf=Q.map(function(q,k){return[q[0],k]}),Rg=Q.map(function(q,k){return[q[1],k]}).reverse();
+  var colL=el("div"),colR=el("div");colL.style.cssText=colR.style.cssText="display:grid;gap:12px;align-content:start";mt.appendChild(colL);mt.appendChild(colR);
+  Lf.forEach(function(p){var b=el("button","chip",p[0]);b.dataset.k=p[1];b.dataset.s="l";b.style.textAlign="left";colL.appendChild(b)});
+  Rg.forEach(function(p){var b=el("button","chip",p[0]);b.dataset.k=p[1];b.dataset.s="r";b.style.textAlign="left";colR.appendChild(b)});
+  mt.onclick=function(e){var b=e.target.closest(".chip");if(!b||b.classList.contains("ok"))return;
+    if(!sel||sel.dataset.s===b.dataset.s){if(sel)sel.classList.remove("sel");sel=b;b.classList.add("sel");return}
+    if(sel.dataset.k===b.dataset.k){sel.classList.remove("sel");sel.classList.add("ok");b.classList.add("ok");sel=null;done++;
+      mm.className="glass msg ok";mm.textContent=done===Q.length?"Tot parellat: és el mateix pas explicat en dos idiomes.":"Correcte."}
+    else{mm.className="glass msg ko";mm.textContent="Aquest pas no es diu així en l'altre idioma. Torna-ho a provar.";sel.classList.remove("sel");b.classList.add("bad");setTimeout(function(){b.classList.remove("bad")},400);sel=null}}})();
+
+[].forEach.call(document.querySelectorAll("#ex .chip"),function(b){b.onclick=function(){b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true")}});
+var h=parseInt(location.hash.slice(1),10);go(h>0?h-1:0);
+</script>
+</body></html>
