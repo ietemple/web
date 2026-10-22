@@ -1,0 +1,85 @@
+/* Temple Vidre · pell comuna de les presentacions de SA (GiH, Castellà…) · color de matèria a html[data-m] */
+html[data-m=soc]{--k:#8A4B14;--kv:#B5672A;--kp:#F6DFC6;--k2:#2E5E9E}
+html[data-m=cas]{--k:#8E2C7A;--kv:#C04FA6;--kp:#F4D6EC;--k2:#2E6E66}
+:root{--tinta:#2A2433;--tinta-suau:#564D62;--tinta-tenue:#756C82;--vidre-vora:rgba(255,255,255,.92);--vidre-fosc:rgba(42,36,51,.92);
+  --brill-vora:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.35);
+  --ombra-2:0 0 1px rgba(42,36,51,.10),0 1px 2px rgba(42,36,51,.08);--ombra-8:0 0 2px rgba(42,36,51,.08),0 4px 10px rgba(42,36,51,.08);
+  --ombra-16:0 0 2px rgba(42,36,51,.08),0 8px 22px rgba(42,36,51,.11);--ombra-28:0 0 4px rgba(42,36,51,.08),0 16px 36px rgba(42,36,51,.15);
+  --parch:#F5F1F7;--parch2:#F5F1F7;--ink:var(--tinta);--ink2:var(--tinta-suau);--ver:var(--k);--lap:var(--k2);--gold:var(--kv);--card:rgba(255,255,255,.78);
+  --fd:Quicksand,"Segoe UI",system-ui,sans-serif;--fsc:"Fira Sans Extra Condensed",system-ui,sans-serif;--ft:"Fira Sans Extra Condensed",system-ui,sans-serif;
+  --glass:rgba(255,255,255,.72);--r-lg:20px}
+html,body{font-weight:500;color:var(--tinta)}
+body{background:radial-gradient(70vmax 50vmax at 0% 100%,color-mix(in srgb,var(--kp) 75%,transparent),transparent 62%),
+  radial-gradient(60vmax 50vmax at 100% 0%,rgba(190,224,255,.55),transparent 62%),
+  radial-gradient(50vmax 40vmax at 100% 100%,rgba(216,203,255,.5),transparent 65%),#F5F1F7}
+h1,h2{font-family:var(--fd);font-weight:700;letter-spacing:-.03em;line-height:1.05}
+h1::first-letter,h2::first-letter,.cover .t h1::first-letter{color:inherit;font-size:1em}
+.k{display:inline-flex;align-items:center;gap:.5em;font:600 clamp(13px,1vw,16px)/1 var(--ft);letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-suau)}
+.k::before{content:"";width:.7em;height:.7em;border-radius:50%;background:var(--k);flex:none}
+.lead{color:var(--tinta-suau)}
+.rule{border:0;height:6px;width:72px;border-radius:99px;background:var(--k);padding:0}
+h3,.col h3,.scale h3{font-family:var(--ft);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.85em}
+
+/* targetes de vidre */
+.note,.ev,.meta div,.prod div,.scale>div,.role,.seat,.gl li,.who button,.pyr button,.card .b,.src,.out,.res,.verses,.chip,.dec,.props button{
+  background:var(--glass);border:1px solid var(--vidre-vora);border-radius:var(--r-lg);box-shadow:var(--brill-vora),var(--ombra-8)}
+.note{border-left:6px solid var(--k2)}
+.note.empty{border-left-color:color-mix(in srgb,var(--k) 30%,#fff);color:var(--tinta-suau)}
+.note b,.meta b,.prod b,.role b,.seat b,.gl li b,.who b,.pyr button b{font-family:var(--fd);font-weight:700}
+.scale>div{border-top:8px solid var(--c)}
+.src,.out,.res,.verses{background:rgba(255,255,255,.9);border-left:8px solid var(--k);font-family:var(--fd);font-weight:500}
+.verse{font-family:var(--fd);font-weight:500}
+.verse span:last-child{border-left-color:color-mix(in srgb,var(--k) 35%,#fff)}
+.verse .on{background:var(--kp)}
+.res.ok{border-left-color:#28703F;color:#28703F}.res.ko{border-left-color:var(--k);color:var(--k)}
+.big{font-family:var(--fd);font-weight:700;color:var(--k)}
+.warn{background:#FFF1E4;border:1px solid #F6B66A;border-radius:var(--r-lg)}
+
+/* botons i xips: pastilla de vidre, premut = color de matèria */
+.chip,.dec,.props button,.pyr button,.who button{border-radius:16px;color:var(--tinta)}
+.vote button,.tog,.timer,.seat button,.gl li button{border:1px solid var(--vidre-vora);background:rgba(255,255,255,.88);box-shadow:var(--brill-vora),var(--ombra-8);color:var(--tinta)}
+.chip[aria-pressed=true],.tog[aria-pressed=true],.timer.run{background:var(--vidre-fosc);color:#fff;border-color:transparent}
+.props button[aria-pressed=true]{background:var(--k);border-color:var(--k);color:#fff}
+.pyr button[aria-expanded=true],.who button[aria-expanded=true],.role[aria-expanded=true],.ev[aria-expanded=true]{background:#fff;border-color:var(--k);box-shadow:0 0 0 3px var(--kp),var(--ombra-16)}
+.pyr button:nth-child(4){background:var(--kp)}
+.card .f{background:var(--k);border-radius:var(--r-lg);font-family:var(--fd);font-weight:700;box-shadow:var(--ombra-8)}
+.cards.hl .card[data-w] .f{background:var(--k2)}
+.card .b{border:2px solid var(--k)}
+.timer output{font-family:var(--fd);color:var(--k)}.timer.run output{color:#F6B66A}
+.seat.out{background:repeating-linear-gradient(135deg,rgba(255,255,255,.7) 0 10px,var(--kp) 10px 20px);border:1px dashed var(--k)}
+.seat button[data-v=si][aria-pressed=true],.gl li button[aria-pressed=true]{background:#28703F;border-color:#28703F;color:#fff}
+.seat button[data-v=no][aria-pressed=true]{background:var(--k);border-color:var(--k);color:#fff}
+.add input{border:1px solid var(--vidre-vora);border-radius:16px;box-shadow:inset 0 1px 3px rgba(42,36,51,.12);background:#fff}
+.add button{background:var(--vidre-fosc)}
+.agenda li::before{background:var(--k)}
+.pool{border:2px dashed color-mix(in srgb,var(--k) 35%,#fff);border-radius:var(--r-lg);background:rgba(255,255,255,.35)}
+.ask{background:var(--vidre-fosc);color:#fff;border-radius:var(--r-lg);box-shadow:var(--ombra-16)}
+.ask::before{background:var(--kv);font-family:var(--fd)}
+.ev b{font-family:var(--fd);color:var(--k)}
+.ev::before{border-color:var(--k)}
+.tl::before{background:linear-gradient(90deg,var(--kp),var(--k))}
+.out .a,.out .g{color:var(--k)}.col:nth-child(1) h3{color:var(--k)}
+.prod small,.who small,.role i{font-family:var(--ft);letter-spacing:.1em;text-transform:uppercase}
+
+/* imatges */
+.frame{border:0;border-radius:24px;box-shadow:var(--ombra-28)}
+.cap{color:var(--tinta-tenue)}
+/* marcadors sobre imatges: petits i discrets, que la imatge es vegi */
+.hs{width:30px;height:30px;border:2px solid #fff;background:color-mix(in srgb,var(--k) 82%,transparent);font:700 14px/1 var(--ft);box-shadow:0 1px 6px rgba(0,0,0,.35)}
+.hs::before{content:"";position:absolute;inset:-9px;border-radius:50%}
+.hs::after{inset:-4px;border-width:1.5px}
+.hs[aria-pressed=true]{background:var(--vidre-fosc)}
+
+/* portada */
+.cover::before{background:linear-gradient(180deg,rgba(42,36,51,0) 35%,rgba(42,36,51,.85) 100%)}
+.cover .t{color:#fff}
+.cover .t .k{color:rgba(255,255,255,.85)}.cover .t .k::before{background:var(--kv)}
+.cover .t .lead{color:rgba(255,255,255,.88)}
+.cover .t h1{font-size:clamp(40px,5.4vw,88px);letter-spacing:-.04em}
+
+/* navegació: barra de vidre */
+.nav{background:rgba(255,255,255,.62);color:var(--tinta);border-top:1px solid var(--vidre-vora);-webkit-backdrop-filter:blur(18px) saturate(180%);backdrop-filter:blur(18px) saturate(180%);box-shadow:0 -6px 24px rgba(42,36,51,.08)}
+.nav button,.nav a{border:1px solid var(--vidre-vora);background:rgba(255,255,255,.85);box-shadow:var(--brill-vora),var(--ombra-2);color:var(--tinta)}
+.nav #next{background:var(--vidre-fosc);color:#fff;border-color:transparent}
+.nav .dots button{width:16px;height:16px;background:transparent;border:2px solid var(--tinta-tenue);box-shadow:none}
+.nav .dots button[aria-current=true]{background:var(--k);border-color:var(--k);transform:scale(1.15)}
