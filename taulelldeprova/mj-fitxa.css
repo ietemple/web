@@ -129,3 +129,7 @@ img{display:block;max-width:100%}
 .sem i{width:4.6mm;height:4.6mm;border-radius:50%;border:1.5px solid var(--t)}
 .sem .g{background:#BFE3C8}.sem .y{background:#F6E3A1}.sem .rr{background:#F3C2B8}
 .sem .bx{border-radius:1mm;background:#fff}
+
+/* paraules: sense orfes ni salts lletjos */
+p,li,td,.note,.src,.tip{text-wrap:pretty}
+small,.tl>div,th,h2,h3,.tag{text-wrap:balance}

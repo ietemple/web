@@ -494,10 +494,10 @@ const C={
     [s("Matemàtiques","6è · La cooperativa de clementines, sessió 6"),s("Lectura","Lectura lliure","BV"),p("Música"),s("Català","5è · Presentem la notícia")]]},
   joves:{n:"Joves",sub:"Situacions d’aprenentatge i projectes",times:["8:30","9:30","11:00","12:00"],g:[
     [s("Biologia i Geologia","El nostre cos en marxa · S3: la sang i el circulatori"),s("Biologia i Geologia","S3, segona hora: el circuit de la sang"),s("Català","Text argumentatiu: el menjador ideal"),s("Anglès","Food vocabulary: my weekly menu")],
-    [s("Projecte FAIG","Repte: una campanya d’esmorzars saludables"),s("Projecte FAIG","Pluja d’idees i guió","BVA"),s("Castellà","3r ESO · El destierro: ¿qué dejarías atrás?"),s("Geografia i Història","2n ESO · Qui té veu? Qui decideix aquí?")],
-    [s("Biologia i Geologia","El nostre cos en marxa · S4: el cor per dins"),s("Biologia i Geologia","S4, segona hora: dissecció i laboratori 3D"),s("Geografia i Història","2n ESO · Qui té veu? Per què es queixaven?"),s("Català","Revisem el text argumentatiu","BLA")],
+    [s("Projecte FAIG","Repte: una campanya d’esmorzars saludables"),s("Projecte FAIG","Pluja d’idees i guió","BVA"),s("Castellà","3r ESO · El destierro: ¿qué dejarías atrás?"),s("Geografia i Història","2n ESO · Qui té veu? Qui decideix aquí? Per què es queixaven?")],
+    [s("Biologia i Geologia","El nostre cos en marxa · S4: el cor per dins"),s("Biologia i Geologia","S4, segona hora: dissecció i laboratori 3D"),s("Geografia i Història","2n ESO · Qui té veu? Les Corts de l'aula"),s("Català","Revisem el text argumentatiu","BLA")],
     [s("Projecte FAIG","Disseny del cartell de la campanya"),s("Projecte FAIG","Disseny del cartell, continuació"),s("Anglès","Listening: a school canteen","BVA"),s("Castellà","3r ESO · El destierro: epítetos y asonancia")],
-    [s("Castellà","3r ESO · El destierro: recital de juglares","BVA"),s("Català","Lectura en veu alta dels textos","BVA"),s("Geografia i Història","2n ESO · Qui té veu? Les Corts de l'aula"),p("Educació física")]]}
+    [s("Castellà","3r ESO · El destierro: recital de juglares","BVA"),s("Català","Lectura en veu alta dels textos","BVA"),s("Geografia i Història","2n ESO · Qui té veu? Què va passar de debò? I avui?"),p("Educació física")]]}
 };
 const ORDER=["petits","mitjans","grans","joves"];
 const DEMO={
@@ -521,7 +521,7 @@ const DEMO={
   "joves|0|3":["llengues-menjador.html#en","My weekly menu: food words, listening i menú de la setmana"],
   "joves|3|2":["llengues-menjador.html#en","My weekly menu: food words, listening i menú de la setmana"],
   "joves|1|3":["gih-medieval.html","Remences i Corts: joc de rol polític i memorial de greuges"],"joves|2|2":["gih-medieval.html","Remences i Corts: joc de rol polític i memorial de greuges"],"joves|4|2":["gih-medieval.html","Remences i Corts: joc de rol polític i memorial de greuges"],
-  "joves|1|2":["lcl-cid.html","El destierro: el Cantar de mio Cid i un cantar propi escrit a mà"],"joves|3|3":["lcl-cid.html","El destierro: el Cantar de mio Cid i un cantar propi escrit a mà"],"joves|4|0":["lcl-cid.html","El destierro: el Cantar de mio Cid i un cantar propi escrit a mà"]};
+  "joves|1|2":["lcl-cid.html","El destierro: el Cantar de mio Cid i un cantar propi escrit a mà"],"joves|3|3":["lcl-cid.html","El destierro: el Cantar de mio Cid i un cantar propi escrit a mà"]};
 Object.entries(DEMO).forEach(([k,u])=>{const [c,d,r]=k.split("|");const x=C[c].g[+d][+r];if(x&&!x.p){x.d=u[0];x.dt=u[1]}});
 const COR=["cor-B.html","cor-C.html","cor-A.html"].map((u,i)=>[["B","C","A"][i],"fitxes/"+u]);
 const LAY={
@@ -539,7 +539,7 @@ const LAY={
 const LK={"petits|0|0":"pet","petits|0|1":"pet","petits|1|0":"pet","petits|1|1":"pet","petits|2|0":"pet","petits|2|1":"pet","petits|3|0":"pet","petits|3|1":"pet","petits|4|0":"pet","petits|4|1":"pet",
   "grans|0|0":"cat","grans|2|3":"cat","grans|4|3":"cat","grans|1|3":"mat","grans|3|3":"mat","grans|4|0":"mat",
   "joves|0|0":"seq","joves|0|1":"seq","joves|2|0":"cor","joves|2|1":"cor",
-  "joves|0|2":"menc","joves|2|3":"menc","joves|4|1":"menc","joves|0|3":"menen","joves|3|2":"menen","joves|1|3":"med","joves|2|2":"med","joves|4|2":"med","joves|1|2":"cid","joves|3|3":"cid","joves|4|0":"cid",
+  "joves|0|2":"menc","joves|2|3":"menc","joves|4|1":"menc","joves|0|3":"menen","joves|3|2":"menen","joves|1|3":"med","joves|2|2":"med","joves|4|2":"med","joves|1|2":"cid","joves|3|3":"cid",
   "mitjans|1|3":"sin","mitjans|3|3":"sin","mitjans|2|3":"amb","mitjans|4|3":"amb",
   "mitjans|0|0":"rac","mitjans|1|0":"rac","mitjans|2|0":"rac","mitjans|3|0":"rac","mitjans|4|0":"rac"};
 Object.entries(LK).forEach(([k,v])=>{const [c,d,r]=k.split("|");const x=C[c].g[+d][+r];if(x&&!x.p)x.l3=LAY[v]});
