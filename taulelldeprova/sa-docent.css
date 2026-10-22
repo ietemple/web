@@ -1,0 +1,74 @@
+/* Temple Vidre · vista docent de les presentacions (sa-docent.js).
+   El panell viu fora del <body>: la diapositiva es redueix sencera al costat i no es desquadra. */
+html.sa-on{background:#1B1A17}
+html.sa-on body{margin:0!important;transform-origin:0 0;overflow:hidden!important}
+.sa-rail{--k:#2E7D5B;--kp:#D5EFE2;position:fixed;top:0;right:0;height:100vh;width:var(--sa-rw,360px);z-index:2147483000;
+  display:flex;flex-direction:column;background:#FBF8F2;color:#1F1D1A;border-left:1px solid #DED6C6;
+  font:400 14px/1.4 "Fira Sans","Segoe UI",system-ui,sans-serif;box-shadow:-8px 0 24px rgba(0,0,0,.12)}
+.sa-rail *{box-sizing:border-box}
+.sa-rail button{font:inherit;cursor:pointer}
+.sa-hd{padding:12px 14px 10px;border-bottom:1px solid #E7DFD0;display:grid;gap:8px}
+.sa-hd small{display:block;font:700 11px/1 inherit;letter-spacing:.12em;text-transform:uppercase;color:var(--k)}
+.sa-hd b{display:block;font-size:16px;line-height:1.2;margin-top:3px}
+.sa-tools{display:flex;gap:6px;flex-wrap:wrap}
+.sa-tools button,.sa-tools a{min-height:34px;padding:0 11px;border-radius:999px;border:1px solid #D6CDBB;background:#fff;color:#1F1D1A;font-size:13px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.sa-tools button[aria-pressed="true"]{background:var(--k);border-color:var(--k);color:#fff}
+.sa-body{flex:1;min-height:0;overflow:auto;padding:12px 14px 16px;display:grid;gap:12px;align-content:start}
+.sa-pos{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12.5px;color:#5B554B}
+.sa-pos span{padding:3px 8px;border-radius:6px;background:#EFE9DD;font-weight:600;color:#3A362F}
+.sa-pos span.f{background:var(--kp);color:var(--k)}
+.sa-fa{background:#fff;border:1px solid #E2D9C8;border-left:5px solid var(--k);border-radius:10px;padding:10px 12px}
+.sa-fa small{display:block;font:700 11px/1 inherit;letter-spacing:.1em;text-transform:uppercase;color:var(--k);margin-bottom:5px}
+.sa-fa p{margin:0;font-size:14.5px}
+.sa-fx{display:grid;gap:6px}
+.sa-fx-hd{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.sa-fx-hd small{font:700 11px/1 inherit;letter-spacing:.1em;text-transform:uppercase;color:#5B554B}
+.sa-vers{display:flex;gap:4px}
+.sa-vers button{min-width:32px;min-height:28px;padding:0 6px;border-radius:6px;border:1px solid #D6CDBB;background:#fff;font-size:12px;font-weight:700}
+.sa-vers button[aria-pressed="true"]{background:#1F1D1A;color:#fff;border-color:#1F1D1A}
+.sa-win{position:relative;height:var(--sa-wh,330px);overflow:hidden;border-radius:8px;border:1px solid #D6CDBB;background:#fff;display:block}
+.sa-win iframe{position:absolute;top:0;left:0;width:820px;border:0;transform-origin:0 0;pointer-events:none;background:#fff}
+.sa-win em{position:absolute;inset:0;display:grid;place-items:center;padding:20px;text-align:center;font-style:normal;color:#5B554B;background:#F6F2EA}
+.sa-win em[hidden]{display:none}
+.sa-open{font-size:12.5px;color:var(--k);font-weight:600}
+.sa-rail h3,.sa-rail p,.sa-rail b,.sa-rail small{font-family:inherit!important}
+.sa-com h3{margin:0 0 6px!important;font:700 11px/1 inherit!important;letter-spacing:.1em;text-transform:uppercase;color:#5B554B}
+.sa-com ol{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.sa-com li{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:start;background:#fff;border:1px solid #E2D9C8;border-radius:8px;padding:7px 8px;font-size:13px}
+.sa-com li i{font-style:normal;width:22px;height:22px;border-radius:50%;background:#C2410C;color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center}
+.sa-com li button{border:0;background:none;padding:0;text-align:left;color:inherit}
+.sa-com li button q{display:block;color:#5B554B;font-size:12px;quotes:none}
+.sa-com li .x{color:#8B8478;font-size:16px;line-height:1}
+.sa-com p{margin:0;font-size:12.5px;color:#5B554B}
+.sa-ft{padding:9px 14px;border-top:1px solid #E7DFD0;font-size:12px;color:#6B6458}
+.sa-ft kbd{font:600 11px/1 inherit;padding:2px 5px;border:1px solid #CFC6B4;border-radius:4px;background:#fff}
+/* botó per tornar a obrir */
+.sa-fab{position:fixed;top:10px;right:10px;z-index:2147483001;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid rgba(0,0,0,.15);
+  background:#FBF8F2;color:#1F1D1A;font:700 13px/1 "Fira Sans","Segoe UI",system-ui,sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.18);cursor:pointer}
+html.sa-on .sa-fab{display:none}
+html.sa-aula .sa-fab{opacity:.35}
+html.sa-aula .sa-fab:hover,html.sa-aula .sa-fab:focus-visible{opacity:1}
+/* calaix en pantalles estretes */
+html.sa-drawer .sa-rail{width:min(92vw,380px);transform:translateX(105%);transition:transform .25s ease}
+html.sa-drawer.sa-open-d .sa-rail{transform:none}
+html.sa-drawer.sa-open-d .sa-fab{display:none}
+html:not(.sa-on):not(.sa-drawer) .sa-rail{display:none}
+/* comentaris */
+html.sa-cm body *{cursor:crosshair}
+.sa-hov{outline:3px dashed #C2410C!important;outline-offset:3px}
+.sa-pin{position:absolute;z-index:50;width:28px;height:28px;margin:-14px 0 0 -14px;border-radius:50% 50% 50% 4px;background:#C2410C;color:#fff;
+  font:700 13px/28px "Fira Sans",system-ui,sans-serif;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,.3);pointer-events:none}
+html.sa-aula .sa-pin{display:none}
+.sa-pop{position:fixed;z-index:2147483002;width:280px;background:#fff;border:1px solid #D6CDBB;border-radius:12px;padding:12px;box-shadow:0 12px 32px rgba(0,0,0,.25);
+  font:400 14px/1.4 "Fira Sans","Segoe UI",system-ui,sans-serif;color:#1F1D1A;display:grid;gap:8px}
+.sa-pop small{font-weight:700;color:#C2410C;font-size:12px}
+.sa-pop textarea{width:100%;min-height:76px;resize:vertical;border:1px solid #CFC6B4;border-radius:8px;padding:8px;font:inherit}
+.sa-pop div{display:flex;justify-content:flex-end;gap:6px}
+.sa-pop button{min-height:34px;padding:0 12px;border-radius:999px;border:1px solid #CFC6B4;background:#fff;font:600 13px/1 inherit;cursor:pointer}
+.sa-pop button.ok{background:#C2410C;border-color:#C2410C;color:#fff}
+.sa-toast{position:fixed;left:16px;bottom:16px;z-index:2147483003;max-width:min(440px,calc(100vw - 32px));background:#1F1D1A;color:#FBF8F2;border-radius:12px;
+  padding:12px 40px 12px 14px;font:400 14px/1.45 "Fira Sans","Segoe UI",system-ui,sans-serif;box-shadow:0 10px 28px rgba(0,0,0,.3)}
+.sa-toast b{color:#FFC98B}
+.sa-toast button{position:absolute;top:6px;right:6px;width:30px;height:30px;border:0;border-radius:50%;background:transparent;color:#FBF8F2;font-size:18px;cursor:pointer}
+@media (prefers-reduced-motion:reduce){html.sa-drawer .sa-rail{transition:none}}
+@media print{.sa-rail,.sa-fab,.sa-toast,.sa-pin,.sa-pop{display:none!important}html.sa-on body{transform:none!important;width:auto!important;height:auto!important}}

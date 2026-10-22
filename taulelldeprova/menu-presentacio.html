@@ -2,7 +2,7 @@
 <title>My weekly menu</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tv.css"><link rel="stylesheet" href="mj-deck.css">
+<link rel="stylesheet" href="tv.css"><link rel="stylesheet" href="mj-deck.css?v=4">
 <style>
 /* només d'aquesta presentació */
 .mn-score{font:700 calc(var(--fs)*1.1)/1 var(--font-display);color:var(--k)}
@@ -35,6 +35,7 @@
 #cnt .pr-card{padding:.45em .6em;gap:.25em}
 #cnt .pr-card .pr-row .pr-btn{min-height:48px;min-width:52px;padding:0 .7em}
 @media (max-width:760px){.mn-cols{grid-template-columns:1fr}.mn-week{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:761px) and (max-height:860px){.mn-cols .pr-chip{margin-bottom:.2em;min-height:0;padding-top:.3em;padding-bottom:.3em}.mn-build{min-height:0;padding:.45em .9em}}
 </style>
 </head>
 <body style="--k:var(--ang);--kp:var(--ang-pastel)">
@@ -293,4 +294,7 @@ MJD.sem($("#sem"),[["var(--cie)","I can talk about my menu"],["var(--lec)","I ne
 MJD.nav();
 })();
 </script>
+<link rel="stylesheet" href="sa-docent.css?v=2">
+<script src="sa-dades.js?v=1"></script>
+<script src="sa-docent.js?v=2" data-sa="menu" defer></script>
 </body></html>

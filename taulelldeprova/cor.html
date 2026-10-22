@@ -82,6 +82,7 @@ table.cr-res{width:100%;border-collapse:collapse;font-size:1.02rem;background:#f
     <p class="tv-lead">A classe obren un cor de porc. Qui no hi era, qui vol tornar-hi o qui necessita més temps fa la mateixa observació aquí, amb un cor humà real en 3D: el gira, el talla i en mesura les parets. Els resultats van a la mateixa fitxa.</p>
   </header>
 
+<div id="sa-esquelet" data-sa="bio"></div>
   <section class="tv-sec" aria-label="Per a l'aula">
     <p class="tv-lbl">Per a l'aula</p>
     <div style="display:flex;flex-wrap:wrap;gap:10px">
@@ -338,4 +339,6 @@ $('copy').onclick=()=>{const txt='Dissecció del cor · resultats\n'+rows().map(
 renderer.setAnimationLoop(()=>{controls.update();renderer.render(scene,camera);updPins()});
 go(0);
 </script>
+<script src="sa-dades.js?v=1"></script>
+<script src="sa-esquelet.js?v=1" defer></script>
 </body></html>
